@@ -1,0 +1,108 @@
+{
+    "employer_details": {
+        "name": "SWIZZLE INNOVATIONS PRIVATE LIMITED",
+        "address": "EIGHTH FLOOR TC 29/2637‑1, Carmel Tower, Cotton Hill, Thiruvananthapuram, THIRUVANANTHAPURAM, ‑ 695014 Kerala",
+        "PAN": "ABLCS0804M",
+        "TAN": "TVDS09231F",
+        "contact_number": "+(91)471‑94006860109",
+        "email": "keerthi@swizzleup.com"
+    },
+    "employee_details": {
+        "name": "ANISH JOSEPH",
+        "address": "VALEMPARAMBIL, XI/306 MNRA 40, MANNAD LANE, AMBALAMUKE PEROORKADA, TRIVANDRUM ‑ 695005 Kerala",
+        "PAN": "ARMPJ1889M",
+        "employee_reference_no": null
+    },
+    "assessment_details": {
+        "assessment_year": "2024‑25",
+        "period_from": "01‑Apr‑2023",
+        "period_to": "31‑Mar‑2024",
+        "CIT_TDS_office": "The Commissioner of Income Tax (TDS)\nC.R. Building, I.S. Press Road Kochi ‑ 682018"
+    },
+    "tds_summary": [
+        {
+            "quarter": "Q3",
+            "tds_receipt_number": "FXCQOSXC",
+            "amount_paid_credited": 434466.0,
+            "tax_deducted": 80514.0,
+            "tax_deposited": 80514.0
+        },
+        {
+            "quarter": "Q4",
+            "tds_receipt_number": "FXCUQUBU",
+            "amount_paid_credited": 868932.0,
+            "tax_deducted": 199367.0,
+            "tax_deposited": 199367.0
+        }
+    ],
+    "tds_totals": {
+        "total_amount_paid": 1303398.0,
+        "total_tax_deducted": 279881.0,
+        "total_tax_deposited": 279881.0
+    },
+    "tax_deposit_details": [
+        {
+            "challan_id": null,
+            "bsr_code": "0510002",
+            "date_of_deposit": "06‑12‑2023",
+            "challan_serial_number": "16876",
+            "amount_deposited": 40257.0,
+            "status": "F"
+        },
+        {
+            "challan_id": null,
+            "bsr_code": "0510002",
+            "date_of_deposit": "28‑12‑2023",
+            "challan_serial_number": "38162",
+            "amount_deposited": 40257.0,
+            "status": "F"
+        },
+        {
+            "challan_id": null,
+            "bsr_code": "0510002",
+            "date_of_deposit": "08‑01‑2024",
+            "challan_serial_number": "40098",
+            "amount_deposited": 40257.0,
+            "status": "F"
+        },
+        {
+            "challan_id": null,
+            "bsr_code": "0510002",
+            "date_of_deposit": "07‑02‑2024",
+            "challan_serial_number": "77655",
+            "amount_deposited": 40257.0,
+            "status": "F"
+        },
+        {
+            "challan_id": null,
+            "bsr_code": "0510002",
+            "date_of_deposit": "11‑03‑2024",
+            "challan_serial_number": "03814",
+            "amount_deposited": 40257.0,
+            "status": "F"
+        },
+        {
+            "challan_id": null,
+            "bsr_code": "0510022",
+            "date_of_deposit": "30‑04‑2024",
+            "challan_serial_number": "59409",
+            "amount_deposited": 64432.0,
+            "status": "F"
+        },
+        {
+            "challan_id": null,
+            "bsr_code": "0510002",
+            "date_of_deposit": "21‑05‑2024",
+            "challan_serial_number": "09660",
+            "amount_deposited": 14164.0,
+            "status": "F"
+        }
+    ],
+    "certificate_details": {
+        "certificate_number": "UNATNCA",
+        "issue_date": "08‑Jul‑2024",
+        "place": "Vazhuthacaud",
+        "signatory_name": "KEERTHI MAYA RAJ",
+        "designation": "DIRECTOR"
+    }
+}

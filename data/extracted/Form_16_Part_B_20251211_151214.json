@@ -1,0 +1,83 @@
+{
+    "employer_details": {
+        "name": "SWIZZLE INNOVATIONS PRIVATE LIMITED",
+        "address": "EIGHTH FLOOR TC 29/2637‑1, Carmel Tower, Cotton Hill, Thiruvananthapuram, THIRUVANANTHAPURAM, ‑ 695014 Kerala",
+        "PAN": "ABLCS0804M",
+        "TAN": "TVDS09231F",
+        "contact_number": "+(91)471‑9400686010",
+        "email": "keerthi@swizzleup.com"
+    },
+    "employee_details": {
+        "name": "ANISH JOSEPH VALEMPARAMBIL",
+        "address": "XI/306 MNRA 40, MANNAD LANE, AMBALAMUKE PEROORKADA, TRIVANDRUM ‑ 695005 Kerala",
+        "PAN": "ARMPJ1889M"
+    },
+    "assessment_details": {
+        "assessment_year": "2024‑25",
+        "period_from": "01‑Apr‑2023",
+        "period_to": "31‑Mar‑2024",
+        "CIT_TDS_office": "CIT (TDS)"
+    },
+    "salary_details": {
+        "salary_u_s_17_1_a": 1303398.0,
+        "salary_u_s_17_1_b": 0.0,
+        "salary_u_s_17_3": 0.0,
+        "total_salary": 1303398.0,
+        "salary_from_other_employers": 1348706.0,
+        "perquisites_u_s_17_2": 0.0
+    },
+    "exemptions_u_s_10": {
+        "leave_travel_concession": 0.0,
+        "gratuity": 0.0,
+        "leave_encashment": 0.0,
+        "house_rent_allowance": 0.0,
+        "commuted_pension": 0.0,
+        "any_other_exemption": 0.0,
+        "total_exemptions": 0.0
+    },
+    "net_salary_after_exemptions": 1303398.0,
+    "deductions_u_s_16": {
+        "standard_deduction": 50000.0,
+        "entertainment_allowance": 0.0,
+        "professional_tax": 2500.0,
+        "total_deductions": 52500.0
+    },
+    "income_chargeable_under_salary": 2599604.0,
+    "other_income_reported": {
+        "house_property_income": -200000.0,
+        "other_sources_income": 0.0,
+        "total_other_income": -200000.0
+    },
+    "gross_total_income": 2399604.0,
+    "deductions_chapter_VIA": {
+        "section_80C": 150000.0,
+        "section_80CCC": 0.0,
+        "section_80CCD_1": 0.0,
+        "section_80CCD_1B": 4600.0,
+        "section_80CCD_2": 0.0,
+        "section_80D": 37802.0,
+        "section_80E": 0.0,
+        "section_80G": 0.0,
+        "section_80TTA": 0.0,
+        "any_other_deductions": 190000.0,
+        "total_deductions": 382402.0
+    },
+    "taxable_income": 2017202.0,
+    "tax_computation": {
+        "income_tax": 417660.0,
+        "surcharge": 0.0,
+        "rebate_u_s_87A": 0.0,
+        "health_education_cess": 16706.0,
+        "relief_u_s_89": 0.0,
+        "total_tax_liability": 434366.0,
+        "tax_deducted_at_source": 434366.0,
+        "net_tax_payable_or_refundable": 434366.0
+    },
+    "certificate_details": {
+        "certificate_number": "UNATNCA",
+        "issue_date": "08‑Jul‑2024",
+        "place": "Vazhuthacaud",
+        "signatory_name": "KEERTHI MAYA RAJ",
+        "designation": "DIRECTOR"
+    }
+}

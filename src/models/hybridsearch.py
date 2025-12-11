@@ -19,10 +19,15 @@ from qdrant_client.http.models import (
 )
 from pydantic import Field
 
+from pathlib import Path
+
 # ---------- config ----------
 COLLECTION_NAME = "chapter_vi_a_langchain"
 TOP_K = 6
-VECTORIZER_PKL = "/home/akash.prathap@acsiatech.com/taxmate/data/extracted/vi_a_vectorizer.pkl"
+# Dynamic path resolution:
+# Start from this file (__file__), go up 3 levels to project root, then to data/extracted
+REPO_ROOT = Path(__file__).resolve().parents[2]
+VECTORIZER_PKL = REPO_ROOT / "data" / "extracted" / "vi_a_vectorizer.pkl"
 PERSIST_DIR = "./qdrant_storage"
 EMBEDDING_MODEL = "nomic-embed-text"   # << nomic via Ollama
 # ----------------------------

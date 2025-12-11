@@ -78,4 +78,5 @@ openai
 tavily-python
 neo4j
 scikit-learn
+qdrant_client
 
