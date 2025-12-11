@@ -14,8 +14,10 @@ import {
   TrendingUp,
   IndianRupee,
   Calendar,
-  X
+  X,
+  Bot
 } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 interface DocumentUpload {
   fileName: string | null;
@@ -23,7 +25,31 @@ interface DocumentUpload {
   progress: number;
 }
 
+interface ChatMessage {
+  type: 'message' | 'error' | 'status';
+  content: string;
+  sender: 'user' | 'bot';
+}
+
 export default function Dashboard() {
+  // Analysis State
+  const [analysis, setAnalysis] = useState<any>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const runAnalysis = async () => {
+    setIsAnalyzing(true);
+    try {
+      const res = await fetch('http://localhost:8000/api/analyze');
+      if (!res.ok) throw new Error('Analysis failed');
+      const data = await res.json();
+      setAnalysis(data);
+    } catch (e) {
+      console.error("Analysis error:", e);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   const [form16PartA, setForm16PartA] = useState<DocumentUpload>({
     fileName: null,
     status: 'empty',
@@ -45,6 +71,83 @@ export default function Dashboard() {
   const [isDraggingA, setIsDraggingA] = useState(false);
   const [isDraggingB, setIsDraggingB] = useState(false);
   const [isDraggingAIS, setIsDraggingAIS] = useState(false);
+
+  // Chat State
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [inputText, setInputText] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
+  const ws = useRef<WebSocket | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to bottom of chat
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // WebSocket Connection
+  useEffect(() => {
+    const connectWebSocket = () => {
+      const socket = new WebSocket('ws://localhost:8000/ws/chat');
+
+      socket.onopen = () => {
+        setIsConnected(true);
+        console.log('WebSocket Connected');
+      };
+
+      socket.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === 'message') {
+            setMessages((prev) => [...prev, { type: 'message', content: data.content, sender: 'bot' }]);
+          } else if (data.type === 'error') {
+            setMessages((prev) => [...prev, { type: 'error', content: data.content, sender: 'bot' }]);
+          }
+        } catch (e) {
+          console.error('Error parsing message:', e);
+        }
+      };
+
+      socket.onclose = () => {
+        setIsConnected(false);
+        console.log('WebSocket Disconnected. Reconnecting...');
+        setTimeout(connectWebSocket, 3000);
+      };
+
+      socket.onerror = (error) => {
+        console.error('WebSocket Error:', error);
+        socket.close();
+      };
+
+      ws.current = socket;
+    };
+
+    connectWebSocket();
+
+    return () => {
+      if (ws.current) {
+        ws.current.close();
+      }
+    };
+  }, []);
+
+  const handleSendMessage = () => {
+    if (!inputText.trim() || !ws.current || ws.current.readyState !== WebSocket.OPEN) return;
+
+    const message = inputText.trim();
+
+    // Add user message to UI immediately
+    setMessages((prev) => [...prev, { type: 'message', content: message, sender: 'user' }]);
+
+    // Send to backend
+    ws.current.send(message);
+
+    // Clear input
+    setInputText('');
+  };
 
   const allFilesUploaded =
     form16PartA.status === 'completed' &&
@@ -85,26 +188,83 @@ export default function Dashboard() {
     }, 500);
   };
 
-  const handleUpload = (
+  const handleUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
-    setState: React.Dispatch<React.SetStateAction<DocumentUpload>>
+    setState: React.Dispatch<React.SetStateAction<DocumentUpload>>,
+    docType: string
   ) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      simulateUpload(files[0], setState);
+      await uploadFile(files[0], setState, docType);
     }
   };
 
-  const handleDrop = (
+  const handleDrop = async (
     event: React.DragEvent,
     setState: React.Dispatch<React.SetStateAction<DocumentUpload>>,
-    setIsDragging: (value: boolean) => void
+    setIsDragging: (value: boolean) => void,
+    docType: string
   ) => {
     event.preventDefault();
     setIsDragging(false);
     const files = event.dataTransfer.files;
     if (files && files.length > 0) {
-      simulateUpload(files[0], setState);
+      await uploadFile(files[0], setState, docType);
+    }
+  };
+
+  const uploadFile = async (
+    file: File,
+    setState: React.Dispatch<React.SetStateAction<DocumentUpload>>,
+    docType: string
+  ) => {
+    setState({
+      fileName: file.name,
+      status: 'uploading',
+      progress: 0,
+    });
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('doc_type', docType);
+
+    try {
+      // Pseudo-progress interval
+      const interval = setInterval(() => {
+        setState((prev) => {
+          if (prev.progress >= 90) return prev;
+          return { ...prev, progress: prev.progress + 10 };
+        });
+      }, 500);
+
+      const response = await fetch('http://localhost:8000/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      clearInterval(interval);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Upload failed');
+      }
+
+      const data = await response.json();
+      console.log("Upload success:", data);
+
+      setState({
+        fileName: file.name,
+        status: 'completed',
+        progress: 100,
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      setState({
+        fileName: file.name,
+        status: 'error',
+        progress: 0,
+      });
+      // Optionally show toast or error message state here
     }
   };
 
@@ -124,6 +284,7 @@ export default function Dashboard() {
     isDragging,
     setIsDragging,
     inputId,
+    docType,
   }: {
     title: string;
     description: string;
@@ -132,28 +293,27 @@ export default function Dashboard() {
     isDragging: boolean;
     setIsDragging: (value: boolean) => void;
     inputId: string;
+    docType: string;
   }) => (
     <div
       onDragOver={handleDragOver}
       onDragEnter={() => setIsDragging(true)}
       onDragLeave={() => setIsDragging(false)}
-      onDrop={(e) => handleDrop(e, setState, setIsDragging)}
-      className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${
-        isDragging
-          ? 'border-blue-900 bg-blue-50'
-          : 'border-gray-300 hover:border-blue-900 hover:bg-gray-50'
-      } ${state.status === 'completed' ? 'bg-green-50 border-green-300' : ''}`}
+      onDrop={(e) => handleDrop(e, setState, setIsDragging, docType)}
+      className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${isDragging
+        ? 'border-blue-900 bg-blue-50'
+        : 'border-gray-300 hover:border-blue-900 hover:bg-gray-50'
+        } ${state.status === 'completed' ? 'bg-green-50 border-green-300' : ''}`}
     >
       {state.status === 'empty' && (
         <>
-          <Upload className={`h-12 w-12 mx-auto mb-3 ${
-            isDragging ? 'text-blue-900' : 'text-gray-400'
-          }`} />
+          <Upload className={`h-12 w-12 mx-auto mb-3 ${isDragging ? 'text-blue-900' : 'text-gray-400'
+            }`} />
           <p className="text-sm font-semibold text-gray-900 mb-1">{title}</p>
           <p className="text-xs text-gray-600 mb-3">{description}</p>
           <input
             type="file"
-            onChange={(e) => handleUpload(e, setState)}
+            onChange={(e) => handleUpload(e, setState, docType)}
             className="hidden"
             id={inputId}
             accept=".pdf,.json,.jpg,.jpeg,.png"
@@ -228,7 +388,11 @@ export default function Dashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-gray-900">2024-25</p>
+              {analysis?.computation_result ? (
+                <p className="text-3xl font-bold text-gray-900">2024-25</p>
+              ) : (
+                <p className="text-3xl font-bold text-gray-900">--</p>
+              )}
               <p className="text-sm text-gray-600 mt-1">Assessment Year</p>
             </CardContent>
           </Card>
@@ -241,11 +405,19 @@ export default function Dashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-gray-900">₹45,000</p>
-              <p className="text-sm text-green-600 mt-1 flex items-center">
-                <TrendingUp className="h-4 w-4 mr-1" />
-                ₹12,000 saved with deductions
-              </p>
+              {analysis?.computation_result ? (
+                <>
+                  <p className="text-3xl font-bold text-gray-900">
+                    ₹{analysis.computation_result.optimal_regime === 'NEW' ? analysis.computation_result.new_tax.toLocaleString() : analysis.computation_result.old_tax.toLocaleString()}
+                  </p>
+                  <p className="text-sm text-green-600 mt-1 flex items-center">
+                    <TrendingUp className="h-4 w-4 mr-1" />
+                    Regime: {analysis.computation_result.optimal_regime}
+                  </p>
+                </>
+              ) : (
+                <p className="text-xl text-gray-500">Pending...</p>
+              )}
             </CardContent>
           </Card>
 
@@ -253,9 +425,8 @@ export default function Dashboard() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">Document Status</CardTitle>
-                <AlertCircle className={`h-5 w-5 ${
-                  allFilesUploaded ? 'text-green-600' : 'text-orange-600'
-                }`} />
+                <AlertCircle className={`h-5 w-5 ${allFilesUploaded ? 'text-green-600' : 'text-orange-600'
+                  }`} />
               </div>
             </CardHeader>
             <CardContent>
@@ -284,12 +455,10 @@ export default function Dashboard() {
                     <div className="w-4 h-4 rounded-full border-2 border-gray-300" />
                   )}
                 </div>
-                <p className={`text-xs font-medium mt-3 ${
-                  allFilesUploaded ? 'text-green-600' : 'text-orange-600'
-                }`}>
-                  {allFilesUploaded ? '✓ All documents ready' : `${
-                    [form16PartA, form16PartB, formAIS].filter(d => d.status === 'completed').length
-                  }/3 uploaded`}
+                <p className={`text-xs font-medium mt-3 ${allFilesUploaded ? 'text-green-600' : 'text-orange-600'
+                  }`}>
+                  {allFilesUploaded ? '✓ All documents ready' : `${[form16PartA, form16PartB, formAIS].filter(d => d.status === 'completed').length
+                    }/3 uploaded`}
                 </p>
               </div>
             </CardContent>
@@ -314,6 +483,7 @@ export default function Dashboard() {
                   isDragging={isDraggingA}
                   setIsDragging={setIsDraggingA}
                   inputId="form16-a"
+                  docType="form16a"
                 />
 
                 <UploadZone
@@ -324,6 +494,7 @@ export default function Dashboard() {
                   isDragging={isDraggingB}
                   setIsDragging={setIsDraggingB}
                   inputId="form16-b"
+                  docType="form16b"
                 />
 
                 <UploadZone
@@ -334,6 +505,7 @@ export default function Dashboard() {
                   isDragging={isDraggingAIS}
                   setIsDragging={setIsDraggingAIS}
                   inputId="form-ais"
+                  docType="ais"
                 />
               </CardContent>
             </Card>
@@ -357,14 +529,18 @@ export default function Dashboard() {
                     <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                       <div className="flex justify-between items-center mb-2">
                         <span className="font-medium text-gray-900">Salary Income</span>
-                        <span className="text-lg font-bold text-blue-900">₹12,00,000</span>
+                        <span className="text-lg font-bold text-blue-900">
+                          ₹{analysis?.computation_result?.gross_salary ? analysis.computation_result.gross_salary.toLocaleString() : '0'}
+                        </span>
                       </div>
                       <p className="text-sm text-gray-600">From Form 16</p>
                     </div>
                     <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                       <div className="flex justify-between items-center mb-2">
                         <span className="font-medium text-gray-900">Other Income</span>
-                        <span className="text-lg font-bold text-blue-900">₹50,000</span>
+                        <span className="text-lg font-bold text-blue-900">
+                          ₹{analysis?.computation_result?.other_income ? analysis.computation_result.other_income.toLocaleString() : '0'}
+                        </span>
                       </div>
                       <p className="text-sm text-gray-600">Interest and dividends</p>
                     </div>
@@ -373,39 +549,56 @@ export default function Dashboard() {
                   <TabsContent value="deductions" className="space-y-4 mt-4">
                     <div className="bg-green-50 rounded-lg p-4 border border-green-200">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="font-medium text-gray-900">Section 80C</span>
-                        <span className="text-lg font-bold text-green-600">₹1,50,000</span>
+                        <span className="font-medium text-gray-900">Chapter VI-A</span>
+                        <span className="text-lg font-bold text-green-600">
+                          ₹{analysis?.computation_result?.ch_via ? analysis.computation_result.ch_via.toLocaleString() : '0'}
+                        </span>
                       </div>
-                      <p className="text-sm text-gray-600">PPF, ELSS, Life Insurance</p>
-                    </div>
-                    <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="font-medium text-gray-900">HRA</span>
-                        <span className="text-lg font-bold text-green-600">₹2,40,000</span>
-                      </div>
-                      <p className="text-sm text-gray-600">House Rent Allowance</p>
+                      <p className="text-sm text-gray-600">Total Deductions under Old Regime</p>
                     </div>
                   </TabsContent>
 
                   <TabsContent value="summary" className="mt-4">
                     <div className="space-y-3">
                       <div className="flex justify-between items-center py-3 border-b">
-                        <span className="text-gray-700">Total Income</span>
-                        <span className="font-semibold text-gray-900">₹12,50,000</span>
+                        <span className="text-gray-700">Gross Income</span>
+                        <span className="font-semibold text-gray-900">
+                          ₹{analysis?.computation_result ? (analysis.computation_result.gross_salary + analysis.computation_result.other_income).toLocaleString() : '0'}
+                        </span>
                       </div>
-                      <div className="flex justify-between items-center py-3 border-b">
-                        <span className="text-gray-700">Total Deductions</span>
-                        <span className="font-semibold text-green-600">-₹3,90,000</span>
-                      </div>
+                      {analysis?.computation_result?.optimal_regime === 'OLD' && (
+                        <div className="flex justify-between items-center py-3 border-b">
+                          <span className="text-gray-700">Total Deductions</span>
+                          <span className="font-semibold text-green-600">
+                            -₹{analysis?.computation_result?.ch_via ? analysis.computation_result.ch_via.toLocaleString() : '0'}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex justify-between items-center py-3 border-b">
                         <span className="text-gray-700">Taxable Income</span>
-                        <span className="font-semibold text-gray-900">₹8,60,000</span>
+                        <span className="font-semibold text-gray-900">
+                          ₹{analysis?.computation_result ? (analysis.computation_result.optimal_regime === 'OLD' ? analysis.computation_result.old_taxable.toLocaleString() : analysis.computation_result.new_taxable.toLocaleString()) : '0'}
+                        </span>
                       </div>
                       <div className="flex justify-between items-center py-3 bg-blue-50 rounded-lg px-4">
-                        <span className="font-semibold text-gray-900">Tax Liability</span>
-                        <span className="text-xl font-bold text-blue-900">₹45,000</span>
+                        <span className="font-semibold text-gray-900">Tax Liability ({analysis?.computation_result?.optimal_regime || 'EST'})</span>
+                        <span className="text-xl font-bold text-blue-900">
+                          ₹{analysis?.computation_result ? (analysis.computation_result.optimal_regime === 'NEW' ? analysis.computation_result.new_tax.toLocaleString() : analysis.computation_result.old_tax.toLocaleString()) : '0'}
+                        </span>
                       </div>
                     </div>
+
+                    {analysis?.advisory_result && (
+                      <div className="mt-6 bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h3 className="font-bold text-green-900 mb-2 flex items-center">
+                          <Bot className="h-5 w-5 mr-2" />
+                          Advisor Recommendations
+                        </h3>
+                        <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">
+                          {analysis.advisory_result}
+                        </div>
+                      </div>
+                    )}
                   </TabsContent>
                 </Tabs>
 
@@ -415,14 +608,14 @@ export default function Dashboard() {
                     Download Report
                   </Button>
                   <Button
-                    disabled={!allFilesUploaded}
-                    className={`flex-1 ${
-                      allFilesUploaded
-                        ? 'bg-green-600 hover:bg-green-700'
-                        : 'bg-gray-300 cursor-not-allowed'
-                    }`}
+                    disabled={!allFilesUploaded || isAnalyzing}
+                    onClick={runAnalysis}
+                    className={`flex-1 ${allFilesUploaded
+                      ? 'bg-green-600 hover:bg-green-700'
+                      : 'bg-gray-300 cursor-not-allowed'
+                      }`}
                   >
-                    {allFilesUploaded ? 'Compute Tax' : 'Upload All Documents First'}
+                    {isAnalyzing ? 'Analyzing...' : (allFilesUploaded ? 'Compute Tax' : 'Upload All Documents First')}
                   </Button>
                 </div>
               </CardContent>
@@ -430,7 +623,7 @@ export default function Dashboard() {
           </div>
 
           <div className="space-y-6">
-            <Card className="border-2 border-green-200 bg-green-50">
+            <Card className="border-2 border-green-200 bg-green-50 flex flex-col h-[600px]">
               <CardHeader>
                 <div className="flex items-center space-x-2">
                   <MessageSquare className="h-6 w-6 text-green-600" />
@@ -438,33 +631,45 @@ export default function Dashboard() {
                 </div>
                 <CardDescription>
                   Ask questions about your tax return
+                  <span className={`ml-2 inline-block w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} title={isConnected ? "Connected" : "Disconnected"} />
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="bg-white rounded-lg p-4 mb-4 max-h-64 overflow-y-auto space-y-3">
-                  <div className="bg-gray-100 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">
-                      Hello! I've analyzed your documents. How can I help you today?
-                    </p>
-                  </div>
-                  <div className="bg-blue-900 text-white rounded-lg p-3 ml-8">
-                    <p className="text-sm">
-                      Can I claim more deductions?
-                    </p>
-                  </div>
-                  <div className="bg-gray-100 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">
-                      Yes! I found you're eligible for Section 80D health insurance deductions. Have you paid any health insurance premiums this year?
-                    </p>
-                  </div>
+              <CardContent className="flex-1 flex flex-col min-h-0">
+                <div className="bg-white rounded-lg p-4 mb-4 flex-1 overflow-y-auto space-y-3">
+                  {messages.length === 0 ? (
+                    <div className="text-center text-gray-500 mt-10">
+                      <p>Start a conversation to get tax advice!</p>
+                    </div>
+                  ) : (
+                    messages.map((msg, idx) => (
+                      <div
+                        key={idx}
+                        className={`rounded-lg p-3 max-w-[80%] ${msg.sender === 'user'
+                          ? 'bg-blue-900 text-white ml-auto'
+                          : 'bg-gray-100 text-gray-800'
+                          }`}
+                      >
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      </div>
+                    ))
+                  )}
+                  <div ref={messagesEndRef} />
                 </div>
                 <div className="flex gap-2">
                   <input
                     type="text"
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                     placeholder="Type your question..."
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                    disabled={!isConnected}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 disabled:bg-gray-100"
                   />
-                  <Button className="bg-green-600 hover:bg-green-700">
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={!isConnected || !inputText.trim()}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
                     Send
                   </Button>
                 </div>

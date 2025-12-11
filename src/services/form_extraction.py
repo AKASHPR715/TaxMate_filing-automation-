@@ -535,6 +535,48 @@ def extract_all_forms():
         except Exception as e:
             print(f"❌ Failed to extract {file_name}: {e}")
 
+def process_uploaded_file(file_path: str, doc_type: str):
+    """
+    Process a single uploaded file based on its document type.
+    """
+    extraction_logger.info(f"Processing uploaded file: {file_path} as {doc_type}")
+    
+    # Map document types to schemas
+    # doc_type should be one of: "form16a", "form16b", "form26as", "ais"
+    schema_map = {
+        "form16a": Form16PartA,
+        "form16b": Form16PartB,
+        "form26as": Form26,
+        "ais": AIS,
+    }
+    
+    schema = schema_map.get(doc_type.lower())
+    if not schema:
+        raise ValueError(f"Unknown document type: {doc_type}")
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    agent_name = f"{Path(file_path).stem}-parser-{timestamp}"
+
+    try:
+        agent = extractor.create_agent(name=agent_name, data_schema=schema)
+        result = agent.extract(file_path)
+
+        # Save extracted output
+        REPO_ROOT = Path(__file__).resolve().parents[2]
+        output_dir = REPO_ROOT / "data" / "extracted"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / f"{Path(file_path).stem}_{timestamp}.json"
+        
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(result.data, f, indent=4, ensure_ascii=False)
+
+        extraction_logger.info(f"Extraction complete -> {output_path}")
+        return result.data
+
+    except Exception as e:
+        extraction_logger.error(f"Failed to extract {file_path}: {e}")
+        raise e
+
 # ============================================================
 # 🧩 Run
 # ============================================================

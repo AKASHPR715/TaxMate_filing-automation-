@@ -19,9 +19,14 @@ src_dir = current_dir.parent
 if str(src_dir) not in sys.path:
     sys.path.append(str(src_dir))
 
-from form_extraction import extract_all_forms
-from tax_comparison import compare_tax_regimes
-from tax_advisor import get_tax_advice
+try:
+    from services.form_extraction import extract_all_forms
+    from services.tax_comparison import compare_tax_regimes
+    from services.tax_advisor import get_tax_advice
+except ImportError:
+    from form_extraction import extract_all_forms
+    from tax_comparison import compare_tax_regimes
+    from tax_advisor import get_tax_advice
 
 # ============================================================
 # 1. Logging Configuration

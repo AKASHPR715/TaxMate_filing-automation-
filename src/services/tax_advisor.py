@@ -65,7 +65,7 @@ advisor_logger = setup_advisor_logger()
 # ============================================================
 # Configuration & Tools
 # ============================================================
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 TAVILY_API_KEY = "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"
 
 if not OPENROUTER_API_KEY:

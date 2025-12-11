@@ -15,7 +15,10 @@ src_dir = current_dir.parent
 if str(src_dir) not in sys.path:
     sys.path.append(str(src_dir))
 
-from core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW, STD_DEDUCTION_OLD
+try:
+    from core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW, STD_DEDUCTION_OLD
+except ImportError:
+    from src.core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW, STD_DEDUCTION_OLD
 
 # ============================================================
 # Logging Configuration
