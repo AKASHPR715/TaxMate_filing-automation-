@@ -59,3 +59,8 @@ Thumbs.db
 # IDE specific
 .vscode/settings.json
 .vscode/extensions.json
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
