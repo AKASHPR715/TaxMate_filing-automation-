@@ -5,6 +5,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import {
   Upload,
   FileText,
   CheckCircle,
@@ -15,9 +24,11 @@ import {
   IndianRupee,
   Calendar,
   X,
-  Bot
+  Bot,
+  Edit
 } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { ReviewDataForm } from '@/components/review-data-form';
 
 interface DocumentUpload {
   fileName: string | null;
@@ -35,16 +46,62 @@ export default function Dashboard() {
   // Analysis State
   const [analysis, setAnalysis] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isExtracting, setIsExtracting] = useState(false);
 
-  const runAnalysis = async () => {
-    setIsAnalyzing(true);
+  // Review Modal State
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [extractedData, setExtractedData] = useState<Record<string, any>>({});
+  const [editedDataJson, setEditedDataJson] = useState<string>("");
+
+  // Step 1: Extract Data and Open Review Modal
+  const startAnalysisFlow = async () => {
+    setIsExtracting(true);
     try {
-      const res = await fetch('http://localhost:8000/api/analyze');
-      if (!res.ok) throw new Error('Analysis failed');
+      const res = await fetch('http://localhost:8000/api/details/extract', {
+        method: 'POST'
+      });
+      if (!res.ok) throw new Error('Extraction failed');
+      const data = await res.json();
+
+      setExtractedData(data);
+      // Pretty print for editing
+      setEditedDataJson(JSON.stringify(data, null, 2));
+      setShowReviewModal(true);
+    } catch (e) {
+      console.error("Extraction error:", e);
+      // Fallback or error toast here
+    } finally {
+      setIsExtracting(false);
+    }
+  };
+
+  // Step 2: Submit Reviewed Data for Calculation
+  const runCalculation = async () => {
+    setIsAnalyzing(true);
+    setShowReviewModal(false);
+    try {
+      // Parse the edited JSON
+      let payload;
+      try {
+        payload = JSON.parse(editedDataJson);
+      } catch (jsonErr) {
+        alert("Invalid JSON! Please fix errors before submitting.");
+        setIsAnalyzing(false);
+        setShowReviewModal(true);
+        return;
+      }
+
+      const res = await fetch('http://localhost:8000/api/details/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error('Calculation failed');
       const data = await res.json();
       setAnalysis(data);
     } catch (e) {
-      console.error("Analysis error:", e);
+      console.error("Calculation error:", e);
     } finally {
       setIsAnalyzing(false);
     }
@@ -608,14 +665,20 @@ export default function Dashboard() {
                     Download Report
                   </Button>
                   <Button
-                    disabled={!allFilesUploaded || isAnalyzing}
-                    onClick={runAnalysis}
+                    disabled={!allFilesUploaded || isExtracting || isAnalyzing}
+                    onClick={startAnalysisFlow}
                     className={`flex-1 ${allFilesUploaded
                       ? 'bg-green-600 hover:bg-green-700'
                       : 'bg-gray-300 cursor-not-allowed'
                       }`}
                   >
-                    {isAnalyzing ? 'Analyzing...' : (allFilesUploaded ? 'Compute Tax' : 'Upload All Documents First')}
+                    {isExtracting
+                      ? 'Extracting Data...'
+                      : (isAnalyzing
+                        ? 'Analyzing...'
+                        : (allFilesUploaded ? 'Review & Calculate' : 'Upload All Documents First')
+                      )
+                    }
                   </Button>
                 </div>
               </CardContent>
@@ -703,6 +766,62 @@ export default function Dashboard() {
             </Card>
           </div>
         </div>
+
+        {/* Review Modal */}
+        <Dialog open={showReviewModal} onOpenChange={setShowReviewModal}>
+          <DialogContent className="max-w-4xl max-h-[80vh] flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Edit className="h-5 w-5 mr-2 text-blue-900" />
+                Review Extracted Data
+              </DialogTitle>
+              <DialogDescription>
+                We extracted the following data from your documents. Please review and modify if necessary before we calculate your taxes.
+              </DialogDescription>
+            </DialogHeader>
+
+            <Tabs defaultValue="form" className="flex-1 flex flex-col min-h-0 mt-4">
+              <TabsList className="grid w-[200px] grid-cols-2">
+                <TabsTrigger value="form">Form</TabsTrigger>
+                <TabsTrigger value="json">JSON</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="form" className="flex-1 overflow-hidden mt-4 border rounded-md p-2">
+                <ReviewDataForm
+                  data={extractedData}
+                  onUpdate={(newData: Record<string, any>) => {
+                    setExtractedData(newData);
+                    setEditedDataJson(JSON.stringify(newData, null, 2));
+                  }}
+                />
+              </TabsContent>
+
+              <TabsContent value="json" className="flex-1 overflow-hidden mt-4">
+                <div className="flex-1 h-full overflow-y-auto border rounded-md p-2">
+                  <Textarea
+                    className="font-mono text-sm h-full min-h-[400px] resize-none border-0 focus-visible:ring-0"
+                    value={editedDataJson}
+                    onChange={(e) => {
+                      setEditedDataJson(e.target.value);
+                      try {
+                        setExtractedData(JSON.parse(e.target.value));
+                      } catch (err) {
+                        // invalid json, don't update object state yet
+                      }
+                    }}
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+
+            <DialogFooter className="mt-4">
+              <Button variant="outline" onClick={() => setShowReviewModal(false)}>Cancel</Button>
+              <Button onClick={runCalculation} className="bg-green-600 hover:bg-green-700">
+                Confirm & Calculate
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

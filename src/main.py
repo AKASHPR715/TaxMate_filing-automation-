@@ -14,7 +14,8 @@ if str(current_dir) not in sys.path:
 
 from services.tax_advisor import get_tax_advice
 from services.form_extraction import process_uploaded_file
-from services.orchestrator import run_orchestrator
+from services.orchestrator import TaxOrchestrator, run_orchestrator
+from typing import Dict, Any
 
 app = FastAPI()
 
@@ -25,6 +26,39 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.post("/api/details/extract")
+async def extract_details():
+    """
+    Trigger extraction only and return the raw data for user review.
+    """
+    try:
+        loop = asyncio.get_event_loop()
+        boss = TaxOrchestrator()
+        # Run extraction in executor
+        extracted_data = await loop.run_in_executor(None, boss.run_extraction_only)
+        return extracted_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/details/calculate")
+async def calculate_with_details(data: Dict[str, Any]):
+    """
+    Receive confirmed/modified data and run tax computation.
+    """
+    try:
+        loop = asyncio.get_event_loop()
+        boss = TaxOrchestrator()
+        # Run computation in executor
+        result_state = await loop.run_in_executor(
+            None, 
+            boss.run_computation_with_data, 
+            data, 
+            "Finalize Tax Calculation"
+        )
+        return result_state
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/analyze")
 async def analyze_taxes():
@@ -62,12 +96,19 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
             
         # Process the file in a separate thread to not block the event loop
         loop = asyncio.get_event_loop()
-        extracted_data = await loop.run_in_executor(
-            None, 
-            process_uploaded_file, 
-            str(file_path), 
-            doc_type
-        )
+        try:
+            # Enforce a 60-second timeout for extraction
+            extracted_data = await asyncio.wait_for(
+                loop.run_in_executor(
+                    None, 
+                    process_uploaded_file, 
+                    str(file_path), 
+                    doc_type
+                ),
+                timeout=60.0 
+            )
+        except asyncio.TimeoutError:
+            raise HTTPException(status_code=504, detail="Extraction timed out. The document might be too complex or the service is unresponsive.")
         
         return {
             "message": "File processed successfully",

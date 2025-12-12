@@ -97,8 +97,8 @@ class TaxOrchestrator:
             "errors": []
         }
 
-    def start_mission(self, user_query: str = "File my taxes"):
-        """Initiates the workflow."""
+    def start_mission(self, user_query: str = "File my taxes", extracted_data: Optional[Dict[str, Any]] = None):
+        """Initiates the workflow. If extracted_data is provided, skips extraction."""
         self.state["user_query"] = user_query
         self.state["status"] = "IN_PROGRESS"
         
@@ -109,8 +109,13 @@ class TaxOrchestrator:
 
         try:
             # Step 1: Data Acquisition
-            if not self._execute_step("Input Collection", self._collect_inputs):
-                return self._abort_mission("Input collection failed. Cannot proceed.")
+            # If data is provided (from user review), use it directly.
+            if extracted_data:
+                 logger.info("Using provided extracted_data (Human-in-the-Loop). Skipping extraction.")
+                 self.state["extracted_data"] = extracted_data
+            else:
+                if not self._execute_step("Input Collection", self._collect_inputs):
+                    return self._abort_mission("Input collection failed. Cannot proceed.")
 
             # Step 2: Intelligence & Calculation
             if not self._execute_step("Tax Computation", self._compute_taxes):
@@ -127,6 +132,24 @@ class TaxOrchestrator:
             logger.exception("CRITICAL SYSTEM FAILURE")
             self.state["errors"].append(str(e))
             self._abort_mission(str(e))
+
+    def run_extraction_only(self, user_query: str = "Extract Data") -> Dict[str, Any]:
+        """Runs only the extraction phase and returns data."""
+        self.state["user_query"] = user_query
+        self.state["status"] = "EXTRACTING"
+        
+        try:
+            if not self._execute_step("Input Collection", self._collect_inputs):
+                raise RuntimeError("Extraction failed")
+            return self.state["extracted_data"]
+        except Exception as e:
+            self._abort_mission(str(e))
+            raise e
+
+    def run_computation_with_data(self, extracted_data: Dict[str, Any], user_query: str = "Compute Taxes"):
+        """Resumes workflow with provided data."""
+        self.start_mission(user_query=user_query, extracted_data=extracted_data)
+        return self.state
 
     def _execute_step(self, step_name: str, function, critical: bool = True) -> bool:
         """Executes a workflow step with Boss-level oversight."""
