@@ -125,43 +125,77 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
 @app.websocket("/ws/chat")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
+    
+    # Strict Context: Initialize as None for every new connection
+    # Context is only populated if the user uploads a form in this session
+    chat_context = None
+    
     try:
         while True:
             # Receive text from client
-            data = await websocket.receive_text()
+            raw_data = await websocket.receive_text()
             
-            # Send acknowledgement or "thinking" state if needed (optional)
-            # await websocket.send_text(json.dumps({"type": "status", "message": "Thinking..."}))
+            try:
+                payload = json.loads(raw_data)
+            except json.JSONDecodeError:
+                # Handle plain text if legacy or simple test
+                payload = {"type": "message", "content": raw_data}
 
-            # Process with Orchestrator to get context-aware advice
-            loop = asyncio.get_event_loop()
+            msg_type = payload.get("type")
             
-            # We run the full orchestrator for every query to ensure latest context
-            # In a prod system, you might want to cache the "extraction" and "computation" steps
-            # and only re-run the advisory part. For now, running full logic is safer for correctness.
-            result = await loop.run_in_executor(None, run_orchestrator, data)
-            
-            # The orchestrator returns a state dictionary. 
-            # We want to send the "advisory_result" back to the chat.
-            # If advisory_result is empty (which might happen if steps fail), we fallback to a generic message.
-            response_text = result.get("advisory_result")
-            if not response_text:
-                if result.get("errors"):
-                     response_text = f"I encountered some errors: {'; '.join(result['errors'])}"
+            if msg_type == "context_update":
+                # User uploaded a form; update context
+                # The payload should contain the extracted data structure
+                chat_context = payload.get("data", {})
+                
+                # Acknowledge context update
+                await websocket.send_text(json.dumps({
+                    "type": "status", 
+                    "content": "Context updated. I can now answer questions based on this form."
+                }))
+                
+            elif msg_type == "message":
+                user_message = payload.get("content", "")
+                
+                # Send explicit status
+                status_msg = "Thinking about your specific data..." if chat_context else "Thinking (General)..."
+                # Optional: Send status update to UI if supported, or just log
+                
+                loop = asyncio.get_event_loop()
+                
+                # Logic:
+                # If chat_context is present => Use it for personalized advice
+                # If chat_context is None => General advice
+                
+                if chat_context:
+                    # Flatten context for advisor if needed, or pass full dict
+                    # tax_advisor.get_tax_advice expects income_details as Dict
+                    advice = await loop.run_in_executor(
+                        None, 
+                        get_tax_advice, 
+                        user_message, 
+                        None, # deductions list
+                        chat_context # income_details
+                    )
                 else:
-                     response_text = "I couldn't generate specific advice. Please try scanning your documents first."
-
-            # Send response back to client
-            await websocket.send_text(json.dumps({
-                "type": "message",
-                "content": response_text,
-                "sender": "bot"
-            }))
-            
+                    # General advice (no context)
+                    advice = await loop.run_in_executor(
+                        None, 
+                        get_tax_advice, 
+                        user_message
+                    )
+                
+                # Send response back to client
+                await websocket.send_text(json.dumps({
+                    "type": "message",
+                    "content": advice,
+                    "sender": "bot"
+                }))
+                
     except WebSocketDisconnect:
         print("Client disconnected")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error in websocket loop: {e}")
         try:
             await websocket.send_text(json.dumps({
                 "type": "error",

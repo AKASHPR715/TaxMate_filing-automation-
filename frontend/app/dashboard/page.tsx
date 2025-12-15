@@ -25,7 +25,8 @@ import {
   Calendar,
   X,
   Bot,
-  Edit
+  Edit,
+  Paperclip
 } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { ReviewDataForm } from '@/components/review-data-form';
@@ -135,6 +136,8 @@ export default function Dashboard() {
   const [isConnected, setIsConnected] = useState(false);
   const ws = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatFileRef = useRef<HTMLInputElement>(null);
+  const [isChatUploading, setIsChatUploading] = useState(false);
 
   // Scroll to bottom of chat
   const scrollToBottom = () => {
@@ -199,11 +202,68 @@ export default function Dashboard() {
     // Add user message to UI immediately
     setMessages((prev) => [...prev, { type: 'message', content: message, sender: 'user' }]);
 
-    // Send to backend
-    ws.current.send(message);
+    // Send to backend as JSON
+    ws.current.send(JSON.stringify({
+      type: 'message',
+      content: message
+    }));
 
     // Clear input
     setInputText('');
+  };
+
+  const handleChatFileScan = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // reset input
+    e.target.value = '';
+
+    setIsChatUploading(true);
+
+    // 1. Determine doc_type
+    const name = file.name.toLowerCase();
+    let docType = 'form16a';
+    if (name.includes('part_b') || name.includes('partb')) docType = 'form16b';
+    else if (name.includes('ais')) docType = 'ais';
+    else if (name.includes('26as')) docType = 'form26as';
+
+    // 2. Upload and Extract
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('doc_type', docType);
+
+    try {
+      setMessages(prev => [...prev, { type: 'status', content: `Uploading and analyzing ${file.name}...`, sender: 'bot' }]);
+
+      const res = await fetch('http://localhost:8000/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!res.ok) throw new Error("Upload failed");
+
+      const data = await res.json();
+      const extraction = data.data; // The actual JSON data
+
+      // 3. Send Context to WebSocket
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        ws.current.send(JSON.stringify({
+          type: 'context_update',
+          data: extraction
+        }));
+
+        // The backend will reply with a confirmation, but we can also handle UI here
+      } else {
+        setMessages(prev => [...prev, { type: 'error', content: "Chat disconnected. Please refresh.", sender: 'bot' }]);
+      }
+
+    } catch (err) {
+      console.error(err);
+      setMessages(prev => [...prev, { type: 'error', content: "Failed to analyze document.", sender: 'bot' }]);
+    } finally {
+      setIsChatUploading(false);
+    }
   };
 
   const allFilesUploaded =
@@ -719,6 +779,22 @@ export default function Dashboard() {
                   <div ref={messagesEndRef} />
                 </div>
                 <div className="flex gap-2">
+                  <input
+                    type="file"
+                    ref={chatFileRef}
+                    className="hidden"
+                    onChange={handleChatFileScan}
+                    accept=".pdf,.json,.jpg,.png"
+                  />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={!isConnected || isChatUploading}
+                    onClick={() => chatFileRef.current?.click()}
+                    title="Upload document for context"
+                  >
+                    <Paperclip className="h-4 w-4 text-gray-600" />
+                  </Button>
                   <input
                     type="text"
                     value={inputText}
