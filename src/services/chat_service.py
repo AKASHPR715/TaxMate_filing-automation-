@@ -52,7 +52,7 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 # Model selection - using a capable free model
-DEFAULT_MODEL = "google/gemini-2.0-flash-exp:free"
+DEFAULT_MODEL = "kwaipilot/kat-coder-pro:free"
 
 # ============================================================
 # System Prompt

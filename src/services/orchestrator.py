@@ -223,37 +223,87 @@ class TaxOrchestrator:
         logger.info(f"  Optimal Decision: {result.get('optimal_regime', 'UNKNOWN')}")
 
     def _get_advisory(self):
-        """Delegates to Tax Advisor Agent."""
-        logger.info("Consulting Tax Advisor Agent...")
+        """Delegates to Tax Advisor Agent for personalized next-year tax-saving advice."""
+        logger.info("Consulting Tax Advisor Agent for Personalized Recommendations...")
         
         comp_res = self.state["computation_result"]
         
+        gross_salary = comp_res.get('gross_salary', 0)
+        ch_via = comp_res.get('ch_via', 0)
+        optimal_regime = comp_res.get("optimal_regime", "Unknown")
+        old_tax = comp_res.get('old_tax', 0)
+        new_tax = comp_res.get('new_tax', 0)
+        
+        # Build rich income context
         income_context = {
-            "Gross Salary": f"₹{comp_res.get('gross_salary', 0):,.2f}",
-            "Total Deductions": f"₹{comp_res.get('ch_via', 0):,.2f}",
-            "Optimal Regime": comp_res.get("optimal_regime", "Unknown")
+            "Gross Salary": f"₹{gross_salary:,.2f}",
+            "Current Total Deductions (Chapter VI-A)": f"₹{ch_via:,.2f}",
+            "Tax Under Old Regime": f"₹{old_tax:,.2f}",
+            "Tax Under New Regime": f"₹{new_tax:,.2f}",
+            "Optimal Regime for This Year": optimal_regime
         }
         
-        # Extract deductions list for context
+        # Extract detailed deductions for context
         deductions_list = []
+        deductions_dict = {}
         if self.state["extracted_data"]:
-             for form_name, form_data in self.state["extracted_data"].items():
+            for form_name, form_data in self.state["extracted_data"].items():
                 if "16_Part_B" in form_name and isinstance(form_data, dict):
-                     ch_via = form_data.get("deductions_chapter_VIA", {})
-                     if isinstance(ch_via, dict):
-                        for k, v in ch_via.items():
+                    ch_via_data = form_data.get("deductions_chapter_VIA", {})
+                    if isinstance(ch_via_data, dict):
+                        for k, v in ch_via_data.items():
                             if isinstance(v, (int, float)) and v > 0:
-                                deductions_list.append(f"{k}: ₹{v}")
+                                deductions_list.append(f"{k}: ₹{v:,.2f}")
+                                deductions_dict[k] = v
 
-        # Ask the advisor
+        # Identify underutilized deductions (common limits)
+        max_80c = 150000
+        max_80ccd_1b = 50000
+        max_80d_self = 25000
+        max_80d_parents = 50000  # if senior citizen
+        
+        current_80c = deductions_dict.get("section_80C", 0) + deductions_dict.get("80C", 0)
+        current_80ccd = deductions_dict.get("section_80CCD_1B", 0) + deductions_dict.get("80CCD_1B", 0) + deductions_dict.get("80CCD(1B)", 0)
+        current_80d = deductions_dict.get("section_80D", 0) + deductions_dict.get("80D", 0)
+        
+        underutilized = []
+        if current_80c < max_80c:
+            gap_80c = max_80c - current_80c
+            underutilized.append(f"Section 80C: ₹{gap_80c:,.2f} unused (can invest in PPF, ELSS, LIC)")
+        if current_80ccd < max_80ccd_1b:
+            gap_80ccd = max_80ccd_1b - current_80ccd
+            underutilized.append(f"Section 80CCD(1B): ₹{gap_80ccd:,.2f} unused (NPS additional contribution)")
+        if current_80d < max_80d_self:
+            gap_80d = max_80d_self - current_80d
+            underutilized.append(f"Section 80D: ₹{gap_80d:,.2f} unused (Health insurance premiums)")
+        
+        # Build a very specific and personalized question for the advisor
+        personalized_question = f"""
+Based on the taxpayer's current financial situation for FY 2024-25:
+- Gross Salary: ₹{gross_salary:,.2f}
+- Current Deductions Used: ₹{ch_via:,.2f}
+- Optimal Regime: {optimal_regime}
+- Current Deductions Breakdown: {', '.join(deductions_list) if deductions_list else 'None provided'}
+- Underutilized Deduction Potential: {', '.join(underutilized) if underutilized else 'None identified'}
+
+Provide PERSONALIZED tax-saving recommendations for the NEXT financial year (FY 2025-26). Focus on:
+1. Specific sections under Chapter VI-A where the taxpayer can maximize deductions (80C, 80CCD(1B), 80D, 80E, etc.)
+2. Investment options that would reduce taxable income (PPF, ELSS, NPS, etc.)
+3. Any tax-efficient restructuring of salary (HRA optimization, meal vouchers, etc.)
+4. Whether to continue with {optimal_regime} regime or reconsider based on potential new deductions
+
+Be specific and actionable. Provide estimated tax savings where possible.
+"""
+
+        # Ask the advisor with personalized context
         advice = get_tax_advice(
-            question=self.state["user_query"],
+            question=personalized_question,
             deductions=deductions_list,
             income_details=income_context
         )
         
         self.state["advisory_result"] = advice
-        logger.info("Advisory received.")
+        logger.info("Personalized Advisory received.")
 
     def _abort_mission(self, reason: str):
         """Handles mission failure."""
@@ -284,9 +334,11 @@ class TaxOrchestrator:
         logger.info(f"▶ SUGGESTED REGIME: {res.get('optimal_regime')}")
         
         if self.state["advisory_result"]:
-            logger.info("\n--- ADVISOR RECOMMENDATIONS ---")
+            logger.info("\n" + "="*60)
+            logger.info("📋 PERSONALIZED TAX-SAVING ADVICE FOR NEXT YEAR (FY 2025-26)")
+            logger.info("="*60)
             logger.info(self.state["advisory_result"])
-            logger.info("-------------------------------")
+            logger.info("="*60)
             
         logger.info(f"{'='*60}")
 
