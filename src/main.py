@@ -15,6 +15,7 @@ if str(current_dir) not in sys.path:
 from services.tax_advisor import get_tax_advice
 from services.form_extraction import process_uploaded_file
 from services.orchestrator import TaxOrchestrator, run_orchestrator
+from services.chat_service import ChatService
 from typing import Dict, Any
 
 app = FastAPI()
@@ -126,9 +127,8 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     
-    # Strict Context: Initialize as None for every new connection
-    # Context is only populated if the user uploads a form in this session
-    chat_context = None
+    # Create a new ChatService instance for this connection
+    chat_service = ChatService()
     
     try:
         while True:
@@ -145,50 +145,31 @@ async def websocket_endpoint(websocket: WebSocket):
             
             if msg_type == "context_update":
                 # User uploaded a form; update context
-                # The payload should contain the extracted data structure
-                chat_context = payload.get("data", {})
+                context_data = payload.get("data", {})
+                confirmation = chat_service.set_context(context_data)
                 
                 # Acknowledge context update
                 await websocket.send_text(json.dumps({
-                    "type": "status", 
-                    "content": "Context updated. I can now answer questions based on this form."
+                    "type": "message", 
+                    "content": confirmation,
+                    "sender": "bot"
                 }))
                 
             elif msg_type == "message":
                 user_message = payload.get("content", "")
                 
-                # Send explicit status
-                status_msg = "Thinking about your specific data..." if chat_context else "Thinking (General)..."
-                # Optional: Send status update to UI if supported, or just log
-                
+                # Get response from the chat service
                 loop = asyncio.get_event_loop()
-                
-                # Logic:
-                # If chat_context is present => Use it for personalized advice
-                # If chat_context is None => General advice
-                
-                if chat_context:
-                    # Flatten context for advisor if needed, or pass full dict
-                    # tax_advisor.get_tax_advice expects income_details as Dict
-                    advice = await loop.run_in_executor(
-                        None, 
-                        get_tax_advice, 
-                        user_message, 
-                        None, # deductions list
-                        chat_context # income_details
-                    )
-                else:
-                    # General advice (no context)
-                    advice = await loop.run_in_executor(
-                        None, 
-                        get_tax_advice, 
-                        user_message
-                    )
+                response = await loop.run_in_executor(
+                    None, 
+                    chat_service.get_response, 
+                    user_message
+                )
                 
                 # Send response back to client
                 await websocket.send_text(json.dumps({
                     "type": "message",
-                    "content": advice,
+                    "content": response,
                     "sender": "bot"
                 }))
                 
