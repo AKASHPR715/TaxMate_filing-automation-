@@ -862,20 +862,24 @@ export default function Dashboard() {
                 <TabsTrigger value="json">JSON</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="form" className="flex-1 overflow-hidden mt-4 border rounded-md p-2">
-                <ReviewDataForm
-                  data={extractedData}
-                  onUpdate={(newData: Record<string, any>) => {
-                    setExtractedData(newData);
-                    setEditedDataJson(JSON.stringify(newData, null, 2));
-                  }}
-                />
+              {/* Fixed Form Tab - Now Scrollable */}
+              <TabsContent value="form" className="flex-1 overflow-y-auto mt-4 border rounded-md">
+                <div className="p-4">
+                  <ReviewDataForm
+                    data={extractedData}
+                    onUpdate={(newData: Record<string, any>) => {
+                      setExtractedData(newData);
+                      setEditedDataJson(JSON.stringify(newData, null, 2));
+                    }}
+                  />
+                </div>
               </TabsContent>
 
+              {/* Fixed JSON Tab - Now Scrollable */}
               <TabsContent value="json" className="flex-1 overflow-hidden mt-4">
-                <div className="flex-1 h-full overflow-y-auto border rounded-md p-2">
+                <div className="h-full overflow-y-auto border rounded-md">
                   <Textarea
-                    className="font-mono text-sm h-full min-h-[400px] resize-none border-0 focus-visible:ring-0"
+                    className="font-mono text-sm w-full min-h-[400px] resize-none border-0 focus-visible:ring-0"
                     value={editedDataJson}
                     onChange={(e) => {
                       setEditedDataJson(e.target.value);
