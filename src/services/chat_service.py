@@ -48,8 +48,7 @@ chat_logger = setup_chat_logger()
 # ============================================================
 # Configuration
 # ============================================================
-OPENROUTER_API_KEY = "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"
-
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 # Model selection - using a capable free model

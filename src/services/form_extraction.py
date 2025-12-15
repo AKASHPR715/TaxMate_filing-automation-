@@ -57,7 +57,7 @@ extraction_logger = setup_extraction_logger()
 # 🔐 Load environment variables and initialize extractor
 # ------------------------------------------------------------
 load_dotenv()  # Loads .env file
-api_key = "llx-cKTPkFcatoV6G1ttS3xV5vdabRDT3dpBa3g09XxI7cNl5vxB"
+api_key = os.getenv("LLAMA_CLOUD_API_KEY")
 if not api_key:
     raise ValueError("Please set LLAMA_CLOUD_API_KEY in your .env file.")
 

@@ -65,8 +65,8 @@ advisor_logger = setup_advisor_logger()
 # ============================================================
 # Configuration & Tools
 # ============================================================
-OPENROUTER_API_KEY = "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"
-TAVILY_API_KEY = "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"
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
 if not OPENROUTER_API_KEY:
     advisor_logger.warning("OPENROUTER_API_KEY not found in environment variables.")
