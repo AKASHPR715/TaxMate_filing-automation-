@@ -220,128 +220,6 @@ class Form16PartB(BaseModel):
     certificate_details: CertificateDetails
  
  
-# ---------- Form 26 ----------
-class AssesseeDetails(BaseModel):
-    PAN: str = Field(description="Permanent Account Number of the assessee")
-    name: str = Field(description="Name of the assessee")
-    address: str = Field(description="Address of the assessee")
-    financial_year: str = Field(description="Financial year for the statement (YYYY-YY format)")
-    assessment_year: str = Field(description="Assessment year for the statement (YYYY-YY format)")
-    pan_status: str = Field(description="Current status of the PAN (e.g., Active)")
- 
-class Transaction(BaseModel):
-    section: str = Field(description="Section under which TDS/TCS was deducted or collected")
-    transaction_date: str = Field(description="Date of transaction (YYYY-MM-DD)")
-    status_of_booking: Optional[str] = Field(description="Status of booking (F, P, U, O)", default=None)
-    date_of_booking: Optional[str] = Field(description="Date of booking (YYYY-MM-DD)", default=None)
-    remarks: Optional[str] = Field(description="Remarks, if any", default=None)
-    amount_paid: float = Field(description="Amount paid/credited")
-    tax_deducted: Optional[float] = Field(description="Tax deducted", default=None)
-    tds_deposited: Optional[float] = Field(description="TDS deposited", default=None)
-    tax_collected: Optional[float] = Field(description="Tax collected", default=None)
-    tcs_deposited: Optional[float] = Field(description="TCS collected", default=None)
- 
-class DeductorTDS(BaseModel):
-    deductor_name: str
-    deductor_TAN: str
-    total_amount_paid: float
-    total_tax_deducted: float
-    total_tax_deposited: float
-    transactions: List[Transaction]
- 
-class Deductor15G15H(DeductorTDS):
-    pass
- 
-class DeductorPropertyRentContract(BaseModel):
-    acknowledgement_number: str
-    deductor_name: str
-    deductor_PAN: str
-    transaction_date: str
-    total_transaction_amount: float
-    total_tds_deposited: float
-    certificates: List[dict]
- 
-class CollectorTCS(BaseModel):
-    collector_name: str
-    collector_TAN: str
-    total_amount_paid: float
-    total_tax_collected: float
-    total_tcs_deposited: float
-    transactions: List[Transaction]
- 
-class TaxPaid(BaseModel):
-    major_head: str
-    minor_head: str
-    tax: float
-    surcharge: float
-    education_cess: float
-    penalty: float
-    interest: float
-    others: float
-    total_tax: float
-    bsr_code: str
-    date_of_challan: str
-    challan_serial_number: str
-    remarks: Optional[str] = None
- 
-class Refund(BaseModel):
-    assessment_year: str
-    mode: str
-    nature_of_refund: str
-    refund_amount: float
-    interest: float
-    date_of_payment: str
-    remarks: Optional[str] = None
- 
-class SFTTransaction(BaseModel):
-    transaction_type: str
-    sft_filer_name: str
-    transaction_date: str
-    amount: float
-    remarks: Optional[str] = None
- 
-class BuyerTenantTDS(BaseModel):
-    acknowledgement_number: str
-    deductee_name: str
-    deductee_PAN: str
-    transaction_date: str
-    total_transaction_amount: float
-    total_tds_deposited: float
-    total_other_amount_deposited: float
-    certificates: List[dict]
- 
-class TDSDefaults(BaseModel):
-    financial_year: str
-    short_payment: float
-    short_deduction: float
-    interest_on_tds_payment: float
-    interest_on_tds_deduction: float
-    late_filing_fee_234E: float
-    interest_220_2: float
-    total_default: float
- 
-class GSTTurnover(BaseModel):
-    GSTIN: str
-    ARN: str
-    date_of_filing: str
-    return_period: str
-    taxable_turnover: float
-    total_turnover: float
- 
-class Form26(BaseModel):
-    assessee_details: AssesseeDetails
-    partA_TDS: List[DeductorTDS]
-    partA1_TDS_15G_15H: List[Deductor15G15H]
-    partA2_TDS_Property_Rent_Contract: List[DeductorPropertyRentContract]
-    partB_TCS: List[CollectorTCS]
-    partC_Tax_Paid: List[TaxPaid]
-    partD_Refunds: List[Refund]
-    partE_SFT_Transactions: List[SFTTransaction]
-    partF_TDS_Buyer_Tenant: List[BuyerTenantTDS]
-    partG_TDS_Defaults: List[TDSDefaults]
-    partH_GST_Turnover: List[GSTTurnover]
- 
- 
 # ---------- Form AIS ----------
 class AssesseeDetails(BaseModel):
     PAN: str = Field(description="Permanent Account Number of the assessee.")
@@ -471,7 +349,6 @@ def extract_all_forms():
     forms = {
         "Form_16_Part_A.pdf": Form16PartA,
         "Form_16_Part_B.pdf": Form16PartB,
-        "Form_26.pdf": Form26,
         "Form_AIS.pdf": AIS,
     }
 
@@ -546,7 +423,6 @@ def process_uploaded_file(file_path: str, doc_type: str):
     schema_map = {
         "form16a": Form16PartA,
         "form16b": Form16PartB,
-        "form26as": Form26,
         "ais": AIS,
     }
     

@@ -1,0 +1,19 @@
+{
+    "assessee_details": {
+        "PAN": "",
+        "name": "",
+        "assessment_year": "",
+        "financial_year": ""
+    },
+    "tds_tcs_information": [],
+    "sft_information": [],
+    "interest_income": [],
+    "dividend_income": [],
+    "securities_transactions": [],
+    "mutual_fund_transactions": [],
+    "property_transactions": [],
+    "foreign_remittances": [],
+    "tax_payment_information": [],
+    "refund_information": [],
+    "feedback_summary": []
+}
