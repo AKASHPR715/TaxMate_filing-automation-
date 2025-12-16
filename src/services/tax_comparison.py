@@ -16,9 +16,9 @@ if str(src_dir) not in sys.path:
     sys.path.append(str(src_dir))
 
 try:
-    from core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW, STD_DEDUCTION_OLD
+    from core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW_23_24, STD_DEDUCTION_NEW_24_25, STD_DEDUCTION_OLD
 except ImportError:
-    from src.core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW, STD_DEDUCTION_OLD
+    from src.core.constants import NEW_REGIME_SLABS, OLD_REGIME_SLABS, STD_DEDUCTION_NEW_23_24, STD_DEDUCTION_NEW_24_25, STD_DEDUCTION_OLD
 
 # ============================================================
 # Logging Configuration
@@ -234,6 +234,60 @@ def compare_tax_regimes(extracted_data: dict = None) -> dict:
 
     comparison_logger.info(f"Computed Income Params - Gross Salary: {gross_salary}, Other Income: {other_income}, Deductions: {ch_via}")
 
+    # Determine Financial Year and Standard Deduction
+    financial_year = "24-25"  # Default
+    if extracted_data:
+        # 1. Check top-level overrides first
+        if "financial_year" in extracted_data:
+            financial_year = extracted_data["financial_year"]
+        elif "fy" in extracted_data:
+             financial_year = extracted_data["fy"]
+        else:
+            # 2. Look inside forms
+            for form_name, form_data in extracted_data.items():
+                if not isinstance(form_data, dict):
+                    continue
+                
+                # Check for explicit financial_year in assessee_details (Form 26AS, AIS)
+                if "assessee_details" in form_data:
+                    details = form_data["assessee_details"]
+                    if isinstance(details, dict) and "financial_year" in details:
+                        val = details["financial_year"]
+                        if val:
+                            financial_year = val
+                            comparison_logger.info(f"Found Financial Year in {form_name}: {financial_year}")
+                            break
+                
+                # Check for assessment_year in assessment_details (Form 16) -> Derive FY
+                if "assessment_details" in form_data:
+                    details = form_data["assessment_details"]
+                    if isinstance(details, dict) and "assessment_year" in details:
+                        ay_val = details["assessment_year"]
+                        if ay_val:
+                            # Map AY to FY
+                            # AY 2024-25 -> FY 2023-24
+                            if "24-25" in ay_val or "2024-25" in ay_val:
+                                financial_year = "23-24"
+                                comparison_logger.info(f"Derived FY {financial_year} from AY {ay_val} in {form_name}")
+                                break
+                            # AY 2025-26 -> FY 2024-25
+                            elif "25-26" in ay_val or "2025-26" in ay_val:
+                                financial_year = "24-25"
+                                comparison_logger.info(f"Derived FY {financial_year} from AY {ay_val} in {form_name}")
+                                break
+
+    # Normalize financial_year string
+    if "23-24" in str(financial_year) or "2023-24" in str(financial_year):
+        normalized_fy = "23-24"
+    else:
+        normalized_fy = "24-25" # Default/Fallback
+
+    if normalized_fy == "23-24":
+        std_deduction_new = STD_DEDUCTION_NEW_23_24
+    else:
+        # Default to 24-25 logic
+        std_deduction_new = STD_DEDUCTION_NEW_24_25
+
     # 2. Calculate Old Regime
     salary_after_std_old = max(gross_salary - STD_DEDUCTION_OLD, 0)
     old_gti = salary_after_std_old + other_income
@@ -241,7 +295,7 @@ def compare_tax_regimes(extracted_data: dict = None) -> dict:
     old_tax = old_regime_tax(old_taxable)
 
     # 3. Calculate New Regime
-    salary_after_std_new = max(gross_salary - STD_DEDUCTION_NEW, 0)
+    salary_after_std_new = max(gross_salary - std_deduction_new, 0)
     new_gti = salary_after_std_new + other_income
     new_taxable = max(new_gti, 0) # No VIA deductions
     new_tax = new_regime_tax(new_taxable)
@@ -273,7 +327,8 @@ def compare_tax_regimes(extracted_data: dict = None) -> dict:
         f"Total Tax (Old): ₹{old_tax:,.2f}\n\n"
         
         f"--- NEW REGIME ---\n"
-        f"Standard Deduction: ₹{STD_DEDUCTION_NEW:,.2f}\n"
+        f"Financial Year: {normalized_fy}\n"
+        f"Standard Deduction: ₹{std_deduction_new:,.2f}\n"
         f"Taxable Income: ₹{new_taxable:,.2f}\n"
         f"Tax Calculation:\n" + "\n".join(f"  - {line}" for line in new_breakdown) + "\n"
         f"Total Tax (New): ₹{new_tax:,.2f}\n\n"
@@ -288,7 +343,8 @@ def compare_tax_regimes(extracted_data: dict = None) -> dict:
         "gross_salary": gross_salary,
         "other_income": other_income,
         "std_ded_old": STD_DEDUCTION_OLD,
-        "std_ded_new": STD_DEDUCTION_NEW,
+        "std_ded_new": std_deduction_new,
+        "financial_year": normalized_fy,
         "ch_via": ch_via,
         "old_taxable": old_taxable,
         "old_tax": old_tax,
