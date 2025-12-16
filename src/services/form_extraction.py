@@ -5,6 +5,7 @@
 import os
 from pathlib import Path
 import json
+import uuid
 from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, Field
@@ -395,7 +396,8 @@ def extract_all_forms():
             continue
 
         print(f"\n🔹 Extracting {found} ...")
-        agent_name = f"{Path(found).stem}-parser-{timestamp}"
+        # Use full UUID to ensure unique agent name and avoid caching issues
+        agent_name = f"{Path(found).stem}-{uuid.uuid4().hex}"
 
         try:
             agent = extractor.create_agent(name=agent_name, data_schema=schema)
@@ -431,7 +433,8 @@ def process_uploaded_file(file_path: str, doc_type: str):
         raise ValueError(f"Unknown document type: {doc_type}")
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    agent_name = f"{Path(file_path).stem}-parser-{timestamp}"
+    # Use full UUID to ensure unique agent name and avoid caching issues
+    agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
 
     try:
         agent = extractor.create_agent(name=agent_name, data_schema=schema)

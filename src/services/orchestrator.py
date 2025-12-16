@@ -174,27 +174,37 @@ class TaxOrchestrator:
         """Delegates to Input Collection Agent."""
         logger.info("Delegating to Input Collection Agent...")
         
-        # Trigger extraction
-        extract_all_forms()
-        
-        # Verify extraction results
-        extracted = {}
         extracted_dir = Path(__file__).resolve().parents[2] / "data" / "extracted"
         
+        # First check if we already have extracted JSON files
+        existing_json_files = list(extracted_dir.glob("*.json")) if extracted_dir.exists() else []
+        
+        # Only trigger extraction if no JSON files exist
+        if len(existing_json_files) == 0:
+            logger.info("No extracted files found, triggering extraction...")
+            extract_all_forms()
+            existing_json_files = list(extracted_dir.glob("*.json")) if extracted_dir.exists() else []
+        else:
+            logger.info(f"Found {len(existing_json_files)} already extracted files, skipping re-extraction.")
+        
+        # Load extracted data from JSON files
+        extracted = {}
         forms_found = 0
-        if extracted_dir.exists():
-            for json_file in extracted_dir.glob("*.json"):
-                # Load only recent files matching this mission if possible, 
-                # but for now load all to ensure we have data.
-                # In a real system, we'd filter by mission_id or timestamp.
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
-                        data = json.load(f)
+        for json_file in existing_json_files:
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    # Skip empty files (those with all empty values)
+                    if data.get("assessee_details", {}).get("PAN", "") or \
+                       data.get("employee_details", {}).get("PAN", "") or \
+                       len(data.get("tds_tcs_information", [])) > 0:
                         extracted[json_file.stem] = data
                         forms_found += 1
                         logger.info(f"  Captured data from: {json_file.name}")
-                except Exception as e:
-                    logger.warning(f"  Failed to read {json_file.name}: {e}")
+                    else:
+                        logger.warning(f"  Skipping empty file: {json_file.name}")
+            except Exception as e:
+                logger.warning(f"  Failed to read {json_file.name}: {e}")
         
         if forms_found == 0:
             raise FileNotFoundError("No tax documents were extracted. Please ensure PDF files are present in the root or data/uploads directory.")
