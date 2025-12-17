@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, Bot, Shield, Zap, CheckCircle, TrendingUp, FileText } from 'lucide-react';
+import FluidCursor from '@/components/fluid-cursor';
 
 export default function Home() {
   return (
     <div className="pt-16">
+      <FluidCursor />
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-green-50 py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

@@ -676,6 +676,9 @@ video {
 .z-50 {
   z-index: 50;
 }
+.z-\[-1\] {
+  z-index: -1;
+}
 .z-\[100\] {
   z-index: 100;
 }
@@ -892,6 +895,9 @@ video {
 .h-px {
   height: 1px;
 }
+.h-screen {
+  height: 100vh;
+}
 .max-h-96 {
   max-height: 24rem;
 }
@@ -997,6 +1003,9 @@ video {
 }
 .w-px {
   width: 1px;
+}
+.w-screen {
+  width: 100vw;
 }
 .min-w-0 {
   min-width: 0px;
