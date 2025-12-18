@@ -98,7 +98,7 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
         # Process the file in a separate thread to not block the event loop
         loop = asyncio.get_event_loop()
         try:
-            # Enforce a 60-second timeout for extraction
+            # Enforce a 10-minute timeout for extraction to match LlamaExtract logic
             extracted_data = await asyncio.wait_for(
                 loop.run_in_executor(
                     None, 
@@ -106,7 +106,7 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
                     str(file_path), 
                     doc_type
                 ),
-                timeout=60.0 
+                timeout=600.0 
             )
         except asyncio.TimeoutError:
             raise HTTPException(status_code=504, detail="Extraction timed out. The document might be too complex or the service is unresponsive.")

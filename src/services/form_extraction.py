@@ -66,8 +66,8 @@ if not api_key:
 # Initialize extractor with extended timeouts to handle complex documents
 extractor = LlamaExtract(
     api_key=api_key,
-    max_timeout=5000,    # Increased from default 2000ms
-    httpx_timeout=300.0  # Increased from default 60s to 300 seconds
+    max_timeout=600000,   # 10 minutes (600,000 ms) - Increased for complex AIS files
+    httpx_timeout=600.0   # 10 minutes (seconds)
 )
 
 # ============================================================

@@ -23,10 +23,12 @@ try:
     from services.form_extraction import extract_all_forms
     from services.tax_comparison import compare_tax_regimes
     from services.tax_advisor import get_tax_advice
+    from services.form_generation import generate_filing_forms
 except ImportError:
     from form_extraction import extract_all_forms
     from tax_comparison import compare_tax_regimes
     from tax_advisor import get_tax_advice
+    from form_generation import generate_filing_forms
 
 # ============================================================
 # 1. Logging Configuration
@@ -125,7 +127,11 @@ class TaxOrchestrator:
             # Advisory is optional but highly recommended; we won't abort if it fails, just warn.
             self._execute_step("Strategic Advisory", self._get_advisory, critical=False)
             
-            # Step 4: Final Report
+            # Step 4: Form Generation & Filing Prep
+            if not self._execute_step("Form Generation", self._generate_forms):
+                 return self._abort_mission("Form generation failed.")
+
+            # Step 5: Final Report
             self._finalize_mission()
 
         except Exception as e:
@@ -313,7 +319,20 @@ Be specific and actionable. Provide estimated tax savings where possible.
         )
         
         self.state["advisory_result"] = advice
+        self.state["advisory_result"] = advice
         logger.info("Personalized Advisory received.")
+
+    def _generate_forms(self):
+        """Delegates to Form Generation Agent."""
+        logger.info("Delegating to Form Generation Agent...")
+        
+        extracted = self.state["extracted_data"]
+        computed = self.state["computation_result"]
+        
+        result = generate_filing_forms(extracted, computed)
+        
+        self.state["filling_result"] = result
+        logger.info(f"Form Generation Complete: {result['form_type']} generated at {result['file_path']}")
 
     def _abort_mission(self, reason: str):
         """Handles mission failure."""
@@ -342,6 +361,10 @@ Be specific and actionable. Provide estimated tax savings where possible.
              
         logger.info(f"▶ FINAL TAX LIABILITY: ₹{res.get('new_tax' if res.get('optimal_regime') == 'NEW' else 'old_tax', 0):,.2f}")
         logger.info(f"▶ SUGGESTED REGIME: {res.get('optimal_regime')}")
+
+        if self.state.get("filling_result"):
+            logger.info(f"▶ ITR FORM PREPARED: {self.state['filling_result']['form_type']}")
+            logger.info(f"▶ FILING DATA SAFE AT: {self.state['filling_result']['file_path']}")
         
         if self.state["advisory_result"]:
             logger.info("\n" + "="*60)
