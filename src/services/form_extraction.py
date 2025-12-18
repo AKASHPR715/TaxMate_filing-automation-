@@ -67,7 +67,7 @@ if not api_key:
 extractor = LlamaExtract(
     api_key=api_key,
     max_timeout=5000,    # Increased from default 2000ms
-    httpx_timeout=180.0  # Increased from default 60s to 3 minutes
+    httpx_timeout=300.0  # Increased from default 60s to 300 seconds
 )
 
 # ============================================================
