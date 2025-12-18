@@ -127,7 +127,7 @@ if OPENROUTER_API_KEY:
         model="tngtech/deepseek-r1t-chimera:free",
         api_key=OPENROUTER_API_KEY,
         temperature=0,
-        max_tokens=1024,
+        max_tokens=4096,  # Increased from 1024 to prevent truncation
     )
 
 # Pull Prompt

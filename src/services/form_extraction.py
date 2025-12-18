@@ -10,6 +10,7 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, Field
 from llama_cloud_services import LlamaExtract
+from llama_cloud.types import ExtractConfig
 from dotenv import load_dotenv
 import logging
 from logging.handlers import RotatingFileHandler
@@ -62,7 +63,12 @@ api_key = os.getenv("LLAMA_CLOUD_API_KEY")
 if not api_key:
     raise ValueError("Please set LLAMA_CLOUD_API_KEY in your .env file.")
 
-extractor = LlamaExtract(api_key=api_key)
+# Initialize extractor with extended timeouts to handle complex documents
+extractor = LlamaExtract(
+    api_key=api_key,
+    max_timeout=5000,    # Increased from default 2000ms
+    httpx_timeout=180.0  # Increased from default 60s to 3 minutes
+)
 
 # ============================================================
 # 🧾 FORM SCHEMAS (same as before – kept for completeness)
@@ -400,7 +406,9 @@ def extract_all_forms():
         agent_name = f"{Path(found).stem}-{uuid.uuid4().hex}"
 
         try:
-            agent = extractor.create_agent(name=agent_name, data_schema=schema)
+            # Use invalidate_cache=True to bypass Llama Cloud's 48-hour cache
+            config = ExtractConfig(invalidate_cache=True)
+            agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
             result = agent.extract(found)  # Pass resolved file path
 
             # Ensure extracted output is saved under the project's data/extracted directory
@@ -437,8 +445,29 @@ def process_uploaded_file(file_path: str, doc_type: str):
     agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
 
     try:
-        agent = extractor.create_agent(name=agent_name, data_schema=schema)
+        extraction_logger.info(f"Creating agent with name: {agent_name}")
+        extraction_logger.info(f"Using schema: {schema.__name__}")
+        
+        # Use invalidate_cache=True to bypass Llama Cloud's 48-hour cache
+        # This ensures fresh extraction results instead of stale/empty cached data
+        config = ExtractConfig(invalidate_cache=True)
+        
+        agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
+        extraction_logger.info(f"Agent created successfully with cache invalidation, starting extraction...")
+        
         result = agent.extract(file_path)
+        
+        # Debug logging to identify extraction issues
+        extraction_logger.info(f"Extraction result type: {type(result)}")
+        extraction_logger.info(f"Result attributes: {dir(result)}")
+        extraction_logger.info(f"Result data type: {type(result.data)}")
+        extraction_logger.info(f"Result data content: {json.dumps(result.data, indent=2, default=str)[:1000]}...")  # First 1000 chars
+        
+        # Check for empty values in the result
+        if isinstance(result.data, dict):
+            empty_keys = [k for k, v in result.data.items() if not v or v == "" or v == [] or v == {}]
+            if empty_keys:
+                extraction_logger.warning(f"Empty keys in extracted data: {empty_keys}")
 
         # Save extracted output
         REPO_ROOT = Path(__file__).resolve().parents[2]
