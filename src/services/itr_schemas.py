@@ -10,70 +10,55 @@ ITR1_TEMPLATE = {
     "ITR": {
         "ITR1": {
             "CreationInfo": {
-                "SWVersionNo": "1.0",
-                "SWCreatedBy": "SW00000001", # Pattern: [S][W][0-9]{8}
+                "SWVersionNo": "1.1",
+                "SWCreatedBy": "SW00000001",
                 "JSONCreatedBy": "SW00000001",
-                "JSONCreationDate": "", # YYYY-MM-DD
+                "JSONCreationDate": "2025-07-20",
                 "IntermediaryCity": "Delhi",
                 "Digest": "0000"
             },
             "Form_ITR1": {
                 "FormName": "ITR-1",
-                "Description": "For Individuals being a Resident (other than not ordinarily resident) having Total Income upto Rs.50 lakhs, having Income from Salaries, one house property, other sources (Interest etc.), and having agricultural income upto Rs.5 thousand",
-                "AssessmentYear": "2025",
+                "Description": "For Individuals being a Resident (other than NOR) having Total Income up to Rs. 50 lakhs",
+                "AssessmentYear": "2025-26",
                 "SchemaVer": "Ver1.1",
                 "FormVer": "Ver1.1"
             },
             "PersonalInfo": {
                 "AssesseeName": {
-                    "FirstName": "",
-                    "SurNameOrOrgName": "" 
+                    "FirstName": "FIRSTNAME",
+                    "SurNameOrOrgName": "SURNAME" 
                 },
-                "PAN": "",
+                "PAN": "ABCDE1234F",
+                "AadhaarNo": "123456789012", # Mandatory for AY 2025-26
                 "Address": {
-                    "ResidenceNo": "",
-                    "LocalityOrArea": "",
-                    "CityOrTownOrDistrict": "",
-                    "StateCode": "",
+                    "ResidenceNo": "123",
+                    "LocalityOrArea": "MG ROAD",
+                    "CityOrTownOrDistrict": "Delhi",
+                    "StateCode": "07",
                     "CountryCode": "91",
-                    "CountryCodeMobile": 91,
-                    "MobileNo": 0,
-                    "EmailAddress": ""
+                    "MobileNo": 9999999999,
+                    "EmailAddress": "test@example.com"
                 },
-                "DOB": "", # YYYY-MM-DD
+                "DOB": "1990-01-01",
                 "EmployerCategory": "OTH",
-                "Status": "I" # Added inferred from schema usage context though mandatory in ITR2
+                "RegimeType": "NEW" # Mandatory: Default is NEW for AY 2025-26
             },
             "FilingStatus": {
-                "ReturnFileSec": 11, # Integer 11 = 139(1)
-                "OptOutNewTaxRegime": "N",
-                "ItrFilingDueDate": "2025-07-31" # Pattern verified
+                "ReturnFileSec": 1, # Section 139(1) - On or before due date
+                "OptOutNewTaxRegime": "N", # Set "Y" only if using Old Regime
+                "ItrFilingDueDate": "2025-07-31"
             },
             "ITR1_IncomeDeductions": {
                 "GrossSalary": 0,
                 "IncomeFromSal": 0,
+                "IncomeFromHouseProperty": 0, # Mandatory even if 0
                 "IncomeOthSrc": 0,
                 "GrossTotIncome": 0,
-                "UsrDeductUndChapVIA": {
-                    "Section80C": 0,
-                    "Section80CCC": 0,
-                    "Section80CCD1": 0,
-                    "Section80CCD1B": 0,
-                    "Section80D": 0,
-                    "Section80E": 0,
-                    "Section80G": 0,
-                    "Section80TTA": 0,
-                    "TotalChapVIADed": 0
-                },
                 "DeductUndChapVIA": {
+                    # If claiming, Policy/Document details are now mandatory
                     "Section80C": 0,
-                    "Section80CCC": 0,
-                    "Section80CCD1": 0,
-                    "Section80CCD1B": 0,
-                    "Section80D": 0,
-                    "Section80E": 0,
-                    "Section80G": 0,
-                    "Section80TTA": 0,
+                    "Section80D": 0, 
                     "TotalChapVIADed": 0
                 },
                 "TotalIncome": 0
@@ -84,29 +69,37 @@ ITR1_TEMPLATE = {
                 "TaxPayableOnRebate": 0,
                 "EducationCess": 0,
                 "GrossTaxLiability": 0,
-                "Section89": 0, # Required field
+                "Section89": 0, 
                 "NetTaxLiability": 0,
                 "TotalIntrstPay": 0,
                 "TotTaxPlusIntrstPay": 0
             },
             "TaxPaid": {
-                "TaxesPaid": [] 
+                "TDSonSalary": [], # Detailed arrays mandatory for credits
+                "TDSonOthThanSals": [],
+                "AdvanceTaxAndSelfAssessmentTax": []
             },
             "Refund": {
-                "RefundDue": 0
+                "RefundDue": 0,
+                "BankDetail": { # Mandatory for refunds
+                    "IFSCCode": "BANK0000123",
+                    "BankName": "XYZ BANK",
+                    "BankAccountNo": "1234567890"
+                }
             },
             "Verification": {
                 "Declaration": {
-                    "AssesseeName": "",
-                    "FatherName": "", # Required
+                    "AssesseeName": "FIRSTNAME SURNAME",
+                    "FatherName": "FATHER NAME",
                     "Capacity": "S",
-                    "Place": "INDIA",
-                    "Date": ""
+                    "Place": "Delhi",
+                    "Date": "2025-07-20"
                 }
             }
         }
     }
 }
+
 
 # ============================================================
 # ITR-2 TEMPLATE (Based on V1.1 Schema)
@@ -115,49 +108,50 @@ ITR2_TEMPLATE = {
     "ITR": {
         "ITR2": {
             "CreationInfo": {
-                "SWVersionNo": "1.0",
+                "SWVersionNo": "1.1",
                 "SWCreatedBy": "SW00000001",
                 "JSONCreatedBy": "SW00000001",
-                "JSONCreationDate": "",
+                "JSONCreationDate": "2025-07-20",
                 "IntermediaryCity": "Delhi",
                 "Digest": "0000"
             },
             "Form_ITR2": {
                 "FormName": "ITR-2",
                 "Description": "For Individuals and HUFs not having income from profits and gains of business or profession",
-                "AssessmentYear": "2025",
+                "AssessmentYear": "2025-26",
                 "SchemaVer": "Ver1.1",
                 "FormVer": "Ver1.1"
             },
             "PartA_GEN1": {
                 "PersonalInfo": {
                     "AssesseeName": {
-                        "FirstName": "",
+                        "FirstName": "FIRSTNAME",
                         "MiddleName": "",
-                        "SurNameOrOrgName": "" # Changed from SurName to match schema definition
+                        "SurNameOrOrgName": "SURNAME"
                     },
-                    "PAN": "",
+                    "PAN": "ABCDE1234F",
+                    "AadhaarNo": "123456789012", # Mandatory for AY 2025-26
                     "Address": {
-                        "ResidenceNo": "",
-                        "LocalityOrArea": "",
-                        "CityOrTownOrDistrict": "",
-                        "StateCode": "", 
+                        "ResidenceNo": "123",
+                        "LocalityOrArea": "MG ROAD",
+                        "CityOrTownOrDistrict": "Delhi",
+                        "StateCode": "07",
                         "CountryCode": "91",
-                        "CountryCodeMobile": 91,
-                        "MobileNo": 0, # Integer
-                        "EmailAddress": ""
+                        "MobileNo": 9999999999,
+                        "EmailAddress": "test@example.com"
                     },
-                    "DOB": "",
-                    "Status": "I"
+                    "DOB": "1990-01-01",
+                    "Status": "I",
+                    "RegimeType": "NEW" # Mandatory: Default is NEW for AY 2025-26
                 },
                 "FilingStatus": {
-                    "ReturnFileSec": 11,
+                    "ReturnFileSec": 1, # Section 139(1) - On or before due date
                     "OptOutNewTaxRegime": "N",
                     "ResidentialStatus": "RES",
-                    "ItrFilingDueDate": "2025-07-31" # Often required even if absent in some definitions
+                    "ItrFilingDueDate": "2025-07-31"
                 }
             },
-            "PartB-TI": {  # Note Hyphen
+            "PartB_TI": { # Schema uses underscore here
                 "Salaries": 0,
                 "IncomeFromHP": 0,
                 "CapitalGains": 0,
@@ -173,7 +167,7 @@ ITR2_TEMPLATE = {
                 },
                 "TotalIncome": 0
             },
-            "PartB_TTI": { # Note Underscore
+            "PartB_TTI": {
                 "ComputationOfTaxLiability": {
                     "TaxPayableOnTotalIncome": 0,
                     "Rebate87A": 0,
@@ -187,30 +181,53 @@ ITR2_TEMPLATE = {
             "ScheduleS": {
                 "Salaries": []
             },
-            "ScheduleCYLA": { # Required
-                 "TotalCurrYrLosses": 0
-            },
-            "ScheduleBFLA": { # Required
-                 "TotalBFLA": 0
-            },
-             "ScheduleCGFor23": { # Often conditioned, but let's keep skeletal
-            },
             "ScheduleHP": {
-                "IncFromOtherSources": { "GrossInterest": 0 }
-            },
-            "ScheduleTDS1": {
-                "TDS1": []
+                 "IFHP": [] # Structure for each house property entry
             },
             "ScheduleOS": {
                 "IncOthSrc": []
             },
+            "ScheduleCG": { # Mandatory schedule for ITR2
+                "CapGainSummary": {
+                    "LTCG10Pct": 0,
+                    "LTCG20Pct": 0,
+                    "STCG15Pct": 0,
+                    "STCGAppRate": 0
+                }
+            },
+            "ScheduleCYLA": {
+                 "TotalCurrYrLosses": 0
+            },
+            "ScheduleBFLA": {
+                 "TotalBFLA": 0
+            },
+             "ScheduleTDS": {
+                "TDSonSalaries": [],
+                "TDSonOthThanSalaries": []
+            },
+            "TaxPaid": {
+                "TaxesPaid": {
+                    "TDSonSalaries": [],
+                    "TDSonOthThanSalaries": [],
+                    "TCS": [],
+                    "AdvanceTaxAndSelfAssessmentTax": []
+                }
+            },
+            "Refund": {
+                "RefundDue": 0,
+                "BankDetail": { # Mandatory for refunds/validation
+                    "IFSCCode": "BANK0000123",
+                    "BankName": "XYZ BANK",
+                    "BankAccountNo": "1234567890"
+                }
+            },
             "Verification": {
                 "Declaration": {
-                    "AssesseeName": "",
-                    "FatherName": "",
+                    "AssesseeName": "FIRSTNAME SURNAME",
+                    "FatherName": "FATHER NAME",
                     "Capacity": "S",
-                    "Place": "INDIA",
-                    "Date": ""
+                    "Place": "Delhi",
+                    "Date": "2025-07-20"
                 }
             }
         }
