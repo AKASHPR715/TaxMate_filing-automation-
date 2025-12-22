@@ -1,7 +1,7 @@
 """
-ITR Form Generation Service
+ITR Form Generation Service (CORRECTED)
 Maps extracted tax data (Form 16, AIS) and computed tax liability into 
-Official ITR-1/ITR-2 JSON Schemas (AY 2025-26).
+official ITR-1/ITR-2 JSON schemas (AY 2025-26).
 """
 
 import json
@@ -34,8 +34,6 @@ def _get_safe_value(data: Dict, keys: list, default=0):
         else:
             return default
             
-    # If we reached a leaf that is not a dict, return it.
-    # If strictly looking for a value, ensure it's not a dict unless intentional
     if isinstance(current, (int, float, str)):
         return current
     elif current == {}:
@@ -48,105 +46,172 @@ def determine_itr_form_type(extracted_data: Dict[str, Any]) -> str:
     ITR-1: Salary, One House Property, Other Sources (Interest, etc.) <= 50L
     ITR-2: Capital Gains, >1 House Property, Foreign Assets, etc.
     """
-    # Check for Capital Gains in AIS or Form 16
-    has_capital_gains = False
-    
-    # Check AIS for Securities/Mutual Funds
+    # Check for Capital Gains in AIS
     for form_name, form_data in extracted_data.items():
         if "AIS" in form_name:
-            if form_data.get("securities_transactions") or form_data.get("mutual_fund_transactions"):
-                has_capital_gains = True
+            securities = form_data.get("securities_transactions", [])
+            mutual_funds = form_data.get("mutual_fund_transactions", [])
+            if securities or mutual_funds:
                 logger.info("Detected Capital Gains/Securities in AIS -> Recommending ITR-2")
-                break
+                return "ITR-2"
                 
-    if has_capital_gains:
-        return "ITR-2"
-        
+    # Check for multiple house properties (not in current data, but future-proof)
+    # Check for foreign assets (not in current data)
+    
     return "ITR-1"
 
-def populate_itr1(template: Dict, data: Dict, computation: Dict) -> Dict:
-    """Populates ITR-1 Schema with data."""
+def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: str) -> Dict:
+    """Populates ITR schema with data (works for both ITR-1 and ITR-2)."""
     itr = copy.deepcopy(template)
-    form = itr["ITR"]["ITR1"]
     
-    # 1. Personal Information (From Form 16 Part A/B or AIS)
-    # Try to find personal info from any available form
+    # Determine form structure
+    if form_type == "ITR-2":
+        form = itr["ITR"]["ITR2"]
+    else:
+        form = itr["ITR"]["ITR1"]
+    
+    # 1. PERSONAL INFORMATION
     personal_info = {}
     for fname, fdata in data.items():
         if "16" in fname:
-             # Form 16 likely has employee details
-             emp = fdata.get("employee_details", {})
-             if emp:
-                 personal_info = emp
-                 break
+            emp = fdata.get("employee_details", {})
+            if emp:
+                personal_info = emp
+                break
         elif "AIS" in fname:
-             personal_info = fdata.get("assessee_details", {})
+            personal_info = fdata.get("assessee_details", {})
              
     if personal_info:
-        name_parts = personal_info.get("name", "Unknown").split(" ")
-        form["PersonalInfo"]["AssesseeName"]["FirstName"] = name_parts[0]
-        form["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = name_parts[-1] if len(name_parts) > 1 else ""
-        form["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
-        # Address - often unstructured in extraction, leaving placeholder or partial mapping
-        if "address" in personal_info:
-             form["PersonalInfo"]["Address"]["LocalityOrArea"] = personal_info["address"][:50]
+        name = personal_info.get("name", "Unknown").strip()
+        #Handle name variations (e.g., "ANISH JOSEPH VALEMPARAMBIL")
+        name_parts = name.split()
+        if len(name_parts) >= 2:
+            first_name = name_parts[0]
+            surname = " ".join(name_parts[1:])
+        else:
+            first_name = name
+            surname = ""
+            
+        if form_type == "ITR-2":
+            # ITR-2: PersonalInfo is under PartA_GEN1
+            form["PartA_GEN1"]["PersonalInfo"]["AssesseeName"]["FirstName"] = first_name
+            form["PartA_GEN1"]["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = surname
+            form["PartA_GEN1"]["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+            # Address
+            address = personal_info.get("address", "")
+            if address:
+                form["PartA_GEN1"]["PersonalInfo"]["Address"]["LocalityOrArea"] = address[:100]
+        else:
+            # ITR-1: PersonalInfo is direct
+            form["PersonalInfo"]["AssesseeName"]["FirstName"] = first_name
+            form["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = surname
+            form["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+            # Address
+            address = personal_info.get("address", "")
+            if address:
+                form["PersonalInfo"]["Address"]["LocalityOrArea"] = address[:50]
+
+    # 2. INCOME CALCULATION
+    gross_salary = 0.0
+    house_property_income = 0.0
+    interest_income = 0.0
     
-    # 2. Income & Deductions (From Form 16 Part B mainly)
-    # Aggregating from all Form 16 Part Bs found
-    total_salary = 0
-    total_deductions_via = 0
-    deduction_breakdown = {}
-    
+    # Aggregate salary from all Form 16 Part B
     for fname, fdata in data.items():
         if "16_Part_B" in fname:
-             salary_det = fdata.get("salary_details", {})
-             if salary_det:
-                 total_salary += salary_det.get("total_salary", 0)
-             
-             # Chapter VI-A
-             via = fdata.get("deductions_chapter_VIA", {})
-             if via:
-                 total_deductions_via += via.get("total_deductions", 0)
-                 # Sum up specific sections
-                 for k, v in via.items():
-                     if isinstance(v, (int, float)):
-                         deduction_breakdown[k] = deduction_breakdown.get(k, 0) + v
-
-    form["ITR1_IncomeDeductions"]["GrossSalary"] = int(total_salary)
-    form["ITR1_IncomeDeductions"]["IncomeFromSal"] = int(total_salary) # Simplified: net salary = gross for now
-    form["ITR1_IncomeDeductions"]["GrossTotIncome"] = int(total_salary) # Add other sources if available
+            salary_det = fdata.get("salary_details", {})
+            if isinstance(salary_det, dict):
+                total_sal = salary_det.get("total_salary", 0) or 0
+                other_emp_sal = salary_det.get("salary_from_other_employers", 0) or 0
+                gross_salary += total_sal + other_emp_sal
+                
+            # House property income
+            other_inc = fdata.get("other_income_reported", {})
+            if isinstance(other_inc, dict):
+                house_property_income = other_inc.get("house_property_income", 0) or 0
     
-    # Deductions
-    form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["Section80C"] = int(deduction_breakdown.get("section_80C", 0))
-    form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["Section80D"] = int(deduction_breakdown.get("section_80D", 0))
-    form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["TotalChapVIADed"] = int(total_deductions_via)
+    # Aggregate interest income from AIS
+    for fname, fdata in data.items():
+        if "AIS" in fname:
+            interest_entries = fdata.get("interest_income", [])
+            if isinstance(interest_entries, list):
+                interest_income = sum(
+                    float(entry.get("interest_amount", 0)) for entry in interest_entries
+                )
     
-    # Total Income
-    form["ITR1_IncomeDeductions"]["TotalIncome"] = int(total_salary - total_deductions_via)
+    total_other_income = house_property_income + interest_income
+    gross_total_income = gross_salary + total_other_income
     
-    # 3. Tax Computation (From our computation result)
-    if computation:
-        # Determine Regime and Base Values
-        optimal = computation.get("optimal_regime", "NEW")
-        is_new_regime = (optimal == "NEW")
+    # 3. REGIME AND DEDUCTIONS
+    is_new_regime = computation.get("optimal_regime", "NEW") == "NEW"
+    
+    # In New Regime, deductions are ZERO
+    if is_new_regime:
+        total_deductions = 0.0
+        section_80c = 0
+        section_80d = 0
+    else:
+        # Use validated deductions from computation result
+        total_deductions = computation.get("ch_via_validated", 0.0)
+        # Extract individual sections from breakdown
+        breakdown = computation.get("ch_via_breakdown", {})
+        section_80c = int(breakdown.get("80c_combined", 0))
+        section_80d = int(breakdown.get("80d", 0))
+    
+    total_income = gross_total_income - total_deductions
+    
+    # 4. POPULATE FORM-SPECIFIC INCOME FIELDS
+    if form_type == "ITR-2":
+        # ITR-2: Fields are under PartB_TI
+        form["PartB_TI"]["Salaries"] = int(gross_salary)
+        form["PartB_TI"]["IncomeFromHP"] = int(house_property_income)
+        form["PartB_TI"]["IncomeFromOS"] = int(interest_income)
+        form["PartB_TI"]["GrossTotalIncome"] = int(gross_total_income)
+        form["PartB_TI"]["TotalIncome"] = int(total_income)
         
-        # Get Taxable Income and Base Tax from computation result
-        if is_new_regime:
-            taxable_income = computation.get("new_taxable", 0)
-            base_tax = computation.get("new_tax", 0)
+        # Deductions (only for Old Regime)
+        if not is_new_regime:
+            form["PartB_TI"]["DeductionsUnderChapterVIA"]["Section80C"] = section_80c
+            form["PartB_TI"]["DeductionsUnderChapterVIA"]["Section80D"] = section_80d
+            form["PartB_TI"]["DeductionsUnderChapterVIA"]["TotalChapVIADed"] = int(total_deductions)
         else:
-            taxable_income = computation.get("old_taxable", 0)
-            base_tax = computation.get("old_tax", 0)
+            form["PartB_TI"]["DeductionsUnderChapterVIA"]["Section80C"] = 0
+            form["PartB_TI"]["DeductionsUnderChapterVIA"]["Section80D"] = 0
+            form["PartB_TI"]["DeductionsUnderChapterVIA"]["TotalChapVIADed"] = 0
             
-        # --- Detailed Calculation Logic ---
+    else:  # ITR-1
+        form["ITR1_IncomeDeductions"]["GrossSalary"] = int(gross_salary)
+        form["ITR1_IncomeDeductions"]["IncomeFromSal"] = int(gross_salary)
+        form["ITR1_IncomeDeductions"]["IncomeFromHouseProperty"] = int(house_property_income)
+        form["ITR1_IncomeDeductions"]["IncomeOthSrc"] = int(interest_income)
+        form["ITR1_IncomeDeductions"]["GrossTotIncome"] = int(gross_total_income)
+        form["ITR1_IncomeDeductions"]["TotalIncome"] = int(total_income)
         
-        # A. Gross Tax Liability (Base Tax on Income)
+        # Deductions (only for Old Regime)
+        if not is_new_regime:
+            form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["Section80C"] = section_80c
+            form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["Section80D"] = section_80d
+            form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["TotalChapVIADed"] = int(total_deductions)
+        else:
+            form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["Section80C"] = 0
+            form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["Section80D"] = 0
+            form["ITR1_IncomeDeductions"]["DeductUndChapVIA"]["TotalChapVIADed"] = 0
+
+    # 5. TAX COMPUTATION
+    if computation:
+        # Get tax values
+        if is_new_regime:
+            base_tax = computation.get("new_tax", 0)
+            taxable_income = computation.get("new_taxable", 0)
+        else:
+            base_tax = computation.get("old_tax", 0)
+            taxable_income = computation.get("old_taxable", 0)
+            
+        # Tax computation fields
         gross_tax_liability = base_tax
-        
-        # B. Rebate u/s 87A
-        # New Regime: limit 7L, max rebate 25000
-        # Old Regime: limit 5L, max rebate 12500
         rebate_87a = 0
+        
+        # Apply rebate if eligible
         if is_new_regime:
             if taxable_income <= 700000:
                 rebate_87a = min(gross_tax_liability, 25000)
@@ -154,54 +219,79 @@ def populate_itr1(template: Dict, data: Dict, computation: Dict) -> Dict:
             if taxable_income <= 500000:
                 rebate_87a = min(gross_tax_liability, 12500)
                 
-        # C. Tax Payable after Rebate
         tax_after_rebate = max(gross_tax_liability - rebate_87a, 0)
-        
-        # D. Health and Education Cess (4%)
         cess = round(tax_after_rebate * 0.04)
-        
-        # E. Total Tax Payable
         total_tax_payable = tax_after_rebate + cess
         
-        # Update Form Fields
-        form["FilingStatus"]["OptOutNewTaxRegime"] = "N" if is_new_regime else "Y"
-        
-        form["ITR1_TaxComputation"]["GrossTaxLiability"] = int(gross_tax_liability)
-        form["ITR1_TaxComputation"]["Rebate87A"] = int(rebate_87a)
-        form["ITR1_TaxComputation"]["TaxPayableOnRebate"] = int(tax_after_rebate)
-        form["ITR1_TaxComputation"]["EducationCess"] = int(cess)
-        form["ITR1_TaxComputation"]["TotalTaxPayable"] = int(total_tax_payable)
-        form["ITR1_TaxComputation"]["NetTaxLiability"] = int(total_tax_payable)
-        form["ITR1_TaxComputation"]["TotTaxPlusIntrstPay"] = int(total_tax_payable) # Assuming 0 interest for now
+        # Set regime flag
+        if form_type == "ITR-2":
+            form["PartA_GEN1"]["FilingStatus"]["OptOutNewTaxRegime"] = "N" if is_new_regime else "Y"
+            # Tax computation under PartB_TTI
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["TaxPayableOnTotalIncome"] = int(base_tax)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["Rebate87A"] = int(rebate_87a)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["TaxPayableAfterRebate"] = int(tax_after_rebate)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["HealthAndEducationCess"] = int(cess)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["GrossTaxLiability"] = int(gross_tax_liability)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["NetTaxLiability"] = int(total_tax_payable)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["TotalTaxPayable"] = int(total_tax_payable)
+        else:
+            form["FilingStatus"]["OptOutNewTaxRegime"] = "N" if is_new_regime else "Y"
+            form["ITR1_TaxComputation"]["GrossTaxLiability"] = int(gross_tax_liability)
+            form["ITR1_TaxComputation"]["Rebate87A"] = int(rebate_87a)
+            form["ITR1_TaxComputation"]["TaxPayableOnRebate"] = int(tax_after_rebate)
+            form["ITR1_TaxComputation"]["EducationCess"] = int(cess)
+            form["ITR1_TaxComputation"]["TotalTaxPayable"] = int(total_tax_payable)
+            form["ITR1_TaxComputation"]["NetTaxLiability"] = int(total_tax_payable)
 
-    
-    # 4. Tax Paid (TDS from Form 16 Part A)
+    # 6. TAX PAID (TDS)
     tds_entries = []
     total_tds = 0
+    
+    # Get TDS from Form 16 Part A
     for fname, fdata in data.items():
         if "16_Part_A" in fname:
-            summary = fdata.get("tds_summary", [])
             employer = fdata.get("employer_details", {})
-            for item in summary:
-                 amount_credited = item.get("amount_paid_credited", 0)
-                 tax_deducted = item.get("tax_deducted", 0)
-                 total_tds += tax_deducted
-                 
-                 entry = {
-                     "TAN": employer.get("TAN", ""),
-                     "EmployerName": employer.get("name", ""),
-                     "IncChrgSal": amount_credited,
-                     "TotalTDSSal": tax_deducted
-                 }
-                 tds_entries.append(entry)
+            tds_summary = fdata.get("tds_summary", [])
+            if isinstance(tds_summary, list):
+                for item in tds_summary:
+                    if isinstance(item, dict):
+                        amount_credited = item.get("amount_paid_credited", 0) or 0
+                        tax_deducted = item.get("tax_deducted", 0) or 0
+                        total_tds += tax_deducted
+                        tds_entries.append({
+                            "TAN": employer.get("TAN", ""),
+                            "EmployerName": employer.get("name", ""),
+                            "IncChrgSal": int(amount_credited),
+                            "TotalTDSSal": int(tax_deducted)
+                        })
     
-    # Schema for Form 16 Part A TDS in ITR-1 is usually under TDSonSalary
-    # Note: The schema provided in itr_schemas.py has empty list [] for "TDSonSalary".
-    # We would populate it here if we had the exact item structure definition from the schema.
-    # For now, we will leave it empty to avoid schema validation errors with incorrect keys,
-    # or just add it if we are confident.
-    if tds_entries:
-        form["TaxPaid"]["TDSonSalary"] = tds_entries
+    # Also check Form 16 Part B for total TDS (fallback)
+    if not tds_entries:
+        for fname, fdata in data.items():
+            if "16_Part_B" in fname:
+                tax_comp = fdata.get("tax_computation", {})
+                if isinstance(tax_comp, dict):
+                    tds_total = tax_comp.get("tax_deducted_at_source", 0) or 0
+                    if tds_total > 0:
+                        total_tds = tds_total
+                        break
+    
+    # Populate TDS fields (structure differs between ITR-1 and ITR-2)
+    if form_type == "ITR-2":
+        # ITR-2 has TDS under TaxPaid.TaxesPaid
+        if tds_entries:
+            form["TaxPaid"]["TaxesPaid"]["TDSonSalaries"] = tds_entries
+    else:
+        # ITR-1 has TDS directly under TaxPaid
+        if tds_entries:
+            form["TaxPaid"]["TDSonSalary"] = tds_entries
+
+    # 7. REFUND CALCULATION
+    tax_payable = total_tax_payable if computation else 0
+    tds_credit = total_tds
+    refund_due = max(tds_credit - tax_payable, 0)
+    
+    form["Refund"]["RefundDue"] = int(refund_due)
 
     return itr
 
@@ -223,22 +313,25 @@ def generate_filing_forms(extracted_data: Dict[str, Any], computation_result: Di
     logger.info(f"Selected Form Type: {form_type}")
     
     # 2. Select Template & Populate
-    if form_type == "ITR-1":
-        final_json = populate_itr1(ITR1_TEMPLATE, extracted_data, computation_result)
+    if form_type == "ITR-2":
+        if "ITR2" not in ITR2_TEMPLATE.get("ITR", {}):
+            # Handle template structure differences
+            logger.error("ITR2_TEMPLATE structure invalid. Check schema.")
+            # Fallback to basic structure
+            final_json = {"ITR": {"ITR2": {}}}
+        else:
+            final_json = populate_itr_form(ITR2_TEMPLATE, extracted_data, computation_result, "ITR-2")
     else:
-        # Fallback to ITR-1 logic for now even for ITR-2 or implement basic ITR-2
-        # For this task, we'll just populate ITR-2 with similar basic info
-        # Or more safely, stick to ITR-1 if ITR-2 implementation is complex
-        logger.warning("ITR-2 logic requested but using ITR-1 population logic for common fields.")
-        final_json = populate_itr1(ITR1_TEMPLATE, extracted_data, computation_result) # fallback
-        final_json["ITR"]["ITR1"]["Form_ITR1"]["FormName"] = "ITR-1 (Fallback)" 
-
+        final_json = populate_itr_form(ITR1_TEMPLATE, extracted_data, computation_result, "ITR-1")
+    
     # 3. Save to File
     output_dir = Path(__file__).resolve().parents[2] / "data" / "filing"
     output_dir.mkdir(parents=True, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    file_name = f"{form_type}_{timestamp}.json"
+    # Clean form type for filename
+    clean_form_type = form_type.replace("-", "")
+    file_name = f"{clean_form_type}_{timestamp}.json"
     file_path = output_dir / file_name
     
     with open(file_path, "w") as f:
@@ -253,4 +346,4 @@ def generate_filing_forms(extracted_data: Dict[str, Any], computation_result: Di
 
 if __name__ == "__main__":
     # Test stub
-    print("Form Generation Module")
+    print("Form Generation Module - Ready")

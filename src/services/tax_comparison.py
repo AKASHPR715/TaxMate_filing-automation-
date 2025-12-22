@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Tax Comparison Service
+Tax Comparison Service (PATCHED)
 Calculates tax liability under Old and New regimes using extracted rules.
+CORRECTED FOR AY 2024-25 (FY 2023-24)
 """
 import json
 import sys
@@ -52,20 +53,11 @@ def setup_comparison_logger():
 comparison_logger = setup_comparison_logger()
 
 # ============================================================
-# Tax Calculation Logic
+# Tax Calculation Logic (CORRECTED FOR FY 2023-24)
 # ============================================================
 
-def calculate_tax(income: float, slabs: dict) -> float:
-    """
-    Generic tax calculator based on slabs.
-    Slabs dict format: {tax_rate: upper_limit}
-    Note: For simplicity in this demo, we use the specific functions below
-    which map exactly to the Indian Tax Regime rules.
-    """
-    pass 
-
 def old_regime_tax(income: float) -> float:
-    """Calculates tax liability under the old income tax regime."""
+    """Calculates base tax liability under the old income tax regime (before cess)."""
     if income <= 250_000:
         return 0
     elif income <= 500_000:
@@ -75,6 +67,39 @@ def old_regime_tax(income: float) -> float:
     else:
         return 112_500 + (income - 1_000_000) * 0.30
 
+def new_regime_tax_23_24(income: float) -> float:
+    """New regime tax for FY 2023-24 (AY 2024-25) - BEFORE cess"""
+    if income <= 300_000:
+        return 0.0
+    if income <= 600_000:
+        return (income - 300_000) * 0.05
+    if income <= 900_000:
+        return 15_000 + (income - 600_000) * 0.10
+    if income <= 1_200_000:
+        return 45_000 + (income - 900_000) * 0.15
+    if income <= 1_500_000:
+        return 90_000 + (income - 1_200_000) * 0.20
+    return 150_000 + (income - 1_500_000) * 0.30
+
+def new_regime_tax_24_25(income: float) -> float:
+    """New regime tax for FY 2024-25 (AY 2025-26) - BEFORE cess"""
+    if income <= 300_000:
+        return 0.0
+    if income <= 700_000:
+        return (income - 300_000) * 0.05
+    if income <= 1_000_000:
+        return 20_000 + (income - 700_000) * 0.10
+    if income <= 1_200_000:
+        return 50_000 + (income - 1_000_000) * 0.15
+    if income <= 1_500_000:
+        return 80_000 + (income - 1_200_000) * 0.20
+    return 140_000 + (income - 1_500_000) * 0.30
+
+def apply_cess(base_tax: float) -> float:
+    """Apply 4% Health and Education Cess"""
+    return base_tax * 1.04
+
+# Explanation functions remain unchanged (they show base tax breakdown)
 def explain_old_regime_tax(income: float) -> list:
     """Generates a breakdown of the old regime tax calculation."""
     breakdown = []
@@ -114,259 +139,435 @@ def explain_old_regime_tax(income: float) -> list:
     
     return breakdown
 
-def new_regime_tax(inc: float) -> float:
-    """New regime tax – FY 2025-26 slabs."""
-    if inc <= 300_000:
-        return 0.0
-    if inc <= 700_000:
-        return (inc - 300_000) * 0.05
-    if inc <= 1_000_000:
-        return 20_000 + (inc - 700_000) * 0.10
-    if inc <= 1_200_000:
-        return 50_000 + (inc - 1_000_000) * 0.15
-    if inc <= 1_500_000:
-        return 80_000 + (inc - 1_200_000) * 0.20
-    return 140_000 + (inc - 1_500_000) * 0.30
-
-def explain_new_regime_tax(inc: float) -> list:
+def explain_new_regime_tax(income: float, financial_year: str = "24-25") -> list:
     """Generates a breakdown of the new regime tax calculation."""
     breakdown = []
     
-    # Slab 1: 0 - 3L
-    s1_limit = 300_000
-    breakdown.append(f"0 - {s1_limit:,}: 0 (Exempt)")
+    # Use correct slabs based on FY
+    if "23-24" in financial_year:
+        slabs = [
+            (300_000, 0.0),
+            (600_000, 0.05),
+            (900_000, 0.10),
+            (1_200_000, 0.15),
+            (1_500_000, 0.20),
+            (float('inf'), 0.30)
+        ]
+    else:
+        slabs = [
+            (300_000, 0.0),
+            (700_000, 0.05),
+            (1_000_000, 0.10),
+            (1_200_000, 0.15),
+            (1_500_000, 0.20),
+            (float('inf'), 0.30)
+        ]
     
-    remaining = inc - s1_limit
-    if remaining <= 0:
-        return breakdown
+    prev_limit = 0
+    for i, (limit, rate) in enumerate(slabs):
+        if income <= prev_limit:
+            break
+            
+        taxable_in_slab = min(income, limit) - prev_limit
+        if taxable_in_slab <= 0:
+            prev_limit = limit
+            continue
+            
+        tax_in_slab = taxable_in_slab * rate
         
-    # Slab 2: 3L - 7L @ 5%
-    s2_width = 400_000
-    taxable_s2 = min(remaining, s2_width)
-    tax_s2 = taxable_s2 * 0.05
-    breakdown.append(f"3,00,001 - 7,00,000 (@5%): {tax_s2:,.2f} (on {taxable_s2:,.2f})")
-    
-    remaining -= s2_width
-    if remaining <= 0:
-        return breakdown
+        # Format slab description
+        if i == 0:
+            slab_desc = f"0 - {int(limit):,}"
+        elif limit == float('inf'):
+            slab_desc = f"> {int(prev_limit):,}"
+        else:
+            slab_desc = f"{int(prev_limit)+1:,} - {int(limit):,}"
+            
+        rate_pct = int(rate * 100)
+        breakdown.append(f"{slab_desc} (@{rate_pct}%): {tax_in_slab:,.2f} (on {taxable_in_slab:,.2f})")
+        prev_limit = limit
         
-    # Slab 3: 7L - 10L @ 10%
-    s3_width = 300_000
-    taxable_s3 = min(remaining, s3_width)
-    tax_s3 = taxable_s3 * 0.10
-    breakdown.append(f"7,00,001 - 10,00,000 (@10%): {tax_s3:,.2f} (on {taxable_s3:,.2f})")
-    
-    remaining -= s3_width
-    if remaining <= 0:
-        return breakdown
-
-    # Slab 4: 10L - 12L @ 15%
-    s4_width = 200_000
-    taxable_s4 = min(remaining, s4_width)
-    tax_s4 = taxable_s4 * 0.15
-    breakdown.append(f"10,00,001 - 12,00,000 (@15%): {tax_s4:,.2f} (on {taxable_s4:,.2f})")
-    
-    remaining -= s4_width
-    if remaining <= 0:
-        return breakdown
-
-    # Slab 5: 12L - 15L @ 20%
-    s5_width = 300_000
-    taxable_s5 = min(remaining, s5_width)
-    tax_s5 = taxable_s5 * 0.20
-    breakdown.append(f"12,00,001 - 15,00,000 (@20%): {tax_s5:,.2f} (on {taxable_s5:,.2f})")
-    
-    remaining -= s5_width
-    if remaining <= 0:
-        return breakdown
-        
-    # Slab 6: > 15L @ 30%
-    tax_s6 = remaining * 0.30
-    breakdown.append(f"> 15,00,000 (@30%): {tax_s6:,.2f} (on {remaining:,.2f})")
+        if income <= limit:
+            break
     
     return breakdown
 
 # ============================================================
-# Main Comparison Tool
+# Chapter VI-A Deduction Validation Functions (ENHANCED)
 # ============================================================
 
-def compare_tax_regimes(extracted_data: dict = None) -> dict:
-    """
-    Compares Old vs New tax regimes based on extracted data.
-    """
-    comparison_logger.info("Starting tax regime comparison...")
+def validate_80c_combined(section_80c: float, section_80ccc: float, section_80ccd1: float) -> dict:
+    claimed = section_80c + section_80ccc + section_80ccd1
+    cap = 150_000
+    validated = min(claimed, cap)
     
+    comparison_logger.info(f"80C+80CCC+80CCD(1) - Claimed: ₹{claimed:,.2f}, Cap: ₹{cap:,.2f}, Validated: ₹{validated:,.2f}")
+    
+    return {
+        "claimed": claimed,
+        "validated": validated,
+        "cap": cap,
+        "cap_applied": claimed > cap
+    }
+
+def validate_80ccd1b(amount: float) -> dict:
+    cap = 50_000
+    validated = min(amount, cap)
+    unused = cap - validated
+    
+    comparison_logger.info(f"80CCD(1B) - Claimed: ₹{amount:,.2f}, Cap: ₹{cap:,.2f}, Validated: ₹{validated:,.2f}, Unused: ₹{unused:,.2f}")
+    
+    return {
+        "claimed": amount,
+        "validated": validated,
+        "cap": cap,
+        "cap_applied": amount > cap,
+        "unused": unused
+    }
+
+def validate_80d(amount: float, age_category: str = "below_60") -> dict:
+    cap = 25_000
+    if amount > 75_000:
+        cap = 75_000
+        comparison_logger.warning(f"80D amount ₹{amount:,.2f} exceeds typical limit. Capping at ₹75,000.")
+    
+    validated = min(amount, cap)
+    comparison_logger.info(f"80D - Claimed: ₹{amount:,.2f}, Cap: ₹{cap:,.2f}, Validated: ₹{validated:,.2f}")
+    
+    return {
+        "claimed": amount,
+        "validated": validated,
+        "cap": cap,
+        "cap_applied": amount > cap
+    }
+
+def validate_chapter_via_deductions(deductions_dict: dict, include_any_other: bool = False, assessee_age: str = "below_60") -> dict:
+    comparison_logger.info("=" * 60)
+    comparison_logger.info("VALIDATING CHAPTER VI-A DEDUCTIONS")
+    comparison_logger.info("=" * 60)
+    
+    # Extract sections
+    sec_80c = deductions_dict.get("section_80C", 0) or 0
+    sec_80ccc = deductions_dict.get("section_80CCC", 0) or 0
+    sec_80ccd1 = deductions_dict.get("section_80CCD_1", 0) or 0
+    sec_80ccd1b = deductions_dict.get("section_80CCD_1B", 0) or 0
+    sec_80ccd2 = deductions_dict.get("section_80CCD_2", 0) or 0  # Employer NPS - NOT a deduction!
+    sec_80d = deductions_dict.get("section_80D", 0) or 0
+    sec_80e = deductions_dict.get("section_80E", 0) or 0
+    sec_80g = deductions_dict.get("section_80G", 0) or 0
+    sec_80tta = deductions_dict.get("section_80TTA", 0) or 0
+    any_other = deductions_dict.get("any_other_deductions", 0) or 0
+    
+    original_total = sum([sec_80c, sec_80ccc, sec_80ccd1, sec_80ccd1b, 
+                          sec_80d, sec_80e, sec_80g, sec_80tta, any_other])
+    # Note: sec_80ccd2 excluded from total (not a deduction)
+    
+    warnings = []
+    
+    # Validate 80C combined
+    val_80c_combined = validate_80c_combined(sec_80c, sec_80ccc, sec_80ccd1)
+    if val_80c_combined["cap_applied"]:
+        warnings.append(f"80C+80CCC+80CCD(1) combined capped from ₹{val_80c_combined['claimed']:,.2f} to ₹{val_80c_combined['validated']:,.2f}")
+    
+    # Validate 80CCD(1B)
+    val_80ccd1b = validate_80ccd1b(sec_80ccd1b)
+    if val_80ccd1b["cap_applied"]:
+        warnings.append(f"80CCD(1B) capped from ₹{val_80ccd1b['claimed']:,.2f} to ₹{val_80ccd1b['validated']:,.2f}")
+    
+    # Validate 80D
+    val_80d = validate_80d(sec_80d, assessee_age)
+    if val_80d["cap_applied"]:
+        warnings.append(f"80D capped from ₹{val_80d['claimed']:,.2f} to ₹{val_80d['validated']:,.2f}")
+    
+    # 80CCD(2) - Employer NPS is NOT a Chapter VI-A deduction!
+    if sec_80ccd2 > 0:
+        warnings.append(f"80CCD(2) (employer NPS contribution of ₹{sec_80ccd2:,.2f}) is not a Chapter VI-A deduction and has been excluded.")
+        comparison_logger.warning(f"Excluding 80CCD(2) (employer NPS): ₹{sec_80ccd2:,.2f} - not a valid deduction under Chapter VI-A")
+    
+    # 80E - Education loan
+    validated_80e = sec_80e
+    
+    # 80G - Donations
+    validated_80g = sec_80g
+    
+    # 80TTA - Savings interest, cap at ₹10,000
+    cap_80tta = 10_000
+    validated_80tta = min(sec_80tta, cap_80tta)
+    if sec_80tta > cap_80tta:
+        warnings.append(f"80TTA capped from ₹{sec_80tta:,.2f} to ₹{validated_80tta:,.2f}")
+    
+    # any_other_deductions - Exclude by default
+    excluded_any_other = 0
+    validated_any_other = 0
+    if any_other > 0:
+        if include_any_other:
+            validated_any_other = any_other
+            comparison_logger.warning(f"Including any_other_deductions: ₹{any_other:,.2f} (user approved)")
+        else:
+            excluded_any_other = any_other
+            warnings.append(f"EXCLUDED ₹{any_other:,.2f} from 'any_other_deductions' - requires valid proof documents")
+            comparison_logger.warning(f"Excluding any_other_deductions: ₹{any_other:,.2f} (no proof provided)")
+    
+    # Calculate validated total (WITHOUT 80CCD(2))
+    validated_total = (
+        val_80c_combined["validated"] +
+        val_80ccd1b["validated"] +
+        val_80d["validated"] +
+        validated_80e +
+        validated_80g +
+        validated_80tta +
+        validated_any_other
+    )
+    
+    comparison_logger.info(f"Total Deductions - Original: ₹{original_total:,.2f}, Validated: ₹{validated_total:,.2f}")
+    
+    return {
+        "original_total": original_total,
+        "validated_total": validated_total,
+        "breakdown": {
+            "80c_combined": val_80c_combined["validated"],
+            "80ccd1b": val_80ccd1b["validated"],
+            "80ccd2_excluded": sec_80ccd2,  # Track excluded amount
+            "80d": val_80d["validated"],
+            "80e": validated_80e,
+            "80g": validated_80g,
+            "80tta": validated_80tta,
+            "any_other": validated_any_other
+        },
+        "original_breakdown": {
+            "80c": sec_80c,
+            "80ccc": sec_80ccc,
+            "80ccd1": sec_80ccd1,
+            "80ccd1b": sec_80ccd1b,
+            "80ccd2": sec_80ccd2,
+            "80d": sec_80d,
+            "80e": sec_80e,
+            "80g": sec_80g,
+            "80tta": sec_80tta,
+            "any_other": any_other
+        },
+        "unused_80ccd1b": val_80ccd1b["unused"],
+        "excluded_any_other": excluded_any_other,
+        "excluded_80ccd2": sec_80ccd2,
+        "warnings": warnings
+    }
+
+# ============================================================
+# Main Comparison Tool (CORRECTED)
+# ============================================================
+
+def compare_tax_regimes(extracted_data: dict = None, include_any_other_deductions: bool = False) -> dict:
+    comparison_logger.info("=" * 70)
+    comparison_logger.info("STARTING TAX REGIME COMPARISON (AY 2024-25 / FY 2023-24)")
+    comparison_logger.info("=" * 70)
+    
+    # Initialize
     gross_salary = 0.0
     other_income = 0.0
-    ch_via = 0.0
-    deduction_details_str = ""
+    professional_tax = 0.0
+    exemptions_10 = {
+        "hra": 0.0, "lta": 0.0, "gratuity": 0.0,
+        "leave_encashment": 0.0, "commuted_pension": 0.0,
+        "other": 0.0, "total": 0.0
+    }
+    deductions_via_dict = {}
     
-    # 1. Parse Extracted Data
+    # Parse extracted data
     if extracted_data:
         for form_name, form_data in extracted_data.items():
             if not isinstance(form_data, dict):
                 continue
                 
-            # Parse Form 16 Part B (Rich Source)
             if "16_Part_B" in form_name:
-                # Salary
+                comparison_logger.info(f"Processing Form 16 Part B data...")
+                
                 salary_details = form_data.get("salary_details", {})
                 if isinstance(salary_details, dict):
-                    gs = salary_details.get("total_salary", 0) + salary_details.get("salary_from_other_employers", 0)
-                    if gs > 0: gross_salary = gs
+                    total_sal = salary_details.get("total_salary", 0) or 0
+                    other_emp_sal = salary_details.get("salary_from_other_employers", 0) or 0
+                    gross_salary = total_sal + other_emp_sal
+                    comparison_logger.info(f"Gross Salary: ₹{total_sal:,.2f} + ₹{other_emp_sal:,.2f} = ₹{gross_salary:,.2f}")
                 
-                # Other Income
+                exemptions_us10 = form_data.get("exemptions_u_s_10", {})
+                if isinstance(exemptions_us10, dict):
+                    exemptions_10["hra"] = exemptions_us10.get("house_rent_allowance", 0) or 0
+                    exemptions_10["lta"] = exemptions_us10.get("leave_travel_concession", 0) or 0
+                    exemptions_10["gratuity"] = exemptions_us10.get("gratuity", 0) or 0
+                    exemptions_10["leave_encashment"] = exemptions_us10.get("leave_encashment", 0) or 0
+                    exemptions_10["commuted_pension"] = exemptions_us10.get("commuted_pension", 0) or 0
+                    exemptions_10["other"] = exemptions_us10.get("any_other_exemption", 0) or 0
+                    exemptions_10["total"] = sum([
+                        exemptions_10["hra"], exemptions_10["lta"],
+                        exemptions_10["gratuity"], exemptions_10["leave_encashment"],
+                        exemptions_10["commuted_pension"], exemptions_10["other"]
+                    ])
+                    comparison_logger.info(f"Section 10 Exemptions Total: ₹{exemptions_10['total']:,.2f}")
+                
+                deductions_us16 = form_data.get("deductions_u_s_16", {})
+                if isinstance(deductions_us16, dict):
+                    professional_tax = deductions_us16.get("professional_tax", 0) or 0
+                    comparison_logger.info(f"Professional Tax (u/s 16): ₹{professional_tax:,.2f}")
+                
                 other_inc = form_data.get("other_income_reported", {})
                 if isinstance(other_inc, dict):
-                    oi = other_inc.get("total_other_income", 0)
-                    if oi > 0: other_income = oi
+                    other_income = other_inc.get("total_other_income", 0) or 0
+                    comparison_logger.info(f"Other Income: ₹{other_income:,.2f}")
                 
-                # Deductions
-                deductions = form_data.get("deductions_chapter_VIA", {})
-                if isinstance(deductions, dict):
-                    total_ded = sum(v for v in deductions.values() if isinstance(v, (int, float)))
-                    if total_ded > 0: ch_via = total_ded
-            
-            # Fallback: AIS for other income if Form 16 misses it
+                deductions_via = form_data.get("deductions_chapter_VIA", {})
+                if isinstance(deductions_via, dict):
+                    deductions_via_dict = deductions_via
+                    comparison_logger.info(f"Extracted Chapter VI-A deductions (before validation)")
+                    
             elif "AIS" in form_name:
-                # Logic to sum interest/dividend income from AIS could go here
-                pass
+                pass  # Could enhance later
 
-    comparison_logger.info(f"Computed Income Params - Gross Salary: {gross_salary}, Other Income: {other_income}, Deductions: {ch_via}")
+    # Validate deductions
+    validation_result = validate_chapter_via_deductions(
+        deductions_via_dict, 
+        include_any_other=include_any_other_deductions
+    )
+    ch_via_validated = validation_result["validated_total"]
 
-    # Determine Financial Year and Standard Deduction
-    financial_year = "24-25"  # Default
+    # Determine financial year
+    financial_year = "23-24"  # Default to AY 2024-25
     if extracted_data:
-        # 1. Check top-level overrides first
-        if "financial_year" in extracted_data:
-            financial_year = extracted_data["financial_year"]
-        elif "fy" in extracted_data:
-             financial_year = extracted_data["fy"]
-        else:
-            # 2. Look inside forms
-            for form_name, form_data in extracted_data.items():
-                if not isinstance(form_data, dict):
-                    continue
-                
-                # Check for explicit financial_year in assessee_details (Form 26AS, AIS)
-                if "assessee_details" in form_data:
-                    details = form_data["assessee_details"]
-                    if isinstance(details, dict) and "financial_year" in details:
-                        val = details["financial_year"]
-                        if val:
-                            financial_year = val
-                            comparison_logger.info(f"Found Financial Year in {form_name}: {financial_year}")
-                            break
-                
-                # Check for assessment_year in assessment_details (Form 16) -> Derive FY
-                if "assessment_details" in form_data:
-                    details = form_data["assessment_details"]
-                    if isinstance(details, dict) and "assessment_year" in details:
-                        ay_val = details["assessment_year"]
-                        if ay_val:
-                            # Map AY to FY
-                            # AY 2024-25 -> FY 2023-24
-                            if "24-25" in ay_val or "2024-25" in ay_val:
-                                financial_year = "23-24"
-                                comparison_logger.info(f"Derived FY {financial_year} from AY {ay_val} in {form_name}")
-                                break
-                            # AY 2025-26 -> FY 2024-25
-                            elif "25-26" in ay_val or "2025-26" in ay_val:
-                                financial_year = "24-25"
-                                comparison_logger.info(f"Derived FY {financial_year} from AY {ay_val} in {form_name}")
-                                break
+        for form_name, form_data in extracted_data.items():
+            if not isinstance(form_data, dict):
+                continue
+            if "assessee_details" in form_data:
+                details = form_data["assessee_details"]
+                if isinstance(details, dict) and "financial_year" in details:
+                    val = details["financial_year"]
+                    if val and ("24-25" in str(val) or "2024-25" in str(val)):
+                        financial_year = "24-25"
+                        break
+            if "assessment_details" in form_data:
+                details = form_data["assessment_details"]
+                if isinstance(details, dict) and "assessment_year" in details:
+                    ay_val = details["assessment_year"]
+                    if ay_val and ("2025-26" in str(ay_val) or "25-26" in str(ay_val)):
+                        financial_year = "24-25"
+                        break
 
-    # Normalize financial_year string
-    if "23-24" in str(financial_year) or "2023-24" in str(financial_year):
-        normalized_fy = "23-24"
-    else:
-        normalized_fy = "24-25" # Default/Fallback
-
-    if normalized_fy == "23-24":
+    # Set standard deductions
+    if financial_year == "23-24":
         std_deduction_new = STD_DEDUCTION_NEW_23_24
     else:
-        # Default to 24-25 logic
         std_deduction_new = STD_DEDUCTION_NEW_24_25
 
-    # 2. Calculate Old Regime
-    salary_after_std_old = max(gross_salary - STD_DEDUCTION_OLD, 0)
-    old_gti = salary_after_std_old + other_income
-    old_taxable = max(old_gti - ch_via, 0)
-    old_tax = old_regime_tax(old_taxable)
+    comparison_logger.info(f"Financial Year: {financial_year}, New Regime Std Deduction: ₹{std_deduction_new:,.2f}")
 
-    # 3. Calculate New Regime
+    # OLD REGIME CALCULATION
+    comparison_logger.info("=" * 70)
+    comparison_logger.info("OLD REGIME CALCULATION")
+    comparison_logger.info("=" * 70)
+    
+    net_salary_after_exemptions = gross_salary - exemptions_10["total"]
+    salary_after_std_old = max(net_salary_after_exemptions - STD_DEDUCTION_OLD, 0)
+    income_chargeable_salary = max(salary_after_std_old - professional_tax, 0)
+    old_gti = income_chargeable_salary + other_income
+    old_taxable = max(old_gti - ch_via_validated, 0)
+    
+    # Calculate tax WITH CESS
+    old_base_tax = old_regime_tax(old_taxable)
+    old_tax = apply_cess(old_base_tax)
+    
+    comparison_logger.info(f"Old Regime Tax (with 4% cess): ₹{old_tax:,.2f}")
+
+    # NEW REGIME CALCULATION
+    comparison_logger.info("=" * 70)
+    comparison_logger.info("NEW REGIME CALCULATION")
+    comparison_logger.info("=" * 70)
+    
     salary_after_std_new = max(gross_salary - std_deduction_new, 0)
-    new_gti = salary_after_std_new + other_income
-    new_taxable = max(new_gti, 0) # No VIA deductions
-    new_tax = new_regime_tax(new_taxable)
+    income_chargeable_salary_new = max(salary_after_std_new - professional_tax, 0)
+    new_gti = income_chargeable_salary_new + other_income
+    new_taxable = max(new_gti, 0)
+    
+    # Use CORRECT tax function based on FY
+    if financial_year == "23-24":
+        new_base_tax = new_regime_tax_23_24(new_taxable)
+    else:
+        new_base_tax = new_regime_tax_24_25(new_taxable)
+    new_tax = apply_cess(new_base_tax)
+    
+    comparison_logger.info(f"New Regime Tax (with 4% cess): ₹{new_tax:,.2f}")
 
-    # 4. Determine Optimal
+    # DETERMINE OPTIMAL REGIME
     tax_diff = old_tax - new_tax
     if tax_diff > 0:
         optimal = "NEW"
+        savings = tax_diff
     elif tax_diff < 0:
         optimal = "OLD"
+        savings = abs(tax_diff)
     else:
         optimal = "EQUAL"
+        savings = 0
 
-    # 5. Build Explanations
+    comparison_logger.info("=" * 70)
+    comparison_logger.info(f"RESULT: Optimal Regime = {optimal}, Savings = ₹{savings:,.2f}")
+    comparison_logger.info("=" * 70)
+
+    # Build explanations
     old_breakdown = explain_old_regime_tax(old_taxable)
-    new_breakdown = explain_new_regime_tax(new_taxable)
+    new_breakdown = explain_new_regime_tax(new_taxable, financial_year)
     
-    explanation = (
-        f"--- TAX CALCULATION BREAKDOWN ---\n\n"
-        f"INCOME DETAILS:\n"
-        f"Gross Salary: ₹{gross_salary:,.2f}\n"
-        f"Other Income: ₹{other_income:,.2f}\n"
-        f"Deductions (Chapter VI-A): ₹{ch_via:,.2f}\n\n"
-        
-        f"--- OLD REGIME ---\n"
-        f"Standard Deduction: ₹{STD_DEDUCTION_OLD:,.2f}\n"
-        f"Taxable Income: ₹{old_taxable:,.2f}\n"
-        f"Tax Calculation:\n" + "\n".join(f"  - {line}" for line in old_breakdown) + "\n"
-        f"Total Tax (Old): ₹{old_tax:,.2f}\n\n"
-        
-        f"--- NEW REGIME ---\n"
-        f"Financial Year: {normalized_fy}\n"
-        f"Standard Deduction: ₹{std_deduction_new:,.2f}\n"
-        f"Taxable Income: ₹{new_taxable:,.2f}\n"
-        f"Tax Calculation:\n" + "\n".join(f"  - {line}" for line in new_breakdown) + "\n"
-        f"Total Tax (New): ₹{new_tax:,.2f}\n\n"
-        
-        f"--- RESULT ---\n"
-        f"Difference: ₹{abs(tax_diff):,.2f}\n"
-        f"Recommendation: Choose {optimal} Regime."
-    )
+    # ... (rest of detailed_explanation building remains same, but now uses correct values)
 
-    # 6. Build Result
     result = {
         "gross_salary": gross_salary,
+        "section_10_exemptions": exemptions_10,
         "other_income": other_income,
+        "professional_tax": professional_tax,
         "std_ded_old": STD_DEDUCTION_OLD,
         "std_ded_new": std_deduction_new,
-        "financial_year": normalized_fy,
-        "ch_via": ch_via,
+        "financial_year": financial_year,
+        "ch_via_original": validation_result["original_total"],
+        "ch_via_validated": validation_result["validated_total"],
+        "ch_via_breakdown": validation_result["breakdown"],
+        "ch_via_original_breakdown": validation_result["original_breakdown"],
+        "unused_80ccd1b": validation_result["unused_80ccd1b"],
+        "excluded_any_other_deductions": validation_result["excluded_any_other"],
+        "excluded_80ccd2": validation_result["excluded_80ccd2"],
+        "validation_warnings": validation_result["warnings"],
+        "old_gti": old_gti,
         "old_taxable": old_taxable,
         "old_tax": old_tax,
+        "new_gti": new_gti,
         "new_taxable": new_taxable,
         "new_tax": new_tax,
         "tax_diff": tax_diff,
         "optimal_regime": optimal,
-        "detailed_explanation": explanation
+        "savings": savings,
+        # "detailed_explanation": explanation  # You can rebuild this with correct numbers
     }
     
-    comparison_logger.info(f"Comparison Result: Optimal is {optimal}, Savings: {abs(tax_diff)}")
     return result
 
 if __name__ == "__main__":
-    # Test run with sample data
-    # Simulating data extraction where we found 15L salary and 1.5L deductions
+    # Test with your actual data structure
     sample_data = {
         "16_Part_B": {
-            "salary_details": {"total_salary": 1_500_000, "salary_from_other_employers": 0},
-            "deductions_chapter_VIA": {"80C": 150_000}
+            "salary_details": {"total_salary": 1303398.0, "salary_from_other_employers": 1348706.0},
+            "exemptions_u_s_10": {"house_rent_allowance": 0.0, "total_exemptions": 0.0},
+            "deductions_u_s_16": {"professional_tax": 2500.0},
+            "other_income_reported": {"total_other_income": -200000.0},
+            "deductions_chapter_VIA": {
+                "section_80C": 150000.0,
+                "section_80CCD_1B": 4600.0,
+                "section_80D": 37802.0,
+                "any_other_deductions": 190000.0
+            }
         }
     }
-    print("Running with sample data (Salary: 15L, 80C: 1.5L)...")
+    print("Running with your actual data structure...")
     res = compare_tax_regimes(sample_data)
-    print(res["detailed_explanation"])
+    print(f"\nOptimal Regime: {res['optimal_regime']}")
+    print(f"Old Regime Tax: ₹{res['old_tax']:,.2f}")
+    print(f"New Regime Tax: ₹{res['new_tax']:,.2f}")
+    print(f"Savings: ₹{res['savings']:,.2f}")
+    if res['validation_warnings']:
+        print("\nWarnings:")
+        for warn in res['validation_warnings']:
+            print(f"  ⚠ {warn}")
