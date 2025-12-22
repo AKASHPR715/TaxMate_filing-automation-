@@ -207,33 +207,117 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
             base_tax = computation.get("old_tax", 0)
             taxable_income = computation.get("old_taxable", 0)
             
-        # Tax computation fields
-        gross_tax_liability = base_tax
-        rebate_87a = 0
-        
         # Apply rebate if eligible
+        rebate_87a = 0
         if is_new_regime:
             if taxable_income <= 700000:
-                rebate_87a = min(gross_tax_liability, 25000)
+                rebate_87a = min(base_tax, 25000)
         else:
             if taxable_income <= 500000:
-                rebate_87a = min(gross_tax_liability, 12500)
+                rebate_87a = min(base_tax, 12500)
                 
-        tax_after_rebate = max(gross_tax_liability - rebate_87a, 0)
+        # Tax computation fields - CORRECTED FORMULA
+        tax_after_rebate = max(base_tax - rebate_87a, 0)
         cess = round(tax_after_rebate * 0.04)
-        total_tax_payable = tax_after_rebate + cess
+        # CRITICAL FIX: GrossTaxLiability = TaxPayableOnTotalIncome + Cess
+        gross_tax_liability = tax_after_rebate + cess
+        total_tax_payable = gross_tax_liability
         
-        # Set regime flag
+        # Set regime flag and populate tax fields
         if form_type == "ITR-2":
             form["PartA_GEN1"]["FilingStatus"]["OptOutNewTaxRegime"] = "N" if is_new_regime else "Y"
-            # Tax computation under PartB_TTI
-            form["PartB_TTI"]["ComputationOfTaxLiability"]["TaxPayableOnTotalIncome"] = int(base_tax)
+            # Tax computation under PartB_TTI - CORRECTED VALUES
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["TaxPayableOnTotalIncome"] = int(tax_after_rebate)
             form["PartB_TTI"]["ComputationOfTaxLiability"]["Rebate87A"] = int(rebate_87a)
             form["PartB_TTI"]["ComputationOfTaxLiability"]["TaxPayableAfterRebate"] = int(tax_after_rebate)
-            form["PartB_TTI"]["ComputationOfTaxLiability"]["HealthAndEducationCess"] = int(cess)
+            form["PartB_TTI"]["ComputationOfTaxLiability"]["HealthAnd EducationCess"] = int(cess)
+            # FIX: GrossTaxLiability = TaxPayableAfterRebate + Cess
             form["PartB_TTI"]["ComputationOfTaxLiability"]["GrossTaxLiability"] = int(gross_tax_liability)
             form["PartB_TTI"]["ComputationOfTaxLiability"]["NetTaxLiability"] = int(total_tax_payable)
             form["PartB_TTI"]["ComputationOfTaxLiability"]["TotalTaxPayable"] = int(total_tax_payable)
+            
+            # POPULATE SCHEDULES FOR ITR-2
+            # ScheduleS - Salary Details
+            salary_schedule = []
+            for fname, fdata in data.items():
+                if "16_Part_B" in fname:
+                    emp_details = fdata.get("employer_details", {})
+                    salary_det = fdata.get("salary_details", {})
+                    if isinstance(emp_details, dict) and isinstance(salary_det, dict):
+                        total_sal = salary_det.get("total_salary", 0) or 0
+                        other_emp = salary_det.get("salary_from_other_employers", 0) or 0
+                        if total_sal > 0 or other_emp > 0:
+                            salary_schedule.append({
+                                "NameOfEmployer": emp_details.get("name", "Unknown"),
+                                "TANOfEmployer": emp_details.get("TAN", ""),
+                                "GrossSalary": int(total_sal + other_emp),
+                                "IncomeChargeable": int(total_sal + other_emp)
+                            })
+            if salary_schedule:
+                form["ScheduleS"]["Salaries"] = salary_schedule
+                
+            # ScheduleHP - House Property
+            hp_schedule = []
+            for fname, fdata in data.items():
+                if "16_Part_B" in fname:
+                    other_inc = fdata.get("other_income_reported", {})
+                    if isinstance(other_inc, dict):
+                        hp_income = other_inc.get("house_property_income", 0) or 0
+                        if hp_income != 0:  # Include losses
+                            hp_schedule.append({
+                                "PropertyType": "SOP",  # Self-Occupied Property
+                                "Address": "Self-Occupied Property",
+                                "GrossRentReceived": 0,
+                                "TaxesPaid": 0,
+                                "StandardDeduction": 0,
+                                "InterestPayable": abs(hp_income) if hp_income < 0 else 0,
+                                "IncomeFromHP": int(hp_income)
+                            })
+            if hp_schedule:
+                form["ScheduleHP"]["IFHP"] = hp_schedule
+                
+            # ScheduleOS - Other Sources (Interest)
+            os_schedule = []
+            for fname, fdata in data.items():
+                if "AIS" in fname:
+                    interest_entries = fdata.get("interest_income", [])
+                    if isinstance(interest_entries, list):
+                        for entry in interest_entries:
+                            if isinstance(entry, dict):
+                                interest_amt = entry.get("interest_amount", 0)
+                                if interest_amt > 0:
+                                    os_schedule.append({
+                                        "NatureOfIncome": "INT",  # Interest
+                                        "NameOfPayer": entry.get("bank_or_entity_name", "Unknown"),
+                                        "PANOfPayer": "",
+                                        "Amount": float(interest_amt)
+                                    })
+            if os_schedule:
+                form["ScheduleOS"]["IncOthSrc"] = os_schedule
+                
+            # ScheduleCG - Capital Gains
+            cg_schedule = []
+            for fname, fdata in data.items():
+                if "AIS" in fname:
+                    sec_txns = fdata.get("securities_transactions", [])
+                    if isinstance(sec_txns, list):
+                        for txn in sec_txns:
+                            if isinstance(txn, dict) and txn.get("transaction_type") in ["Sale", "SALE"]:
+                                cg_schedule.append({
+                                    "ISINCode": txn.get("isin_code", ""),
+                                    "NameOfShare": txn.get("script_name", ""),
+                                    "NoOfUnits": float(txn.get("quantity", 0)),
+                                    "SaleValue": float(txn.get("transaction_value", 0)),
+                                    "DateOfTransfer": txn.get("transaction_date", ""),
+                                    "Exchange": txn.get("exchange", "NSE"),
+                                    "TypeOfAsset": "LSS",  # Listed Equity Shares
+                                    "STTApplicable": "Y"
+                                })
+            if cg_schedule:
+                # Aggregate summary
+                total_stcg = sum(float(item.get("SaleValue", 0)) for item in cg_schedule)
+                form["ScheduleCG"]["CapGainSummary"]["STCG15Pct"] = int(total_stcg) if total_stcg > 0 else 0
+                form["ScheduleCG"]["LTCGDtls"] = cg_schedule  # Detailed transactions
         else:
             form["FilingStatus"]["OptOutNewTaxRegime"] = "N" if is_new_regime else "Y"
             form["ITR1_TaxComputation"]["GrossTaxLiability"] = int(gross_tax_liability)
@@ -243,38 +327,60 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
             form["ITR1_TaxComputation"]["TotalTaxPayable"] = int(total_tax_payable)
             form["ITR1_TaxComputation"]["NetTaxLiability"] = int(total_tax_payable)
 
-    # 6. TAX PAID (TDS)
+    # 6. TAX PAID (TDS) - COLLECT FROM ALL SOURCES
     tds_entries = []
     total_tds = 0
+    employer_tds_map = {}  # Track TDS by employer to avoid duplicates
     
-    # Get TDS from Form 16 Part A
+    # Get TDS from all Form 16 Part A files
     for fname, fdata in data.items():
         if "16_Part_A" in fname:
             employer = fdata.get("employer_details", {})
+            employer_name = employer.get("name", "Unknown")
+            employer_tan = employer.get("TAN", "")
+            
             tds_summary = fdata.get("tds_summary", [])
+            employer_total_salary = 0
+            employer_total_tds = 0
+            
             if isinstance(tds_summary, list):
                 for item in tds_summary:
                     if isinstance(item, dict):
                         amount_credited = item.get("amount_paid_credited", 0) or 0
                         tax_deducted = item.get("tax_deducted", 0) or 0
-                        total_tds += tax_deducted
-                        tds_entries.append({
-                            "TAN": employer.get("TAN", ""),
-                            "EmployerName": employer.get("name", ""),
-                            "IncChrgSal": int(amount_credited),
-                            "TotalTDSSal": int(tax_deducted)
-                        })
+                        employer_total_salary += amount_credited
+                        employer_total_tds += tax_deducted
+                
+                if employer_total_tds > 0:
+                    # Store by TAN to avoid duplicates
+                    if employer_tan not in employer_tds_map:
+                        employer_tds_map[employer_tan] = {
+                            "TAN": employer_tan,
+                            "EmployerName": employer_name,
+                            "IncChrgSal": int(employer_total_salary),
+                            "TotalTDSSal": int(employer_total_tds)
+                        }
+                        total_tds += employer_total_tds
     
-    # Also check Form 16 Part B for total TDS (fallback)
+    # Convert map to list
+    tds_entries = list(employer_tds_map.values())
+    
+    # Fallback: Check Form 16 Part B if no Part A data
     if not tds_entries:
         for fname, fdata in data.items():
             if "16_Part_B" in fname:
                 tax_comp = fdata.get("tax_computation", {})
+                emp_details = fdata.get("employer_details", {})
                 if isinstance(tax_comp, dict):
                     tds_total = tax_comp.get("tax_deducted_at_source", 0) or 0
                     if tds_total > 0:
-                        total_tds = tds_total
-                        break
+                        tds_entries.append({
+                            "TAN": emp_details.get("TAN", "UNKNOWN"),
+                            "EmployerName": emp_details.get("name", "Unknown Employer"),
+                            "IncChrgSal": int(gross_salary),
+                            "TotalTDSSal": int(tds_total)
+                        })
+                        total_tds += tds_total
     
     # Populate TDS fields (structure differs between ITR-1 and ITR-2)
     if form_type == "ITR-2":
@@ -286,12 +392,17 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
         if tds_entries:
             form["TaxPaid"]["TDSonSalary"] = tds_entries
 
-    # 7. REFUND CALCULATION
+    # 7. REFUND CALCULATION - CORRECTED
+    # Use actual total TDS from all employers
     tax_payable = total_tax_payable if computation else 0
     tds_credit = total_tds
+    # Refund = Total TDS - Net Tax Liability
     refund_due = max(tds_credit - tax_payable, 0)
+    tax_due = max(tax_payable - tds_credit, 0)  # Tax payable if TDS < liability
     
     form["Refund"]["RefundDue"] = int(refund_due)
+    if form_type == "ITR-2":
+        form["PartB_TTI"]["ComputationOfTaxLiability"]["TotalTaxPaid"] = int(tds_credit)
 
     return itr
 
