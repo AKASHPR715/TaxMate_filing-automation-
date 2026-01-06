@@ -1,4 +1,0 @@
-profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
-TAX-856F1D9D,Complex,New,143000.0,143000.0,128700.0,135850.0,0.0,14300.0,7150.0,,
-TAX-6B14231E,Medium,New,119600.0,119600.0,107640.0,113620.0,0.0,11960.0,5980.0,,
-TAX-5BFEE79E,Medium,New,264800.0,264800.0,238320.0,251560.0,0.0,26480.0,13240.0,,

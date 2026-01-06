@@ -22,7 +22,7 @@ from experiments.data_generation.constants import (
 
 # Import tax logic from src (reusing slab logic)
 try:
-    from src.services.tax_comparison import old_regime_tax, new_regime_tax
+    from src.services.tax_comparison import old_regime_tax, new_regime_tax_23_24 as new_regime_tax, apply_cess
 except ImportError:
     # Fallback if src import fails (e.g. during standalone testing without proper path)
     # Define simple lambdas or fail hard. Fail hard is better for ensuring consistency.
@@ -47,54 +47,6 @@ class TaxProfileGenerator:
         limit3 = max(0, rent_paid - (0.10 * basic))
         
         return min(limit1, limit2, limit3)
-
-    def _calculate_ground_truth(self, profile: TaxProfile) -> float:
-        """
-        Calculates the accurate tax liability based on the profile's data.
-        """
-        inc = profile.income
-        ded = profile.deductions
-        
-        gross_total = inc.gross_salary + inc.other_sources_income
-        
-        if profile.target_regime == "Old":
-            # 1. Exemptions (Section 10)
-            hra_exempt = self._calculate_hra_exemption(
-                inc.basic_salary, inc.hra_received, 
-                ded.rent_paid_annual, ded.is_metro_city
-            )
-            
-            # 2. Deductions (Chapter VI-A)
-            # 80C (Capped)
-            total_80c = ded.pf_contribution + ded.elss + ded.lic_premium + ded.ppf
-            deduction_80c = min(total_80c, SECTION_80C_LIMIT)
-            
-            # 80D
-            deduction_80d = ded.medical_insurance_self + ded.medical_insurance_parents
-            
-            # Total Deductions
-            # Note: Standard Deduction is fixed
-            taxable_income = (
-                gross_total 
-                - OLD_REGIME_STANDARD_DEDUCTION 
-                - hra_exempt 
-                - deduction_80c 
-                - deduction_80d
-            )
-            
-            taxable_income = max(0, round(taxable_income))
-            return old_regime_tax(taxable_income)
-            
-        else: # New Regime
-            # FY25: Standard Deduction increased to 75k (assuming we are simulating FY25)
-            # However, constants.py might have 50k or 75k. Let's use the one imported.
-            
-            # New Regime allows very few deductions. Usually just Std Ded.
-            # (ignoring 80CCD(2) for simplicity as it requires employer contrib details)
-            
-            taxable_income = gross_total - STANDARD_DEDUCTION
-            taxable_income = max(0, round(taxable_income))
-            return new_regime_tax(taxable_income)
 
     def generate_profile(self) -> TaxProfile:
         # 1. Generate Income
@@ -148,11 +100,11 @@ class TaxProfileGenerator:
             income=income_details,
             deductions=deduction_details,
             target_regime=target_regime,
-            complexity_category=complexity
+            complexity_category=complexity,
         )
         
-        # 4. Calculate Ground Truth
-        profile.ground_truth_tax = self._calculate_ground_truth(profile)
+        # Ground truth NOT calculated to avoid circular validation
+        # It should come from an independent source (official calculator, CA, etc.)
         
         return profile
 
