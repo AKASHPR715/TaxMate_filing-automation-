@@ -75,11 +75,13 @@ class TaxDistributions:
     @staticmethod
     def generate_rent(basic_salary: float, is_metro: bool) -> float:
         """
-        Generates realistic rent paid based on basic salary foundation.
+        Generates realistic rent paid based on basic salary.
+        Note: basic_salary is ANNUAL, so no need to annualize rent.
         """
         if random.random() < 0.2: # 20% don't pay rent (live in own house)
             return 0.0
             
-        # Rent is typically 20-40% of Basic
+        # Rent is typically 20-50% of annual basic salary for metro, 10-30% for non-metro
         rent_ratio = random.uniform(0.2, 0.5) if is_metro else random.uniform(0.1, 0.3)
-        return round(basic_salary * rent_ratio, -2) * 12 # Annualize? No, basic is annual. Wait, basic passed in is annual.
+        annual_rent = basic_salary * rent_ratio
+        return round(annual_rent, -2)  # Round to nearest ₹100

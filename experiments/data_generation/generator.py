@@ -94,6 +94,32 @@ class TaxProfileGenerator:
         if gross > 1500000 and (rent_paid > 0 and ded_raw["medical_parents"] > 0):
             complexity = "Complex"
 
+        # 4. Calculate Ground Truth based on target regime
+        # This uses the SAME logic as tax_comparison.py (the symbolic solver)
+        gross_total_income = gross + other_income
+        
+        if target_regime == "Old":
+            # Old Regime: Apply exemptions and deductions
+            hra_exemption = self._calculate_hra_exemption(basic, hra, rent_paid, is_metro)
+            
+            # Chapter VI-A deductions (80C + 80D)
+            total_80c = min(
+                ded_raw["pf"] + ded_raw["elss"] + ded_raw["lic"] + ded_raw["ppf"],
+                SECTION_80C_LIMIT
+            )
+            total_80d = ded_raw["medical_self"] + ded_raw["medical_parents"]
+            
+            # Taxable Income for Old Regime
+            taxable_income = max(0, gross_total_income - OLD_REGIME_STANDARD_DEDUCTION - hra_exemption - total_80c - total_80d)
+            ground_truth = apply_cess(old_regime_tax(taxable_income))
+        else:
+            # New Regime: Only standard deduction, no exemptions/deductions
+            # FY 2023-24 (AY 2024-25): ₹50,000 standard deduction
+            # NOTE: Don't use STANDARD_DEDUCTION constant (that's ₹75K for FY 24-25)
+            STD_DED_NEW_23_24 = 50000
+            taxable_income = max(0, gross_total_income - STD_DED_NEW_23_24)
+            ground_truth = apply_cess(new_regime_tax(taxable_income))
+        
         profile = TaxProfile(
             profile_id=pid,
             age=age,
@@ -101,10 +127,8 @@ class TaxProfileGenerator:
             deductions=deduction_details,
             target_regime=target_regime,
             complexity_category=complexity,
+            ground_truth_tax=ground_truth  # NOW POPULATED!
         )
-        
-        # Ground truth NOT calculated to avoid circular validation
-        # It should come from an independent source (official calculator, CA, etc.)
         
         return profile
 

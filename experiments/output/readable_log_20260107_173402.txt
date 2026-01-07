@@ -1,0 +1,124 @@
+================================================================================
+TAX COMPUTATION BENCHMARK - 20260107_173402
+Model: google/gemini-2.0-flash-exp:free
+Total Profiles: 3
+Dry Run: True
+================================================================================
+
+
+================================================================================
+PROFILE 1/3: TAX-F3DD5BEA
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 25
+Gross Salary: ₹670,000.00
+Basic Salary: ₹325,100.00
+HRA Received: ₹158,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹134,884.00
+    - PF: ₹40,200.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹94,684.00
+  Total 80D: ₹30,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹1,044,000.00 (Metro: False)
+
+GROUND TRUTH: ₹3,903.95
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹10,926.03
+   Error: ₹7,022.08 (179.87%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹3,513.56
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹3,708.75
+
+
+================================================================================
+PROFILE 2/3: TAX-8589C571
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 56
+Gross Salary: ₹1,109,000.00
+Basic Salary: ₹530,300.00
+HRA Received: ₹241,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹66,500.00
+    - ELSS: ₹83,500.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹1,627,200.00 (Metro: False)
+
+GROUND TRUTH: ₹67,704.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹71,604.00
+   Error: ₹3,900.00 (5.76%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹60,933.60
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹64,318.80
+
+
+================================================================================
+PROFILE 3/3: TAX-D0919409
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 47
+Gross Salary: ₹2,529,000.00
+Basic Salary: ₹1,181,100.00
+HRA Received: ₹586,400.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹151,700.00
+    - PF: ₹151,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹6,994,800.00 (Metro: True)
+
+GROUND TRUTH: ₹461,448.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹469,248.00
+   Error: ₹7,800.00 (1.69%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹415,303.20
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹438,375.60
+
