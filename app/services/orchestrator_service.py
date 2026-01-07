@@ -204,7 +204,16 @@ class TaxOrchestrator:
                     if data.get("assessee_details", {}).get("PAN", "") or \
                        data.get("employee_details", {}).get("PAN", "") or \
                        len(data.get("tds_tcs_information", [])) > 0:
-                        extracted[json_file.stem] = data
+                        # Normalize key based on filename prefix
+                        key = json_file.stem
+                        if key.lower().startswith("form16a"):
+                            key = "form16a"
+                        elif key.lower().startswith("form16b"):
+                            key = "form16b"
+                        elif key.lower().startswith("ais"):
+                            key = "ais"
+                        
+                        extracted[key] = data
                         forms_found += 1
                         logger.info(f"  Captured data from: {json_file.name}")
                     else:
