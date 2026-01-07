@@ -64,3 +64,8 @@ Thumbs.db
 node_modules/
 npm-debug.log
 yarn-error.log
+.next/
+out/
+build/
+.vercel/
+
