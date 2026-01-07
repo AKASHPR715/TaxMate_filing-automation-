@@ -5,7 +5,7 @@ import json
 # Add src to path
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
 
-from services.form_generation import generate_filing_forms
+from services.form_generation_service import generate_filing_forms
 
 def test_generation():
     # Dummy Extracted Data
