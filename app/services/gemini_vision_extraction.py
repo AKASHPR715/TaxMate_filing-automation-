@@ -27,7 +27,7 @@ logger = logging.getLogger("gemini_extraction")
 # Configuration
 # ============================================================
 
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_API_KEY = "AIzaSyBndJQKvsBzTjNuDHxP8J0uRzt6UN-AkfA"
 if not GOOGLE_API_KEY:
     logger.warning("GOOGLE_API_KEY not found in .env - Gemini extraction will not work")
 
@@ -224,14 +224,14 @@ Important:
 class GeminiVisionExtractor:
     """Fast PDF extraction using Gemini Vision model"""
     
-    def __init__(self, model_name: str = "gemini-1.5-flash"):
+    def __init__(self, model_name: str = "gemini-pro-vision"):
         """
         Initialize Gemini Vision extractor
         
         Args:
             model_name: Gemini model to use
-                - gemini-1.5-flash: Fastest, good accuracy (recommended)
-                - gemini-1.5-pro: Better accuracy, slightly slower
+                - gemini-pro-vision: Vision model for images (recommended)
+                - gemini-pro: Text-only model
         """
         if not GOOGLE_API_KEY:
             raise ValueError("GOOGLE_API_KEY not set in environment variables")

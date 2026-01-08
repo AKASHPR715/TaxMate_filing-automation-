@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getUserId, getApiHeaders } from '@/lib/user';
 import {
   Dialog,
   DialogContent,
@@ -63,7 +64,8 @@ export default function Dashboard() {
     setIsExtracting(true);
     try {
       const res = await fetch('http://localhost:8000/api/details/extract', {
-        method: 'POST'
+        method: 'POST',
+        headers: getApiHeaders()
       });
       if (!res.ok) throw new Error('Extraction failed');
       const data = await res.json();
@@ -98,7 +100,7 @@ export default function Dashboard() {
 
       const res = await fetch('http://localhost:8000/api/details/calculate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getApiHeaders('application/json'),
         body: JSON.stringify(payload)
       });
 
@@ -242,6 +244,9 @@ export default function Dashboard() {
 
       const res = await fetch('http://localhost:8000/api/upload', {
         method: 'POST',
+        headers: {
+          'X-User-Id': getUserId(),
+        },
         body: formData
       });
 
@@ -368,6 +373,9 @@ export default function Dashboard() {
 
       const response = await fetch('http://localhost:8000/api/upload', {
         method: 'POST',
+        headers: {
+          'X-User-Id': getUserId(),
+        },
         body: formData,
       });
 

@@ -64,19 +64,47 @@ def setup_extraction_logger():
 extraction_logger = setup_extraction_logger()
 
 # ------------------------------------------------------------
-# 🔐 Load environment variables and initialize extractor
+# 🔐 Load environment variables and initialize extractors
 # ------------------------------------------------------------
 load_dotenv()  # Loads .env file
-api_key = os.getenv("LLAMA_CLOUD_API_KEY")
-if not api_key:
-    raise ValueError("Please set LLAMA_CLOUD_API_KEY in your .env file.")
 
-# Initialize extractor with extended timeouts to handle complex documents
-extractor = LlamaExtract(
-    api_key=api_key,
-    max_timeout=600000,   # 10 minutes (600,000 ms) - Increased for complex AIS files
-    httpx_timeout=600.0   # 10 minutes (seconds)
-)
+# Gemini Vision (NEW - Faster!)
+USE_GEMINI_VISION = os.getenv("USE_GEMINI_VISION", "true").lower() == "true"
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+# Legacy LlamaExtract (Fallback)
+LLAMA_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
+
+# Try to use Gemini Vision first
+if USE_GEMINI_VISION and GOOGLE_API_KEY:
+    extraction_logger.info("🚀 Using Gemini Vision for extraction (6-12x faster!)")
+    try:
+        from app.services.gemini_vision_extraction import (
+            GeminiVisionExtractor,
+            extract_form16a_vision,
+            extract_form16b_vision,
+            extract_ais_vision
+        )
+        EXTRACTION_METHOD = "gemini"
+        extraction_logger.info("✅ Gemini Vision loaded successfully")
+    except ImportError as e:
+        extraction_logger.error(f"❌ Failed to import Gemini Vision: {e}")
+        extraction_logger.info("Falling back to LlamaExtract")
+        USE_GEMINI_VISION = False
+
+# Initialize LlamaExtract if Gemini not available or as fallback
+if not USE_GEMINI_VISION or not GOOGLE_API_KEY:
+    if not LLAMA_API_KEY:
+        raise ValueError("Please set either GOOGLE_API_KEY or LLAMA_CLOUD_API_KEY in your .env file.")
+    
+    extraction_logger.info("Using LlamaExtract (legacy method)")
+    # Initialize extractor with reduced timeouts (was 10 minutes, now 2 minutes)
+    extractor = LlamaExtract(
+        api_key=LLAMA_API_KEY,
+        max_timeout=120000,   # 2 minutes (reduced from 10)
+        httpx_timeout=120.0   # 2 minutes
+    )
+    EXTRACTION_METHOD = "llama"
 
 # ============================================================
 # 🛡️ Database Helper Functions
@@ -269,8 +297,9 @@ def extract_all_forms():
 def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
     """
     Process a single uploaded file based on its document type.
+    Uses Gemini Vision if enabled, otherwise falls back to LlamaExtract.
     """
-    extraction_logger.info(f"Processing uploaded file: {file_path} as {doc_type}")
+    extraction_logger.info(f"📄 Processing: {file_path} as {doc_type}")
     
     if not user_id:
          # Fallback for testing/manual calls
@@ -278,10 +307,9 @@ def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
             db_client = get_sync_db()
             user_id = get_or_create_default_user(db_client)
          except Exception as e:
-             extraction_logger.error(f"DB Connection failed in process_uploaded_file: {e}")
+              extraction_logger.error(f"DB Connection failed: {e}")
 
-    # Map document types to schemas
-    # doc_type should be one of: "form16a", "form16b", "form26as", "ais"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     schema_map = {
         "form16a": Form16PartA_Schema,
         "form16b": Form16PartB_Schema,
@@ -291,43 +319,96 @@ def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
     schema = schema_map.get(doc_type.lower())
     if not schema:
         raise ValueError(f"Unknown document type: {doc_type}")
-
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    # Use full UUID to ensure unique agent name and avoid caching issues
-    agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
-
+    
     try:
-        extraction_logger.info(f"Creating agent with name: {agent_name}")
-        extraction_logger.info(f"Using schema: {schema.__name__}")
+        # Try Gemini Vision first if enabled
+        if EXTRACTION_METHOD == "gemini":
+            extraction_logger.info(f"🤖 Using Gemini Vision")
+            
+            # Map doc_type to extraction function
+            gemini_extractors = {
+                "form16a": extract_form16a_vision,
+                "form16b": extract_form16b_vision,
+                "ais": extract_ais_vision,
+            }
+            
+            extractor_func = gemini_extractors.get(doc_type.lower())
+            if not extractor_func:
+                raise ValueError(f"Unknown document type for Gemini: {doc_type}")
+            
+            # Extract using Gemini Vision
+            result_data = extractor_func(file_path)
+            extraction_logger.info(f"✅ Gemini extraction successful")
+            
+        else:
+            # Use LlamaExtract (legacy)
+            extraction_logger.info(f"🔄 Using LlamaExtract")
+            
+            agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
+            extraction_logger.info(f"Creating agent: {agent_name}")
+            extraction_logger.info(f"Using schema: {schema.__name__}")
+            
+            config = ExtractConfig(invalidate_cache=True)
+            agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
+            extraction_logger.info(f"Agent created, starting extraction...")
+            
+            result = agent.extract(file_path)
+            result_data = result.data
+            extraction_logger.info(f"Result preview: {json.dumps(result_data, indent=2, default=str)[:200]}...")
         
-        # Use invalidate_cache=True to bypass Llama Cloud's 48-hour cache
-        config = ExtractConfig(invalidate_cache=True)
-        
-        agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
-        extraction_logger.info(f"Agent created successfully with cache invalidation, starting extraction...")
-        
-        result = agent.extract(file_path)
-        
-        # Debug logging to identify extraction issues
-        extraction_logger.info(f"Result data content: {json.dumps(result.data, indent=2, default=str)[:200]}...")
-        
-        # 1. Save to JSON
+        # Save to JSON (Backup/Debug)
         APP_ROOT = Path(__file__).resolve().parents[1]
         output_dir = APP_ROOT / "data" / "extracted"
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path = output_dir / f"{Path(file_path).stem}_{timestamp}.json"
         
         with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(result.data, f, indent=4, ensure_ascii=False)
+            json.dump(result_data, f, indent=4, ensure_ascii=False)
             
-        # 2. Save to DB
-        save_extraction_to_db(result.data, schema, user_id, file_path)
+        # Save to DB
+        save_extraction_to_db(result_data, schema, user_id, file_path)
 
-        extraction_logger.info(f"Extraction complete -> {output_path}")
-        return result.data
+        extraction_logger.info(f"✅ Complete → {output_path}")
+        return result_data
 
     except Exception as e:
-        extraction_logger.error(f"Failed to extract {file_path}: {e}")
+        extraction_logger.error(f"❌ Extraction failed: {e}")
+        
+        # If Gemini failed and LlamaExtract is available, try fallback
+        if EXTRACTION_METHOD == "gemini" and LLAMA_API_KEY:
+            extraction_logger.warning("⚠️  Trying LlamaExtract fallback...")
+            try:
+                # Initialize LlamaExtract on-demand for fallback
+                llama_extractor = LlamaExtract(
+                    api_key=LLAMA_API_KEY,
+                    max_timeout=120000,
+                    httpx_timeout=120.0
+                )
+                
+                agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
+                config = ExtractConfig(invalidate_cache=True)
+                agent = llama_extractor.create_agent(name=agent_name, data_schema=schema, config=config)
+                
+                result = agent.extract(file_path)
+                result_data = result.data
+                
+                # Save fallback result
+                APP_ROOT = Path(__file__).resolve().parents[1]
+                output_dir = APP_ROOT / "data" / "extracted"
+                output_dir.mkdir(parents=True, exist_ok=True)
+                output_path = output_dir / f"{Path(file_path).stem}_{timestamp}.json"
+                
+                with open(output_path, "w", encoding="utf-8") as f:
+                    json.dump(result_data, f, indent=4, ensure_ascii=False)
+                    
+                save_extraction_to_db(result_data, schema, user_id, file_path)
+                extraction_logger.info(f"✅ Fallback successful → {output_path}")
+                return result_data
+                
+            except Exception as fallback_error:
+                extraction_logger.error(f"❌ Fallback also failed: {fallback_error}")
+                raise fallback_error
+        
         raise e
 
 # ============================================================
