@@ -19,13 +19,14 @@ _executor = ThreadPoolExecutor(max_workers=3)
 
 
 @router.post("/upload")
-async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16a")):
+async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16a"), user_id: str = Form(None)):
     """
     Upload and process a tax document.
     
     Args:
         file: Uploaded PDF file
         doc_type: Document type - options: "form16a", "form16b", "form26as", "ais"
+        user_id: Optional user ID to associate document with
         
     Returns:
         dict: Upload status and extracted data
@@ -50,7 +51,8 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
             func = functools.partial(
                 process_uploaded_file,
                 str(file_path),
-                doc_type
+                doc_type,
+                user_id  # Pass user_id to service
             )
             extracted_data = await asyncio.wait_for(
                 loop.run_in_executor(_executor, func),

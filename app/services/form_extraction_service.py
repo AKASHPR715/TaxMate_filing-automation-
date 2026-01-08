@@ -7,13 +7,21 @@ from pathlib import Path
 import json
 import uuid
 from datetime import datetime
-from typing import List, Optional
-from pydantic import BaseModel, Field
+from typing import List, Optional, Type
+from pydantic import BaseModel
 from llama_cloud_services import LlamaExtract
 from llama_cloud.types import ExtractConfig
 from dotenv import load_dotenv
 import logging
 from logging.handlers import RotatingFileHandler
+from pymongo import MongoClient
+
+# Import DB Models and Connection
+from app.db.models import (
+    Form16PartA, Form16PartB, AIS, User,
+    Form16PartA_Schema, Form16PartB_Schema, AIS_Schema
+)
+from app.db.connection import get_sync_db
 
 # ============================================================
 # Logging Configuration for form_extraction.py
@@ -71,296 +79,106 @@ extractor = LlamaExtract(
 )
 
 # ============================================================
-# 🧾 FORM SCHEMAS (same as before – kept for completeness)
+# 🛡️ Database Helper Functions
 # ============================================================
-# (Keep all your BaseModel classes exactly as defined: Form16PartA, Form16PartB, Form26, AIS, etc.)
-# [You don't need to change these — just paste them as-is below the import block]
 
-# [👉 Paste all your class definitions here — EmployerDetailsA, Form16PartA, ..., AIS]
+def get_or_create_default_user(db_client) -> str:
+    """
+    Get a default user for standalone script execution context.
+    If no user exists, create a Test User.
+    """
+    users_collection = db_client["users"]
+    
+    # Try to find an existing user - specifically "Test User" if possible
+    user = users_collection.find_one({"full_name": "Test User"})
+    if not user:
+        # If no Test User, try ANY user
+        user = users_collection.find_one({})
+    
+    if user:
+        extraction_logger.info(f"Using existing user: {user.get('full_name')} ({user['_id']})")
+        return user["_id"]
+    
+    # Create new Test User if database is empty
+    new_user = User(
+        email="test_user@example.com",
+        full_name="Test User",
+        pan_number="ABCDE1234F"
+    )
+    # Convert to dict for mongo insertion (excluding _id to let mongo or model handle it)
+    user_dict = new_user.model_dump(by_alias=True, exclude={"id"})
+    result = users_collection.insert_one(user_dict)
+    extraction_logger.info(f"Created new Test User with ID: {result.inserted_id}")
+    return result.inserted_id
+
+def save_extraction_to_db(data: dict, schema_class: Type[BaseModel], user_id, source_file: str):
+    """
+    Save extracted data to the appropriate MongoDB collection based on the schema class.
+    """
+    db_client = get_sync_db()
+    
+    # Map Extraction Schema -> DB Model
+    # Since we use Base schemas for extraction, but need to save to DB collections
+    if schema_class in [Form16PartA, Form16PartA_Schema]:
+        collection_name = "form16_part_as"
+        db_model = Form16PartA
+    elif schema_class in [Form16PartB, Form16PartB_Schema]:
+        collection_name = "form16_part_bs"
+        db_model = Form16PartB
+    elif schema_class in [AIS, AIS_Schema]:
+        collection_name = "ais"
+        db_model = AIS
+    else:
+        extraction_logger.warning(f"Unknown schema class {schema_class.__name__}, skipping DB save.")
+        return
+
+    try:
+        # Instantiate model to validate and add fields
+        # Note: input data is pure dict, we need to add user_id and source_file
+        model_instance = db_model(
+            user_id=user_id,
+            source_file=Path(source_file).name,
+            **data
+        )
+        
+        # Convert back to dict for storage
+        document = model_instance.model_dump(by_alias=True, exclude={"id"})
+        
+        # Insert
+        result = db_client[collection_name].insert_one(document)
+        extraction_logger.info(f"✅ Saved to DB collection '{collection_name}' with ID: {result.inserted_id}")
+        return result.inserted_id
+
+    except Exception as e:
+        extraction_logger.error(f"❌ Failed to save to DB: {e}")
+        # We don't raise here to avoid stopping the whole pipeline, but we log explicitly
+        return None
+
 
 # ============================================================
 # 🚀 Extraction Pipeline (modified for local files)
 # ============================================================
-# ---------- Form 16 Part A ----------
-class EmployerDetailsA(BaseModel):
-    name: str
-    address: str
-    PAN: str
-    TAN: str
-    contact_number: Optional[str]
-    email: Optional[str]
- 
-class EmployeeDetailsA(BaseModel):
-    name: str
-    address: str
-    PAN: str
-    employee_reference_no: Optional[str]
- 
-class AssessmentDetailsA(BaseModel):
-    assessment_year: str
-    period_from: str
-    period_to: str
-    CIT_TDS_office: Optional[str]
- 
-class TDSSummaryItem(BaseModel):
-    quarter: str
-    tds_receipt_number: str
-    amount_paid_credited: float
-    tax_deducted: float
-    tax_deposited: float
- 
-class TDSTotals(BaseModel):
-    total_amount_paid: float
-    total_tax_deducted: float
-    total_tax_deposited: float
- 
-class TaxDepositDetail(BaseModel):
-    challan_id: Optional[str]
-    bsr_code: str
-    date_of_deposit: str
-    challan_serial_number: str
-    amount_deposited: float
-    status: str
- 
-class CertificateDetails(BaseModel):
-    certificate_number: str
-    issue_date: str
-    place: str
-    signatory_name: str
-    designation: str
- 
-class Form16PartA(BaseModel):
-    employer_details: EmployerDetailsA
-    employee_details: EmployeeDetailsA
-    assessment_details: AssessmentDetailsA
-    tds_summary: List[TDSSummaryItem]
-    tds_totals: TDSTotals
-    tax_deposit_details: List[TaxDepositDetail]
-    certificate_details: CertificateDetails
- 
- 
-# ---------- Form 16 Part B ----------
-class EmployerDetailsB(BaseModel):
-    name: str
-    address: str
-    PAN: str
-    TAN: str
-    contact_number: str
-    email: str
- 
-class EmployeeDetailsB(BaseModel):
-    name: str
-    address: str
-    PAN: str
- 
-class AssessmentDetailsB(BaseModel):
-    assessment_year: str
-    period_from: str
-    period_to: str
-    CIT_TDS_office: str
- 
-class SalaryDetails(BaseModel):
-    salary_u_s_17_1_a: float
-    salary_u_s_17_1_b: float
-    salary_u_s_17_3: float
-    total_salary: float
-    salary_from_other_employers: float
-    perquisites_u_s_17_2: float
- 
-class ExemptionsUS10(BaseModel):
-    leave_travel_concession: float
-    gratuity: float
-    leave_encashment: float
-    house_rent_allowance: float
-    commuted_pension: float
-    any_other_exemption: float
-    total_exemptions: float
- 
-class DeductionsUS16(BaseModel):
-    standard_deduction: float
-    entertainment_allowance: float
-    professional_tax: float
-    total_deductions: float
- 
-class OtherIncomeReported(BaseModel):
-    house_property_income: float
-    other_sources_income: float
-    total_other_income: float
- 
-class DeductionsChapterVIA(BaseModel):
-    section_80C: float
-    section_80CCC: float
-    section_80CCD_1: float
-    section_80CCD_1B: float
-    section_80CCD_2: float
-    section_80D: float
-    section_80E: float
-    section_80G: float
-    section_80TTA: float
-    any_other_deductions: float
-    total_deductions: float
- 
-class TaxComputation(BaseModel):
-    income_tax: float
-    surcharge: float
-    rebate_u_s_87A: float
-    health_education_cess: float
-    relief_u_s_89: float
-    total_tax_liability: float
-    tax_deducted_at_source: float
-    net_tax_payable_or_refundable: float
- 
-class Form16PartB(BaseModel):
-    employer_details: EmployerDetailsB
-    employee_details: EmployeeDetailsB
-    assessment_details: AssessmentDetailsB
-    salary_details: SalaryDetails
-    exemptions_u_s_10: ExemptionsUS10
-    net_salary_after_exemptions: float
-    deductions_u_s_16: DeductionsUS16
-    income_chargeable_under_salary: float
-    other_income_reported: OtherIncomeReported
-    gross_total_income: float
-    deductions_chapter_VIA: DeductionsChapterVIA
-    taxable_income: float
-    tax_computation: TaxComputation
-    certificate_details: CertificateDetails
- 
- 
-# ---------- Form AIS ----------
-class AssesseeDetails(BaseModel):
-    PAN: str = Field(description="Permanent Account Number of the assessee.")
-    name: str = Field(description="Name of the assessee.")
-    assessment_year: str = Field(description="Assessment Year for which the statement is.")
-    financial_year: str = Field(description="Financial Year for which the statement is.")
- 
-class TdsTcsInformation(BaseModel):
-    source_type: str
-    deductor_collector_name: str
-    deductor_collector_TAN: str
-    income_type: str
-    amount_paid_credited: float
-    tax_deducted_collected: float
-    quarter: Optional[str]
-    date_of_transaction: Optional[str]
-    remarks: Optional[str]
- 
-class SftInformation(BaseModel):
-    transaction_type: str
-    reporting_entity_name: str
-    reporting_entity_PAN: str
-    transaction_date: str
-    transaction_amount: float
-    financial_institution_name: Optional[str]
-    remarks: Optional[str]
- 
-class InterestIncome(BaseModel):
-    source: str
-    bank_or_entity_name: str
-    account_number_masked: str
-    interest_amount: float
-    quarter_or_month: Optional[str]
- 
-class DividendIncome(BaseModel):
-    company_name: str
-    isin_code: str
-    dividend_amount: float
-    date_of_credit: str
-    remarks: Optional[str]
- 
-class SecuritiesTransaction(BaseModel):
-    isin_code: str
-    script_name: str
-    transaction_type: str
-    quantity: float
-    transaction_value: float
-    transaction_date: str
-    broker_name: Optional[str]
-    exchange: Optional[str]
-    remarks: Optional[str]
- 
-class MutualFundTransaction(BaseModel):
-    amc_name: str
-    isin_code: str
-    scheme_name: str
-    transaction_type: str
-    units: float
-    amount: float
-    transaction_date: str
-    remarks: Optional[str]
- 
-class PropertyTransaction(BaseModel):
-    property_type: str
-    property_address: str
-    buyer_seller_name: str
-    buyer_seller_PAN: str
-    transaction_date: str
-    transaction_value: float
-    remarks: Optional[str]
- 
-class ForeignRemittance(BaseModel):
-    country: str
-    purpose_code: str
-    amount_remitted: float
-    currency: str
-    date_of_remittance: str
-    bank_name: str
- 
-class TaxPaymentInformation(BaseModel):
-    bsr_code: str
-    date_of_deposit: str
-    challan_serial_number: str
-    amount: float
-    tax_type: str
-    remarks: Optional[str]
- 
-class RefundInformation(BaseModel):
-    assessment_year: str
-    refund_issue_date: str
-    refund_amount: float
-    interest_amount: Optional[float]
-    mode_of_payment: Optional[str]
-    remarks: Optional[str]
- 
-class FeedbackSummary(BaseModel):
-    information_category: str
-    reported_value: float
-    user_value: float
-    feedback_type: str
-    final_accepted_value: float
- 
-# Main AIS schema
-class AIS(BaseModel):
-    assessee_details: AssesseeDetails
-    tds_tcs_information: List[TdsTcsInformation]
-    sft_information: List[SftInformation]
-    interest_income: List[InterestIncome]
-    dividend_income: List[DividendIncome]
-    securities_transactions: List[SecuritiesTransaction]
-    mutual_fund_transactions: List[MutualFundTransaction]
-    property_transactions: List[PropertyTransaction]
-    foreign_remittances: List[ForeignRemittance]
-    tax_payment_information: List[TaxPaymentInformation]
-    refund_information: List[RefundInformation]
-    feedback_summary: List[FeedbackSummary]
- 
-
-
-
 
 def extract_all_forms():
     """
-    Extract all tax forms using Llama Cloud API and save to data/extracted/.
+    Extract all tax forms using Llama Cloud API and save to data/extracted/ AND MongoDB.
     Discovers files in uploads directory based on doc_type prefixes (form16a_, form16b_, ais_).
-    Works with any uploaded filename - no hardcoded file names!
     """
     extraction_logger.info("Starting form extraction process...")
     
+    # Connect to DB and get user context
+    try:
+        db_client = get_sync_db()
+        user_id = get_or_create_default_user(db_client)
+    except Exception as e:
+        extraction_logger.error(f"Could not connect to database: {e}")
+        raise e
+
     # Map doc_type prefixes to schemas
     doc_type_schemas = {
-        "form16a": Form16PartA,
-        "form16b": Form16PartB,
-        "ais": AIS,
+        "form16a": Form16PartA_Schema,
+        "form16b": Form16PartB_Schema,
+        "ais": AIS_Schema,
     }
 
     # Define upload directory
@@ -416,7 +234,6 @@ def extract_all_forms():
             extraction_logger.info("Agent created successfully with cache invalidation, starting extraction...")
             
             result = agent.extract(str(file_path))
-            extraction_logger.info(f"Extraction result type: {type(result)}")
             
             # Parse result
             if hasattr(result, 'data') and result.data:
@@ -424,7 +241,7 @@ def extract_all_forms():
             else:
                 raise ValueError(f"Unexpected result format from LlamaExtract for {file_path.name}")
             
-            # Save to extracted directory
+            # 1. Save to JSON (Backup/Debug)
             output_dir = APP_ROOT / "data" / "extracted"
             output_dir.mkdir(parents=True, exist_ok=True)
             output_path = output_dir / f"{doc_type}_{timestamp}.json"
@@ -432,7 +249,11 @@ def extract_all_forms():
             with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(extracted_dict, f, indent=4, ensure_ascii=False)
             
-            extraction_logger.info(f"Extraction complete -> {output_path}")
+            extraction_logger.info(f"JSON saved -> {output_path}")
+            
+            # 2. Save to DB
+            save_extraction_to_db(extracted_dict, schema, user_id, str(file_path))
+            
             extracted_count += 1
             
         except Exception as e:
@@ -445,18 +266,26 @@ def extract_all_forms():
     extraction_logger.info(f"Successfully extracted {extracted_count} document(s)")
 
 
-def process_uploaded_file(file_path: str, doc_type: str):
+def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
     """
     Process a single uploaded file based on its document type.
     """
     extraction_logger.info(f"Processing uploaded file: {file_path} as {doc_type}")
     
+    if not user_id:
+         # Fallback for testing/manual calls
+         try:
+            db_client = get_sync_db()
+            user_id = get_or_create_default_user(db_client)
+         except Exception as e:
+             extraction_logger.error(f"DB Connection failed in process_uploaded_file: {e}")
+
     # Map document types to schemas
     # doc_type should be one of: "form16a", "form16b", "form26as", "ais"
     schema_map = {
-        "form16a": Form16PartA,
-        "form16b": Form16PartB,
-        "ais": AIS,
+        "form16a": Form16PartA_Schema,
+        "form16b": Form16PartB_Schema,
+        "ais": AIS_Schema,
     }
     
     schema = schema_map.get(doc_type.lower())
@@ -472,7 +301,6 @@ def process_uploaded_file(file_path: str, doc_type: str):
         extraction_logger.info(f"Using schema: {schema.__name__}")
         
         # Use invalidate_cache=True to bypass Llama Cloud's 48-hour cache
-        # This ensures fresh extraction results instead of stale/empty cached data
         config = ExtractConfig(invalidate_cache=True)
         
         agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
@@ -481,18 +309,9 @@ def process_uploaded_file(file_path: str, doc_type: str):
         result = agent.extract(file_path)
         
         # Debug logging to identify extraction issues
-        extraction_logger.info(f"Extraction result type: {type(result)}")
-        extraction_logger.info(f"Result attributes: {dir(result)}")
-        extraction_logger.info(f"Result data type: {type(result.data)}")
-        extraction_logger.info(f"Result data content: {json.dumps(result.data, indent=2, default=str)[:1000]}...")  # First 1000 chars
+        extraction_logger.info(f"Result data content: {json.dumps(result.data, indent=2, default=str)[:200]}...")
         
-        # Check for empty values in the result
-        if isinstance(result.data, dict):
-            empty_keys = [k for k, v in result.data.items() if not v or v == "" or v == [] or v == {}]
-            if empty_keys:
-                extraction_logger.warning(f"Empty keys in extracted data: {empty_keys}")
-
-        # Save extracted output
+        # 1. Save to JSON
         APP_ROOT = Path(__file__).resolve().parents[1]
         output_dir = APP_ROOT / "data" / "extracted"
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -500,6 +319,9 @@ def process_uploaded_file(file_path: str, doc_type: str):
         
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(result.data, f, indent=4, ensure_ascii=False)
+            
+        # 2. Save to DB
+        save_extraction_to_db(result.data, schema, user_id, file_path)
 
         extraction_logger.info(f"Extraction complete -> {output_path}")
         return result.data

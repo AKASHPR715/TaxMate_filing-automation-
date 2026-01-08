@@ -106,21 +106,25 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
             first_name = name
             surname = ""
             
+        # Import defaults from centralized module
+        from app.core.defaults import get_defaults_dict
+        defaults = get_defaults_dict()
+            
         # USER PROFILE OVERRIDES
         if user_profile.get("aadhaar"):
             aadhaar = user_profile.get("aadhaar")
         else:
-            aadhaar = "123456789012"  # Default Proxy
+            aadhaar = defaults["aadhaar"]
 
         if user_profile.get("mobile"):
             mobile = int(user_profile.get("mobile"))
         else:
-            mobile = 9999999999  # Default Proxy
+            mobile = defaults["mobile"]
             
         if user_profile.get("email"):
             email = user_profile.get("email")
         else:
-            email = "test@example.com"
+            email = defaults["email"]
             
         if form_type == "ITR-2":
             # ITR-2: PersonalInfo is under PartA_GEN1
@@ -151,7 +155,7 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
             form["PersonalInfo"]["Address"]["EmailAddress"] = email
             
         # Update Verification Father Name if present
-        father_name = user_profile.get("father_name", "FATHER NAME")
+        father_name = user_profile.get("father_name", defaults.get("father_name", "FATHER NAME"))
         if form_type == "ITR-1":
              if "Verification" in form and "Declaration" in form["Verification"]:
                  form["Verification"]["Declaration"]["FatherName"] = father_name
@@ -452,18 +456,46 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
 
     return itr
 
-def generate_filing_forms(extracted_data: Dict[str, Any], computation_result: Dict[str, Any]) -> Dict[str, str]:
+# ... imports
+from app.db.connection import get_sync_db
+from bson import ObjectId
+
+# ... (existing code)
+
+def generate_filing_forms(extracted_data: Dict[str, Any] = None, computation_result: Dict[str, Any] = None, user_id: str = None) -> Dict[str, str]:
     """
     Main entry point to generate the ITR JSON.
     
     Args:
         extracted_data: Dictionary containing data from Form 16 A/B, AIS.
         computation_result: Result from tax_comparison.
+        user_id: User ID to fetch data from DB if extracted_data not provided.
         
     Returns:
         Dictionary with 'form_type' and 'file_path' of the generated JSON.
     """
     logger.info("Generating Filing Forms...")
+    
+    # If extracted_data not provided but user_id is, fetch from DB
+    if not extracted_data and user_id:
+        try:
+            from app.services.db_helpers import load_user_tax_data
+            from app.db.connection import get_sync_db
+            
+            logger.info(f"Fetching extracted data from DB for user_id: {user_id}")
+            db = get_sync_db()
+            extracted_data = load_user_tax_data(db, user_id)
+            
+            if not extracted_data:
+                logger.error(f"No tax data found in DB for user {user_id}")
+                raise ValueError(f"No tax data found for user {user_id}")
+                
+        except Exception as e:
+            logger.error(f"Failed to fetch data from DB: {e}")
+            raise
+    
+    if not extracted_data:
+        raise ValueError("No extracted data provided and no user_id given for DB fetch")
     
     # 1. Determine Form Type
     form_type = determine_itr_form_type(extracted_data)

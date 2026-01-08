@@ -40,9 +40,26 @@ async def websocket_endpoint(websocket: WebSocket):
             msg_type = payload.get("type")
             
             if msg_type == "context_update":
-                # User uploaded a form; update context
+                # User info update
+                user_id = payload.get("user_id")
                 context_data = payload.get("data", {})
-                confirmation = chat_service.set_context(context_data)
+                
+                confirmation = "Context updated."
+                if user_id:
+                    # Load from DB if user_id is provided
+                    loaded = await asyncio.get_event_loop().run_in_executor(
+                        None, 
+                        chat_service.load_context_from_db, 
+                        user_id
+                    )
+                    if loaded:
+                        confirmation = f"Context loaded for User ID: {user_id}"
+                    else:
+                        confirmation = f"Could not find data for User ID: {user_id}"
+                
+                # Fallback to direct data if DB load failed or not requested
+                if context_data and not chat_service.has_context():
+                    confirmation = chat_service.set_context(context_data)
                 
                 # Acknowledge context update
                 await websocket.send_text(json.dumps({

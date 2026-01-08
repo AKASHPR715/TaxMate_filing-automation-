@@ -356,13 +356,66 @@ def validate_chapter_via_deductions(deductions_dict: dict, include_any_other: bo
 # Main Comparison Tool (CORRECTED)
 # ============================================================
 
-def compare_tax_regimes(extracted_data: dict = None, include_any_other_deductions: bool = False) -> dict:
+# ... (previous imports)
+from app.db.connection import get_sync_db
+from bson import ObjectId
+
+# ... (existing logging setup)
+
+# ============================================================
+# Main Comparison Tool (CORRECTED)
+# ============================================================
+
+def compare_tax_regimes(extracted_data: dict = None, user_id: str = None, include_any_other_deductions: bool = False) -> dict:
     comparison_logger.info("=" * 70)
     comparison_logger.info("STARTING TAX REGIME COMPARISON (AY 2024-25 / FY 2023-24)")
     comparison_logger.info("=" * 70)
     
+    # DB Fetching Logic
+    if not extracted_data and user_id:
+        try:
+            comparison_logger.info(f"Fetching tax data for User ID: {user_id}")
+            db = get_sync_db()
+            
+            # Fetch latest Form 16 Part B
+            # Try finding by string ID first (how it is stored in extraction)
+            query = {"user_id": str(user_id)}
+            f16b = db.form16_part_bs.find_one(query, sort=[("created_at", -1)])
+            
+            if not f16b:
+                 # Fallback: try ObjectId if stored that way
+                 try:
+                     f16b = db.form16_part_bs.find_one({"user_id": ObjectId(user_id)}, sort=[("created_at", -1)])
+                 except: pass
+
+            # Fetch latest AIS
+            ais = db.ais.find_one(query, sort=[("created_at", -1)])
+            if not ais:
+                 try:
+                    ais = db.ais.find_one({"user_id": ObjectId(user_id)}, sort=[("created_at", -1)])
+                 except: pass
+            
+            extracted_data = {}
+            if f16b:
+                extracted_data["16_Part_B"] = f16b
+                comparison_logger.info(f"Loaded Form 16 Part B from DB (ID: {f16b.get('_id')})")
+            if ais:
+                extracted_data["ais"] = ais
+                comparison_logger.info(f"Loaded AIS from DB (ID: {ais.get('_id')})")
+                
+            if not extracted_data:
+                comparison_logger.warning("No tax documents found in DB for this user.")
+                
+        except Exception as e:
+            comparison_logger.error(f"Failed to fetch data from DB: {e}")
+            raise ValueError(f"Database fetch failed: {str(e)}")
+
+    if not extracted_data:
+        raise ValueError("No extracted data provided or found in database.")
+
     # Initialize
     gross_salary = 0.0
+# ... (rest of the function)
     other_income = 0.0
     professional_tax = 0.0
     exemptions_10 = {

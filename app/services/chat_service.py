@@ -217,6 +217,26 @@ class ChatService:
         self.session.set_context(context)
         return "I've received your tax document data. I can now provide personalized advice based on your specific situation. What would you like to know?"
     
+    def load_context_from_db(self, user_id: str) -> bool:
+        """Load tax context directly from DB for the user."""
+        try:
+            from app.services.db_helpers import load_user_tax_data
+            from app.db.connection import get_sync_db
+            
+            db = get_sync_db()
+            context = load_user_tax_data(db, user_id)
+            
+            if context:
+                self.session.set_context(context)
+                chat_logger.info(f"Loaded DB context for user {user_id}")
+                return True
+            else:
+                chat_logger.warning(f"No context found in DB for user {user_id}")
+                return False
+        except Exception as e:
+            chat_logger.error(f"Failed to load DB context: {e}")
+            return False
+
     def clear_context(self) -> None:
         """Clear the current context."""
         self.session.context = None
@@ -228,70 +248,82 @@ class ChatService:
         chat_logger.info("Chat history cleared")
     
     def get_response(self, user_message: str) -> str:
-        """Get a response from the AI for the user's message."""
+        """
+        Get AI response for a user message.
+        
+        Args:
+            user_message: The user's question/message
+            
+        Returns:
+            AI assistant's response text
+        """
         if not OPENROUTER_API_KEY:
-            return "Chat service is not configured. Please set the OPENROUTER_API_KEY."
-        
-        # Add user message to history
-        self.session.add_user_message(user_message)
-        
-        chat_logger.info(f"Processing message: {user_message[:100]}...")
+            return "Error: OpenRouter API key not configured. Please set OPENROUTER_API_KEY in .env file."
         
         try:
+            # Add user message to session
+            self.session.add_user_message(user_message)
+            
+            # Convert to API format
+            api_messages = self.session.to_api_messages()
+            
             # Prepare API request
             headers = {
                 "Authorization": f"Bearer {OPENROUTER_API_KEY}",
                 "Content-Type": "application/json",
-                "HTTP-Referer": "http://localhost:3000",
-                "X-Title": "TaxMate"
             }
             
             payload = {
                 "model": self.model,
-                "messages": self.session.to_api_messages(),
-                "temperature": 0.7,
-                "max_tokens": 2048,
+                "messages": api_messages,
             }
             
-            chat_logger.info(f"Sending request to OpenRouter with model: {self.model}")
+            chat_logger.info(f"Sending request to OpenRouter (model: {self.model})")
             
+            # Make API call with timeout
             response = requests.post(
                 OPENROUTER_API_URL,
                 headers=headers,
                 json=payload,
-                timeout=60
+                timeout=30  # 30 second timeout
             )
             
-            if response.status_code != 200:
-                error_msg = f"API error: {response.status_code} - {response.text}"
-                chat_logger.error(error_msg)
-                return f"Sorry, I encountered an error. Please try again. (Error: {response.status_code})"
+            # Check for HTTP errors
+            response.raise_for_status()
             
-            result = response.json()
+            # Parse response
+            response_data = response.json()
             
-            # Extract the assistant's response
-            if "choices" in result and len(result["choices"]) > 0:
-                assistant_message = result["choices"][0]["message"]["content"]
+            # Extract assistant message
+            if "choices" in response_data and len(response_data["choices"]) > 0:
+                assistant_message = response_data["choices"][0]["message"]["content"]
                 
-                # Add to history
+                # Add to session history
                 self.session.add_assistant_message(assistant_message)
                 
-                chat_logger.info(f"Response generated successfully ({len(assistant_message)} chars)")
+                chat_logger.info("Successfully received response from OpenRouter")
                 return assistant_message
             else:
-                chat_logger.error(f"Unexpected API response structure: {result}")
-                return "Sorry, I received an unexpected response. Please try again."
+                error_msg = "Unexpected response format from OpenRouter API"
+                chat_logger.error(f"{error_msg}: {response_data}")
+                return f"Error: {error_msg}"
                 
         except requests.exceptions.Timeout:
-            chat_logger.error("Request timed out")
-            return "Sorry, the request timed out. Please try again."
+            error_msg = "Request to AI service timed out. Please try again."
+            chat_logger.error(error_msg)
+            return f"Error: {error_msg}"
+            
         except requests.exceptions.RequestException as e:
-            chat_logger.error(f"Request error: {e}")
-            return f"Sorry, I couldn't connect to the AI service. Please check your internet connection."
+            error_msg = f"Failed to connect to AI service: {str(e)}"
+            chat_logger.error(error_msg)
+            return f"Error: {error_msg}"
+            
         except Exception as e:
-            chat_logger.error(f"Unexpected error: {e}")
-            return f"Sorry, an unexpected error occurred: {str(e)}"
-    
+            error_msg = f"Unexpected error: {str(e)}"
+            chat_logger.error(error_msg)
+            return f"Error: {error_msg}"
+
+    # ... get_response logic remains check for context inside session
     def has_context(self) -> bool:
         """Check if context is available."""
         return self.session.context is not None

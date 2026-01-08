@@ -151,7 +151,17 @@ if llm:
 # Main Tool Function
 # ============================================================
 
-def get_tax_advice(question: str, deductions: List[str] = None, income_details: Dict[str, Any] = None) -> str:
+# ... imports
+from app.db.connection import get_sync_db
+from bson import ObjectId
+
+# ... (existing code)
+
+# ============================================================
+# Main Tool Function
+# ============================================================
+
+def get_tax_advice(question: str, deductions: List[str] = None, income_details: Dict[str, Any] = None, user_id: str = None) -> str:
     """Gets AI tax advice."""
     advisor_logger.info(f"Generating advice for: {question}")
     
@@ -160,6 +170,30 @@ def get_tax_advice(question: str, deductions: List[str] = None, income_details: 
          advisor_logger.error(error_msg)
          return error_msg
     
+    # DB Fetch Context if missing
+    if not income_details and user_id:
+        try:
+            db = get_sync_db()
+            # Helper to find by string or ObjectId
+            def sensible_find(collection, uid):
+                q = {"user_id": str(uid)}
+                doc = collection.find_one(q, sort=[("created_at", -1)])
+                if not doc:
+                    try:
+                        doc = collection.find_one({"user_id": ObjectId(uid)}, sort=[("created_at", -1)])
+                    except: pass
+                return doc
+
+            f16b = sensible_find(db.form16_part_bs, user_id)
+            if f16b:
+                income_details = {
+                    "Gross Salary": f"₹{f16b.get('gross_total_income', 0):,.2f}",
+                    "Taxable Income": f"₹{f16b.get('taxable_income', 0):,.2f}"
+                }
+                advisor_logger.info(f"Loaded context from DB for user {user_id}")
+        except Exception as e:
+            advisor_logger.warning(f"Failed to fetch DB context for advice: {e}")
+
     context_str = ""
     if income_details:
         context_str += "\nIncome Context:\n" + "\n".join([f"- {k}: {v}" for k, v in income_details.items()])
