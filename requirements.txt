@@ -80,3 +80,7 @@ neo4j
 scikit-learn
 qdrant_client
 
+
+# Database - NoSQL
+pymongo
+motor
