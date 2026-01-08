@@ -36,6 +36,10 @@ app.include_router(orchestrator_component.router)
 app.include_router(form_extraction_component.router)
 app.include_router(chat_component.router)
 
+# Import and include filing router
+from app.api import filing_routes
+app.include_router(filing_routes.router)
+
 
 @app.get("/")
 async def root():

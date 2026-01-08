@@ -36,7 +36,8 @@ async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         # Save uploaded file
-        file_path = upload_dir / f"{doc_type}_{file.filename}"
+        # Use filename directly as it is now prefixed by the frontend
+        file_path = upload_dir / file.filename
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             

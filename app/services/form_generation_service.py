@@ -60,9 +60,23 @@ def determine_itr_form_type(extracted_data: Dict[str, Any]) -> str:
     
     return "ITR-1"
 
+def load_user_profile() -> Dict[str, Any]:
+    """Loads user manual overrides from profile file."""
+    try:
+        profile_path = Path(__file__).resolve().parents[1] / "data" / "user_profile.json"
+        if profile_path.exists():
+            with open(profile_path, "r") as f:
+                return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load user profile: {e}")
+    return {}
+
 def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: str) -> Dict:
     """Populates ITR schema with data (works for both ITR-1 and ITR-2)."""
     itr = copy.deepcopy(template)
+    
+    # Load user profile overrides
+    user_profile = load_user_profile()
     
     # Determine form structure
     if form_type == "ITR-2":
@@ -92,24 +106,56 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
             first_name = name
             surname = ""
             
+        # USER PROFILE OVERRIDES
+        if user_profile.get("aadhaar"):
+            aadhaar = user_profile.get("aadhaar")
+        else:
+            aadhaar = "123456789012"  # Default Proxy
+
+        if user_profile.get("mobile"):
+            mobile = int(user_profile.get("mobile"))
+        else:
+            mobile = 9999999999  # Default Proxy
+            
+        if user_profile.get("email"):
+            email = user_profile.get("email")
+        else:
+            email = "test@example.com"
+            
         if form_type == "ITR-2":
             # ITR-2: PersonalInfo is under PartA_GEN1
             form["PartA_GEN1"]["PersonalInfo"]["AssesseeName"]["FirstName"] = first_name
             form["PartA_GEN1"]["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = surname
             form["PartA_GEN1"]["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+            form["PartA_GEN1"]["PersonalInfo"]["AadhaarNo"] = aadhaar
             # Address
             address = personal_info.get("address", "")
             if address:
                 form["PartA_GEN1"]["PersonalInfo"]["Address"]["LocalityOrArea"] = address[:100]
+            
+            form["PartA_GEN1"]["PersonalInfo"]["Address"]["MobileNo"] = mobile
+            form["PartA_GEN1"]["PersonalInfo"]["Address"]["EmailAddress"] = email
+            
         else:
             # ITR-1: PersonalInfo is direct
             form["PersonalInfo"]["AssesseeName"]["FirstName"] = first_name
             form["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = surname
             form["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+            form["PersonalInfo"]["AadhaarNo"] = aadhaar
             # Address
             address = personal_info.get("address", "")
             if address:
                 form["PersonalInfo"]["Address"]["LocalityOrArea"] = address[:50]
+                
+            form["PersonalInfo"]["Address"]["MobileNo"] = mobile
+            form["PersonalInfo"]["Address"]["EmailAddress"] = email
+            
+        # Update Verification Father Name if present
+        father_name = user_profile.get("father_name", "FATHER NAME")
+        if form_type == "ITR-1":
+             if "Verification" in form and "Declaration" in form["Verification"]:
+                 form["Verification"]["Declaration"]["FatherName"] = father_name
+
 
     # 2. INCOME CALCULATION
     gross_salary = 0.0

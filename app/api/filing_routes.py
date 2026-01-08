@@ -1,0 +1,193 @@
+import json
+import logging
+from pathlib import Path
+from fastapi import APIRouter, HTTPException, BackgroundTasks
+from pydantic import BaseModel
+from typing import Dict, Any, List, Optional
+import glob
+import os
+
+# Import form generation service to trigger regeneration
+try:
+    from app.services.form_generation_service import generate_filing_forms
+except ImportError:
+    # Handle potentially different import paths if needed, though this should work
+    pass
+
+router = APIRouter(prefix="/api/filing", tags=["filing"])
+
+logger = logging.getLogger("FilingAPI")
+
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+FILING_DIR = DATA_DIR / "filing"
+USER_PROFILE_PATH = DATA_DIR / "user_profile.json"
+
+class UpdateProfileRequest(BaseModel):
+    updates: Dict[str, Any]
+
+def load_user_profile() -> Dict[str, Any]:
+    if USER_PROFILE_PATH.exists():
+        try:
+            with open(USER_PROFILE_PATH, "r") as f:
+                return json.load(f)
+        except Exception as e:
+            logger.error(f"Error loading user profile: {e}")
+            return {}
+    return {}
+
+def save_user_profile(profile: Dict[str, Any]):
+    try:
+        with open(USER_PROFILE_PATH, "w") as f:
+            json.dump(profile, f, indent=4)
+    except Exception as e:
+        logger.error(f"Error saving user profile: {e}")
+        raise HTTPException(status_code=500, detail="Failed to save user profile")
+
+def find_missing_fields(data: Dict[str, Any], profile: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Scans the ITR data for proxy values and returns a list of fields that need attention.
+    Checks against current profile values to verify if they are already 'fixed' but maybe not yet applied if form wasn't regenerated.
+    """
+    missing = []
+    
+    # Helper to check value
+    def check(key_label, current_val, proxy_val, json_path):
+        # If current value is the proxy, AND not in profile (or profile matches proxy?? no profile should satisfy)
+        # Actually, if it's in the ITR as proxy, it's missing, unless user just updated profile and we haven't regenerated.
+        is_missing = False
+        if str(current_val) == str(proxy_val):
+            is_missing = True
+        
+        # Check if we have a better value in profile
+        profile_val = profile.get(key_label)
+        
+        if is_missing or (profile_val and str(current_val) != str(profile_val)):
+             missing.append({
+                "label": key_label,
+                "current_value": current_val,
+                "proxy_value": proxy_val,
+                "json_path": json_path,
+                "profile_value": profile_val # Suggest from profile if exists
+            })
+
+    # ITR-1 Structure assumptions (adjust based on actual schema)
+    # We can use a recursive search or hardcode common paths
+    
+    # Traverse to Personal Info for ITR-1
+    try:
+        if "ITR" in data and "ITR1" in data["ITR"]:
+            personal = data["ITR"]["ITR1"].get("PersonalInfo", {})
+            address = personal.get("Address", {})
+            
+            check("mobile", address.get("MobileNo"), "9999999999", "ITR.ITR1.PersonalInfo.Address.MobileNo")
+            check("email", address.get("EmailAddress"), "test@example.com", "ITR.ITR1.PersonalInfo.Address.EmailAddress")
+            check("aadhaar", personal.get("AadhaarNo"), "123456789012", "ITR.ITR1.PersonalInfo.AadhaarNo")
+            check("dob", personal.get("DOB"), "1990-01-01", "ITR.ITR1.PersonalInfo.DOB")
+            
+            # Father name might be under Verification or PersonalInfo depending on schema
+            verification = data["ITR"]["ITR1"].get("Verification", {}).get("Declaration", {})
+            check("father_name", verification.get("FatherName"), "FATHER NAME", "ITR.ITR1.Verification.Declaration.FatherName")
+
+    except Exception as e:
+        logger.error(f"Error scanning ITR-1: {e}")
+
+    # ITR-2 Logic (similar, different paths)
+    try:
+        if "ITR" in data and "ITR2" in data["ITR"]:
+             # Add ITR-2 paths if needed
+             pass
+    except Exception:
+        pass
+
+    return missing
+
+@router.get("/latest/{itr_type}")
+async def get_latest_filing(itr_type: str):
+    """
+    Get the latest generated JSON for the given ITR type (e.g., ITR1, ITR2).
+    """
+    clean_type = itr_type.replace("-", "")
+    pattern = str(FILING_DIR / f"{clean_type}_*.json")
+    files = glob.glob(pattern)
+    
+    if not files:
+        # Return generic structure if no file found, to avoid UI breaking? 
+        # Or 404. Let's return 404 but with message
+        raise HTTPException(status_code=404, detail=f"No filing generated for {itr_type}")
+    
+    # Get latest file
+    latest_file = max(files, key=os.path.getctime)
+    
+    try:
+        with open(latest_file, "r") as f:
+            data = json.load(f)
+            
+        profile = load_user_profile()
+        missing_fields = find_missing_fields(data, profile)
+        
+        return {
+            "file_path": latest_file,
+            "filename": os.path.basename(latest_file),
+            "data": data,
+            "missing_fields": missing_fields,
+            "user_profile": profile
+        }
+    except Exception as e:
+        logger.error(f"Error reading filing: {e}")
+        raise HTTPException(status_code=500, detail="Error reading filing data")
+
+@router.post("/update")
+async def update_filing_profile(request: UpdateProfileRequest, background_tasks: BackgroundTasks):
+    """
+    Updates the user profile with new values and triggers a regeneration/update of the ITR forms.
+    """
+    current_profile = load_user_profile()
+    
+    # Update profile
+    current_profile.update(request.updates)
+    save_user_profile(current_profile)
+    
+    # Ideally, we should trigger the form generation service to re-run with the existing extracted data
+    # But checking if we have extracted data might be complex if it's not persisted in a simple way.
+    # However, form_generation_service saves the ITR json.
+    # For now, we will just update the user_profile.
+    # PROACTIVE: Let's try to update the latest JSON directly as a quick fix, 
+    # ensuring the user sees the update immediately in the "View ITR" modal.
+    
+    # Find latest ITR1 (default priority)
+    files = glob.glob(str(FILING_DIR / "ITR1_*.json"))
+    if files:
+        latest_file = max(files, key=os.path.getctime)
+        try:
+            with open(latest_file, "r") as f:
+                data = json.load(f)
+            
+            # Apply updates deep into the JSON - manual Mapping for now
+            # This logic mimics populate_itr_form but applies overrides
+            itr1 = data.get("ITR", {}).get("ITR1", {})
+            
+            if "mobile" in request.updates:
+                if "PersonalInfo" in itr1 and "Address" in itr1["PersonalInfo"]:
+                    itr1["PersonalInfo"]["Address"]["MobileNo"] = int(request.updates["mobile"])
+            
+            if "email" in request.updates:
+                 if "PersonalInfo" in itr1 and "Address" in itr1["PersonalInfo"]:
+                    itr1["PersonalInfo"]["Address"]["EmailAddress"] = request.updates["email"]
+
+            if "aadhaar" in request.updates:
+                 if "PersonalInfo" in itr1:
+                    itr1["PersonalInfo"]["AadhaarNo"] = request.updates["aadhaar"]
+            
+            if "father_name" in request.updates:
+                 if "Verification" in itr1 and "Declaration" in itr1["Verification"]:
+                     itr1["Verification"]["Declaration"]["FatherName"] = request.updates["father_name"]
+            
+            # Save back
+            with open(latest_file, "w") as f:
+                json.dump(data, f, indent=4)
+                
+        except Exception as e:
+            logger.error(f"Failed to hot-patch ITR file: {e}")
+            # Non-critical, since profile is saved for next generation
+
+    return {"status": "success", "message": "Profile updated", "profile": current_profile}

@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { ReviewDataForm } from '@/components/review-data-form';
+import { FilingViewer } from '@/components/filing-viewer';
 
 interface DocumentUpload {
   fileName: string | null;
@@ -53,6 +54,9 @@ export default function Dashboard() {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [extractedData, setExtractedData] = useState<Record<string, any>>({});
   const [editedDataJson, setEditedDataJson] = useState<string>("");
+
+  // Step 3: View Filing Data
+  const [showFilingViewer, setShowFilingViewer] = useState(false);
 
   // Step 1: Extract Data and Open Review Modal
   const startAnalysisFlow = async () => {
@@ -342,7 +346,15 @@ export default function Dashboard() {
     });
 
     const formData = new FormData();
-    formData.append('file', file);
+    // Add prefix to filename based on docType
+    const prefix = docType === 'form16a' ? 'form16a_' :
+      docType === 'form16b' ? 'form16b_' :
+        docType === 'ais' ? 'ais_' : '';
+
+    // Create a new File object with the prefixed name
+    const prefixedFile = new File([file], `${prefix}${file.name}`, { type: file.type });
+
+    formData.append('file', prefixedFile);
     formData.append('doc_type', docType);
 
     try {
@@ -740,6 +752,14 @@ export default function Dashboard() {
                       )
                     }
                   </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowFilingViewer(true)}
+                    className="flex-1 border-blue-900 text-blue-900 hover:bg-blue-50"
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    View ITR Data
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -902,6 +922,12 @@ export default function Dashboard() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        <FilingViewer
+          open={showFilingViewer}
+          onOpenChange={setShowFilingViewer}
+          itrType="ITR1"
+        />
       </div>
     </div>
   );
