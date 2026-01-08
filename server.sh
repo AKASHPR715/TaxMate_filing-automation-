@@ -41,6 +41,12 @@ else
     echo -e "${BLUE}No virtual environment found, using system Python${NC}"
 fi
 
+# Install requirements
+if [ -f "${SCRIPT_DIR}/requirements.txt" ]; then
+    echo -e "${GREEN}Installing requirements...${NC}"
+    pip install -r "${SCRIPT_DIR}/requirements.txt"
+fi
+
 # Navigate to the project directory
 cd "${SCRIPT_DIR}"
 
