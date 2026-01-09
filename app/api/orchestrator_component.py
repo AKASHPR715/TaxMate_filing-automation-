@@ -3,7 +3,7 @@ Orchestrator API Component
 Handles tax orchestration endpoints: extraction, calculation, and analysis.
 Uses: orchestrator_service.py (LangGraph)
 """
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Depends
 from typing import Dict, Any
 import asyncio
 
@@ -13,32 +13,25 @@ from app.services.orchestrator_service import (
     extract_all_forms, 
     compare_tax_regimes
 )
+from app.api.auth_routes import get_current_user
 
 router = APIRouter(tags=["orchestrator"])
 
 
 @router.post("/api/details/extract")
-async def extract_details(request: Request):
+async def extract_details(request: Request, current_user: dict = Depends(get_current_user)):
     """
     Trigger extraction and return the raw data for user review.
     Directly calls the extraction service.
     """
     try:
-        from app.services.db_helpers import get_user_id_from_header, load_user_tax_data
+        from app.services.db_helpers import load_user_tax_data
         from app.db.connection import get_sync_db
         from app.services.form_extraction_service import get_or_create_default_user
         
-        # Get user_id from header or default to test user
+        # Get user_id from authenticated user
         loop = asyncio.get_event_loop()
-        headers = dict(request.headers)
-        user_id = get_user_id_from_header(headers)
-        
-        # If no user_id, get default test user
-        if not user_id:
-            def get_default_user():
-                db = get_sync_db()
-                return str(get_or_create_default_user(db))
-            user_id = await loop.run_in_executor(None, get_default_user)
+        user_id = str(current_user["_id"])
         
         # Check if data already exists for this user
         def check_and_extract():
@@ -47,6 +40,8 @@ async def extract_details(request: Request):
             
             if not extracted_data:
                 # No data found, trigger extraction
+                # NOTE: extract_all_forms primarily works with local files in data/uploads
+                # Ideally, we should ensure files are associated with user_id
                 extract_all_forms()
                 # Re-fetch after extraction
                 extracted_data = load_user_tax_data(db, user_id)
@@ -75,22 +70,17 @@ async def extract_details(request: Request):
 
 
 @router.post("/api/details/calculate")
-async def calculate_with_details(data: Dict[str, Any], request: Request):
+async def calculate_with_details(data: Dict[str, Any], request: Request, current_user: dict = Depends(get_current_user)):
     """
     Receive confirmed/modified data and run tax computation.
-    Supports user_id in request body or X-User-Id header.
     """
     try:
-        from app.services.db_helpers import get_user_id_from_header
         
         print(f"DEBUG: calculate_with_details received data keys: {list(data.keys())}")
         loop = asyncio.get_event_loop()
         
-        # Get user_id from data or header
-        user_id = data.pop("user_id", None)
-        if not user_id:
-            headers = dict(request.headers)
-            user_id = get_user_id_from_header(headers)
+        # Get user_id from authenticated user
+        user_id = str(current_user["_id"])
         
         # Helper to run comparison with provided data
         def run_calculation():

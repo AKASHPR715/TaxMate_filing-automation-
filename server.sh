@@ -38,7 +38,10 @@ elif [ -d "${SCRIPT_DIR}/venv" ]; then
     echo -e "${GREEN}Activating virtual environment...${NC}"
     source "${SCRIPT_DIR}/venv/bin/activate"
 else
-    echo -e "${BLUE}No virtual environment found, using system Python${NC}"
+    echo -e "${BLUE}No virtual environment found. Creating .venv...${NC}"
+    python3 -m venv "${SCRIPT_DIR}/.venv"
+    echo -e "${GREEN}Activating created virtual environment...${NC}"
+    source "${SCRIPT_DIR}/.venv/bin/activate"
 fi
 
 # Install requirements

@@ -1,7 +1,7 @@
 import json
 import logging
 from pathlib import Path
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends
 from pydantic import BaseModel
 from typing import Dict, Any, List, Optional
 import glob
@@ -13,6 +13,8 @@ try:
 except ImportError:
     # Handle potentially different import paths if needed, though this should work
     pass
+
+from app.api.auth_routes import get_current_user
 
 router = APIRouter(prefix="/api/filing", tags=["filing"])
 
@@ -102,7 +104,7 @@ def find_missing_fields(data: Dict[str, Any], profile: Dict[str, Any]) -> List[D
     return missing
 
 @router.get("/latest/{itr_type}")
-async def get_latest_filing(itr_type: str):
+async def get_latest_filing(itr_type: str, current_user: dict = Depends(get_current_user)):
     """
     Get the latest generated JSON for the given ITR type (e.g., ITR1, ITR2).
     """
@@ -137,7 +139,7 @@ async def get_latest_filing(itr_type: str):
         raise HTTPException(status_code=500, detail="Error reading filing data")
 
 @router.post("/update")
-async def update_filing_profile(request: UpdateProfileRequest, background_tasks: BackgroundTasks):
+async def update_filing_profile(request: UpdateProfileRequest, background_tasks: BackgroundTasks, current_user: dict = Depends(get_current_user)):
     """
     Updates the user profile with new values and triggers a regeneration/update of the ITR forms.
     """

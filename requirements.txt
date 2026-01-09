@@ -3,11 +3,14 @@ fastapi
 uvicorn
 pydantic
 pydantic-settings
+email-validator
 
 # PDF Processing & Document Extraction
 pdfplumber
 PyPDF2
 python-multipart
+pdf2image
+Pillow
 
 # Data Processing
 pandas
@@ -24,6 +27,7 @@ openai
 langchain
 langchain-openai
 llama-index
+google-generativeai
 
 # HTTP & Async
 httpx
@@ -33,7 +37,7 @@ requests
 # Authentication & Security
 python-jose
 passlib
-bcrypt
+argon2-cffi
 cryptography
 python-dotenv
 

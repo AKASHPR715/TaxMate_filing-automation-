@@ -40,6 +40,11 @@ app.include_router(chat_component.router)
 from app.api import filing_routes
 app.include_router(filing_routes.router)
 
+# Import and include auth router
+from app.api import auth_routes
+app.include_router(auth_routes.router)
+
+
 
 @app.get("/")
 async def root():

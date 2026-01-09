@@ -3,7 +3,7 @@ Form Extraction API Component
 Handles tax document upload and processing.
 Uses: form_extraction_service.py
 """
-from fastapi import APIRouter, UploadFile, File, Form, HTTPException
+from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from pathlib import Path
 import shutil
 import asyncio
@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 import functools
 
 from app.services.form_extraction_service import process_uploaded_file
+from app.api.auth_routes import get_current_user
 
 router = APIRouter(prefix="/api", tags=["upload"])
 
@@ -19,19 +20,25 @@ _executor = ThreadPoolExecutor(max_workers=3)
 
 
 @router.post("/upload")
-async def upload_file(file: UploadFile = File(...), doc_type: str = Form("form16a"), user_id: str = Form(None)):
+async def upload_file(
+    file: UploadFile = File(...), 
+    doc_type: str = Form("form16a"), 
+    current_user: dict = Depends(get_current_user)
+):
     """
     Upload and process a tax document.
     
     Args:
         file: Uploaded PDF file
         doc_type: Document type - options: "form16a", "form16b", "form26as", "ais"
-        user_id: Optional user ID to associate document with
+        current_user: Authenticated user
         
     Returns:
         dict: Upload status and extracted data
     """
     try:
+        user_id = str(current_user["_id"])
+        
         # Create upload directory if it doesn't exist
         upload_dir = Path(__file__).resolve().parents[1] / "data" / "uploads"
         upload_dir.mkdir(parents=True, exist_ok=True)

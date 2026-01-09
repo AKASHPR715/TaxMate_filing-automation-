@@ -50,14 +50,22 @@ class MongoBaseModel(BaseModel):
 
 class User(MongoBaseModel):
     email: EmailStr
+    username: Optional[str] = None
     full_name: str
+    phone_number: Optional[str] = None
     password_hash: Optional[str] = None
     pan_number: Optional[str] = None
     profile_data: Dict[str, Any] = {}
     
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
 
+
+class TokenBlacklist(MongoBaseModel):
+    token: str
+    blacklisted_on: datetime = Field(default_factory=datetime.utcnow)
 
 # ---------------------------------------------------------------------------- #
 #                                 2. FORM 16 PART A                            #
