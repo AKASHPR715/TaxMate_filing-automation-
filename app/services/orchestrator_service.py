@@ -85,10 +85,14 @@ def input_collection_node(state: AgentState) -> AgentState:
     try:
         from app.services.db_helpers import load_user_tax_data
         
-        # Resolve User Logic (Mock for now, gets Test User)
         db = get_sync_db()
-        user_id = get_or_create_default_user(db)
-        state["user_id"] = str(user_id)
+        
+        # Resolve User Logic
+        if not state.get("user_id"):
+            user_id = get_or_create_default_user(db)
+            state["user_id"] = str(user_id)
+        else:
+            user_id = state["user_id"]
         
         # 1. Try to fetch existing data from DB
         if not state.get("extracted_data"):
@@ -164,7 +168,7 @@ def advisory_node(state: AgentState) -> AgentState:
         
         advice = get_tax_advice(
             question=question,
-            deductions=[], # Simplified: advisor can be enhanced to read DB too later
+            deductions=[],
             income_details=income_context
         )
         state["advisory_result"] = advice
@@ -185,7 +189,7 @@ def form_generation_node(state: AgentState) -> AgentState:
     try:
         user_id = state["user_id"]
         
-        # Get extracted data - either from state or fetch from DB
+        # Get extracted data
         extracted_data = state.get("extracted_data")
         
         if not extracted_data:
@@ -253,11 +257,11 @@ app = workflow.compile()
 # 5. Execution Wrapper
 # ============================================================
 
-def run_orchestrator(question: str = "Optimize my tax"):
+def run_orchestrator(question: str = "Optimize my tax", user_id: str = None):
     """External API to run the graph."""
     initial_state = AgentState(
         mission_id=datetime.now().strftime("%Y%m%d-%H%M%S"),
-        user_id="", # Will be resolved
+        user_id=user_id if user_id else "", 
         user_query=question,
         extracted_data=None,
         computation_result=None,

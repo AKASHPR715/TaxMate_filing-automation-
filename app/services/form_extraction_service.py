@@ -63,48 +63,23 @@ def setup_extraction_logger():
 
 extraction_logger = setup_extraction_logger()
 
-# ------------------------------------------------------------
 # 🔐 Load environment variables and initialize extractors
 # ------------------------------------------------------------
 load_dotenv()  # Loads .env file
 
-# Gemini Vision (NEW - Faster!)
-USE_GEMINI_VISION = os.getenv("USE_GEMINI_VISION", "true").lower() == "true"
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
-# Legacy LlamaExtract (Fallback)
+# LlamaExtract (Sole Extraction Method)
 LLAMA_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
 
-# Try to use Gemini Vision first
-if USE_GEMINI_VISION and GOOGLE_API_KEY:
-    extraction_logger.info("🚀 Using Gemini Vision for extraction (6-12x faster!)")
-    try:
-        from app.services.gemini_vision_extraction import (
-            GeminiVisionExtractor,
-            extract_form16a_vision,
-            extract_form16b_vision,
-            extract_ais_vision
-        )
-        EXTRACTION_METHOD = "gemini"
-        extraction_logger.info("✅ Gemini Vision loaded successfully")
-    except ImportError as e:
-        extraction_logger.error(f"❌ Failed to import Gemini Vision: {e}")
-        extraction_logger.info("Falling back to LlamaExtract")
-        USE_GEMINI_VISION = False
+if not LLAMA_API_KEY:
+    extraction_logger.warning("LLAMA_CLOUD_API_KEY not found. Extraction will fail.")
 
-# Initialize LlamaExtract if Gemini not available or as fallback
-if not USE_GEMINI_VISION or not GOOGLE_API_KEY:
-    if not LLAMA_API_KEY:
-        raise ValueError("Please set either GOOGLE_API_KEY or LLAMA_CLOUD_API_KEY in your .env file.")
-    
-    extraction_logger.info("Using LlamaExtract (legacy method)")
-    # Initialize extractor with reduced timeouts (was 10 minutes, now 2 minutes)
-    extractor = LlamaExtract(
-        api_key=LLAMA_API_KEY,
-        max_timeout=120000,   # 2 minutes (reduced from 10)
-        httpx_timeout=120.0   # 2 minutes
-    )
-    EXTRACTION_METHOD = "llama"
+extraction_logger.info("Using LlamaExtract (default method)")
+# Initialize extractor
+extractor = LlamaExtract(
+    api_key=LLAMA_API_KEY,
+    max_timeout=120000,
+    httpx_timeout=120.0
+)
 
 # ============================================================
 # 🛡️ Database Helper Functions
@@ -187,119 +162,11 @@ def save_extraction_to_db(data: dict, schema_class: Type[BaseModel], user_id, so
 # 🚀 Extraction Pipeline (modified for local files)
 # ============================================================
 
-def extract_all_forms():
-    """
-    Extract all tax forms using Llama Cloud API and save to data/extracted/ AND MongoDB.
-    Discovers files in uploads directory based on doc_type prefixes (form16a_, form16b_, ais_).
-    """
-    extraction_logger.info("Starting form extraction process...")
-    
-    # Connect to DB and get user context
-    try:
-        db_client = get_sync_db()
-        user_id = get_or_create_default_user(db_client)
-    except Exception as e:
-        extraction_logger.error(f"Could not connect to database: {e}")
-        raise e
-
-    # Map doc_type prefixes to schemas
-    doc_type_schemas = {
-        "form16a": Form16PartA_Schema,
-        "form16b": Form16PartB_Schema,
-        "ais": AIS_Schema,
-    }
-
-    # Define upload directory
-    APP_ROOT = Path(__file__).resolve().parents[1]
-    upload_dirs = [
-        Path.cwd() / "app" / "data" / "uploads",  # from project root
-        APP_ROOT / "data" / "uploads",  # from app root
-    ]
-    
-    # Find the uploads directory that exists
-    uploads_dir = None
-    for dir_path in upload_dirs:
-        if dir_path.exists():
-            uploads_dir = dir_path
-            extraction_logger.info(f"Using uploads directory: {uploads_dir}")
-            break
-    
-    if not uploads_dir:
-        extraction_logger.warning("No uploads directory found")
-        raise ValueError("No uploads directory found")
-
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    extracted_count = 0
-
-    # Discover and process files for each doc_type
-    for doc_type, schema in doc_type_schemas.items():
-        # Find files with this doc_type prefix
-        matching_files = []
-        try:
-            for file_path in uploads_dir.iterdir():
-                if file_path.is_file() and file_path.suffix.lower() == '.pdf' and file_path.name.startswith(doc_type + "_"):
-                    matching_files.append(file_path)
-        except Exception as e:
-            extraction_logger.error(f"Error listing files in {uploads_dir}: {e}")
-            continue
-        
-        if not matching_files:
-            extraction_logger.warning(f"⚠️  No files found with prefix '{doc_type}_' in {uploads_dir}. Skipping.")
-            continue
-        
-        # Process the most recent file for this doc_type
-        file_path = max(matching_files, key=lambda p: p.stat().st_mtime)
-        extraction_logger.info(f"Processing {doc_type}: {file_path.name}")
-        
-        try:
-            # Create agent and extract
-            agent_name = f"{file_path.stem}-{uuid.uuid4().hex}"
-            extraction_logger.info(f"Creating agent with name: {agent_name}")
-            extraction_logger.info(f"Using schema: {schema.__name__}")
-            
-            config = ExtractConfig(invalidate_cache=True)
-            agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
-            extraction_logger.info("Agent created successfully with cache invalidation, starting extraction...")
-            
-            result = agent.extract(str(file_path))
-            
-            # Parse result
-            if hasattr(result, 'data') and result.data:
-                extracted_dict = result.data
-            else:
-                raise ValueError(f"Unexpected result format from LlamaExtract for {file_path.name}")
-            
-            # 1. Save to JSON (Backup/Debug)
-            output_dir = APP_ROOT / "data" / "extracted"
-            output_dir.mkdir(parents=True, exist_ok=True)
-            output_path = output_dir / f"{doc_type}_{timestamp}.json"
-            
-            with open(output_path, "w", encoding="utf-8") as f:
-                json.dump(extracted_dict, f, indent=4, ensure_ascii=False)
-            
-            extraction_logger.info(f"JSON saved -> {output_path}")
-            
-            # 2. Save to DB
-            save_extraction_to_db(extracted_dict, schema, user_id, str(file_path))
-            
-            extracted_count += 1
-            
-        except Exception as e:
-            extraction_logger.error(f"ERROR: Failed to extract {file_path}: {e}")
-            continue
-
-    if extracted_count == 0:
-        raise ValueError("No tax documents were extracted. Please upload PDF files via the UI (Form 16 Part A, Form 16 Part B, or AIS).")
-    
-    extraction_logger.info(f"Successfully extracted {extracted_count} document(s)")
-
-
 def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
     """
-    Process a single uploaded file based on its document type.
-    Uses Gemini Vision if enabled, otherwise falls back to LlamaExtract.
+    Process a single uploaded file using LlamaExtract.
     """
-    extraction_logger.info(f"📄 Processing: {file_path} as {doc_type}")
+    extraction_logger.info(f"📄 Processing: {file_path} as {doc_type} using LlamaExtract")
     
     if not user_id:
          # Fallback for testing/manual calls
@@ -321,41 +188,25 @@ def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
         raise ValueError(f"Unknown document type: {doc_type}")
     
     try:
-        # Try Gemini Vision first if enabled
-        if EXTRACTION_METHOD == "gemini":
-            extraction_logger.info(f"🤖 Using Gemini Vision")
-            
-            # Map doc_type to extraction function
-            gemini_extractors = {
-                "form16a": extract_form16a_vision,
-                "form16b": extract_form16b_vision,
-                "ais": extract_ais_vision,
-            }
-            
-            extractor_func = gemini_extractors.get(doc_type.lower())
-            if not extractor_func:
-                raise ValueError(f"Unknown document type for Gemini: {doc_type}")
-            
-            # Extract using Gemini Vision
-            result_data = extractor_func(file_path)
-            extraction_logger.info(f"✅ Gemini extraction successful")
-            
-        else:
-            # Use LlamaExtract (legacy)
-            extraction_logger.info(f"🔄 Using LlamaExtract")
-            
-            agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
-            extraction_logger.info(f"Creating agent: {agent_name}")
-            extraction_logger.info(f"Using schema: {schema.__name__}")
-            
-            config = ExtractConfig(invalidate_cache=True)
-            agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
-            extraction_logger.info(f"Agent created, starting extraction...")
-            
-            result = agent.extract(file_path)
-            result_data = result.data
-            extraction_logger.info(f"Result preview: {json.dumps(result_data, indent=2, default=str)[:200]}...")
+        if not extractor:
+             raise ValueError("LlamaExtract is not configured (API key missing).")
+
+        agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
+        extraction_logger.info(f"Creating agent: {agent_name}")
+        extraction_logger.info(f"Using schema: {schema.__name__}")
         
+        config = ExtractConfig(invalidate_cache=True)
+        agent = extractor.create_agent(name=agent_name, data_schema=schema, config=config)
+        extraction_logger.info(f"Agent created, starting extraction...")
+        
+        result = agent.extract(file_path)
+        if hasattr(result, 'data') and result.data:
+            result_data = result.data
+        else:
+             result_data = result.data
+             
+        extraction_logger.info(f"Result preview: {json.dumps(result_data, indent=2, default=str)[:200]}...")
+    
         # Save to JSON (Backup/Debug)
         APP_ROOT = Path(__file__).resolve().parents[1]
         output_dir = APP_ROOT / "data" / "extracted"
@@ -373,43 +224,55 @@ def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
 
     except Exception as e:
         extraction_logger.error(f"❌ Extraction failed: {e}")
-        
-        # If Gemini failed and LlamaExtract is available, try fallback
-        if EXTRACTION_METHOD == "gemini" and LLAMA_API_KEY:
-            extraction_logger.warning("⚠️  Trying LlamaExtract fallback...")
-            try:
-                # Initialize LlamaExtract on-demand for fallback
-                llama_extractor = LlamaExtract(
-                    api_key=LLAMA_API_KEY,
-                    max_timeout=120000,
-                    httpx_timeout=120.0
-                )
-                
-                agent_name = f"{Path(file_path).stem}-{uuid.uuid4().hex}"
-                config = ExtractConfig(invalidate_cache=True)
-                agent = llama_extractor.create_agent(name=agent_name, data_schema=schema, config=config)
-                
-                result = agent.extract(file_path)
-                result_data = result.data
-                
-                # Save fallback result
-                APP_ROOT = Path(__file__).resolve().parents[1]
-                output_dir = APP_ROOT / "data" / "extracted"
-                output_dir.mkdir(parents=True, exist_ok=True)
-                output_path = output_dir / f"{Path(file_path).stem}_{timestamp}.json"
-                
-                with open(output_path, "w", encoding="utf-8") as f:
-                    json.dump(result_data, f, indent=4, ensure_ascii=False)
-                    
-                save_extraction_to_db(result_data, schema, user_id, file_path)
-                extraction_logger.info(f"✅ Fallback successful → {output_path}")
-                return result_data
-                
-            except Exception as fallback_error:
-                extraction_logger.error(f"❌ Fallback also failed: {fallback_error}")
-                raise fallback_error
-        
         raise e
+
+def extract_all_forms():
+    """
+    Batch process all PDF files in the input directory.
+    Useful for initialization or bulk loading.
+    """
+    APP_ROOT = Path(__file__).resolve().parents[1]
+    input_dir = APP_ROOT / "data" / "input_docs"
+    
+    if not input_dir.exists():
+        extraction_logger.warning(f"Input directory {input_dir} does not exist. Creating...")
+        input_dir.mkdir(parents=True, exist_ok=True)
+        return
+
+    # User ID Resolution (for batch process, we use default/test user)
+    try:
+        db_client = get_sync_db()
+        user_id = get_or_create_default_user(db_client)
+    except Exception as e:
+        extraction_logger.error(f"Cannot get default user for batch extraction: {e}")
+        return
+
+    files = list(input_dir.glob("*.pdf"))
+    if not files:
+        extraction_logger.info("No PDF files found in input directory.")
+        return
+
+    extraction_logger.info(f"Found {len(files)} files to process.")
+    
+    for file_path in files:
+        filename = file_path.name.lower()
+        doc_type = None
+        
+        # Simple heuristic for doc type
+        if "form16a" in filename or "part_a" in filename:
+            doc_type = "form16a"
+        elif "form16b" in filename or "part_b" in filename:
+            doc_type = "form16b"
+        elif "ais" in filename:
+            doc_type = "ais"
+            
+        if doc_type:
+            try:
+                process_uploaded_file(str(file_path), doc_type, user_id)
+            except Exception as e:
+                extraction_logger.error(f"Failed to process {filename}: {e}")
+        else:
+            extraction_logger.warning(f"Skipping {filename}: Could not determine doc type from name.")
 
 # ============================================================
 # 🧩 Run

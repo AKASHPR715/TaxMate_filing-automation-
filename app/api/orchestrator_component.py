@@ -4,8 +4,9 @@ Handles tax orchestration endpoints: extraction, calculation, and analysis.
 Uses: orchestrator_service.py (LangGraph)
 """
 from fastapi import APIRouter, HTTPException, Request, Depends
-from typing import Dict, Any
+from typing import Dict, Any, List
 import asyncio
+from bson import ObjectId
 
 # Import run_orchestrator and direct services
 from app.services.orchestrator_service import (
@@ -17,6 +18,17 @@ from app.api.auth_routes import get_current_user
 
 router = APIRouter(tags=["orchestrator"])
 
+# Helper for JSON serialization
+def serialize_data(data: Any) -> Any:
+    """Recursively convert ObjectId to str for JSON serialization."""
+    if isinstance(data, dict):
+        return {k: serialize_data(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [serialize_data(item) for item in data]
+    elif isinstance(data, ObjectId):
+        return str(data)
+    else:
+        return data
 
 @router.post("/api/details/extract")
 async def extract_details(request: Request, current_user: dict = Depends(get_current_user)):
@@ -40,8 +52,6 @@ async def extract_details(request: Request, current_user: dict = Depends(get_cur
             
             if not extracted_data:
                 # No data found, trigger extraction
-                # NOTE: extract_all_forms primarily works with local files in data/uploads
-                # Ideally, we should ensure files are associated with user_id
                 extract_all_forms()
                 # Re-fetch after extraction
                 extracted_data = load_user_tax_data(db, user_id)
@@ -51,32 +61,33 @@ async def extract_details(request: Request, current_user: dict = Depends(get_cur
         result = await loop.run_in_executor(None, check_and_extract)
         
         if result:
-            return {
+            return serialize_data({
                 "status": "success",
                 "user_id": user_id,
                 "data": result,
                 "message": f"Extracted data loaded for user {user_id}"
-            }
+            })
         else:
-            return {
+            return serialize_data({
                 "status": "no_data",
                 "user_id": user_id,
                 "data": {},
                 "message": "No tax documents found. Please upload PDFs via the UI."
-            }
+            })
             
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/api/details/calculate")
-async def calculate_with_details(data: Dict[str, Any], request: Request, current_user: dict = Depends(get_current_user)):
+async def calculate_with_details(request: Request, current_user: dict = Depends(get_current_user)):
     """
-    Receive confirmed/modified data and run tax computation.
+    Fetch user data from DB and run tax computation.
     """
     try:
+        from app.services.db_helpers import load_user_tax_data
+        from app.db.connection import get_sync_db
         
-        print(f"DEBUG: calculate_with_details received data keys: {list(data.keys())}")
         loop = asyncio.get_event_loop()
         
         # Get user_id from authenticated user
@@ -84,29 +95,43 @@ async def calculate_with_details(data: Dict[str, Any], request: Request, current
         
         # Helper to run comparison with provided data
         def run_calculation():
+            db = get_sync_db()
+            extracted_data = load_user_tax_data(db, user_id)
+            
+            if not extracted_data:
+                raise ValueError("No tax documents found. Please upload Form 16 or AIS first.")
+
             # adapting dict to service expectation
-            # We can use the service directly OR the orchestrator with pre-filled state
-            result = compare_tax_regimes(extracted_data=data, user_id=user_id)
+            result = compare_tax_regimes(extracted_data=extracted_data, user_id=user_id)
             return result
 
         result = await loop.run_in_executor(None, run_calculation)
-        return result
+        return serialize_data(result)
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/api/analyze")
-async def analyze_taxes():
+async def analyze_taxes(current_user: dict = Depends(get_current_user)):
     """
-    Run the full tax analysis orchestrator.
+    Run the full tax analysis orchestrator for the authenticated user.
     """
     try:
         loop = asyncio.get_event_loop()
+        user_id = str(current_user["_id"])
         prompt = "Analyze my tax situation and provide detailed recommendations."
-        # run_orchestrator returns the final state (AgentState dict)
-        final_state = await loop.run_in_executor(None, run_orchestrator, prompt)
         
-        return final_state
+        # Pass user_id to orchestrator
+        final_state = await loop.run_in_executor(
+            None, 
+            run_orchestrator, 
+            prompt,
+            user_id
+        )
+        
+        return serialize_data(final_state)
     except Exception as e:
         print(f"Analysis error: {e}")
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")

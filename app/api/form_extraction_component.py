@@ -19,23 +19,36 @@ router = APIRouter(prefix="/api", tags=["upload"])
 _executor = ThreadPoolExecutor(max_workers=3)
 
 
-@router.post("/upload")
-async def upload_file(
+# ---------------------------------------------------------------------------- #
+#                                 1. AUTO (SMART)                              #
+# ---------------------------------------------------------------------------- #
+
+@router.post("/upload/form16a")
+async def upload_form16a(
     file: UploadFile = File(...), 
-    doc_type: str = Form("form16a"), 
     current_user: dict = Depends(get_current_user)
 ):
-    """
-    Upload and process a tax document.
-    
-    Args:
-        file: Uploaded PDF file
-        doc_type: Document type - options: "form16a", "form16b", "form26as", "ais"
-        current_user: Authenticated user
-        
-    Returns:
-        dict: Upload status and extracted data
-    """
+    """Upload Form 16 Part A"""
+    return await _handle_upload(file, "form16a", current_user)
+
+@router.post("/upload/form16b")
+async def upload_form16b(
+    file: UploadFile = File(...), 
+    current_user: dict = Depends(get_current_user)
+):
+    """Upload Form 16 Part B"""
+    return await _handle_upload(file, "form16b", current_user)
+
+@router.post("/upload/ais")
+async def upload_ais(
+    file: UploadFile = File(...), 
+    current_user: dict = Depends(get_current_user)
+):
+    """Upload AIS"""
+    return await _handle_upload(file, "ais", current_user)
+
+
+async def _handle_upload(file: UploadFile, doc_type: str, current_user: dict):
     try:
         user_id = str(current_user["_id"])
         
@@ -44,22 +57,18 @@ async def upload_file(
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         # Save uploaded file
-        # Use filename directly as it is now prefixed by the frontend
         file_path = upload_dir / file.filename
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
-        # Process the file in a separate thread to not block the event loop
-        # Use our dedicated executor to avoid event loop conflicts
+        # Process the file in a separate thread
         loop = asyncio.get_event_loop()
         try:
-            # Enforce a 10-minute timeout for extraction to match LlamaExtract logic
-            # Use functools.partial to properly pass arguments to the executor
             func = functools.partial(
                 process_uploaded_file,
                 str(file_path),
                 doc_type,
-                user_id  # Pass user_id to service
+                user_id
             )
             extracted_data = await asyncio.wait_for(
                 loop.run_in_executor(_executor, func),
@@ -68,7 +77,7 @@ async def upload_file(
         except asyncio.TimeoutError:
             raise HTTPException(
                 status_code=504, 
-                detail="Extraction timed out. The document might be too complex or the service is unresponsive."
+                detail="Extraction timed out."
             )
         
         return {

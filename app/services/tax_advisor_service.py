@@ -125,7 +125,7 @@ if OPENROUTER_API_KEY:
     llm = ChatOpenAI(
         base_url="https://openrouter.ai/api/v1",
         model="tngtech/deepseek-r1t-chimera:free",
-        api_key=OPENROUTER_API_KEY,
+        api_key=OPENROUTER_API_KEY.strip(),
         temperature=0,
         max_tokens=4096,  # Increased from 1024 to prevent truncation
     )

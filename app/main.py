@@ -44,6 +44,10 @@ app.include_router(filing_routes.router)
 from app.api import auth_routes
 app.include_router(auth_routes.router)
 
+# Import and include admin router
+from app.api import admin_routes
+app.include_router(admin_routes.router)
+
 
 
 @app.get("/")
