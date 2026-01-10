@@ -48,6 +48,9 @@ app.include_router(auth_routes.router)
 from app.api import admin_routes
 app.include_router(admin_routes.router)
 
+# Import and include details router
+from app.api import details_routes
+app.include_router(details_routes.router)
 
 
 @app.get("/")
