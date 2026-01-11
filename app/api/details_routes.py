@@ -15,22 +15,17 @@ async def get_all_user_documents(current_user: dict = Depends(get_current_user))
     """
     user_id = str(current_user["_id"])
     try:
-        form16as = details_service.get_all_documents(user_id, "form16a")
-        form16bs = details_service.get_all_documents(user_id, "form16b")
-        ais_docs = details_service.get_all_documents(user_id, "ais")
-        
-        return {
-            "form16a": form16as,
-            "form16b": form16bs,
-            "ais": ais_docs
-        }
+        # Use new generic fetch, or distinct calls if we want to structure it explicitly
+        # Service now supports getting all if doc_type is none, or specific.
+        # But to match previous response structure, we can call it 3 times or refactor service to return dict.
+        # The new service get_all_documents returns a dict of lists if doc_type is None.
+        return details_service.get_all_documents(user_id)
     except Exception as e:
         logger.error(f"Error fetching all documents: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch documents")
 
-@router.get("/{doc_type}/{doc_id}")
+@router.get("/{doc_id}")
 async def get_document_details(
-    doc_type: str, 
     doc_id: str, 
     current_user: dict = Depends(get_current_user)
 ):
@@ -39,11 +34,8 @@ async def get_document_details(
     """
     user_id = str(current_user["_id"])
     
-    if doc_type not in ["form16a", "form16b", "ais"]:
-        raise HTTPException(status_code=400, detail="Invalid document type")
-        
     try:
-        doc = details_service.get_document(user_id, doc_type, doc_id)
+        doc = details_service.get_document(user_id, doc_id)
         if not doc:
             raise HTTPException(status_code=404, detail="Document not found")
         return doc
@@ -53,9 +45,8 @@ async def get_document_details(
         logger.error(f"Error getting document: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@router.put("/{doc_type}/{doc_id}")
+@router.put("/{doc_id}")
 async def update_document_details(
-    doc_type: str, 
     doc_id: str, 
     updates: Dict[str, Any] = Body(...),
     current_user: dict = Depends(get_current_user)
@@ -65,11 +56,8 @@ async def update_document_details(
     """
     user_id = str(current_user["_id"])
     
-    if doc_type not in ["form16a", "form16b", "ais"]:
-        raise HTTPException(status_code=400, detail="Invalid document type")
-        
     try:
-        updated_doc = details_service.update_document(user_id, doc_type, doc_id, updates)
+        updated_doc = details_service.update_document(user_id, doc_id, updates)
         if not updated_doc:
              raise HTTPException(status_code=404, detail="Document not found or update failed")
         return updated_doc
@@ -80,9 +68,8 @@ async def update_document_details(
         logger.error(f"Error updating document: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-@router.delete("/{doc_type}/{doc_id}")
+@router.delete("/{doc_id}")
 async def delete_document(
-    doc_type: str, 
     doc_id: str, 
     current_user: dict = Depends(get_current_user)
 ):
@@ -91,11 +78,8 @@ async def delete_document(
     """
     user_id = str(current_user["_id"])
     
-    if doc_type not in ["form16a", "form16b", "ais"]:
-        raise HTTPException(status_code=400, detail="Invalid document type")
-        
     try:
-        success = details_service.delete_document(user_id, doc_type, doc_id)
+        success = details_service.delete_document(user_id, doc_id)
         if not success:
             raise HTTPException(status_code=404, detail="Document not found or delete failed")
         return {"status": "success", "message": "Document deleted"}
