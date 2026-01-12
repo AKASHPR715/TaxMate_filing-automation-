@@ -204,10 +204,20 @@ def get_tax_advice(question: str, deductions: List[str] = None, income_details: 
     
     try:
         result = agent_executor.invoke({"input": full_prompt})
-        return result.get("output", "No advice generated.")
+        output = result.get("output", "No advice generated.")
+        
+        # Check for iteration limit message ("Agent stopped...") or if output suggests failure
+        if "Agent stopped" in output and "iteration limit" in output:
+             raise Exception("Agent stopped due to iteration limit")
+             
+        return output
+
     except Exception as e:
-        advisor_logger.error(f"Advisor Loop Failed: {e}")
-        return f"Sorry, I could not generate advice due to an error: {e}"
+        advisor_logger.warning(f"Advisor Agent failed (or limit reached): {e}. Falling back to Web Search.")
+        
+        # Fallback to pure web search
+        fallback_res = web_search.invoke(question)
+        return f"**Note: The complex reasoning agent hit a limit, so here is a direct web search result:**\n\n{fallback_res}"
 
 if __name__ == "__main__":
     print(get_tax_advice("How can I save tax?"))
