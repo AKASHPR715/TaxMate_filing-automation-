@@ -1,0 +1,56 @@
+================================================================================
+TAX COMPUTATION BENCHMARK - 20260109_150218
+Model: gemini-1.5-flash
+Total Profiles: 1
+Dry Run: False
+================================================================================
+
+
+================================================================================
+PROFILE 1/1: TAX-81993BF6
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 33
+Gross Salary: ₹1,090,000.00
+Basic Salary: ₹536,900.00
+HRA Received: ₹219,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹65,400.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹84,600.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹231,400.00 (Metro: True)
+
+GROUND TRUTH: ₹57,156.32
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹57,156.32
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,840.00
+   Error: ₹28,316.32 (49.54%)
+   Raw Output (first 200 chars): 28840...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹67,556.00
+   Error: ₹10,399.68 (18.20%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1090000.0
+*   Other Income: ₹0.0
+*   ...
+

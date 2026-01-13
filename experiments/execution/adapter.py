@@ -60,5 +60,5 @@ def adapt_profile_to_orchestrator(profile: TaxProfile) -> Dict[str, Any]:
     
     return {
         "16_Part_B": form16_data,
-        "financial_year": "23-24"  # FY 2023-24 for AY 2024-25
+        "financial_year": "24-25"  # FY 2024-25 for AY 2025-26
     }

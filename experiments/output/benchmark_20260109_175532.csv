@@ -1,0 +1,63 @@
+profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
+TAX-22282993,Medium,Old,3197.6880000000006,4237.688,14532.0,9515.0,1039.9999999999995,11334.312,6317.312,14532,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹514000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹514000.0 + ₹0.0 = ₹514000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹95200.0
+*   Rent paid less 10% of Basic Salary: ₹54300.0 - (10% of ₹236100.0) = ₹54300.0 - ₹23610.0 = ₹30690.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹236100.0 = ₹94440.0
+
+The least of these three amounts is ₹30690.0. Therefore, the HRA exemption is ₹30690.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30800.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹46016.0
+    *   Total 80C: ₹30800.0 + ₹0.0 + ₹0.0 + ₹46016.0 = ₹76816.0
+
+    The maximum deduction allowed under Section 80C is ₹150000.  Therefore, the 80C deduction is ₹76816.0.
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹15000.0
+    *   Medical Insurance (Parents): ₹30000.0
+
+    The maximum deduction allowed for medical insurance for self is ₹25000 (assuming taxpayer is below 60 years of age). The maximum deduction allowed for medical insurance for parents is ₹25000 if parents are below 60 years of age or ₹50000 if parents are above 60 years of age. Let's assume parents are below 60 years of age.
+
+    Total 80D deduction = ₹15000.0 + ₹25000.0 = ₹40000.0
+
+*   **Total Deductions (Chapter VI-A):** ₹76816.0 + ₹40000.0 = ₹116816.0
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Exemptions - Deductions
+*   Taxable Income = ₹514000.0 - ₹30690.0 - ₹116816.0 = ₹366494.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50,000 = ₹2500
+*   ₹3,00,001 to ₹3,66494.0: 10% of (₹366494.0 - ₹3,00,000) = 10% of ₹66494.0 = ₹6649.4
+
+Total Income Tax = ₹0 + ₹2500 + ₹6649.4 = ₹9149.4
+
+**6. Add Cess:**
+
+*   Cess is 4% of the Income Tax.
+*   Cess = 4% of ₹9149.4 = ₹365.976
+
+Total Tax Liability = ₹9149.4 + ₹365.976 = ₹9515.376
+
+Rounding off to the nearest rupee, the total tax liability is ₹9515.
+
+FINAL TAX: 9515"

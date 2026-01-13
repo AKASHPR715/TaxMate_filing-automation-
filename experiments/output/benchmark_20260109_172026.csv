@@ -1,0 +1,57 @@
+profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
+TAX-2FDE3B30,Medium,Old,129168.0,129168.0,27536.0,144768.0,0.0,101632.0,15600.0,27536,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1290000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1290000.0 + ₹0.0 = ₹1290000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹275900.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city): Since the taxpayer is *not* living in a metro city, we take 40% of Basic Salary. 40% of ₹636000.0 = ₹254400.0
+*   Rent Paid minus 10% of Basic Salary: Rent Paid is ₹114600.0. 10% of Basic Salary is ₹63600.0. Therefore, ₹114600.0 - ₹63600.0 = ₹51000.0
+
+The least of these three amounts is ₹51000.0. Therefore, the HRA exemption is ₹51000.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹77400.0
+    *   ELSS: ₹72600.0
+    *   Total 80C Deductions: ₹77400.0 + ₹72600.0 = ₹150000.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0.
+
+*   **Section 80D:**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D Deductions: ₹0.0
+
+Total Deductions (Chapter VI-A) = ₹150000.0 + ₹0.0 = ₹150000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1290000.0
+*   HRA Exemption: ₹51000.0
+*   Deductions (Chapter VI-A): ₹150000.0
+*   Taxable Income = ₹1290000.0 - ₹51000.0 - ₹150000.0 = ₹1089000.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹1089000.0 - ₹10,00,000) = 30% of ₹89000.0 = ₹26700.0
+
+Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹26700.0 = ₹139200.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹139200.0 = ₹5568.0
+
+Total Tax Liability = ₹139200.0 + ₹5568.0 = ₹144768.0
+
+FINAL TAX: ₹144768.0"

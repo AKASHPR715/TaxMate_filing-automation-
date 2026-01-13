@@ -76,7 +76,7 @@ def convert_to_form16_format(profile) -> dict:
             
             # 3. Section 16 Deductions (Professional Tax)
             "deductions_u_s_16": {
-                "standard_deduction": 50000.0,  # Auto-applied by system
+                "standard_deduction": 75000.0,  # FY 2024-25 standard deduction
                 "professional_tax": 2500.0 if profile.income.gross_salary > 300000 else 0.0
             },
             
@@ -104,8 +104,8 @@ def convert_to_form16_format(profile) -> dict:
             
             # 6. Assessment Details (for FY determination)
             "assessment_details": {
-                "assessment_year": "2024-25",
-                "financial_year": "2023-24"
+                "assessment_year": "2025-26",
+                "financial_year": "2024-25"
             }
         }
     }

@@ -1,0 +1,23 @@
+[
+  {
+    "profile_id": "TAX-2FDE3B30",
+    "age": 57,
+    "complexity_category": "Medium",
+    "target_regime": "Old",
+    "ground_truth_tax": 129168.0,
+    "gross_salary": 1290000.0,
+    "basic_salary": 636000.0,
+    "hra_received": 275900.0,
+    "other_income": 0.0,
+    "pf_contribution": 77400.0,
+    "elss": 72600.0,
+    "lic_premium": 0.0,
+    "ppf": 0.0,
+    "total_80c": 150000.0,
+    "medical_insurance_self": 0.0,
+    "medical_insurance_parents": 0.0,
+    "total_80d": 0.0,
+    "rent_paid_annual": 114600.0,
+    "is_metro_city": false
+  }
+]

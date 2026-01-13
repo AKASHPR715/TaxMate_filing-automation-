@@ -8,9 +8,10 @@ from datetime import datetime
 from tqdm import tqdm
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
-
+# Load environment variables from .env files (check multiple locations)
+for env_path in [".env", "experiments/.env", "experiments/batch_run/.env"]:
+    if os.path.exists(env_path):
+        load_dotenv(env_path, override=True)
 # Add project root to path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(current_dir, "../../"))

@@ -1,0 +1,50 @@
+================================================================================
+TAX COMPUTATION BENCHMARK - 20260109_125906
+Model: gemini-1.5-flash
+Total Profiles: 1
+Dry Run: False
+================================================================================
+
+
+================================================================================
+PROFILE 1/1: TAX-92709E39
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 49
+Gross Salary: ₹500,000.00
+Basic Salary: ₹246,000.00
+HRA Received: ₹116,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹50,223.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹20,223.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹-1.00
+   Error: ₹7,801.00 (100.01%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹-1.00
+   Error: ₹7,801.00 (100.01%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+

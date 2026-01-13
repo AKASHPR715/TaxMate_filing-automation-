@@ -429,7 +429,7 @@ def compare_tax_regimes(extracted_data: dict = None, include_any_other_deduction
     ch_via_validated = validation_result["validated_total"]
 
     # Determine financial year
-    financial_year = "23-24"  # Default to AY 2024-25
+    financial_year = "24-25"  # Default to AY 2024-25
     if extracted_data:
         for form_name, form_data in extracted_data.items():
             if not isinstance(form_data, dict):

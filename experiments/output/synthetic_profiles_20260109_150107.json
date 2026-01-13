@@ -1,0 +1,23 @@
+[
+  {
+    "profile_id": "TAX-CA2E358A",
+    "age": 44,
+    "complexity_category": "Medium",
+    "target_regime": "New",
+    "ground_truth_tax": 7800.0,
+    "gross_salary": 500000.0,
+    "basic_salary": 245400.0,
+    "hra_received": 107100.0,
+    "other_income": 0.0,
+    "pf_contribution": 30000.0,
+    "elss": 49005.5,
+    "lic_premium": 0.0,
+    "ppf": 49005.5,
+    "total_80c": 128011.0,
+    "medical_insurance_self": 15000.0,
+    "medical_insurance_parents": 0.0,
+    "total_80d": 15000.0,
+    "rent_paid_annual": 69700.0,
+    "is_metro_city": true
+  }
+]

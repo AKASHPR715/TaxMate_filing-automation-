@@ -1,0 +1,4864 @@
+================================================================================
+TAX COMPUTATION BENCHMARK - 20260109_152818
+Model: gemini-1.5-flash
+Total Profiles: 100
+Dry Run: False
+================================================================================
+
+
+================================================================================
+PROFILE 1/100: TAX-9979B6DD
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 35
+Gross Salary: ₹1,085,000.00
+Basic Salary: ₹539,300.00
+HRA Received: ₹252,200.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹65,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹84,900.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹87,880.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹93,080.00
+   Error: ₹5,200.00 (5.92%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹39,520.00
+   Error: ₹48,360.00 (55.03%)
+   Raw Output (first 200 chars): 39520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹98,280.00
+   Error: ₹10,400.00 (11.83%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1085000.0
+*   Other Income: ₹25000.0
+...
+
+
+================================================================================
+PROFILE 2/100: TAX-B11B7BC1
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 48
+Gross Salary: ₹679,000.00
+Basic Salary: ₹293,300.00
+HRA Received: ₹122,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹124,633.00
+    - PF: ₹40,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹83,933.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹71,700.00 (Metro: False)
+
+GROUND TRUTH: ₹11,023.84
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹11,023.84
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹17,744.00
+   Error: ₹6,720.16 (60.96%)
+   Raw Output (first 200 chars): 17744...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹15,495.00
+   Error: ₹4,471.16 (40.56%)
+   Raw Output (first 200 chars): Okay, I will calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps you've outlined.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salar...
+
+
+================================================================================
+PROFILE 3/100: TAX-2A089DFE
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 50
+Gross Salary: ₹1,014,000.00
+Basic Salary: ₹414,400.00
+HRA Received: ₹168,900.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹60,800.00
+    - ELSS: ₹44,600.00
+    - LIC: ₹0.00
+    - PPF: ₹44,600.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹124,000.00 (Metro: True)
+
+GROUND TRUTH: ₹57,564.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹57,564.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹29,660.00
+   Error: ₹27,904.00 (48.47%)
+   Raw Output (first 200 chars): 29660...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹65,364.00
+   Error: ₹7,800.00 (13.55%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1014000.0
+*   Other Income: ₹5000.0
+*...
+
+
+================================================================================
+PROFILE 4/100: TAX-E2A050F1
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 54
+Gross Salary: ₹556,000.00
+Basic Salary: ₹262,300.00
+HRA Received: ₹122,800.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹116,553.00
+    - PF: ₹33,400.00
+    - ELSS: ₹83,153.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹6,731.24
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹6,731.24
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹17,530.00
+   Error: ₹10,798.76 (160.43%)
+   Raw Output (first 200 chars): 17530...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹9,331.00
+   Error: ₹2,599.76 (38.62%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹556000
+*   Other Income: ₹5000
+*   Gr...
+
+
+================================================================================
+PROFILE 5/100: TAX-4BD35A19
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 54
+Gross Salary: ₹500,000.00
+Basic Salary: ₹224,900.00
+HRA Received: ₹95,600.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹126,828.00
+    - PF: ₹30,000.00
+    - ELSS: ₹48,414.00
+    - LIC: ₹0.00
+    - PPF: ₹48,414.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹9,100.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹9,100.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,000.00
+   Error: ₹3,900.00 (42.86%)
+   Raw Output (first 200 chars): 13000...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹11,700.00
+   Error: ₹2,600.00 (28.57%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 6/100: TAX-F7D3A5C9
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 40
+Gross Salary: ₹668,000.00
+Basic Salary: ₹298,700.00
+HRA Received: ₹132,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹40,100.00
+    - PF: ₹40,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹24,003.20
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹24,003.20
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,736.00
+   Error: ₹4,267.20 (17.78%)
+   Raw Output (first 200 chars): 19736...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹11,482.00
+   Error: ₹12,521.20 (52.16%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹668000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 7/100: TAX-D5CB9B2A
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 23
+Gross Salary: ₹854,000.00
+Basic Salary: ₹392,200.00
+HRA Received: ₹179,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹51,200.00
+    - PF: ₹51,200.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹65,582.40
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹65,582.40
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,536.00
+   Error: ₹46,046.40 (70.21%)
+   Raw Output (first 200 chars): 19536...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹75,982.00
+   Error: ₹10,399.60 (15.86%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹854000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 8/100: TAX-38DE1B98
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 38
+Gross Salary: ₹500,000.00
+Basic Salary: ₹237,700.00
+HRA Received: ₹103,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹99,779.00
+    - PF: ₹30,000.00
+    - ELSS: ₹34,889.50
+    - LIC: ₹0.00
+    - PPF: ₹34,889.50
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹39,700.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,520.00
+   Error: ₹5,720.00 (73.33%)
+   Raw Output (first 200 chars): 13520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*...
+
+
+================================================================================
+PROFILE 9/100: TAX-D6C7E8D7
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 29
+Gross Salary: ₹1,459,000.00
+Basic Salary: ₹640,800.00
+HRA Received: ₹309,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹87,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹62,500.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹137,072.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹137,072.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹100,360.00
+   Error: ₹36,712.00 (26.78%)
+   Raw Output (first 200 chars): 100360...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹156,000.00
+   Error: ₹18,928.00 (13.81%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹1459000.0
+    *   Other Income: ...
+
+
+================================================================================
+PROFILE 10/100: TAX-0E37DD63
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 42
+Gross Salary: ₹994,000.00
+Basic Salary: ₹453,100.00
+HRA Received: ₹196,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹59,600.00
+    - PF: ₹59,600.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹172,400.00 (Metro: True)
+
+GROUND TRUTH: ₹61,320.48
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹61,320.48
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹37,740.00
+   Error: ₹23,580.48 (38.45%)
+   Raw Output (first 200 chars): 37740...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹71,720.00
+   Error: ₹10,399.52 (16.96%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹994000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 11/100: TAX-38D4DB68
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 40
+Gross Salary: ₹754,000.00
+Basic Salary: ₹369,800.00
+HRA Received: ₹173,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹45,200.00
+    - PF: ₹45,200.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹137,700.00 (Metro: True)
+
+GROUND TRUTH: ₹26,416.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹26,416.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,330.00
+   Error: ₹1,914.00 (7.25%)
+   Raw Output (first 200 chars): 28330...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹31,616.00
+   Error: ₹5,200.00 (19.69%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 12/100: TAX-82079AB5
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 32
+Gross Salary: ₹1,119,000.00
+Basic Salary: ₹506,500.00
+HRA Received: ₹223,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹67,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹82,900.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹140,000.00 (Metro: False)
+
+GROUND TRUTH: ₹81,567.20
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹81,567.20
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹39,520.00
+   Error: ₹42,047.20 (51.55%)
+   Raw Output (first 200 chars): 39520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹91,967.00
+   Error: ₹10,399.80 (12.75%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1119000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 13/100: TAX-1DABE2C8
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 51
+Gross Salary: ₹542,000.00
+Basic Salary: ₹247,300.00
+HRA Received: ₹117,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹32,500.00
+    - PF: ₹32,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹75,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹71,700.00 (Metro: True)
+
+GROUND TRUTH: ₹9,984.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹9,984.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹12,796.00
+   Error: ₹2,812.00 (28.17%)
+   Raw Output (first 200 chars): 12796...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹12,584.00
+   Error: ₹2,600.00 (26.04%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 14/100: TAX-37E7BB2F
+================================================================================
+Complexity: Complex
+Target Regime: New
+Age: 47
+Gross Salary: ₹3,269,000.00
+Basic Salary: ₹1,447,600.00
+HRA Received: ₹580,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹196,100.00
+    - PF: ₹196,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹40,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹205,400.00 (Metro: False)
+
+GROUND TRUTH: ₹692,328.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹692,328.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹343,920.00
+   Error: ₹348,408.00 (50.32%)
+   Raw Output (first 200 chars): 343920...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹707,928.00
+   Error: ₹15,600.00 (2.25%)
+   Raw Output (first 200 chars): Okay, I will calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the steps you've outlined.
+
+**1. Determine Gross Total Income:**
+
+Gross Total Income = G...
+
+
+================================================================================
+PROFILE 15/100: TAX-E38EE9E1
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 23
+Gross Salary: ₹500,000.00
+Basic Salary: ₹230,800.00
+HRA Received: ₹114,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹84,240.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹54,240.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹38,600.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,520.00
+   Error: ₹5,720.00 (73.33%)
+   Raw Output (first 200 chars): 13520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 16/100: TAX-45851E45
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 35
+Gross Salary: ₹2,401,000.00
+Basic Salary: ₹1,050,500.00
+HRA Received: ₹475,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹144,100.00
+    - ELSS: ₹2,950.00
+    - LIC: ₹0.00
+    - PPF: ₹2,950.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹231,700.00 (Metro: True)
+
+GROUND TRUTH: ₹421,512.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹421,512.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹136,260.00
+   Error: ₹285,252.00 (67.67%)
+   Raw Output (first 200 chars): 136260...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹437,112.00
+   Error: ₹15,600.00 (3.70%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 17/100: TAX-34E0C3BB
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 22
+Gross Salary: ₹500,000.00
+Basic Salary: ₹216,600.00
+HRA Received: ₹106,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹67,884.00
+    - PF: ₹30,000.00
+    - ELSS: ₹37,884.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹23,200.00 (Metro: False)
+
+GROUND TRUTH: ₹6,009.95
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹6,009.95
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,656.00
+   Error: ₹7,646.05 (127.22%)
+   Raw Output (first 200 chars): 13656...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹14,620.00
+   Error: ₹8,610.05 (143.26%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 18/100: TAX-4923227C
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 57
+Gross Salary: ₹500,000.00
+Basic Salary: ₹215,300.00
+HRA Received: ₹95,900.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹42,300.00 (Metro: False)
+
+GROUND TRUTH: ₹10,400.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹10,400.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹16,120.00
+   Error: ₹5,720.00 (55.00%)
+   Raw Output (first 200 chars): 16120...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹13,000.00
+   Error: ₹2,600.00 (25.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    * ...
+
+
+================================================================================
+PROFILE 19/100: TAX-41A9EA92
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 52
+Gross Salary: ₹500,000.00
+Basic Salary: ₹236,800.00
+HRA Received: ₹102,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹50,300.00 (Metro: True)
+
+GROUND TRUTH: ₹7,455.76
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,455.76
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,576.00
+   Error: ₹6,120.24 (82.09%)
+   Raw Output (first 200 chars): 13576...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,056.00
+   Error: ₹2,600.24 (34.88%)
+   Raw Output (first 200 chars): Okay, let's break down the income tax calculation for the taxpayer under the Old Regime for FY 2024-25.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total ...
+
+
+================================================================================
+PROFILE 20/100: TAX-FD07F92E
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 49
+Gross Salary: ₹738,000.00
+Basic Salary: ₹336,200.00
+HRA Received: ₹147,900.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹133,014.00
+    - PF: ₹44,300.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹88,714.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹156,800.00 (Metro: True)
+
+GROUND TRUTH: ₹10,753.91
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹10,753.91
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹27,713.00
+   Error: ₹16,959.09 (157.70%)
+   Raw Output (first 200 chars): 27713...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹14,416.00
+   Error: ₹3,662.09 (34.05%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹738000.0
+*   Other Income: ₹25000.0
+*...
+
+
+================================================================================
+PROFILE 21/100: TAX-7AFA1DB5
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 36
+Gross Salary: ₹1,460,000.00
+Basic Salary: ₹641,500.00
+HRA Received: ₹278,700.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹87,600.00
+    - ELSS: ₹31,200.00
+    - LIC: ₹0.00
+    - PPF: ₹31,200.00
+  Total 80D: ₹30,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹147,680.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹147,680.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹110,760.00
+   Error: ₹36,920.00 (25.00%)
+   Raw Output (first 200 chars): 110760...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹159,120.00
+   Error: ₹11,440.00 (7.75%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹1460000.0
+*   Other Income: ₹50000.0
+*   ...
+
+
+================================================================================
+PROFILE 22/100: TAX-217C84CE
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 43
+Gross Salary: ₹539,000.00
+Basic Salary: ₹237,000.00
+HRA Received: ₹100,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹115,771.00
+    - PF: ₹32,300.00
+    - ELSS: ₹0.00
+    - LIC: ₹83,471.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹33,500.00 (Metro: False)
+
+GROUND TRUTH: ₹4,858.31
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹4,858.31
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹14,531.00
+   Error: ₹9,672.69 (199.10%)
+   Raw Output (first 200 chars): 14531...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹7,458.00
+   Error: ₹2,599.69 (53.51%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹539000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 23/100: TAX-3F52E4D0
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 40
+Gross Salary: ₹500,000.00
+Basic Salary: ₹229,900.00
+HRA Received: ₹112,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹124,865.00
+    - PF: ₹30,000.00
+    - ELSS: ₹47,432.50
+    - LIC: ₹0.00
+    - PPF: ₹47,432.50
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹36,600.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹12,870.00
+   Error: ₹5,070.00 (65.00%)
+   Raw Output (first 200 chars): 12870...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary ...
+
+
+================================================================================
+PROFILE 24/100: TAX-EF5B6E9E
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 49
+Gross Salary: ₹819,000.00
+Basic Salary: ₹384,900.00
+HRA Received: ₹185,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹49,100.00
+    - PF: ₹49,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹134,800.00 (Metro: True)
+
+GROUND TRUTH: ₹28,306.72
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹33,506.72
+   Error: ₹5,200.00 (18.37%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,736.00
+   Error: ₹8,570.72 (30.28%)
+   Raw Output (first 200 chars): 19736...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹38,707.00
+   Error: ₹10,400.28 (36.74%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹819000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 25/100: TAX-753BB1C8
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 57
+Gross Salary: ₹1,745,000.00
+Basic Salary: ₹817,800.00
+HRA Received: ₹395,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹104,700.00
+    - ELSS: ₹45,300.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹407,900.00 (Metro: True)
+
+GROUND TRUTH: ₹216,840.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹216,840.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹38,220.00
+   Error: ₹178,620.00 (82.37%)
+   Raw Output (first 200 chars): 38220...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹232,440.00
+   Error: ₹15,600.00 (7.19%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹1745000.0
+    *   Other Income: ...
+
+
+================================================================================
+PROFILE 26/100: TAX-AF2AC9BD
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 56
+Gross Salary: ₹500,000.00
+Basic Salary: ₹204,000.00
+HRA Received: ₹91,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹80,275.00
+    - PF: ₹30,000.00
+    - ELSS: ₹25,137.50
+    - LIC: ₹0.00
+    - PPF: ₹25,137.50
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹41,300.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹12,500.00
+   Error: ₹4,700.00 (60.26%)
+   Raw Output (first 200 chars): 12500...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 27/100: TAX-2EE19951
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 39
+Gross Salary: ₹500,000.00
+Basic Salary: ₹228,200.00
+HRA Received: ₹108,700.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹93,788.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹63,788.00
+  Total 80D: ₹40,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹51,900.00 (Metro: True)
+
+GROUND TRUTH: ₹8,060.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹8,060.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,526.00
+   Error: ₹5,466.00 (67.82%)
+   Raw Output (first 200 chars): 13526...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,660.00
+   Error: ₹2,600.00 (32.26%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 28/100: TAX-C65CF983
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 32
+Gross Salary: ₹647,000.00
+Basic Salary: ₹314,200.00
+HRA Received: ₹133,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹38,800.00
+    - PF: ₹38,800.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹85,600.00 (Metro: False)
+
+GROUND TRUTH: ₹15,444.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹15,444.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,556.00
+   Error: ₹4,112.00 (26.63%)
+   Raw Output (first 200 chars): 19556...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹20,488.00
+   Error: ₹5,044.00 (32.66%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total...
+
+
+================================================================================
+PROFILE 29/100: TAX-85CF8162
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 58
+Gross Salary: ₹1,828,000.00
+Basic Salary: ₹750,900.00
+HRA Received: ₹304,400.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹109,700.00
+    - PF: ₹109,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹70,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹319,269.60
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹333,309.60
+   Error: ₹14,040.00 (4.40%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹181,160.00
+   Error: ₹138,109.60 (43.26%)
+   Raw Output (first 200 chars): 181160...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹334,870.00
+   Error: ₹15,600.40 (4.89%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1828000.0
+*   Other Income: ₹50000.0
+...
+
+
+================================================================================
+PROFILE 30/100: TAX-7A91BE86
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 53
+Gross Salary: ₹814,000.00
+Basic Salary: ₹326,700.00
+HRA Received: ₹142,900.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹48,800.00
+    - PF: ₹48,800.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹149,200.00 (Metro: True)
+
+GROUND TRUTH: ₹25,203.36
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹29,363.36
+   Error: ₹4,160.00 (16.51%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,760.00
+   Error: ₹5,443.36 (21.60%)
+   Raw Output (first 200 chars): 19760...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹35,603.00
+   Error: ₹10,399.64 (41.26%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹814000.0
+*   Other Income: ₹5000.0
+* ...
+
+
+================================================================================
+PROFILE 31/100: TAX-18F57058
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 22
+Gross Salary: ₹2,348,000.00
+Basic Salary: ₹1,137,000.00
+HRA Received: ₹563,900.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹140,900.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹9,100.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹302,900.00 (Metro: False)
+
+GROUND TRUTH: ₹412,776.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹412,776.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹200,360.00
+   Error: ₹212,416.00 (51.46%)
+   Raw Output (first 200 chars): 200360...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹428,376.00
+   Error: ₹15,600.00 (3.78%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹2348000.0
+*   Other Income: ₹25000.0
+*   ...
+
+
+================================================================================
+PROFILE 32/100: TAX-F9CCE3F6
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 38
+Gross Salary: ₹500,000.00
+Basic Salary: ₹235,600.00
+HRA Received: ₹97,200.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹121,057.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹91,057.00
+  Total 80D: ₹35,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹64,700.00 (Metro: True)
+
+GROUND TRUTH: ₹8,060.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹8,060.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,550.00
+   Error: ₹5,490.00 (68.11%)
+   Raw Output (first 200 chars): 13550...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,660.00
+   Error: ₹2,600.00 (32.26%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹5000.0
+*   Gr...
+
+
+================================================================================
+PROFILE 33/100: TAX-51B624B5
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 46
+Gross Salary: ₹556,000.00
+Basic Salary: ₹246,100.00
+HRA Received: ₹104,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹33,400.00
+    - PF: ₹33,400.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹68,000.00 (Metro: True)
+
+GROUND TRUTH: ₹8,278.92
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹8,278.92
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹14,440.00
+   Error: ₹6,161.08 (74.42%)
+   Raw Output (first 200 chars): 14440...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,879.00
+   Error: ₹2,600.08 (31.41%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹556000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 34/100: TAX-97A5181C
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 39
+Gross Salary: ₹500,000.00
+Basic Salary: ₹242,100.00
+HRA Received: ₹107,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹111,384.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹81,384.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹109,600.00 (Metro: True)
+
+GROUND TRUTH: ₹167.75
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹167.75
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,576.00
+   Error: ₹13,408.25 (7992.90%)
+   Raw Output (first 200 chars): 13576...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹2,768.00
+   Error: ₹2,600.25 (1550.05%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 35/100: TAX-261D5281
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 33
+Gross Salary: ₹763,000.00
+Basic Salary: ₹346,400.00
+HRA Received: ₹157,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹60,587.00
+    - PF: ₹45,800.00
+    - ELSS: ₹7,393.50
+    - LIC: ₹0.00
+    - PPF: ₹7,393.50
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹27,352.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹27,352.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,515.00
+   Error: ₹7,837.00 (28.65%)
+   Raw Output (first 200 chars): 19515...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹32,552.00
+   Error: ₹5,200.00 (19.01%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Total Income = Gros...
+
+
+================================================================================
+PROFILE 36/100: TAX-FD19A74C
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 48
+Gross Salary: ₹681,000.00
+Basic Salary: ₹306,900.00
+HRA Received: ₹148,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹103,897.00
+    - PF: ₹40,900.00
+    - ELSS: ₹62,997.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹87,600.00 (Metro: True)
+
+GROUND TRUTH: ₹18,824.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹18,824.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,732.00
+   Error: ₹92.00 (0.49%)
+   Raw Output (first 200 chars): 18732...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹24,024.00
+   Error: ₹5,200.00 (27.62%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary ...
+
+
+================================================================================
+PROFILE 37/100: TAX-822FB076
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 28
+Gross Salary: ₹1,878,000.00
+Basic Salary: ₹766,000.00
+HRA Received: ₹342,500.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹112,700.00
+    - ELSS: ₹37,300.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹259,896.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹259,896.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹219,140.00
+   Error: ₹40,756.00 (15.68%)
+   Raw Output (first 200 chars): 219140...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹275,496.00
+   Error: ₹15,600.00 (6.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹1878000.0
+    *   Other Income: ...
+
+
+================================================================================
+PROFILE 38/100: TAX-B5717A47
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 30
+Gross Salary: ₹1,846,000.00
+Basic Salary: ₹889,500.00
+HRA Received: ₹403,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹110,800.00
+    - ELSS: ₹0.00
+    - LIC: ₹39,200.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹106,100.00 (Metro: False)
+
+GROUND TRUTH: ₹313,201.20
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹313,201.20
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹48,730.00
+   Error: ₹264,471.20 (84.44%)
+   Raw Output (first 200 chars): 48730...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹328,801.20
+   Error: ₹15,600.00 (4.98%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1846000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 39/100: TAX-B4862487
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 31
+Gross Salary: ₹2,450,000.00
+Basic Salary: ₹1,079,800.00
+HRA Received: ₹479,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹147,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹3,000.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹121,200.00 (Metro: False)
+
+GROUND TRUTH: ₹502,875.36
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹502,875.36
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹372,330.00
+   Error: ₹130,545.36 (25.96%)
+   Raw Output (first 200 chars): 372330...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹518,475.00
+   Error: ₹15,599.64 (3.10%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹2450000.0
+*   Other I...
+
+
+================================================================================
+PROFILE 40/100: TAX-16B3F22F
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 30
+Gross Salary: ₹961,000.00
+Basic Salary: ₹432,200.00
+HRA Received: ₹211,400.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹102,219.00
+    - PF: ₹57,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹44,519.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹93,200.00 (Metro: False)
+
+GROUND TRUTH: ₹49,296.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹49,296.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹38,790.00
+   Error: ₹10,506.00 (21.31%)
+   Raw Output (first 200 chars): 38790...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹57,096.00
+   Error: ₹7,800.00 (15.82%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹961000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 41/100: TAX-BA9AA645
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 57
+Gross Salary: ₹976,000.00
+Basic Salary: ₹427,100.00
+HRA Received: ₹209,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹58,600.00
+    - PF: ₹58,600.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹50,856.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹50,856.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹9,760.00
+   Error: ₹41,096.00 (80.81%)
+   Raw Output (first 200 chars): 9760...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹55,536.00
+   Error: ₹4,680.00 (9.20%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+ ...
+
+
+================================================================================
+PROFILE 42/100: TAX-2F3380FF
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 47
+Gross Salary: ₹1,641,000.00
+Basic Salary: ₹778,300.00
+HRA Received: ₹332,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹98,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹51,500.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹91,900.00 (Metro: False)
+
+GROUND TRUTH: ₹184,392.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹184,392.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹48,450.00
+   Error: ₹135,942.00 (73.72%)
+   Raw Output (first 200 chars): 48450...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹199,992.00
+   Error: ₹15,600.00 (8.46%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Total Income = Gros...
+
+
+================================================================================
+PROFILE 43/100: TAX-CCD8FAB6
+================================================================================
+Complexity: Complex
+Target Regime: Old
+Age: 40
+Gross Salary: ₹1,587,000.00
+Basic Salary: ₹743,000.00
+HRA Received: ₹350,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹95,200.00
+    - ELSS: ₹0.00
+    - LIC: ₹54,800.00
+    - PPF: ₹0.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹137,100.00 (Metro: False)
+
+GROUND TRUTH: ₹204,110.40
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹210,350.40
+   Error: ₹6,240.00 (3.06%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹123,990.00
+   Error: ₹80,120.40 (39.25%)
+   Raw Output (first 200 chars): 123990...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹219,710.00
+   Error: ₹15,599.60 (7.64%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1587000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 44/100: TAX-77C28D88
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 46
+Gross Salary: ₹751,000.00
+Basic Salary: ₹363,500.00
+HRA Received: ₹175,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹113,333.00
+    - PF: ₹45,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹68,233.00
+    - PPF: ₹0.00
+  Total 80D: ₹75,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹57,600.00 (Metro: False)
+
+GROUND TRUTH: ₹12,553.68
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹21,614.74
+   Error: ₹9,061.05 (72.18%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,733.00
+   Error: ₹7,179.32 (57.19%)
+   Raw Output (first 200 chars): 19733...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹21,615.00
+   Error: ₹9,061.32 (72.18%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹751000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 45/100: TAX-3E137B8B
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 27
+Gross Salary: ₹1,108,000.00
+Basic Salary: ₹491,300.00
+HRA Received: ₹211,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹66,500.00
+    - ELSS: ₹41,750.00
+    - LIC: ₹0.00
+    - PPF: ₹41,750.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹134,500.00 (Metro: False)
+
+GROUND TRUTH: ₹71,448.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹71,448.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,840.00
+   Error: ₹42,608.00 (59.63%)
+   Raw Output (first 200 chars): 28840...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹79,248.00
+   Error: ₹7,800.00 (10.92%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1. **Gross Total Income:**
+
+   Gross Total Income = Gross Salary + ...
+
+
+================================================================================
+PROFILE 46/100: TAX-ECBCE362
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 37
+Gross Salary: ₹1,485,000.00
+Basic Salary: ₹644,200.00
+HRA Received: ₹299,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹89,100.00
+    - ELSS: ₹30,450.00
+    - LIC: ₹0.00
+    - PPF: ₹30,450.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹209,800.00 (Metro: True)
+
+GROUND TRUTH: ₹142,480.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹142,480.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹39,000.00
+   Error: ₹103,480.00 (72.63%)
+   Raw Output (first 200 chars): 39000...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹215,280.00
+   Error: ₹72,800.00 (51.09%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 47/100: TAX-F4BD1104
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 57
+Gross Salary: ₹1,642,000.00
+Basic Salary: ₹819,900.00
+HRA Received: ₹338,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹98,500.00
+    - ELSS: ₹25,750.00
+    - LIC: ₹0.00
+    - PPF: ₹25,750.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹184,704.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹184,704.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹267,876.00
+   Error: ₹83,172.00 (45.03%)
+   Raw Output (first 200 chars): 267876...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹200,304.00
+   Error: ₹15,600.00 (8.45%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 48/100: TAX-4E8558A0
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 58
+Gross Salary: ₹500,000.00
+Basic Salary: ₹246,600.00
+HRA Received: ₹100,400.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹147,170.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹117,170.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹9,100.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹9,100.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,520.00
+   Error: ₹4,420.00 (48.57%)
+   Raw Output (first 200 chars): 13520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹0.00
+   Error: ₹9,100.00 (100.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹25000.0
+    * ...
+
+
+================================================================================
+PROFILE 49/100: TAX-605D0D9D
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 38
+Gross Salary: ₹843,000.00
+Basic Salary: ₹380,800.00
+HRA Received: ₹156,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹95,321.00
+    - PF: ₹50,600.00
+    - ELSS: ₹44,721.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹113,800.00 (Metro: False)
+
+GROUND TRUTH: ₹35,672.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹35,672.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,530.00
+   Error: ₹16,142.00 (45.25%)
+   Raw Output (first 200 chars): 19530...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹40,872.00
+   Error: ₹5,200.00 (14.58%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 50/100: TAX-9230B53F
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 22
+Gross Salary: ₹639,000.00
+Basic Salary: ₹310,200.00
+HRA Received: ₹140,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹38,300.00
+    - PF: ₹38,300.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹126,600.00 (Metro: True)
+
+GROUND TRUTH: ₹15,028.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹15,028.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,115.00
+   Error: ₹3,087.00 (20.54%)
+   Raw Output (first 200 chars): 18115...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹19,656.00
+   Error: ₹4,628.00 (30.80%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹639000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 51/100: TAX-DD15A265
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 39
+Gross Salary: ₹2,837,000.00
+Basic Salary: ₹1,203,000.00
+HRA Received: ₹490,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹170,200.00
+    - PF: ₹170,200.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹627,744.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹627,744.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹336,600.00
+   Error: ₹291,144.00 (46.38%)
+   Raw Output (first 200 chars): 336600...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹493,210.00
+   Error: ₹134,534.00 (21.43%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹2837000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 52/100: TAX-9C19CEF5
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 37
+Gross Salary: ₹509,000.00
+Basic Salary: ₹246,400.00
+HRA Received: ₹99,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹89,219.00
+    - PF: ₹30,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹58,719.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹60,900.00 (Metro: False)
+
+GROUND TRUTH: ₹8,268.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹8,268.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,410.00
+   Error: ₹5,142.00 (62.19%)
+   Raw Output (first 200 chars): 13410...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,868.00
+   Error: ₹2,600.00 (31.45%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹509000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 53/100: TAX-A35CFF99
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 51
+Gross Salary: ₹500,000.00
+Basic Salary: ₹202,300.00
+HRA Received: ₹86,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹72,569.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹42,569.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹40,000.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,000.00
+   Error: ₹5,200.00 (66.67%)
+   Raw Output (first 200 chars): 13000...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 54/100: TAX-ED99E278
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 57
+Gross Salary: ₹500,000.00
+Basic Salary: ₹230,500.00
+HRA Received: ₹106,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹50,700.00 (Metro: False)
+
+GROUND TRUTH: ₹7,402.20
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,402.20
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,526.00
+   Error: ₹6,123.80 (82.73%)
+   Raw Output (first 200 chars): 13526...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,002.00
+   Error: ₹2,599.80 (35.12%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross T...
+
+
+================================================================================
+PROFILE 55/100: TAX-FFDDD9D2
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 41
+Gross Salary: ₹764,000.00
+Basic Salary: ₹340,100.00
+HRA Received: ₹161,700.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹73,528.00
+    - PF: ₹45,800.00
+    - ELSS: ₹0.00
+    - LIC: ₹27,728.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹74,200.00 (Metro: False)
+
+GROUND TRUTH: ₹34,898.66
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹34,898.66
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,766.00
+   Error: ₹15,132.66 (43.36%)
+   Raw Output (first 200 chars): 19766...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹45,299.00
+   Error: ₹10,400.34 (29.80%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹764000.0
+*   Other Income: ₹25000.0
+*...
+
+
+================================================================================
+PROFILE 56/100: TAX-6AD00727
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 54
+Gross Salary: ₹552,000.00
+Basic Salary: ₹237,100.00
+HRA Received: ₹106,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹142,892.00
+    - PF: ₹33,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹109,792.00
+  Total 80D: ₹70,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹48,100.00 (Metro: True)
+
+GROUND TRUTH: ₹765.34
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹3,105.34
+   Error: ₹2,340.00 (305.75%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,532.00
+   Error: ₹17,766.66 (2321.42%)
+   Raw Output (first 200 chars): 18532...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹3,365.00
+   Error: ₹2,599.66 (339.68%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross T...
+
+
+================================================================================
+PROFILE 57/100: TAX-874C707C
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 40
+Gross Salary: ₹1,200,000.00
+Basic Salary: ₹504,900.00
+HRA Received: ₹210,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹72,000.00
+    - ELSS: ₹78,000.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹128,400.00 (Metro: False)
+
+GROUND TRUTH: ₹97,674.72
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹97,674.72
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹39,520.00
+   Error: ₹58,154.72 (59.54%)
+   Raw Output (first 200 chars): 39520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹108,075.00
+   Error: ₹10,400.28 (10.65%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1200000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 58/100: TAX-E4BED32E
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 49
+Gross Salary: ₹1,615,000.00
+Basic Salary: ₹727,000.00
+HRA Received: ₹329,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹96,900.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹53,100.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹246,480.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹246,480.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹30,160.00
+   Error: ₹216,320.00 (87.76%)
+   Raw Output (first 200 chars): 30160...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹262,080.00
+   Error: ₹15,600.00 (6.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1615000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 59/100: TAX-A7EED1E5
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 51
+Gross Salary: ₹500,000.00
+Basic Salary: ₹221,400.00
+HRA Received: ₹102,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹127,588.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹97,588.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹45,200.00 (Metro: False)
+
+GROUND TRUTH: ₹0.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹1,266.30
+   Error: ₹1,266.30 (126630.40%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹14,532.00
+   Error: ₹14,532.00 (1453200.00%)
+   Raw Output (first 200 chars): 14532...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹2,566.00
+   Error: ₹2,566.00 (256600.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 60/100: TAX-E14EF8DF
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 25
+Gross Salary: ₹500,000.00
+Basic Salary: ₹209,000.00
+HRA Received: ₹96,900.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹14,560.00
+   Error: ₹6,760.00 (86.67%)
+   Raw Output (first 200 chars): 14560...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹9,506.00
+   Error: ₹1,706.00 (21.87%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000
+*   Other Income: ₹5000
+*   Gr...
+
+
+================================================================================
+PROFILE 61/100: TAX-892B65BA
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 35
+Gross Salary: ₹540,000.00
+Basic Salary: ₹226,400.00
+HRA Received: ₹104,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹75,228.00
+    - PF: ₹32,400.00
+    - ELSS: ₹0.00
+    - LIC: ₹42,828.00
+    - PPF: ₹0.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹6,228.14
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,268.14
+   Error: ₹1,040.00 (16.70%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,576.00
+   Error: ₹7,347.86 (117.98%)
+   Raw Output (first 200 chars): 13576...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹3,859.00
+   Error: ₹2,369.14 (38.04%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹540000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 62/100: TAX-7BAA16E5
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 58
+Gross Salary: ₹995,000.00
+Basic Salary: ₹451,900.00
+HRA Received: ₹218,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹120,852.00
+    - PF: ₹59,700.00
+    - ELSS: ₹61,152.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹35,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹200,200.00 (Metro: True)
+
+GROUND TRUTH: ₹40,900.70
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹42,980.70
+   Error: ₹2,080.00 (5.09%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,770.00
+   Error: ₹12,130.70 (29.66%)
+   Raw Output (first 200 chars): 28770...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹51,301.00
+   Error: ₹10,400.30 (25.43%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹995000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 63/100: TAX-C1909183
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 59
+Gross Salary: ₹723,000.00
+Basic Salary: ₹334,800.00
+HRA Received: ₹165,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹70,939.00
+    - PF: ₹43,400.00
+    - ELSS: ₹0.00
+    - LIC: ₹27,539.00
+    - PPF: ₹0.00
+  Total 80D: ₹65,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹88,800.00 (Metro: True)
+
+GROUND TRUTH: ₹23,192.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹23,192.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹27,760.00
+   Error: ₹4,568.00 (19.70%)
+   Raw Output (first 200 chars): 27760...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹28,392.00
+   Error: ₹5,200.00 (22.42%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 64/100: TAX-E251CD8C
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 22
+Gross Salary: ₹500,000.00
+Basic Salary: ₹227,100.00
+HRA Received: ₹111,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹94,100.00 (Metro: True)
+
+GROUND TRUTH: ₹4,347.72
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹4,347.72
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹14,356.00
+   Error: ₹10,008.28 (230.20%)
+   Raw Output (first 200 chars): 14356...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹11,295.00
+   Error: ₹6,947.28 (159.79%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 65/100: TAX-813F5560
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 54
+Gross Salary: ₹500,000.00
+Basic Salary: ₹223,900.00
+HRA Received: ₹97,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹73,181.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹43,181.00
+    - PPF: ₹0.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹4,254.59
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹5,294.59
+   Error: ₹1,040.00 (24.44%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,572.00
+   Error: ₹9,317.41 (219.00%)
+   Raw Output (first 200 chars): 13572...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹11,109.00
+   Error: ₹6,854.41 (161.11%)
+   Raw Output (first 200 chars): Okay, I will calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other I...
+
+
+================================================================================
+PROFILE 66/100: TAX-B7EBDAB6
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 56
+Gross Salary: ₹674,000.00
+Basic Salary: ₹304,000.00
+HRA Received: ₹129,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹78,413.00
+    - PF: ₹40,400.00
+    - ELSS: ₹0.00
+    - LIC: ₹38,013.00
+    - PPF: ₹0.00
+  Total 80D: ₹70,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹81,800.00 (Metro: True)
+
+GROUND TRUTH: ₹9,057.72
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹11,397.72
+   Error: ₹2,340.00 (25.83%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,530.00
+   Error: ₹9,472.28 (104.58%)
+   Raw Output (first 200 chars): 18530...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹12,698.00
+   Error: ₹3,640.28 (40.19%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹674000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 67/100: TAX-2EC16E62
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 44
+Gross Salary: ₹795,000.00
+Basic Salary: ₹387,200.00
+HRA Received: ₹180,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹47,700.00
+    - PF: ₹47,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹78,100.00 (Metro: False)
+
+GROUND TRUTH: ₹30,680.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹30,680.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,410.00
+   Error: ₹11,270.00 (36.73%)
+   Raw Output (first 200 chars): 19410...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹35,880.00
+   Error: ₹5,200.00 (16.95%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 68/100: TAX-7035B1F3
+================================================================================
+Complexity: Complex
+Target Regime: Old
+Age: 47
+Gross Salary: ₹1,686,000.00
+Basic Salary: ₹829,900.00
+HRA Received: ₹351,600.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹101,200.00
+    - ELSS: ₹48,800.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹30,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹109,100.00 (Metro: False)
+
+GROUND TRUTH: ₹251,125.68
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹252,685.68
+   Error: ₹1,560.00 (0.62%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹48,730.00
+   Error: ₹202,395.68 (80.60%)
+   Raw Output (first 200 chars): 48730...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹266,726.00
+   Error: ₹15,600.32 (6.21%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1686000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 69/100: TAX-ACB2DC69
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 49
+Gross Salary: ₹634,000.00
+Basic Salary: ₹284,700.00
+HRA Received: ₹128,900.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹47,085.00
+    - PF: ₹38,000.00
+    - ELSS: ₹4,542.50
+    - LIC: ₹0.00
+    - PPF: ₹4,542.50
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹15,028.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹15,028.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,530.00
+   Error: ₹3,502.00 (23.30%)
+   Raw Output (first 200 chars): 18530...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹19,656.00
+   Error: ₹4,628.00 (30.80%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹634000.0
+    *   Other Income: ₹5000.0
+    *  ...
+
+
+================================================================================
+PROFILE 70/100: TAX-54C66BB0
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 52
+Gross Salary: ₹807,000.00
+Basic Salary: ₹371,300.00
+HRA Received: ₹184,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹48,400.00
+    - PF: ₹48,400.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹35,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹73,200.00 (Metro: False)
+
+GROUND TRUTH: ₹41,606.24
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹43,686.24
+   Error: ₹2,080.00 (5.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,736.00
+   Error: ₹21,870.24 (52.56%)
+   Raw Output (first 200 chars): 19736...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹52,006.00
+   Error: ₹10,399.76 (25.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹807000.0
+*   Other In...
+
+
+================================================================================
+PROFILE 71/100: TAX-9EABF0FB
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 25
+Gross Salary: ₹1,552,000.00
+Basic Salary: ₹743,800.00
+HRA Received: ₹324,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹93,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹56,900.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹161,300.00 (Metro: True)
+
+GROUND TRUTH: ₹199,704.96
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹199,704.96
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹123,760.00
+   Error: ₹75,944.96 (38.03%)
+   Raw Output (first 200 chars): 123760...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹215,305.00
+   Error: ₹15,600.04 (7.81%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1552000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 72/100: TAX-2E97C760
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 44
+Gross Salary: ₹875,000.00
+Basic Salary: ₹435,000.00
+HRA Received: ₹187,000.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹106,949.00
+    - PF: ₹52,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹54,449.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹121,900.00 (Metro: True)
+
+GROUND TRUTH: ₹37,887.41
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹37,887.41
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹27,310.00
+   Error: ₹10,577.41 (27.92%)
+   Raw Output (first 200 chars): 27310...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹48,287.00
+   Error: ₹10,399.59 (27.45%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹875000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 73/100: TAX-B2F77524
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 24
+Gross Salary: ₹2,387,000.00
+Basic Salary: ₹1,106,300.00
+HRA Received: ₹530,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹143,200.00
+    - ELSS: ₹6,800.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹264,600.00 (Metro: False)
+
+GROUND TRUTH: ₹431,505.36
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹431,505.36
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹187,324.00
+   Error: ₹244,181.36 (56.59%)
+   Raw Output (first 200 chars): 187324...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹447,105.00
+   Error: ₹15,599.64 (3.62%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Othe...
+
+
+================================================================================
+PROFILE 74/100: TAX-04BB4338
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 51
+Gross Salary: ₹514,000.00
+Basic Salary: ₹220,400.00
+HRA Received: ₹108,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹30,800.00
+    - PF: ₹30,800.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹82,900.00 (Metro: True)
+
+GROUND TRUTH: ₹6,361.68
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹6,361.68
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,572.00
+   Error: ₹7,210.32 (113.34%)
+   Raw Output (first 200 chars): 13572...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹8,962.00
+   Error: ₹2,600.32 (40.87%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹514000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 75/100: TAX-1AC22D27
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 34
+Gross Salary: ₹500,000.00
+Basic Salary: ₹229,600.00
+HRA Received: ₹114,400.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹50,621.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹20,621.00
+  Total 80D: ₹75,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹86,200.00 (Metro: True)
+
+GROUND TRUTH: ₹3,179.23
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹5,779.23
+   Error: ₹2,600.00 (81.78%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,536.00
+   Error: ₹15,356.77 (483.03%)
+   Raw Output (first 200 chars): 18536...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹8,958.00
+   Error: ₹5,778.77 (181.77%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹50000.0
+*...
+
+
+================================================================================
+PROFILE 76/100: TAX-7D0B7697
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 26
+Gross Salary: ₹1,186,000.00
+Basic Salary: ₹474,800.00
+HRA Received: ₹222,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹71,200.00
+    - ELSS: ₹78,800.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹105,700.00 (Metro: False)
+
+GROUND TRUTH: ₹83,616.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹83,616.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,530.00
+   Error: ₹55,086.00 (65.88%)
+   Raw Output (first 200 chars): 28530...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹91,416.00
+   Error: ₹7,800.00 (9.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1. **Gross Total Income:**
+
+   Gross Total Income = Gross Salary + Other Income
+   Gross Total Inc...
+
+
+================================================================================
+PROFILE 77/100: TAX-E56BBACD
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 29
+Gross Salary: ₹644,000.00
+Basic Salary: ₹321,800.00
+HRA Received: ₹138,600.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹148,703.00
+    - PF: ₹38,600.00
+    - ELSS: ₹55,051.50
+    - LIC: ₹0.00
+    - PPF: ₹55,051.50
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹20,176.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹20,176.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,432.00
+   Error: ₹1,744.00 (8.64%)
+   Raw Output (first 200 chars): 18432...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹25,376.00
+   Error: ₹5,200.00 (25.77%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Salary + Other Income = ₹644000 + ₹50000 = ₹694000
+
+2.  **E...
+
+
+================================================================================
+PROFILE 78/100: TAX-1A7BB1EA
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 29
+Gross Salary: ₹798,000.00
+Basic Salary: ₹387,300.00
+HRA Received: ₹163,600.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹47,900.00
+    - PF: ₹47,900.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹157,000.00 (Metro: True)
+
+GROUND TRUTH: ₹30,992.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹30,992.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,610.00
+   Error: ₹2,382.00 (7.69%)
+   Raw Output (first 200 chars): 28610...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹33,592.00
+   Error: ₹2,600.00 (8.39%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 79/100: TAX-B1A2D7EB
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 47
+Gross Salary: ₹500,000.00
+Basic Salary: ₹233,900.00
+HRA Received: ₹113,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹104,787.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹74,787.00
+    - PPF: ₹0.00
+  Total 80D: ₹65,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹25,100.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,526.00
+   Error: ₹5,726.00 (73.41%)
+   Raw Output (first 200 chars): 13526...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 80/100: TAX-AA8D7DC7
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 56
+Gross Salary: ₹807,000.00
+Basic Salary: ₹328,900.00
+HRA Received: ₹133,100.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹109,707.00
+    - PF: ₹48,400.00
+    - ELSS: ₹30,653.50
+    - LIC: ₹0.00
+    - PPF: ₹30,653.50
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹67,900.00 (Metro: True)
+
+GROUND TRUTH: ₹34,528.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹34,528.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,531.00
+   Error: ₹14,997.00 (43.43%)
+   Raw Output (first 200 chars): 19531...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹39,730.00
+   Error: ₹5,202.00 (15.07%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹807000.0
+*...
+
+
+================================================================================
+PROFILE 81/100: TAX-9FFF850C
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 42
+Gross Salary: ₹500,000.00
+Basic Salary: ₹248,100.00
+HRA Received: ₹113,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹125,026.00
+    - PF: ₹30,000.00
+    - ELSS: ₹95,026.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹59,000.00 (Metro: True)
+
+GROUND TRUTH: ₹0.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹820.77
+   Error: ₹820.77 (82076.80%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹16,530.00
+   Error: ₹16,530.00 (1653000.00%)
+   Raw Output (first 200 chars): 16530...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹2,121.00
+   Error: ₹2,121.00 (212100.00%)
+   Raw Output (first 200 chars): Okay, let's break down the income tax calculation for the taxpayer under the Old Regime for FY 2024-25.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total ...
+
+
+================================================================================
+PROFILE 82/100: TAX-0F1687DB
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 38
+Gross Salary: ₹1,062,000.00
+Basic Salary: ₹432,000.00
+HRA Received: ₹176,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹63,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹86,300.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: False)
+
+GROUND TRUTH: ₹88,296.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹88,296.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹27,310.00
+   Error: ₹60,986.00 (69.07%)
+   Raw Output (first 200 chars): 27310...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹98,696.00
+   Error: ₹10,400.00 (11.78%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1062000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 83/100: TAX-FF6D5732
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 55
+Gross Salary: ₹500,000.00
+Basic Salary: ₹203,300.00
+HRA Received: ₹90,600.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹30,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹27,300.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹12,500.00
+   Error: ₹4,700.00 (60.26%)
+   Raw Output (first 200 chars): 12500...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*...
+
+
+================================================================================
+PROFILE 84/100: TAX-A44B7ACB
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 25
+Gross Salary: ₹531,000.00
+Basic Salary: ₹240,300.00
+HRA Received: ₹103,800.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹48,796.00
+    - PF: ₹31,900.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹16,896.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹56,400.00 (Metro: False)
+
+GROUND TRUTH: ₹9,351.37
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹9,351.37
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,532.00
+   Error: ₹9,180.63 (98.17%)
+   Raw Output (first 200 chars): 18532...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹11,951.00
+   Error: ₹2,599.63 (27.80%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹531000.0
+*   Other Income: ₹50000.0
+*...
+
+
+================================================================================
+PROFILE 85/100: TAX-FC962CE8
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 29
+Gross Salary: ₹905,000.00
+Basic Salary: ₹390,300.00
+HRA Received: ₹192,100.00
+Other Income: ₹5,000.00
+
+Deductions:
+  Total 80C: ₹57,981.00
+    - PF: ₹54,300.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹3,681.00
+  Total 80D: ₹65,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹79,200.00 (Metro: True)
+
+GROUND TRUTH: ₹53,944.59
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹62,264.59
+   Error: ₹8,320.00 (15.42%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,436.00
+   Error: ₹25,508.59 (47.29%)
+   Raw Output (first 200 chars): 28436...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹64,345.00
+   Error: ₹10,400.41 (19.28%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹905000.0
+*   Other Income: ₹5000.0
+* ...
+
+
+================================================================================
+PROFILE 86/100: TAX-5E683639
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 48
+Gross Salary: ₹500,000.00
+Basic Salary: ₹206,100.00
+HRA Received: ₹83,600.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹30,000.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹46,000.00 (Metro: False)
+
+GROUND TRUTH: ₹6,479.72
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹6,479.72
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,526.00
+   Error: ₹7,046.28 (108.74%)
+   Raw Output (first 200 chars): 13526...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹9,080.00
+   Error: ₹2,600.28 (40.13%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 87/100: TAX-7066F619
+================================================================================
+Complexity: Simple
+Target Regime: Old
+Age: 33
+Gross Salary: ₹1,805,000.00
+Basic Salary: ₹878,200.00
+HRA Received: ₹366,200.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹108,300.00
+    - ELSS: ₹20,850.00
+    - LIC: ₹0.00
+    - PPF: ₹20,850.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹301,080.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹301,080.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹231,314.00
+   Error: ₹69,766.00 (23.17%)
+   Raw Output (first 200 chars): 231314...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹316,680.00
+   Error: ₹15,600.00 (5.18%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1805000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 88/100: TAX-DBC580A3
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 43
+Gross Salary: ₹751,000.00
+Basic Salary: ₹318,000.00
+HRA Received: ₹129,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹50,257.00
+    - PF: ₹45,100.00
+    - ELSS: ₹0.00
+    - LIC: ₹5,157.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹26,104.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹26,104.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,720.00
+   Error: ₹7,384.00 (28.29%)
+   Raw Output (first 200 chars): 18720...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹31,304.00
+   Error: ₹5,200.00 (19.92%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹751000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 89/100: TAX-9910B2F3
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 34
+Gross Salary: ₹500,000.00
+Basic Salary: ₹247,600.00
+HRA Received: ₹106,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹80,565.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹50,565.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹20,000.00
+  Rent Paid: ₹25,900.00 (Metro: False)
+
+GROUND TRUTH: ₹5,111.34
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹5,111.34
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹14,531.00
+   Error: ₹9,419.66 (184.29%)
+   Raw Output (first 200 chars): 14531...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹23,045.00
+   Error: ₹17,933.66 (350.86%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other In...
+
+
+================================================================================
+PROFILE 90/100: TAX-0B4757D8
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 33
+Gross Salary: ₹1,074,000.00
+Basic Salary: ₹460,900.00
+HRA Received: ₹205,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹64,400.00
+    - ELSS: ₹85,600.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹192,700.00 (Metro: True)
+
+GROUND TRUTH: ₹56,137.12
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹56,137.12
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹44,360.00
+   Error: ₹11,777.12 (20.98%)
+   Raw Output (first 200 chars): 44360...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹66,537.00
+   Error: ₹10,399.88 (18.53%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1074000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 91/100: TAX-E10B63C5
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 54
+Gross Salary: ₹500,000.00
+Basic Salary: ₹246,400.00
+HRA Received: ₹120,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹44,361.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹14,361.00
+    - PPF: ₹0.00
+  Total 80D: ₹55,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹42,100.00 (Metro: False)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,526.00
+   Error: ₹5,726.00 (73.41%)
+   Raw Output (first 200 chars): 13526...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary ...
+
+
+================================================================================
+PROFILE 92/100: TAX-C2B75B45
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 45
+Gross Salary: ₹831,000.00
+Basic Salary: ₹380,600.00
+HRA Received: ₹189,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹52,259.00
+    - PF: ₹49,900.00
+    - ELSS: ₹1,179.50
+    - LIC: ₹0.00
+    - PPF: ₹1,179.50
+  Total 80D: ₹75,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹34,424.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹34,424.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹63,210.00
+   Error: ₹28,786.00 (83.62%)
+   Raw Output (first 200 chars): 63210...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹39,624.00
+   Error: ₹5,200.00 (15.11%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹831000.0
+    *   Other Income: ₹...
+
+
+================================================================================
+PROFILE 93/100: TAX-C4242421
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 54
+Gross Salary: ₹929,000.00
+Basic Salary: ₹391,300.00
+HRA Received: ₹176,600.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹147,589.00
+    - PF: ₹55,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹91,889.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹147,500.00 (Metro: True)
+
+GROUND TRUTH: ₹34,432.53
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹34,432.53
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹28,840.00
+   Error: ₹5,592.53 (16.24%)
+   Raw Output (first 200 chars): 28840...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹44,833.00
+   Error: ₹10,400.47 (30.21%)
+   Raw Output (first 200 chars): Okay, I will calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Oth...
+
+
+================================================================================
+PROFILE 94/100: TAX-27DAA97B
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 30
+Gross Salary: ₹500,000.00
+Basic Salary: ₹208,200.00
+HRA Received: ₹83,800.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹61,595.00
+    - PF: ₹30,000.00
+    - ELSS: ₹31,595.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹96,400.00 (Metro: True)
+
+GROUND TRUTH: ₹2,226.90
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹2,226.90
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,536.00
+   Error: ₹11,309.10 (507.84%)
+   Raw Output (first 200 chars): 13536...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹4,827.00
+   Error: ₹2,600.10 (116.76%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 95/100: TAX-E3E39846
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 50
+Gross Salary: ₹508,000.00
+Basic Salary: ₹247,500.00
+HRA Received: ₹109,700.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹67,022.00
+    - PF: ₹30,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹36,522.00
+    - PPF: ₹0.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹100,100.00 (Metro: True)
+
+GROUND TRUTH: ₹8,216.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹8,216.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,572.00
+   Error: ₹5,356.00 (65.19%)
+   Raw Output (first 200 chars): 13572...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹0.00
+   Error: ₹8,216.00 (100.00%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 96/100: TAX-230D1917
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 51
+Gross Salary: ₹1,239,000.00
+Basic Salary: ₹610,400.00
+HRA Received: ₹260,400.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹74,300.00
+    - ELSS: ₹37,850.00
+    - LIC: ₹0.00
+    - PPF: ₹37,850.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹65,600.00 (Metro: False)
+
+GROUND TRUTH: ₹121,505.28
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹121,505.28
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹38,536.00
+   Error: ₹82,969.28 (68.28%)
+   Raw Output (first 200 chars): 38536...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹137,417.00
+   Error: ₹15,911.72 (13.10%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1239000.0
+*   Other Income: ₹0.0
+*   ...
+
+
+================================================================================
+PROFILE 97/100: TAX-0CAFF906
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 23
+Gross Salary: ₹512,000.00
+Basic Salary: ₹216,500.00
+HRA Received: ₹103,300.00
+Other Income: ₹50,000.00
+
+Deductions:
+  Total 80C: ₹30,700.00
+    - PF: ₹30,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹50,000.00
+    - Self/Family: ₹0.00
+    - Parents: ₹50,000.00
+  Rent Paid: ₹50,300.00 (Metro: True)
+
+GROUND TRUTH: ₹7,937.80
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹9,237.80
+   Error: ₹1,300.00 (16.38%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹18,536.00
+   Error: ₹10,598.20 (133.52%)
+   Raw Output (first 200 chars): 18536...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,538.00
+   Error: ₹2,600.20 (32.76%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹512000.0
+*   Other Income: ₹50000.0
+*...
+
+
+================================================================================
+PROFILE 98/100: TAX-145067AF
+================================================================================
+Complexity: Simple
+Target Regime: New
+Age: 42
+Gross Salary: ₹500,000.00
+Basic Salary: ₹204,700.00
+HRA Received: ₹90,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹69,830.00
+    - PF: ₹30,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹39,830.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹0.00 (Metro: True)
+
+GROUND TRUTH: ₹7,800.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹7,800.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹13,520.00
+   Error: ₹5,720.00 (73.33%)
+   Raw Output (first 200 chars): 13520...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹10,400.00
+   Error: ₹2,600.00 (33.33%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total...
+
+
+================================================================================
+PROFILE 99/100: TAX-95DC5824
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 50
+Gross Salary: ₹672,000.00
+Basic Salary: ₹272,500.00
+HRA Received: ₹126,500.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹40,300.00
+    - PF: ₹40,300.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹45,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹30,000.00
+  Rent Paid: ₹65,600.00 (Metro: True)
+
+GROUND TRUTH: ₹12,914.20
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹16,816.80
+   Error: ₹3,902.60 (30.22%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,736.00
+   Error: ₹6,821.80 (52.82%)
+   Raw Output (first 200 chars): 19736...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹23,057.00
+   Error: ₹10,142.80 (78.54%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹672000.0
+*   Other Income: ₹0.0
+*   G...
+
+
+================================================================================
+PROFILE 100/100: TAX-4D81D696
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 39
+Gross Salary: ₹650,000.00
+Basic Salary: ₹293,600.00
+HRA Received: ₹140,600.00
+Other Income: ₹25,000.00
+
+Deductions:
+  Total 80C: ₹87,070.00
+    - PF: ₹39,000.00
+    - ELSS: ₹0.00
+    - LIC: ₹48,070.00
+    - PPF: ₹0.00
+  Total 80D: ₹25,000.00
+    - Self/Family: ₹25,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹94,000.00 (Metro: True)
+
+GROUND TRUTH: ₹18,200.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹18,200.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹19,240.00
+   Error: ₹1,040.00 (5.71%)
+   Raw Output (first 200 chars): 19240...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹23,400.00
+   Error: ₹5,200.00 (28.57%)
+   Raw Output (first 200 chars): Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹650000.0
+*   Other Income: ₹25000.0
+*...
+

@@ -1,0 +1,5329 @@
+profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
+TAX-9979B6DD,Medium,Old,87880.0,93080.0,39520.0,98280.0,5200.0,48360.0,10400.0,39520,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1085000.0
+*   Other Income: ₹25000.0
+*   Gross Total Income = ₹1085000.0 + ₹25000.0 = ₹1110000.0
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   HRA Received: ₹252200.0
+*   40% of Basic Salary (since living in a non-metro city) or 50% of Basic Salary (since living in a metro city): 50% of ₹539300.0 = ₹269650.0
+*   Actual Rent Paid Less 10% of Basic Salary: Rent Paid is ₹0, so ₹0 - (10% of ₹539300.0) = -₹53930.0. Since this is negative, it is considered ₹0.
+
+Therefore, the HRA exemption is the least of ₹252200.0, ₹269650.0 and ₹0, which is ₹0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹65100.0
+    *   PPF: ₹84900.0
+    *   Total 80C: ₹65100.0 + ₹84900.0 = ₹150000.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0.
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹20000.0
+    *   Medical Insurance (Parents): ₹30000.0
+    *   Total 80D: ₹20000.0 + ₹30000.0 = ₹50000.0
+    *   Maximum permissible deduction under Section 80D for self is ₹25000 (assuming not senior citizen). For parents, assuming they are senior citizens, the maximum deduction is ₹50000. If parents are not senior citizens, the maximum deduction is ₹25000.
+    *   Assuming parents are senior citizens, the total 80D deduction is ₹20000 + ₹30000 = ₹50000.
+
+*   Total Deductions (Chapter VI-A): ₹150000.0 + ₹50000.0 = ₹200000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1110000.0
+*   HRA Exemption: ₹0.0
+*   Deductions (Chapter VI-A): ₹200000.0
+*   Taxable Income = ₹1110000.0 - ₹0.0 - ₹200000.0 = ₹910000.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹9,10,000 - ₹5,00,000) = 20% of ₹4,10,000 = ₹82,000
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹82,000 = ₹94,500
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹94,500 = ₹3,780
+
+*   Total Tax Liability = ₹94,500 + ₹3,780 = ₹98,280
+
+FINAL TAX: 98280.0"
+TAX-B11B7BC1,Medium,Old,11023.844000000001,11023.844000000001,17744.0,15495.0,0.0,6720.155999999999,4471.155999999999,17744,"Okay, I will calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps you've outlined.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹679000.0 + ₹0.0 = ₹679000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹122200.0
+*   Rent paid less 10% of Basic Salary: ₹71700.0 - (10% of ₹293300.0) = ₹71700.0 - ₹29330.0 = ₹42370.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹293300.0 = ₹117320.0
+
+The least of these three amounts is ₹42370.0. Therefore, the HRA exemption is ₹42370.0.
+
+**3. Deductions (Chapter VI-A):**
+
+The following deductions are available under Chapter VI-A:
+
+*   PF: ₹40700.0
+*   PPF: ₹83933.0
+*   ELSS: ₹0.0
+*   LIC: ₹0.0
+*   Medical (Self): ₹0.0
+*   Medical (Parents): ₹0.0
+
+Section 80C limit is ₹150000. Total 80C deduction = PF + PPF + ELSS + LIC = ₹40700.0 + ₹83933.0 + ₹0.0 + ₹0.0 = ₹124633.0. This is less than ₹150000, so the entire amount is deductible.
+
+Section 80D deduction for medical insurance premium paid for self and family is ₹0.
+Section 80D deduction for medical insurance premium paid for parents is ₹0.
+
+Total Deductions under Chapter VI-A = ₹124633.0 + ₹0.0 + ₹0.0 = ₹124633.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹679000.0 - ₹42370.0 - ₹124633.0 = ₹512000.0 - ₹100 = ₹511997.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹5,11,997: 20% of (₹511997 - ₹500000) = 20% of ₹11997 = ₹2399.4
+
+Total Income Tax = ₹12,500 + ₹2399.4 = ₹14899.4
+
+**6. Add Cess:**
+
+Health and Education Cess is 4% of the Income Tax.
+Cess = 4% of ₹14899.4 = ₹595.976, rounded to ₹596.0
+
+Total Tax Liability = Income Tax + Cess
+Total Tax Liability = ₹14899.4 + ₹596.0 = ₹15495.4
+
+Rounded to nearest rupee: ₹15495
+
+FINAL TAX: 15495"
+TAX-2A089DFE,Medium,New,57564.0,57564.0,29660.0,65364.0,0.0,27904.0,7800.0,29660,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1014000.0
+*   Other Income: ₹5000.0
+*   Gross Total Income = ₹1014000 + ₹5000 = ₹1019000.0
+
+**2. Exemptions (Not Applicable under New Regime):**
+
+*   HRA exemption is not applicable under the New Regime.
+
+**3. Deductions (Not Applicable under New Regime):**
+
+*   Chapter VI-A deductions (like 80C, 80D, etc.) are generally not allowed under the New Regime, with a few exceptions not relevant in this case.
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Deductions (under New Regime)
+*   Since no deductions are applicable here under the New Regime,
+*   Taxable Income = ₹1019000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+| Income Range      | Tax Rate |
+| ----------------- | -------- |
+| Up to ₹3,00,000   | 0%       |
+| ₹3,00,001 - ₹6,00,000  | 5%       |
+| ₹6,00,001 - ₹9,00,000  | 10%      |
+| ₹9,00,001 - ₹12,00,000 | 15%      |
+| ₹12,00,001 - ₹15,00,000| 20%      |
+| Above ₹15,00,000    | 30%      |
+
+*   Tax Calculation:
+    *   Up to ₹3,00,000: 0% = ₹0
+    *   ₹3,00,001 - ₹6,00,000: 5% of ₹3,00,000 = ₹15,000
+    *   ₹6,00,001 - ₹9,00,000: 10% of ₹3,00,000 = ₹30,000
+    *   ₹9,00,001 - ₹12,00,000: 15% of (₹1019000 - ₹900000) = 15% of ₹119000 = ₹17850
+    *   Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹17850 = ₹62850
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Tax
+*   Cess = 4% of ₹62850 = ₹2514
+
+**Total Tax Liability:**
+
+*   Total Tax = Tax + Cess
+*   Total Tax = ₹62850 + ₹2514 = ₹65364
+
+FINAL TAX: ₹65364"
+TAX-E2A050F1,Simple,Old,6731.244000000001,6731.244000000001,17530.0,9331.0,0.0,10798.756,2599.7559999999994,17530,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹556000
+*   Other Income: ₹5000
+*   Gross Total Income = ₹556000 + ₹5000 = ₹561000
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following is exempt:
+
+*   HRA Received: ₹122800
+*   50% of Basic Salary (since living in a metro): 50% of ₹262300 = ₹131150
+*   Rent Paid - 10% of Basic Salary: ₹0 - (10% of ₹262300) = -₹26230 (Since rent paid is zero, this results in a negative value, so the exemption is ₹0)
+
+Therefore, HRA Exemption = ₹0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹33400
+    *   ELSS: ₹83153
+    *   Total 80C: ₹33400 + ₹83153 = ₹116553
+    *   Maximum 80C deduction allowed: ₹150000
+    *   Therefore, 80C deduction = ₹116553
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹15000
+    *   Medical (Parents): ₹0
+    *   Total 80D: ₹15000 + ₹0 = ₹15000
+    *   Therefore, 80D deduction = ₹15000
+
+*   **Total Deductions (Chapter VI-A):** ₹116553 + ₹15000 = ₹131553
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Exemptions - Deductions
+*   Taxable Income = ₹561000 - ₹0 - ₹131553 = ₹429447
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹429447 - ₹250000) = 5% of ₹179447 = ₹8972.35
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of (Tax) = 4% of ₹8972.35 = ₹358.89
+
+**7. Total Tax Liability:**
+
+*   Total Tax = ₹8972.35 + ₹358.89 = ₹9331.24
+*   Rounded off to nearest rupee: ₹9331
+
+FINAL TAX: ₹9331"
+TAX-4BD35A19,Simple,New,9100.0,9100.0,13000.0,11700.0,0.0,3900.0,2600.0,13000,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹25000.0
+    *   Gross Total Income = ₹500000 + ₹25000 = ₹525000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. This includes PF, LIC, PPF, ELSS, and Medical Insurance.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹525000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    Tax Calculation:
+
+    *   Tax on first ₹3,00,000: ₹0
+    *   Tax on remaining ₹2,25,000 (₹525,000 - ₹3,00,000): 5% of ₹2,25,000 = ₹11,250
+
+    Total Tax = ₹0 + ₹11,250 = ₹11,250
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of Tax
+    *   Cess Amount: 4% of ₹11,250 = ₹450
+
+    Total Tax Liability = ₹11,250 + ₹450 = ₹11,700
+
+FINAL TAX: ₹11700"
+TAX-F7D3A5C9,Simple,Old,24003.2,24003.2,19736.0,11482.0,0.0,4267.200000000001,12521.2,19736,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹668000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹668000.0 + ₹0.0 = ₹668000.0
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   HRA Received: ₹132100.0
+*   40% of Basic Salary (since living in a non-metro city) or 50% of Basic Salary (since living in a metro city): 50% of ₹298700.0 = ₹149350.0
+*   Actual Rent Paid Less 10% of Basic Salary: Rent Paid is ₹0, so ₹0 - (10% of ₹298700.0) = -₹29870.0 (Since this is negative, it's effectively ₹0)
+
+Therefore, the HRA exemption is the least of the above, which is ₹132100.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹40100.0
+*   **Section 80D (Medical Insurance):**
+    *   Self: ₹25000.0
+    *   Parents: ₹0.0
+    *   Total 80D: ₹25000.0
+
+Total Deductions under Chapter VI-A = ₹40100.0 + ₹25000.0 = ₹65100.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹668000.0
+*   HRA Exemption: ₹132100.0
+*   Income after HRA Exemption: ₹668000.0 - ₹132100.0 = ₹535900.0
+*   Deductions under Chapter VI-A: ₹65100.0
+*   Taxable Income = ₹535900.0 - ₹65100.0 = ₹470800.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹470800.0 - ₹2,50,000) = 5% of ₹220800.0 = ₹11040.0
+
+Total Income Tax = ₹11040.0
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 4% of ₹11040.0 = ₹441.6
+
+Total Tax Liability = ₹11040.0 + ₹441.6 = ₹11481.6
+
+Rounding off to the nearest rupee, the final tax liability is ₹11482.
+
+FINAL TAX: 11482"
+TAX-D5CB9B2A,Simple,Old,65582.40000000001,65582.40000000001,19536.0,75982.0,0.0,46046.40000000001,10399.599999999991,19536,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹854000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹854000.0 + ₹0.0 = ₹854000.0
+
+**2. Calculate Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The exemption is the least of the following:
+
+*   HRA Received: ₹179300.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹392200.0 = ₹196100.0
+*   Rent Paid - 10% of Basic Salary: ₹0.0 - (10% of ₹392200.0) = -₹39220.0 (Since rent paid is zero, this results in a negative value, so it's effectively ₹0)
+
+Therefore, HRA Exemption =  ₹0 (Since rent paid is zero)
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C Deductions:**
+    *   PF: ₹51200.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹51200.0 + ₹0.0 + ₹0.0 + ₹0.0 = ₹51200.0
+
+    The maximum deduction allowed under Section 80C is ₹150000.0. Therefore, the deduction allowed is ₹51200.0.
+
+*   **Section 80D Deductions (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+
+    Since both are zero, the total 80D deduction is ₹0.0
+
+*   **Total Deductions (Chapter VI-A):** ₹51200.0 + ₹0.0 = ₹51200.0
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹854000.0
+*   HRA Exemption: ₹0.0
+*   Deductions (Chapter VI-A): ₹51200.0
+*   Taxable Income = ₹854000.0 - ₹0.0 - ₹51200.0 = ₹802800.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹802800.0 - ₹5,00,000) = 20% of ₹302800.0 = ₹60560.0
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹60560.0 = ₹73060.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of ₹73060.0 = ₹2922.4
+
+*   Total Tax Liability = ₹73060.0 + ₹2922.4 = ₹75982.4
+
+Rounding off to the nearest rupee, the total tax liability is ₹75982.
+
+FINAL TAX: ₹75982"
+TAX-38DE1B98,Medium,New,7800.0,7800.0,13520.0,10400.0,0.0,5720.0,2600.0,13520,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Calculate Exemptions (HRA):**
+
+*   Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   Since we are calculating under the New Regime, Chapter VI-A deductions (like PF, LIC, PPF, ELSS, Medical Insurance) are **not applicable**.
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   Deductions: ₹0.0 (New Regime)
+*   Taxable Income = ₹500000.0 - ₹0.0 = ₹500000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+| Income Slab         | Tax Rate |
+| ------------------- | -------- |
+| Up to ₹3,00,000     | 0%       |
+| ₹3,00,001 - ₹6,00,000 | 5%       |
+| ₹6,00,001 - ₹9,00,000 | 10%      |
+| ₹9,00,001 - ₹12,00,000| 15%      |
+| ₹12,00,001 - ₹15,00,000| 20%      |
+| Above ₹15,00,000    | 30%      |
+
+*   Tax on first ₹3,00,000: 0% of ₹3,00,000 = ₹0
+*   Tax on ₹3,00,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹3,00,000) = 5% of ₹2,00,000 = ₹10,000
+*   Total Income Tax = ₹0 + ₹10,000 = ₹10,000
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax
+*   Cess = 4% of ₹10,000 = ₹400
+
+**Total Tax Liability:**
+
+*   Income Tax: ₹10,000
+*   Cess: ₹400
+*   Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: ₹10,400"
+TAX-D6C7E8D7,Simple,New,137072.0,137072.0,100360.0,156000.0,0.0,36712.0,18928.0,100360,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹1459000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹1459000.0 + ₹0.0 = ₹1459000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. This includes PF, LIC, PPF, ELSS, and Medical Insurance premiums.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income - Deductions
+    *   Since no deductions are allowed under the New Regime (except for employer's contribution to NPS under section 80CCD(2)),
+    *   Taxable Income = ₹1459000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+        *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+        *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+        *   30% on ₹-41,000 (₹1459000 - ₹15,00,000) = ₹0 (Since income is less than 15,00,000, we calculate tax only till 15,00,000)
+
+        *   Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 = ₹150,000
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of (Tax)
+    *   Cess = 4% of ₹150,000 = ₹6,000
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax Liability = Tax + Cess
+    *   Total Tax Liability = ₹150,000 + ₹6,000 = ₹156,000
+
+FINAL TAX: 156000.0"
+TAX-0E37DD63,Medium,Old,61320.48,61320.48,37740.0,71720.0,0.0,23580.480000000003,10399.519999999997,37740,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹994000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹994000.0 + ₹0.0 = ₹994000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹196300.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹453100.0 = ₹226550.0
+*   Rent Paid less 10% of Basic Salary: ₹172400.0 - (10% of ₹453100.0) = ₹172400.0 - ₹45310.0 = ₹127090.0
+
+The least of these three amounts is ₹127090.0. Therefore, the HRA exemption is ₹127090.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹59600.0
+    *   Maximum limit under Section 80C is ₹150000.0.
+*   **Section 80D (Medical Insurance):**
+    *   Self: ₹25000.0
+    *   Parents: ₹0.0
+    *   Total 80D: ₹25000.0
+        *   Maximum limit for self is ₹25000 if below 60 years.
+        *   Maximum limit for parents is ₹25000 if below 60 years.
+        *   Maximum limit for parents is ₹50000 if above 60 years.
+
+Total Deductions: ₹59600.0 (PF) + ₹25000.0 (Medical) = ₹84600.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹994000.0 - ₹127090.0 (HRA) - ₹84600.0 (Deductions) = ₹782310.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹7,82,310: 20% of (₹7,82,310 - ₹5,00,000) = 20% of ₹2,82,310 = ₹56462
+
+Total Income Tax = ₹12,500 + ₹56462 = ₹68962
+
+**6. Add Cess:**
+
+Cess is 4% of the Income Tax.
+Cess = 4% of ₹68962 = ₹2758.48 (Rounded to ₹2758)
+
+Total Tax Liability = ₹68962 + ₹2758 = ₹71720
+
+FINAL TAX: ₹71720"
+TAX-38D4DB68,Medium,New,26416.0,26416.0,28330.0,31616.0,0.0,1914.0,5200.0,28330,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹754000.0 + ₹0.0 = ₹754000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. The only deduction available is under Section 80CCD(2) for employer's contribution to NPS. Since there is no employer contribution to NPS mentioned in the taxpayer profile, no deductions under Chapter VI-A are considered. However, deduction under section 80CCD(2) is not applicable in this case. Also, standard deduction of ₹50,000 is not available under the new regime.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Since no deductions are applicable under the New Regime (except employer NPS contribution, which is not present here),
+
+    Taxable Income = ₹754000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹154,000 (₹754,000 - ₹6,00,000) = ₹15,400
+
+    Total Income Tax = ₹0 + ₹15,000 + ₹15,400 = ₹30,400
+
+6.  **Add Cess:**
+
+    Health and Education Cess = 4% of Income Tax
+
+    Cess = 4% of ₹30,400 = ₹1216
+
+    Total Tax Liability = ₹30,400 + ₹1216 = ₹31,616
+
+FINAL TAX: ₹31,616"
+TAX-82079AB5,Medium,Old,81567.2,81567.2,39520.0,91967.0,0.0,42047.2,10399.800000000003,39520,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1119000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1119000.0 + ₹0.0 = ₹1119000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹223500.0
+*   Rent paid minus 10% of Basic Salary: ₹140000.0 - (10% of ₹506500.0) = ₹140000.0 - ₹50650.0 = ₹89350.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹506500.0 = ₹202600.0
+
+The least of these three amounts is ₹89350.0. Therefore, the HRA exemption is ₹89350.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹67100.0
+*   LIC: ₹0.0
+*   PPF: ₹82900.0
+*   ELSS: ₹0.0
+*   Medical (Self): ₹0.0
+*   Medical (Parents): ₹0.0
+
+Total 80C deduction = ₹67100.0 + ₹0.0 + ₹82900.0 + ₹0.0 = ₹150000.0
+
+Since the maximum deduction allowed under Section 80C is ₹150000, the taxpayer can claim the full amount of ₹150000.0.
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1119000.0
+*   HRA Exemption: ₹89350.0
+*   Deductions under Chapter VI-A: ₹150000.0
+*   Taxable Income = ₹1119000.0 - ₹89350.0 - ₹150000.0 = ₹879650.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹879650.0 - ₹5,00,000) = 20% of ₹379650.0 = ₹75930.0
+
+Total Income Tax = ₹0 + ₹12,500 + ₹75930.0 = ₹88430.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹88430.0 = ₹3537.2
+
+Total Tax Liability = ₹88430.0 + ₹3537.2 = ₹91967.2
+
+Rounding off to the nearest rupee, the total tax liability is ₹91967.
+
+FINAL TAX: 91967"
+TAX-1DABE2C8,Medium,New,9984.0,9984.0,12796.0,12584.0,0.0,2812.0,2600.0,12796,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹542000.0 + ₹0.0 = ₹542000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. However, deduction for employer's contribution to NPS is allowed. In this case, we will consider deduction for medical insurance premium under section 80D.
+
+    *   **Section 80D (Medical Insurance):**
+
+        *   Self: ₹25,000
+        *   Parents: ₹50,000
+
+        Total 80D deduction = ₹25,000 + ₹50,000 = ₹75,000. However, the maximum deduction allowed for parents is ₹25,000 if they are below 60 years of age and ₹50,000 if they are above 60 years of age. Since the age of parents is not given, we will assume they are above 60 years of age.
+
+        However, under the New Regime, Section 80D is not allowed.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (under New Regime)
+
+    Since no deductions are allowed under the New Regime (except employer contribution to NPS which is not provided),
+
+    Taxable Income = ₹542000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    Tax Calculation:
+
+    *   Up to ₹3,00,000: ₹0
+    *   ₹3,00,001 to ₹5,42,000: (₹542000 - ₹300000) * 5% = ₹242000 * 0.05 = ₹12100
+
+    Total Tax = ₹0 + ₹12100 = ₹12100
+
+6.  **Add Cess:**
+
+    Cess is 4% of the income tax.
+
+    Cess = 4% of ₹12100 = ₹12100 * 0.04 = ₹484
+
+    Total Tax Liability = ₹12100 + ₹484 = ₹12584
+
+FINAL TAX: ₹12584"
+TAX-37E7BB2F,Complex,New,692328.0,692328.0,343920.0,707928.0,0.0,348408.0,15600.0,343920,"Okay, I will calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the steps you've outlined.
+
+**1. Determine Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹3269000.0 + ₹0.0
+Gross Total Income = ₹3269000.0
+
+**2. Calculate Exemptions (HRA) - Not Applicable under New Regime:**
+
+Under the New Regime, HRA exemption is not allowed.
+
+**3. Calculate Deductions (Chapter VI-A) - Not Applicable under New Regime:**
+
+Under the New Regime, most deductions under Chapter VI-A are not allowed. The standard deduction of ₹50,000 is also not available. However, deduction u/s 80CCD(2) is available. Since the taxpayer profile does not include 80CCD(2), we will not consider it.
+
+**4. Determine Taxable Income:**
+
+Taxable Income = Gross Total Income
+Taxable Income = ₹3269000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+*   Up to ₹3,00,000: 0%
+*   ₹3,00,001 - ₹6,00,000: 5%
+*   ₹6,00,001 - ₹9,00,000: 10%
+*   ₹9,00,001 - ₹12,00,000: 15%
+*   ₹12,00,001 - ₹15,00,000: 20%
+*   Above ₹15,00,000: 30%
+
+Tax Calculation:
+
+*   0% on first ₹3,00,000 = ₹0
+*   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+*   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+*   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+*   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+*   30% on ₹1769000 (₹3269000 - ₹15,00,000) = ₹530700
+
+Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹530700 = ₹680700
+
+**6. Add Cess:**
+
+Health and Education Cess = 4% of Income Tax
+Cess = 4% of ₹680700 = ₹27228
+
+Total Tax Liability = Income Tax + Cess
+Total Tax Liability = ₹680700 + ₹27228 = ₹707928
+
+FINAL TAX: 707928"
+TAX-E38EE9E1,Medium,New,7800.0,7800.0,13520.0,10400.0,0.0,5720.0,2600.0,13520,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions (Not Applicable for New Regime):**
+
+    *   HRA exemption is not applicable under the New Regime.
+
+3.  **Deductions (Not Applicable for New Regime):**
+
+    *   Deductions under Chapter VI-A (like PF, LIC, PPF, ELSS, Medical Insurance) are not applicable under the New Regime.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹500000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Calculation:
+
+    *   Tax on first ₹3,00,000: 0
+    *   Tax on ₹2,00,000 (₹3,00,001 to ₹5,00,000): ₹2,00,000 * 5% = ₹10,000
+    *   Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of Tax
+    *   Cess Amount: 4% of ₹10,000 = ₹400
+
+    *   Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: ₹10400"
+TAX-45851E45,Medium,New,421512.0,421512.0,136260.0,437112.0,0.0,285252.0,15600.0,136260,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹2401000.0 + ₹0.0 = ₹2401000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not applicable. Only deduction for employer contribution to NPS u/s 80CCD(2) is allowed. Since there is no employer contribution to NPS mentioned, no deductions are considered.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Taxable Income = ₹2401000.0 - ₹0.0 = ₹2401000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+    *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+    *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+    *   30% on ₹9,01,000 (₹24,01,000 - ₹15,00,000) = ₹270,300
+
+    Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹270,300 = ₹420,300
+
+6.  **Add Cess:**
+
+    Cess is 4% on Income Tax.
+
+    Cess = 4% of ₹420,300 = ₹16,812
+
+    Total Tax Liability = Income Tax + Cess
+
+    Total Tax Liability = ₹420,300 + ₹16,812 = ₹437,112
+
+FINAL TAX: ₹437,112"
+TAX-34E0C3BB,Medium,Old,6009.952,6009.952,13656.0,14620.0,0.0,7646.048,8610.047999999999,13656,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹106400.0
+*   Rent paid less 10% of Basic Salary: ₹23200.0 - (10% of ₹216600.0) = ₹23200.0 - ₹21660.0 = ₹1540.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹216600.0 = ₹86640.0
+
+The least of these three amounts is ₹1540.0. Therefore, the HRA exemption is ₹1540.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30000.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹37884.0
+    *   Total 80C: ₹30000.0 + ₹0.0 + ₹0.0 + ₹37884.0 = ₹67884.0
+
+    The maximum deduction allowed under Section 80C is ₹150000.0.  Since ₹67884.0 is less than ₹150000.0, the entire amount is deductible.
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹15000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹15000.0 + ₹0.0 = ₹15000.0
+
+    The maximum deduction allowed under Section 80D for self is ₹25000.0. Since ₹15000.0 is less than ₹25000.0, the entire amount is deductible.
+
+*   Total Deductions (Chapter VI-A): ₹67884.0 + ₹15000.0 = ₹82884.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   HRA Exemption: ₹1540.0
+*   Deductions (Chapter VI-A): ₹82884.0
+*   Taxable Income = ₹500000.0 - ₹1540.0 - ₹82884.0 = ₹415576.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹250000: Nil
+*   ₹250001 to ₹300000: 5% of (₹300000 - ₹250000) = 5% of ₹50000 = ₹2500
+*   ₹300001 to ₹415576: 10% of (₹415576 - ₹300000) = 10% of ₹115576 = ₹11557.6
+
+Total Income Tax = ₹0 + ₹2500 + ₹11557.6 = ₹14057.6
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹14057.6 = ₹562.304
+
+Total Tax Liability = ₹14057.6 + ₹562.304 = ₹14619.904
+
+Rounding off to the nearest rupee, the total tax liability is ₹14620.
+
+FINAL TAX: ₹14620"
+TAX-4923227C,Medium,New,10400.0,10400.0,16120.0,13000.0,0.0,5720.0,2600.0,16120,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹50000.0
+    *   Gross Total Income = ₹500000 + ₹50000 = ₹550000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The only deduction allowed is for employer's contribution to NPS (not applicable here) and deduction under section 80CCD(2).
+    *   However, deduction under section 80CCD(2) is not applicable here.
+    *   Therefore, no deductions are applicable under the New Regime except for employer's contribution to NPS.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income - Deductions
+    *   Taxable Income = ₹550000.0 - ₹0.0 = ₹550000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    *   Tax Calculation:
+        *   Up to ₹3,00,000: ₹0
+        *   ₹3,00,001 to ₹550000: (₹550000 - ₹300000) * 5% = ₹250000 * 0.05 = ₹12500.0
+        *   Total Tax = ₹0 + ₹12500 = ₹12500.0
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of Tax
+    *   Cess Amount = 4% of ₹12500 = ₹12500 * 0.04 = ₹500.0
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax Liability = Tax + Cess
+    *   Total Tax Liability = ₹12500 + ₹500 = ₹13000.0
+
+FINAL TAX: 13000.0"
+TAX-41A9EA92,Medium,Old,7455.76,7455.76,13576.0,10056.0,0.0,6120.24,2600.24,13576,"Okay, let's break down the income tax calculation for the taxpayer under the Old Regime for FY 2024-25.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   a) Actual HRA Received: ₹102000.0
+*   b) 50% of Basic Salary (since living in a metro): 50% of ₹236800.0 = ₹118400.0
+*   c) Rent Paid less 10% of Basic Salary: ₹50300.0 - (10% of ₹236800.0) = ₹50300.0 - ₹23680.0 = ₹26620.0
+
+Therefore, HRA Exemption = ₹26620.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹30000.0
+*   LIC: ₹0.0
+*   PPF: ₹0.0
+*   ELSS: ₹0.0
+*   Medical (Self): ₹0.0
+*   Medical (Parents): ₹0.0
+
+Total 80C Deduction = ₹30000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   Less: HRA Exemption: ₹26620.0
+*   Less: Chapter VI-A Deductions: ₹30000.0
+*   Taxable Income = ₹500000.0 - ₹26620.0 - ₹30000.0 = ₹443380.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹443380.0 - ₹2,50,000) = 5% of ₹193380.0 = ₹9669.0
+
+Total Income Tax = ₹9669.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of ₹9669.0 = ₹386.76 (Rounded off to ₹387)
+
+Total Tax Liability = ₹9669.0 + ₹387 = ₹10056.0
+
+FINAL TAX: 10056.0"
+TAX-FD07F92E,Medium,Old,10753.912000000002,10753.912000000002,27713.0,14416.0,0.0,16959.087999999996,3662.087999999998,27713,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹738000.0
+*   Other Income: ₹25000.0
+*   Gross Total Income = ₹738000 + ₹25000 = ₹763000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹147900.0
+*   Rent Paid less 10% of Basic Salary: ₹156800 - (10% of ₹336200) = ₹156800 - ₹33620 = ₹123180.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹336200 = ₹168100.0
+
+The least of these three amounts is ₹123180.0. Therefore, the HRA exemption is ₹123180.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹44300.0
+*   LIC: ₹0.0
+*   PPF: ₹88714.0
+*   ELSS: ₹0.0
+*   Medical (Self): ₹0.0
+*   Medical (Parents): ₹0.0
+
+Total Deductions under Section 80C = ₹44300 + ₹0 + ₹88714 + ₹0 = ₹133014.0
+
+Since the maximum deduction allowed under Section 80C is ₹150000, the entire amount of ₹133014.0 is deductible.
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹763000.0
+*   HRA Exemption: ₹123180.0
+*   Deductions under Section 80C: ₹133014.0
+*   Taxable Income = ₹763000 - ₹123180 - ₹133014 = ₹506806.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹5,06806: 20% of (₹506806 - ₹5,00,000) = 20% of ₹6806 = ₹1361.2
+
+Total Income Tax = ₹12,500 + ₹1361.2 = ₹13861.2
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹13861.2 = ₹554.448
+
+Total Tax Liability = ₹13861.2 + ₹554.448 = ₹14415.648
+
+Rounding off to the nearest rupee, the total tax liability is ₹14416.
+
+FINAL TAX: ₹14416"
+TAX-7AFA1DB5,Medium,New,147680.0,147680.0,110760.0,159120.0,0.0,36920.0,11440.0,110760,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹1460000.0
+*   Other Income: ₹50000.0
+*   Gross Total Income = ₹1460000 + ₹50000 = ₹1510000.0
+
+**2. Calculate Exemptions (HRA):**
+
+*   Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   Under the New Regime, most deductions under Chapter VI-A are **not applicable**. The standard deduction of ₹50,000 is also not applicable.
+*   However, deduction for employer's contribution to NPS under section 80CCD(2) is applicable. This information is not provided, so we will assume it is zero.
+
+**4. Determine Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Deductions (Chapter VI-A)
+*   Since no deductions are applicable under the New Regime (except employer NPS contribution, which we assume is zero),
+*   Taxable Income = ₹1510000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+*   Up to ₹3,00,000: 0%
+*   ₹3,00,001 - ₹6,00,000: 5%
+*   ₹6,00,001 - ₹9,00,000: 10%
+*   ₹9,00,001 - ₹12,00,000: 15%
+*   ₹12,00,001 - ₹15,00,000: 20%
+*   Above ₹15,00,000: 30%
+
+Calculation:
+
+*   0% on first ₹3,00,000 = ₹0
+*   5% on ₹3,00,000 (₹3,00,001 to ₹6,00,000) = ₹15,000
+*   10% on ₹3,00,000 (₹6,00,001 to ₹9,00,000) = ₹30,000
+*   15% on ₹3,00,000 (₹9,00,001 to ₹12,00,000) = ₹45,000
+*   20% on ₹3,00,000 (₹12,00,001 to ₹15,00,000) = ₹60,000
+*   30% on ₹10,000 (₹15,00,001 to ₹15,10,000) = ₹3,000
+
+Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹3,000 = ₹153,000
+
+**6. Add Cess:**
+
+*   Health and Education Cess = 4% of Income Tax
+*   Cess = 4% of ₹153,000 = ₹6,120
+
+Total Tax Liability = ₹153,000 + ₹6,120 = ₹159,120
+
+FINAL TAX: ₹159,120"
+TAX-217C84CE,Medium,Old,4858.308,4858.308,14531.0,7458.0,0.0,9672.692,2599.692,14531,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹539000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹539000.0 + ₹0.0 = ₹539000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   a) Actual HRA Received: ₹100700.0
+*   b) 50% of Basic Salary (if living in Metro) / 40% of Basic Salary (if living in Non-Metro): Since the taxpayer is not living in a metro, 40% of Basic Salary = 40% of ₹237000.0 = ₹94800.0
+*   c) Actual Rent Paid less 10% of Basic Salary: Rent Paid - 10% of Basic Salary = ₹33500.0 - (10% of ₹237000.0) = ₹33500.0 - ₹23700.0 = ₹9800.0
+
+Least of the above three is ₹9800.0.
+
+Therefore, HRA Exemption = ₹9800.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹32300.0
+    *   LIC: ₹83471.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C = ₹32300.0 + ₹83471.0 + ₹0.0 + ₹0.0 = ₹115771.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0. Therefore, the deduction allowed is ₹115771.0
+
+*   **Section 80D:**
+    *   Medical Insurance Premium (Self): ₹20000.0
+    *   Medical Insurance Premium (Parents): ₹0.0
+    *   Total 80D = ₹20000.0 + ₹0.0 = ₹20000.0
+    *   Maximum permissible deduction under Section 80D for self is ₹25000.0. Since parents are not senior citizens, the maximum deduction for parents is ₹25000.0.
+    *   Therefore, the deduction allowed is ₹20000.0
+
+*   Total Deductions under Chapter VI-A = ₹115771.0 + ₹20000.0 = ₹135771.0
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Exemptions - Deductions
+*   Taxable Income = ₹539000.0 - ₹9800.0 - ₹135771.0 = ₹393429.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹393429.0 - ₹250000.0) = 5% of ₹143429.0 = ₹7171.45
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax
+*   Cess = 4% of ₹7171.45 = ₹286.86
+
+**7. Total Tax Liability:**
+
+*   Total Tax = Income Tax + Cess
+*   Total Tax = ₹7171.45 + ₹286.86 = ₹7458.31
+*   Rounded off to nearest rupee: ₹7458.0
+
+FINAL TAX: 7458"
+TAX-3F52E4D0,Medium,New,7800.0,7800.0,12870.0,10400.0,0.0,5070.0,2600.0,12870,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, deductions under Chapter VI-A (like PF, LIC, PPF, ELSS, Medical Insurance) are generally not allowed, except for deduction under section 80CCD(2).
+
+    Therefore, Deductions = ₹0.0
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Taxable Income = ₹500000.0 - ₹0.0 = ₹500000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹2,00,000 (₹5,00,000 - ₹3,00,000) = ₹10,000
+
+    Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+6.  **Add Cess:**
+
+    Health and Education Cess is levied at 4% on the income tax amount.
+
+    Cess = 4% of ₹10,000 = ₹400
+
+    Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: ₹10400"
+TAX-EF5B6E9E,Medium,Old,28306.72,33506.72,19736.0,38707.0,5200.0,8570.720000000001,10400.279999999999,19736,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹819000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹819000.0 + ₹0.0 = ₹819000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹185300.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹384900.0 = ₹192450.0
+*   Rent Paid less 10% of Basic Salary: ₹134800.0 - (10% of ₹384900.0) = ₹134800.0 - ₹38490.0 = ₹96310.0
+
+The least of these three amounts is ₹96310.0. Therefore, the HRA exemption is ₹96310.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹49100.0
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹50000.0 (Assuming parents are senior citizens and the payment is made through non-cash modes, maximum deduction allowed is ₹50,000. If parents are not senior citizens, the maximum deduction is ₹25,000. Here, we will assume parents are senior citizens.)
+    *   Total 80D Deduction: ₹0.0 + ₹50000.0 = ₹50000.0
+
+Total Deductions under Chapter VI-A = ₹49100.0 + ₹50000.0 = ₹99100.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹819000.0
+*   HRA Exemption: ₹96310.0
+*   Deductions under Chapter VI-A: ₹99100.0
+*   Taxable Income = ₹819000.0 - ₹96310.0 - ₹99100.0 = ₹623590.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹6,23,590: 20% of (₹6,23,590 - ₹5,00,000) = 20% of ₹123590 = ₹24718
+
+Total Income Tax = ₹0 + ₹12,500 + ₹24718 = ₹37218
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹37218 = ₹1488.72 (Rounded to ₹1489)
+
+Total Tax Liability = ₹37218 + ₹1489 = ₹38707
+
+FINAL TAX: 38707"
+TAX-753BB1C8,Medium,New,216840.0,216840.0,38220.0,232440.0,0.0,178620.0,15600.0,38220,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹1745000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹1745000.0 + ₹0.0 = ₹1745000.0
+
+2.  **Exemptions (HRA):**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The only deduction allowed is for employer's contribution to NPS (not applicable here). Therefore, no deductions are considered.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income - Deductions
+    *   Taxable Income = ₹1745000.0 - ₹0.0 = ₹1745000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹3,00,001 to ₹6,00,000) = ₹15,000
+        *   10% on ₹3,00,000 (₹6,00,001 to ₹9,00,000) = ₹30,000
+        *   15% on ₹3,00,000 (₹9,00,001 to ₹12,00,000) = ₹45,000
+        *   20% on ₹3,00,000 (₹12,00,001 to ₹15,00,000) = ₹60,000
+        *   30% on ₹2,45,000 (₹15,00,001 to ₹17,45,000) = ₹73,500
+    *   Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹73,500 = ₹223,500
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of Income Tax
+    *   Cess Amount = 4% of ₹223,500 = ₹8,940
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax Liability = Income Tax + Cess
+    *   Total Tax Liability = ₹223,500 + ₹8,940 = ₹232,440
+
+FINAL TAX: ₹232,440"
+TAX-AF2AC9BD,Medium,New,7800.0,7800.0,12500.0,10400.0,0.0,4700.0,2600.0,12500,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, Chapter VI-A deductions (like PF, LIC, PPF, ELSS, Medical Insurance) are not allowed.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any)
+
+    Since no deductions are allowed under the New Regime,
+
+    Taxable Income = ₹500000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   Up to ₹3,00,000: 0% of ₹3,00,000 = ₹0
+    *   ₹3,00,001 - ₹6,00,000: 5% of (₹5,00,000 - ₹3,00,000) = 5% of ₹2,00,000 = ₹10,000
+
+    Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+6.  **Add Cess:**
+
+    Health and Education Cess is applicable at 4% on the income tax amount.
+
+    Cess = 4% of ₹10,000 = ₹400
+
+    Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: 10400.0"
+TAX-2EE19951,Medium,New,8060.0,8060.0,13526.0,10660.0,0.0,5466.0,2600.0,13526,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹5000.0
+    *   Gross Total Income = ₹500000.0 + ₹5000.0 = ₹505000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The standard deduction of ₹50,000 is also not allowed.
+    *   However, deduction for employer's contribution to NPS (Section 80CCD(2)) and deduction for employer's contribution to PF/Superannuation fund (subject to limits) are allowed. Since we don't have employer's contribution data, we will not consider these.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income - Deductions (if any allowed under New Regime)
+    *   Taxable Income = ₹505000.0 - ₹0.0 = ₹505000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    *   Tax Calculation:
+        *   Up to ₹3,00,000: ₹0
+        *   ₹3,00,001 to ₹5,05,000: (₹505000 - ₹300000) * 5/100 = ₹205000 * 0.05 = ₹10250
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of (Income Tax)
+    *   Cess = 4% of ₹10250 = ₹410
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax = Income Tax + Cess
+    *   Total Tax = ₹10250 + ₹410 = ₹10660
+
+FINAL TAX: ₹10660"
+TAX-C65CF983,Medium,New,15444.0,15444.0,19556.0,20488.0,0.0,4112.0,5044.0,19556,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹647000.0 + ₹0.0 = ₹647000.0
+
+**2. Calculate Exemptions (like HRA) if Old Regime:**
+
+Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+**3. Calculate Deductions (Chapter VI-A) if Old Regime:**
+
+Since we are calculating under the New Regime, Chapter VI-A deductions (like PF, LIC, PPF, ELSS, Medical Insurance) are not applicable. However, deduction under 80CCD(2) i.e. employer contribution to NPS is allowed. Since there is no employer contribution to NPS mentioned, we will not consider it.
+
+**4. Determine Taxable Income:**
+
+Taxable Income = Gross Total Income
+Taxable Income = ₹647000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+*   Up to ₹3,00,000: 0%
+*   ₹3,00,001 - ₹6,00,000: 5%
+*   ₹6,00,001 - ₹9,00,000: 10%
+*   ₹9,00,001 - ₹12,00,000: 15%
+*   ₹12,00,001 - ₹15,00,000: 20%
+*   Above ₹15,00,000: 30%
+
+Tax Calculation:
+
+*   0% on first ₹3,00,000 = ₹0
+*   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+*   10% on ₹47,000 (₹647,000 - ₹6,00,000) = ₹4,700
+
+Total Tax = ₹0 + ₹15,000 + ₹4,700 = ₹19,700
+
+**6. Add Cess:**
+
+Health and Education Cess @ 4% on Tax
+Cess = 4% of ₹19,700 = ₹788
+
+Total Tax Liability = ₹19,700 + ₹788 = ₹20,488
+
+FINAL TAX: ₹20,488"
+TAX-85CF8162,Medium,Old,319269.60000000003,333309.60000000003,181160.0,334870.0,14040.0,138109.60000000003,15600.399999999965,181160,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1828000.0
+*   Other Income: ₹50000.0
+*   Gross Total Income = ₹1828000.0 + ₹50000.0 = ₹1878000.0
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The exemption is the least of the following:
+
+*   HRA Received: ₹304400.0
+*   50% of Basic Salary (since living in a metro): 0.5 * ₹750900.0 = ₹375450.0
+*   Rent Paid - 10% of Basic Salary: Since rent paid is ₹0, this will be ₹0 - (0.1 * ₹750900.0) = -₹75090.0.  Since this is negative, it is considered ₹0.
+
+Therefore, the HRA exemption is the least of ₹304400.0, ₹375450.0 and ₹0, which is ₹0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (Maximum ₹150000):**
+    *   PF: ₹109700.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹109700.0 + ₹0.0 + ₹0.0 + ₹0.0 = ₹109700.0
+    *   Since this is less than ₹150000, the entire amount is deductible.
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹50000.0
+    *   Total 80D: ₹20000.0 + ₹50000.0 = ₹70000.0
+    *   Maximum deduction allowed for self is ₹25000 (assuming taxpayer is below 60 years of age). Maximum deduction allowed for parents is ₹50000 (assuming parents are senior citizens).
+    *   Total 80D deduction = ₹25000 + ₹50000 = ₹75000. However, since the actual amount is ₹70000, we take ₹70000.
+
+*   **Total Deductions (Chapter VI-A):** ₹109700.0 + ₹70000.0 = ₹179700.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1878000.0
+*   HRA Exemption: ₹0.0
+*   Deductions (Chapter VI-A): ₹179700.0
+*   Taxable Income = ₹1878000.0 - ₹0.0 - ₹179700.0 = ₹1698300.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 0.05 * ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 0.20 * ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹1698300.0 - ₹10,00,000) = 0.30 * ₹698300.0 = ₹209490.0
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹209490.0 = ₹321990.0
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 0.04 * ₹321990.0 = ₹12879.6
+
+**7. Total Tax Liability:**
+
+*   Total Tax = ₹321990.0 + ₹12879.6 = ₹334869.6
+*   Rounded off to nearest rupee: ₹334870
+
+FINAL TAX: ₹334870"
+TAX-7A91BE86,Medium,Old,25203.36,29363.36,19760.0,35603.0,4160.0,5443.360000000001,10399.64,19760,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹814000.0
+*   Other Income: ₹5000.0
+*   Gross Total Income = ₹814000 + ₹5000 = ₹819000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   a) Actual HRA Received: ₹142900.0
+*   b) 50% of Basic Salary (since living in a metro): 50% of ₹326700 = ₹163350.0
+*   c) Rent Paid less 10% of Basic Salary: ₹149200 - (10% of ₹326700) = ₹149200 - ₹32670 = ₹116530.0
+
+Therefore, HRA Exemption = ₹116530.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF, LIC, PPF, ELSS):**
+    *   PF: ₹48800.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹48800.0
+    *   Maximum 80C deduction allowed is ₹150000.  Therefore, the deduction is ₹48800.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹25000.0
+    *   Medical (Parents): ₹20000.0
+    *   Total 80D: ₹25000 + ₹20000 = ₹45000.0
+    *   For self, the maximum deduction is ₹25000 if below 60 years old.
+    *   For parents, the maximum deduction is ₹25000 if below 60 years old.
+    *   Total 80D deduction allowed is ₹25000 + ₹20000 = ₹45000.0
+
+*   Total Deductions (Chapter VI-A) = ₹48800 + ₹45000 = ₹93800.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹819000.0
+*   HRA Exemption: ₹116530.0
+*   Deductions (Chapter VI-A): ₹93800.0
+*   Taxable Income = ₹819000 - ₹116530 - ₹93800 = ₹608670.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹6,08670: 20% of (₹608670 - ₹5,00,000) = 20% of ₹108670 = ₹21734
+
+*   Total Income Tax = ₹12,500 + ₹21734 = ₹34234
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 4% of ₹34234 = ₹1369.36 (Rounded to ₹1369)
+
+*   Total Tax Liability = ₹34234 + ₹1369 = ₹35603
+
+FINAL TAX: 35603"
+TAX-18F57058,Medium,New,412776.0,412776.0,200360.0,428376.0,0.0,212416.0,15600.0,200360,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹2348000.0
+*   Other Income: ₹25000.0
+*   Gross Total Income = ₹2348000.0 + ₹25000.0 = ₹2373000.0
+
+**2. Calculate Exemptions (HRA):**
+
+*   Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   Under the New Regime, most deductions under Chapter VI-A are not allowed. The only deduction available is for employer's contribution to NPS under section 80CCD(2). However, based on the information provided, there is no employer contribution to NPS. Therefore, no deductions are considered.
+
+**4. Determine Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Deductions
+*   Taxable Income = ₹2373000.0 - ₹0.0 = ₹2373000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+| Income Slab         | Rate  |
+| ------------------- | ----- |
+| Up to ₹3,00,000     | 0%    |
+| ₹3,00,001 - ₹6,00,000  | 5%    |
+| ₹6,00,001 - ₹9,00,000  | 10%   |
+| ₹9,00,001 - ₹12,00,000 | 15%   |
+| ₹12,00,001 - ₹15,00,000| 20%   |
+| Above ₹15,00,000    | 30%   |
+
+*   Tax Calculation:
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+    *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+    *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+    *   30% on ₹873000 (₹2373000 - ₹15,000,00) = ₹261900
+    *   Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹261900 = ₹411900
+
+**6. Add Cess:**
+
+*   Cess is 4% on the income tax amount.
+*   Cess = 4% of ₹411900 = ₹16476
+
+**Total Tax Liability:**
+
+*   Total Tax = Income Tax + Cess
+*   Total Tax = ₹411900 + ₹16476 = ₹428376
+
+FINAL TAX: ₹428376"
+TAX-F9CCE3F6,Medium,New,8060.0,8060.0,13550.0,10660.0,0.0,5490.0,2600.0,13550,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹5000.0
+*   Gross Total Income = ₹500000 + ₹5000 = ₹505000.0
+
+**2. Calculate Exemptions (HRA):**
+
+*   Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   Under the New Regime, most deductions under Chapter VI-A are **not applicable**. This includes PF, LIC, PPF, ELSS, and Medical Insurance premiums.
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹505000.0
+*   Deductions: ₹0 (Under New Regime)
+*   Taxable Income = ₹505000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+*   Up to ₹3,00,000: 0%
+*   ₹3,00,001 - ₹6,00,000: 5%
+*   ₹6,00,001 - ₹9,00,000: 10%
+*   ₹9,00,001 - ₹12,00,000: 15%
+*   ₹12,00,001 - ₹15,00,000: 20%
+*   Above ₹15,00,000: 30%
+
+Calculation:
+
+*   Tax on first ₹3,00,000: ₹0
+*   Tax on ₹3,00,001 to ₹5,05000 (₹2,05,000): 5% of ₹2,05,000 = ₹10250
+
+Total Tax = ₹0 + ₹10250 = ₹10250
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Tax
+*   Cess = 4% of ₹10250 = ₹410
+
+Total Tax Liability = ₹10250 + ₹410 = ₹10660
+
+FINAL TAX: ₹10660"
+TAX-51B624B5,Medium,Old,8278.92,8278.92,14440.0,10879.0,0.0,6161.08,2600.08,14440,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹556000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹556000.0 + ₹0.0 = ₹556000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   a) Actual HRA Received: ₹104700.0
+*   b) 50% of Basic Salary (since living in a metro): 0.50 * ₹246100.0 = ₹123050.0
+*   c) Rent Paid less 10% of Basic Salary: ₹68000.0 - (0.10 * ₹246100.0) = ₹68000.0 - ₹24610.0 = ₹43390.0
+
+Therefore, HRA Exemption = ₹43390.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹33400.0 (Eligible under 80C, subject to overall limit)
+*   **Section 80D (Medical Insurance):**
+    *   Self: ₹20000.0
+    *   Parents: ₹0.0
+    *   Total 80D: ₹20000.0
+
+Now, let's calculate the total deduction under Section 80C. The maximum deduction allowed under Section 80C is ₹150000.
+
+*   PF: ₹33400.0
+
+Total 80C deduction = ₹33400.0 (Since it is less than 150000)
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹556000.0
+*   Less: HRA Exemption: ₹43390.0
+*   Less: Deductions under Chapter VI-A (80C + 80D): ₹33400.0 + ₹20000.0 = ₹53400.0
+*   Income after HRA Exemption: ₹556000.0 - ₹43390.0 = ₹512610.0
+*   Taxable Income = ₹512610.0 - ₹53400.0 = ₹459210.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹459210.0 - ₹2,50,000) = 0.05 * ₹209210.0 = ₹10460.5
+
+Total Income Tax = ₹10460.5
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 0.04 * ₹10460.5 = ₹418.42
+
+Total Tax Liability = ₹10460.5 + ₹418.42 = ₹10878.92
+
+Rounded off to nearest rupee: ₹10879
+
+FINAL TAX: 10879"
+TAX-97A5181C,Medium,Old,167.752,167.752,13576.0,2768.0,0.0,13408.248,2600.248,13576,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹107300.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹242100.0 = ₹121050.0
+*   Rent Paid less 10% of Basic Salary: ₹109600.0 - (10% of ₹242100.0) = ₹109600.0 - ₹24210.0 = ₹85390.0
+
+Therefore, HRA Exemption = ₹85390.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30000.0
+    *   LIC: ₹81384.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹30000.0 + ₹81384.0 + ₹0.0 + ₹0.0 = ₹111384.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, 80C deduction = ₹111384.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹0.0
+    *   Therefore, 80D deduction = ₹0.0
+
+Total Deductions (Chapter VI-A) = ₹111384.0 + ₹0.0 = ₹111384.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   HRA Exemption: ₹85390.0
+*   Deductions (Chapter VI-A): ₹111384.0
+*   Taxable Income = ₹500000.0 - ₹85390.0 - ₹111384.0 = ₹303226.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50000 = ₹2500
+*   ₹3,00,001 to ₹3,03226: 5% of (₹3,03226 - ₹3,00,000) = 5% of ₹3226 = ₹161.3
+
+Total Income Tax = ₹2500 + ₹161.3 = ₹2661.3
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 4% of ₹2661.3 = ₹106.45
+
+Total Tax Liability = ₹2661.3 + ₹106.45 = ₹2767.75
+
+Rounded off to nearest rupee: ₹2768
+
+FINAL TAX: ₹2768"
+TAX-261D5281,Medium,New,27352.0,27352.0,19515.0,32552.0,0.0,7837.0,5200.0,19515,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Total Income = Gross Salary + Other Income
+*   Gross Total Income = ₹763000.0 + ₹0.0 = ₹763000.0
+
+**2. Calculate Exemptions (HRA):**
+
+*   Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   Under the New Regime, most deductions under Chapter VI-A are **not allowed**. The exception is deduction for employer contribution to NPS (Section 80CCD(2)). Since there is no employer contribution to NPS mentioned in the taxpayer profile, no deductions are considered.
+
+**4. Determine Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Deductions (if any, under New Regime)
+*   Taxable Income = ₹763000.0 - ₹0.0 = ₹763000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+| Income Slab         | Tax Rate |
+| ------------------- | -------- |
+| Up to ₹3,00,000     | 0%       |
+| ₹3,00,001 - ₹6,00,000 | 5%       |
+| ₹6,00,001 - ₹9,00,000 | 10%      |
+| ₹9,00,001 - ₹12,00,000| 15%      |
+| ₹12,00,001 - ₹15,00,000| 20%      |
+| Above ₹15,00,000    | 30%      |
+
+*   Tax Calculation:
+    *   Up to ₹3,00,000: ₹0
+    *   ₹3,00,001 to ₹6,00,000: (₹6,00,000 - ₹3,00,000) * 5% = ₹3,00,000 * 0.05 = ₹15,000
+    *   ₹6,00,001 to ₹7,63,000: (₹7,63,000 - ₹6,00,000) * 10% = ₹1,63,000 * 0.10 = ₹16,300
+    *   Total Tax = ₹0 + ₹15,000 + ₹16,300 = ₹31,300
+
+**6. Add Cess:**
+
+*   Health and Education Cess = 4% of Tax
+*   Cess = 4% of ₹31,300 = ₹31,300 * 0.04 = ₹1252
+
+*   Total Tax Liability = Tax + Cess
+*   Total Tax Liability = ₹31,300 + ₹1252 = ₹32,552
+
+FINAL TAX: ₹32,552"
+TAX-FD19A74C,Medium,New,18824.0,18824.0,18732.0,24024.0,0.0,92.0,5200.0,18732,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹681000.0 + ₹0.0 = ₹681000.0
+
+2.  **Exemptions (HRA):**
+
+    Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are **not applicable**. Therefore, the deductions mentioned (PF, LIC, PPF, ELSS, Medical) cannot be claimed.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed under the regime)
+
+    Since no deductions are allowed under the New Regime in this case:
+
+    Taxable Income = ₹681000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹81,000 (₹681,000 - ₹6,00,000) = ₹8,100
+
+    Total Tax = ₹0 + ₹15,000 + ₹8,100 = ₹23,100
+
+6.  **Add Cess:**
+
+    Cess is 4% on the income tax amount.
+
+    Cess = 4% of ₹23,100 = ₹924
+
+    Total Tax Liability = ₹23,100 + ₹924 = ₹24,024
+
+FINAL TAX: ₹24,024"
+TAX-822FB076,Simple,New,259896.0,259896.0,219140.0,275496.0,0.0,40756.0,15600.0,219140,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹1878000.0
+    *   Other Income: ₹5000.0
+    *   Gross Total Income = ₹1878000 + ₹5000 = ₹1883000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are not allowed. The standard deduction of ₹50,000 is also not available.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹1883000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+        *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+        *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+        *   30% on ₹383,000 (₹1883,000 - ₹15,00,000) = ₹114,900
+
+    *   Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹114,900 = ₹264,900
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess @ 4% on Income Tax
+    *   Cess = 4% of ₹264,900 = ₹10,596
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax Liability = Income Tax + Cess = ₹264,900 + ₹10,596 = ₹275,496
+
+FINAL TAX: 275496.0"
+TAX-B5717A47,Medium,Old,313201.2,313201.2,48730.0,328801.2,0.0,264471.2,15600.0,48730,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1846000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1846000.0 + ₹0.0 = ₹1846000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹403000.0
+*   Rent paid less 10% of Basic Salary: ₹106100.0 - (10% of ₹889500.0) = ₹106100.0 - ₹88950.0 = ₹17150.0
+*   50% of Basic Salary (since living in a metro city - No): 40% of Basic Salary = 40% of ₹889500.0 = ₹355800.0
+
+The least of these three amounts is ₹17150.0. Therefore, the HRA exemption is ₹17150.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹110800.0
+    *   LIC: ₹39200.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹110800.0 + ₹39200.0 + ₹0.0 + ₹0.0 = ₹150000.0 (Maximum limit under Section 80C is ₹150000)
+
+*   **Section 80D:**
+    *   Medical Insurance Premium (Self): ₹0.0
+    *   Medical Insurance Premium (Parents): ₹0.0
+    *   Total 80D: ₹0.0
+
+Total Deductions (Chapter VI-A) = ₹150000.0 + ₹0.0 = ₹150000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1846000.0
+*   HRA Exemption: ₹17150.0
+*   Deductions (Chapter VI-A): ₹150000.0
+*   Taxable Income = ₹1846000.0 - ₹17150.0 - ₹150000.0 = ₹1678850.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹1678850.0 - ₹10,00,000) = 30% of ₹678850.0 = ₹203655.0
+
+Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹203655.0 = ₹316155.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹316155.0 = ₹12646.2
+
+Total Tax Liability = ₹316155.0 + ₹12646.2 = ₹328801.2
+
+FINAL TAX: 328801.2"
+TAX-B4862487,Medium,Old,502875.36000000004,502875.36000000004,372330.0,518475.0,0.0,130545.36000000004,15599.639999999956,372330,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹2450000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹2450000.0 + ₹0.0 = ₹2450000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹479700.0
+*   Rent paid less 10% of Basic Salary: ₹121200.0 - (10% of ₹1079800.0) = ₹121200.0 - ₹107980.0 = ₹13220.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹1079800.0 = ₹431920.0
+
+The least of these three amounts is ₹13220.0. Therefore, the HRA exemption is ₹13220.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹147000.0
+*   LIC: ₹0.0
+*   PPF: ₹3000.0
+*   ELSS: ₹0.0
+
+Section 80C allows a maximum deduction of ₹150000. The total deduction claimed under 80C is ₹147000.0 + ₹0.0 + ₹3000.0 + ₹0.0 = ₹150000.0.
+
+*   Medical (Self): ₹0.0
+*   Medical (Parents): ₹0.0
+
+Section 80D allows deduction for medical insurance premium paid for self, spouse, dependent children and parents.
+Since the taxpayer has not claimed any deduction under medical insurance, the deduction is ₹0.0.
+
+Total Deductions under Chapter VI-A = ₹150000.0 + ₹0.0 = ₹150000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹2450000.0
+*   HRA Exemption: ₹13220.0
+*   Deductions (Chapter VI-A): ₹150000.0
+*   Taxable Income = ₹2450000.0 - ₹13220.0 - ₹150000.0 = ₹2286780.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹2286780.0 - ₹10,00,000) = 30% of ₹1286780.0 = ₹386034.0
+
+Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹386034.0 = ₹498534.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹498534.0 = ₹19941.36
+
+Total Tax Liability = ₹498534.0 + ₹19941.36 = ₹518475.36
+
+Rounding off to the nearest rupee, the final tax liability is ₹518475.
+
+FINAL TAX: ₹518475"
+TAX-16B3F22F,Medium,New,49296.0,49296.0,38790.0,57096.0,0.0,10506.0,7800.0,38790,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹961000.0
+    *   Other Income: ₹5000.0
+    *   Gross Total Income = ₹961000 + ₹5000 = ₹966000.0
+
+2.  **Exemptions (HRA):**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The only deduction available is for employer's contribution to NPS (Section 80CCD(2)). Since we don't have that information, we will assume no deductions are available under Chapter VI-A.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income - Deductions
+    *   Taxable Income = ₹966000.0 - ₹0 = ₹966000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+        *   15% on ₹66,000 (₹966,000 - ₹9,00,000) = ₹9,900
+    *   Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹9,900 = ₹54,900
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% on Tax
+    *   Cess = 4% of ₹54,900 = ₹2,196
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax = Tax + Cess
+    *   Total Tax = ₹54,900 + ₹2,196 = ₹57,096
+
+FINAL TAX: ₹57,096"
+TAX-BA9AA645,Medium,New,50856.0,50856.0,9760.0,55536.0,0.0,41096.0,4680.0,9760,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹976000.0 + ₹0.0 = ₹976000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. However, deduction for employer's contribution to NPS (Section 80CCD(2)) and deduction for employer's contribution to PF are allowed. Also, deduction under Section 80CCH is allowed. Since the taxpayer profile does not include employer's contribution to NPS or any contribution under Section 80CCH, and the question asks for deductions under Chapter VI-A, we will consider only Section 80CCD(2) and 80CCH. Since there is no information about these, we will proceed without considering them.
+
+    However, deduction under Section 80D is allowed for medical insurance premium. The taxpayer has paid ₹20000 for medical insurance for parents.
+
+    Under Section 80D, a deduction is allowed for medical insurance premium paid for parents. The maximum deduction allowed is ₹25,000 if parents are below 60 years of age and ₹50,000 if parents are above 60 years of age. Assuming the parents are below 60 years of age, the taxpayer can claim a deduction of ₹20000.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions under Chapter VI-A
+
+    Taxable Income = ₹976000.0 - ₹20000 = ₹956000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on next ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on next ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+    *   15% on remaining ₹56,000 (₹956,000 - ₹9,00,000) = ₹8,400
+
+    Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹8,400 = ₹53,400
+
+6.  **Add Cess:**
+
+    Cess is 4% on Income Tax
+
+    Cess = 4% of ₹53,400 = ₹2,136
+
+    Total Tax Liability = ₹53,400 + ₹2,136 = ₹55,536
+
+FINAL TAX: ₹55,536"
+TAX-2F3380FF,Medium,New,184392.0,184392.0,48450.0,199992.0,0.0,135942.0,15600.0,48450,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Total Income = Gross Salary + Other Income
+*   Gross Total Income = ₹1641000.0 + ₹0.0 = ₹1641000.0
+
+**2. Calculate Exemptions (like HRA) if Old Regime:**
+
+*   Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+**3. Calculate Deductions (Chapter VI-A) if Old Regime:**
+
+*   Since we are calculating under the New Regime, Chapter VI-A deductions are generally not applicable, except for deduction under section 80CCD(2) (employer's contribution to NPS) and 80CCH. These are not applicable in this case.
+
+**4. Determine Taxable Income:**
+
+*   Taxable Income = Gross Total Income
+*   Taxable Income = ₹1641000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+| Income Slab         | Rate  |
+| ------------------- | ----- |
+| Up to ₹3,00,000      | 0%    |
+| ₹3,00,001 - ₹6,00,000  | 5%    |
+| ₹6,00,001 - ₹9,00,000  | 10%   |
+| ₹9,00,001 - ₹12,00,000 | 15%   |
+| ₹12,00,001 - ₹15,00,000| 20%   |
+| Above ₹15,00,000     | 30%   |
+
+*   Tax Calculation:
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+    *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+    *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+    *   30% on ₹141,000 (₹16,41,000 - ₹15,00,000) = ₹42,300
+*   Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹42,300 = ₹192,300
+
+**6. Add Cess:**
+
+*   Health and Education Cess = 4% of Total Tax
+*   Cess = 4% of ₹192,300 = ₹7,692
+
+**Total Tax Liability:**
+
+*   Total Tax Liability = Total Tax + Cess
+*   Total Tax Liability = ₹192,300 + ₹7,692 = ₹199,992
+
+FINAL TAX: ₹199,992"
+TAX-CCD8FAB6,Complex,Old,204110.4,210350.4,123990.0,219710.0,6240.0,80120.4,15599.600000000006,123990,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1587000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1587000.0 + ₹0.0 = ₹1587000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹350400.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city): Since the taxpayer is *not* living in a metro city, we take 40% of Basic Salary. 40% of ₹743000.0 = ₹297200.0
+*   Actual Rent Paid Less 10% of Basic Salary: Rent Paid is ₹137100.0. 10% of Basic Salary is ₹74300.0. Therefore, ₹137100.0 - ₹74300.0 = ₹62800.0
+
+The least of these three amounts is ₹62800.0. Therefore, the HRA exemption is ₹62800.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹95200.0
+    *   LIC: ₹54800.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C = ₹95200.0 + ₹54800.0 + ₹0.0 + ₹0.0 = ₹150000.0
+    *   Maximum deduction allowed under Section 80C is ₹150000.0.  So, the deduction is ₹150000.0
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹15000.0
+    *   Medical Insurance (Parents): ₹30000.0
+    *   Total 80D = ₹15000.0 + ₹30000.0 = ₹45000.0
+    *   Maximum deduction allowed for medical insurance for self is ₹25000. Since the taxpayer is under 60 years old, the maximum deduction for self is ₹25000.
+    *   Maximum deduction allowed for medical insurance for parents is ₹25000 if parents are below 60 years old, and ₹50000 if parents are above 60 years old. Assuming parents are below 60 years old, the maximum deduction is ₹25000.
+    *   Total 80D deduction = ₹25000 + ₹25000 = ₹50000. However, since the actual amount is ₹45000, we take ₹45000.
+
+*   Total Deductions (Chapter VI-A) = ₹150000.0 + ₹45000.0 = ₹195000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1587000.0
+*   HRA Exemption: ₹62800.0
+*   Income after HRA exemption: ₹1587000.0 - ₹62800.0 = ₹1524200.0
+*   Total Deductions (Chapter VI-A): ₹195000.0
+*   Taxable Income = ₹1524200.0 - ₹195000.0 = ₹1329200.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹13,29,200.0 - ₹10,00,000) = 30% of ₹329200.0 = ₹98760.0
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹98760.0 = ₹211260.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹211260.0 = ₹8450.4
+
+*   Total Tax Liability = ₹211260.0 + ₹8450.4 = ₹219710.4
+
+Rounding off to the nearest rupee, the total tax liability is ₹219710.
+
+FINAL TAX: 219710"
+TAX-77C28D88,Medium,Old,12553.684000000001,21614.736,19733.0,21615.0,9061.052,7179.315999999999,9061.315999999999,19733,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹751000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹751000.0 + ₹0.0 = ₹751000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹175300.0
+*   Rent paid minus 10% of Basic Salary: ₹57600.0 - (10% of ₹363500.0) = ₹57600.0 - ₹36350.0 = ₹21250.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹363500.0 = ₹145400.0
+
+The least of these three amounts is ₹21250.0. Therefore, the HRA exemption is ₹21250.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹45100.0
+    *   LIC: ₹68233.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹45100.0 + ₹68233.0 + ₹0.0 + ₹0.0 = ₹113333.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, the 80C deduction is ₹113333.0
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹25000.0
+    *   Medical Insurance (Parents): ₹50000.0
+    *   Total 80D: ₹25000.0 + ₹50000.0 = ₹75000.0
+    *   Maximum deduction for self is ₹25000.0 (assuming not senior citizen)
+    *   Maximum deduction for parents is ₹50000.0 (assuming parents are senior citizen)
+    *   Therefore, the 80D deduction is ₹75000.0
+
+*   Total Deductions (Chapter VI-A): ₹113333.0 + ₹75000.0 = ₹188333.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹751000.0
+*   HRA Exemption: ₹21250.0
+*   Deductions (Chapter VI-A): ₹188333.0
+*   Taxable Income = ₹751000.0 - ₹21250.0 - ₹188333.0 = ₹541417.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹5,41417: 20% of (₹541417 - ₹5,00,000) = 20% of ₹41417 = ₹8283.4
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹8283.4 = ₹20783.4
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 4% of ₹20783.4 = ₹831.336
+
+*   Total Tax Liability = ₹20783.4 + ₹831.336 = ₹21614.736
+
+Rounding off to the nearest rupee, the total tax liability is ₹21615.
+
+FINAL TAX: ₹21615"
+TAX-3E137B8B,Medium,New,71448.0,71448.0,28840.0,79248.0,0.0,42608.0,7800.0,28840,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1. **Gross Total Income:**
+
+   Gross Total Income = Gross Salary + Other Income
+   Gross Total Income = ₹1108000.0 + ₹0.0 = ₹1108000.0
+
+2. **Exemptions (Not Applicable under New Regime):**
+
+   Under the New Regime, HRA exemption is not allowed.
+
+3. **Deductions (Not Applicable under New Regime):**
+
+   Under the New Regime, Chapter VI-A deductions (like PF, LIC, PPF, ELSS, Medical Insurance) are generally not allowed, except for employer's contribution to NPS (which is not provided in the given data).
+
+4. **Taxable Income:**
+
+   Taxable Income = Gross Total Income
+   Taxable Income = ₹1108000.0
+
+5. **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+   *   Up to ₹3,00,000: 0%
+   *   ₹3,00,001 - ₹6,00,000: 5%
+   *   ₹6,00,001 - ₹9,00,000: 10%
+   *   ₹9,00,001 - ₹12,00,000: 15%
+   *   ₹12,00,001 - ₹15,00,000: 20%
+   *   Above ₹15,00,000: 30%
+
+   Calculation:
+
+   *   0% on first ₹3,00,000 = ₹0
+   *   5% on ₹3,00,000 (₹3,00,001 to ₹6,00,000) = ₹15,000
+   *   10% on ₹3,00,000 (₹6,00,001 to ₹9,00,000) = ₹30,000
+   *   15% on ₹208000 (₹9,00,001 to ₹1108000) = ₹31200
+
+   Total Income Tax = ₹0 + ₹15,000 + ₹30,000 + ₹31200 = ₹76200
+
+6. **Add Cess:**
+
+   Cess is 4% on the income tax amount.
+
+   Cess = 4% of ₹76200 = ₹3048
+
+   Total Tax Liability = ₹76200 + ₹3048 = ₹79248
+
+FINAL TAX: ₹79248"
+TAX-ECBCE362,Medium,New,142480.0,142480.0,39000.0,215280.0,0.0,103480.0,72800.0,39000,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹1485000.0 + ₹0.0 = ₹1485000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. Therefore, deductions like PF, LIC, PPF, ELSS, and Medical Insurance are not considered. The standard deduction of ₹50,000 is also not applicable under the New Regime.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed)
+
+    Since no deductions are applicable under the New Regime (except employer contribution to NPS under section 80CCD(2)),
+
+    Taxable Income = ₹1485000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+    *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+    *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+    *   30% on ₹(1485000 - 1500000) = 30% on -₹15,000. Since the income is less than 15,00,000, we will calculate 20% on the remaining amount.
+    *   20% on ₹(1485000 - 1200000) = 20% on ₹285000 = ₹57,000
+
+    Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹57,000 = ₹207,000
+
+6.  **Add Cess:**
+
+    Health and Education Cess = 4% of (Total Tax)
+
+    Cess = 4% of ₹207,000 = ₹8,280
+
+    Total Tax Liability = ₹207,000 + ₹8,280 = ₹215,280
+
+FINAL TAX: ₹215280"
+TAX-F4BD1104,Simple,New,184704.0,184704.0,267876.0,200304.0,0.0,83172.0,15600.0,267876,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹1642000.0 + ₹0.0 = ₹1642000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. Therefore, no deductions are considered here.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Since no deductions are allowed under the New Regime,
+
+    Taxable Income = ₹1642000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+    *   15% on ₹3,00,000 (₹12,00,000 - ₹9,00,000) = ₹45,000
+    *   20% on ₹3,00,000 (₹15,00,000 - ₹12,00,000) = ₹60,000
+    *   30% on ₹1,42,000 (₹16,42,000 - ₹15,00,000) = ₹42,600
+
+    Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹45,000 + ₹60,000 + ₹42,600 = ₹192,600
+
+6.  **Add Cess:**
+
+    Health and Education Cess is 4% of the income tax.
+
+    Cess = 4% of ₹192,600 = ₹7,704
+
+    Total Tax Liability = ₹192,600 + ₹7,704 = ₹200,304
+
+FINAL TAX: ₹200,304"
+TAX-4E8558A0,Simple,New,9100.0,9100.0,13520.0,0.0,0.0,4420.0,9100.0,13520,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹500000.0
+    *   Other Income: ₹25000.0
+    *   Gross Total Income = ₹500000.0 + ₹25000.0 = ₹525000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, Chapter VI-A deductions (like 80C, 80D, etc.) are **not** allowed, except for deduction under section 80CCD(2). Since no information about 80CCD(2) is provided, we will assume it to be zero.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income - Deductions
+    *   Taxable Income = ₹525000.0 - ₹0.0 = ₹525000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on (₹525000 - ₹300000) = 5% on ₹225000 = ₹11250
+
+6.  **Rebate u/s 87A:**
+
+    *   Since the taxable income is less than ₹7,00,000, the taxpayer is eligible for a rebate under section 87A. The maximum rebate amount is ₹25,000.
+    *   Tax after rebate = ₹11250 - ₹11250 = ₹0
+
+7.  **Add Cess:**
+
+    *   Health and Education Cess @ 4% on (Tax + Surcharge). Since the tax is zero, cess will also be zero.
+    *   Cess = 4% of ₹0 = ₹0
+
+8.  **Total Tax Liability:**
+
+    *   Total Tax Liability = Tax + Cess = ₹0 + ₹0 = ₹0
+
+FINAL TAX: ₹0"
+TAX-605D0D9D,Medium,New,35672.0,35672.0,19530.0,40872.0,0.0,16142.0,5200.0,19530,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹843000.0 + ₹0.0 = ₹843000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. The only deduction allowed is for employer's contribution to NPS under section 80CCD(2). Since there is no mention of employer's NPS contribution, we will assume it to be zero. Therefore, no deductions are considered here.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Taxable Income = ₹843000.0 - ₹0.0 = ₹843000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹243000 (₹843000 - ₹600000) = ₹24,300
+
+    Total Tax = ₹0 + ₹15,000 + ₹24,300 = ₹39,300
+
+6.  **Add Cess:**
+
+    Cess is applicable at 4% on the income tax amount.
+
+    Cess = 4% of ₹39,300 = ₹1572
+
+    Total Tax Liability = ₹39,300 + ₹1572 = ₹40,872
+
+FINAL TAX: ₹40,872"
+TAX-9230B53F,Medium,New,15028.0,15028.0,18115.0,19656.0,0.0,3087.0,4628.0,18115,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹639000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹639000.0 + ₹0.0 = ₹639000.0
+
+2.  **Exemptions (Not Applicable in New Regime):**
+
+    *   HRA exemption is not applicable under the New Regime.
+
+3.  **Deductions (Not Applicable in New Regime):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A (like PF, LIC, PPF, ELSS, Medical Insurance) are not allowed.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹639000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹39,000 (₹639,000 - ₹600,000) = ₹3,900
+        *   Total Tax = ₹0 + ₹15,000 + ₹3,900 = ₹18,900
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess @ 4% on Income Tax
+    *   Cess = 4% of ₹18,900 = ₹756
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax = ₹18,900 + ₹756 = ₹19,656
+
+FINAL TAX: ₹19,656"
+TAX-DD15A265,Simple,Old,627744.0,627744.0,336600.0,493210.0,0.0,291144.0,134534.0,336600,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹2837000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹2837000.0 + ₹0.0 = ₹2837000.0
+
+**2. Calculate Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   HRA Received: ₹490100.0
+*   40% of Basic Salary (since not living in a metro): 0.40 * ₹1203000.0 = ₹481200.0
+*   Rent Paid - Basic Salary: Since Rent Paid is ₹0, this will be negative.
+
+Therefore, HRA Exemption = ₹481200.0
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C (Maximum Limit: ₹150000):**
+    *   PF: ₹170200.0
+
+    Since the maximum limit under Section 80C is ₹150000, the deduction allowed is ₹150000.
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+
+    Total 80D deduction = ₹0.0
+
+Total Deductions under Chapter VI-A = ₹150000 + ₹0 = ₹150000
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹2837000.0
+*   Less: HRA Exemption: ₹481200.0
+*   Less: Deductions (Chapter VI-A): ₹150000.0
+*   Taxable Income = ₹2837000.0 - ₹481200.0 - ₹150000.0 = ₹2205800.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5%
+*   ₹5,00,001 to ₹10,00,000: 20%
+*   Above ₹10,00,000: 30%
+
+Tax Calculation:
+
+*   ₹0 to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: (₹5,00,000 - ₹2,50,000) * 5% = ₹2,50,000 * 0.05 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: (₹10,00,000 - ₹5,00,000) * 20% = ₹5,00,000 * 0.20 = ₹1,00,000
+*   Above ₹10,00,000: (₹2205800 - ₹10,00,000) * 30% = ₹1205800 * 0.30 = ₹361740
+
+Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹361740 = ₹474240
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax
+*   Cess = 4% of ₹474240 = ₹18969.6
+
+**Total Tax Liability:**
+
+*   Income Tax: ₹474240
+*   Cess: ₹18969.6
+*   Total Tax Liability = ₹474240 + ₹18969.6 = ₹493209.6
+
+Rounding off to the nearest rupee, the total tax liability is ₹493210.
+
+FINAL TAX: ₹493210"
+TAX-9C19CEF5,Medium,New,8268.0,8268.0,13410.0,10868.0,0.0,5142.0,2600.0,13410,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹509000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹509000.0 + ₹0.0 = ₹509000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** available.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** available. The standard deduction of ₹50,000 is also not available.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹509000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    *   Tax Calculation:
+        *   Tax on first ₹3,00,000: ₹0
+        *   Tax on remaining ₹2,09,000 (₹509,000 - ₹3,00,000): ₹2,09,000 * 0.05 = ₹10,450
+
+    *   Total Tax = ₹0 + ₹10,450 = ₹10,450
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of Tax
+    *   Cess Amount: ₹10,450 * 0.04 = ₹418
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax Liability = Tax + Cess = ₹10,450 + ₹418 = ₹10,868
+
+FINAL TAX: ₹10,868"
+TAX-A35CFF99,Medium,New,7800.0,7800.0,13000.0,7800.0,0.0,5200.0,0.0,13000,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. Therefore, no deductions are considered here except Section 80CCD(2).
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed under New Regime)
+
+    Since standard deduction of ₹50,000 is allowed under the new regime,
+
+    Taxable Income = ₹500000 - ₹50000 = ₹450000
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+
+    Tax Calculation:
+
+    *   Tax on first ₹3,00,000: ₹0
+    *   Tax on remaining ₹1,50,000 (₹4,50,000 - ₹3,00,000): 5% of ₹1,50,000 = ₹7,500
+
+    Total Tax = ₹0 + ₹7,500 = ₹7,500
+
+6.  **Add Cess:**
+
+    Cess is added at 4% on the income tax amount.
+
+    Cess = 4% of ₹7,500 = ₹300
+
+    Total Tax Liability = ₹7,500 + ₹300 = ₹7,800
+
+FINAL TAX: 7800"
+TAX-ED99E278,Medium,Old,7402.2,7402.2,13526.0,10002.0,0.0,6123.8,2599.8,13526,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹106900.0
+*   Rent paid minus 10% of Basic Salary: ₹50700.0 - (10% of ₹230500.0) = ₹50700.0 - ₹23050.0 = ₹27650.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹230500.0 = ₹92200.0
+
+The least of these three amounts is ₹27650.0. Therefore, the HRA exemption is ₹27650.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹30000.0
+
+Total Deductions under Chapter VI-A (Section 80C): ₹30000.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹500000.0 - ₹27650.0 - ₹30000.0 = ₹442350.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹442350.0 - ₹250000.0) = 5% of ₹192350.0 = ₹9617.5
+
+**6. Add Cess:**
+
+Cess is 4% of the income tax.
+Cess = 4% of ₹9617.5 = ₹384.7
+
+Total Tax Liability = Income Tax + Cess
+Total Tax Liability = ₹9617.5 + ₹384.7 = ₹10002.2
+
+Rounding off to the nearest rupee, the tax liability is ₹10002.
+
+FINAL TAX: 10002"
+TAX-FFDDD9D2,Medium,Old,34898.656,34898.656,19766.0,45299.0,0.0,15132.656000000003,10400.343999999997,19766,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹764000.0
+*   Other Income: ₹25000.0
+*   Gross Total Income = ₹764000.0 + ₹25000.0 = ₹789000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹161700.0
+*   50% of Basic Salary (if living in Metro) or 40% of Basic Salary (if not living in Metro): Since the taxpayer is not living in a metro, 40% of Basic Salary = 0.40 * ₹340100.0 = ₹136040.0
+*   Actual Rent Paid less 10% of Basic Salary: ₹74200.0 - (0.10 * ₹340100.0) = ₹74200.0 - ₹34010.0 = ₹40190.0
+
+Therefore, HRA Exemption = ₹40190.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   80C Deductions:
+    *   PF: ₹45800.0
+    *   LIC: ₹27728.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹45800.0 + ₹27728.0 + ₹0.0 + ₹0.0 = ₹73528.0
+    *   Maximum 80C Deduction: ₹150000.0
+    *   Therefore, 80C Deduction = ₹73528.0
+
+*   80D Deductions:
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹20000.0 + ₹0.0 = ₹20000.0
+    *   For self, if age is less than 60, maximum deduction is ₹25000. For parents, if age is less than 60, maximum deduction is ₹25000.
+    *   Therefore, 80D Deduction = ₹20000.0
+
+*   Total Deductions = ₹73528.0 + ₹20000.0 = ₹93528.0
+
+**4. Taxable Income:**
+
+*   Income after HRA Exemption = ₹789000.0 - ₹40190.0 = ₹748810.0
+*   Taxable Income = ₹748810.0 - ₹93528.0 = ₹655282.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 0.05 * ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹6,55282.0: 20% of (₹655282.0 - ₹5,00,000) = 0.20 * ₹155282.0 = ₹31056.4
+
+*   Total Income Tax = ₹12,500 + ₹31056.4 = ₹43556.4
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 0.04 * ₹43556.4 = ₹1742.26
+
+*   Total Tax Liability = ₹43556.4 + ₹1742.26 = ₹45298.66
+
+Rounded off to nearest rupee: ₹45299
+
+FINAL TAX: ₹45299"
+TAX-6AD00727,Medium,Old,765.3360000000001,3105.3360000000002,18532.0,3365.0,2340.0,17766.664,2599.6639999999998,18532,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹552000.0 + ₹0.0 = ₹552000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹106200.0
+*   50% of Basic Salary (since living in a metro): 50% * ₹237100.0 = ₹118550.0
+*   Rent Paid - 10% of Basic Salary: ₹48100.0 - (10% * ₹237100.0) = ₹48100.0 - ₹23710.0 = ₹24390.0
+
+The least of these three amounts is ₹24390.0. Therefore, the HRA exemption is ₹24390.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:** PF + PPF + LIC + ELSS = ₹33100.0 + ₹109792.0 + ₹0.0 + ₹0.0 = ₹142892.0
+    The maximum deduction allowed under Section 80C is ₹150000.0. Therefore, the deduction under Section 80C is ₹142892.0.
+
+*   **Section 80D:** Medical Insurance Premium (Self) + Medical Insurance Premium (Parents)
+    = ₹20000.0 + ₹50000.0 = ₹70000.0
+
+    For self, the maximum deduction is ₹25000. Since the taxpayer is paying ₹20000, the full amount is deductible.
+    For parents, if they are senior citizens, the maximum deduction is ₹50000. If they are not senior citizens, the maximum deduction is ₹25000. Let's assume the parents are senior citizens. Therefore, the deduction is ₹50000.
+
+    Total deduction under Section 80D = ₹20000.0 + ₹50000.0 = ₹70000.0
+
+Total Deductions (Chapter VI-A) = ₹142892.0 + ₹70000.0 = ₹212892.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹552000.0 - ₹24390.0 - ₹212892.0 = ₹314718.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50,000 = ₹2500
+*   ₹3,00,001 to ₹3,14718: 5% of (₹314718 - ₹300000) = 5% of ₹14718 = ₹735.9
+
+Total Income Tax = ₹2500 + ₹735.9 = ₹3235.9
+
+**6. Add Cess:**
+
+Cess is 4% of the Income Tax.
+Cess = 4% of ₹3235.9 = ₹129.436
+
+Total Tax Liability = Income Tax + Cess
+Total Tax Liability = ₹3235.9 + ₹129.436 = ₹3365.336
+
+Rounding off to the nearest rupee, the total tax liability is ₹3365.
+
+FINAL TAX: 3365"
+TAX-874C707C,Medium,Old,97674.72,97674.72,39520.0,108075.0,0.0,58154.72,10400.279999999999,39520,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1200000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1200000.0 + ₹0.0 = ₹1200000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following:
+
+*   Actual HRA received: ₹210800.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city): Since the taxpayer is *not* living in a metro city, we take 40% of Basic Salary. 40% of ₹504900.0 = ₹201960.0
+*   Actual Rent Paid less 10% of Basic Salary: ₹128400.0 - (10% of ₹504900.0) = ₹128400.0 - ₹50490.0 = ₹77910.0
+
+The least of these three amounts is ₹77910.0. Therefore, the HRA exemption is ₹77910.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹72000.0
+    *   ELSS: ₹78000.0
+    *   Total 80C: ₹72000.0 + ₹78000.0 = ₹150000.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0. So, the deduction is ₹150000.0
+
+*   **Section 80D:**
+    *   Medical Insurance Premium (Self): ₹15000.0
+    *   Medical Insurance Premium (Parents): ₹0.0
+    *   Total 80D: ₹15000.0 + ₹0.0 = ₹15000.0
+    *   Maximum permissible deduction under Section 80D for self is ₹25000.0. Since the amount is less than 25000, the deduction is ₹15000.0
+
+*   Total Deductions (Chapter VI-A): ₹150000.0 + ₹15000.0 = ₹165000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1200000.0
+*   HRA Exemption: ₹77910.0
+*   Deductions under Chapter VI-A: ₹165000.0
+*   Taxable Income = ₹1200000.0 - ₹77910.0 - ₹165000.0 = ₹957090.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹957090.0 - ₹5,00,000) = 20% of ₹457090.0 = ₹91418.0
+*   Above ₹10,00,000: Not applicable in this case.
+
+Total Income Tax = ₹0 + ₹12,500 + ₹91418.0 = ₹103918.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹103918.0 = ₹4156.72
+
+Total Tax Liability = ₹103918.0 + ₹4156.72 = ₹108074.72
+
+Rounding off to the nearest rupee, the total tax liability is ₹108075.
+
+FINAL TAX: 108075"
+TAX-E4BED32E,Simple,Old,246480.0,246480.0,30160.0,262080.0,0.0,216320.0,15600.0,30160,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1615000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1615000.0 + ₹0.0 = ₹1615000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹329500.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹727000.0 = ₹363500.0
+*   Rent paid minus 10% of Basic Salary: Since rent paid is ₹0, this becomes ₹0 - (10% of ₹727000.0) = -₹72700.0.  Since this is negative, it is considered ₹0.
+
+Therefore, the HRA exemption is the least of ₹329500.0, ₹363500.0, and ₹0, which is ₹0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹96900.0
+    *   PPF: ₹53100.0
+    *   Total 80C: ₹96900.0 + ₹53100.0 = ₹150000.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0.  So, the deduction is ₹150000.0
+
+*   **Section 80D:**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹0.0
+    *   Deduction is ₹0.0
+
+Total Deductions (Chapter VI-A) = ₹150000.0 + ₹0.0 = ₹150000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1615000.0
+*   HRA Exemption: ₹0.0
+*   Deductions (Chapter VI-A): ₹150000.0
+*   Taxable Income = ₹1615000.0 - ₹0.0 - ₹150000.0 = ₹1465000.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹14,65,000 - ₹10,00,000) = 30% of ₹4,65,000 = ₹1,39,500
+
+Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹1,39,500 = ₹2,52,000
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹2,52,000 = ₹10,080
+
+Total Tax Liability = ₹2,52,000 + ₹10,080 = ₹2,62,080
+
+FINAL TAX: 262080.0"
+TAX-A7EED1E5,Medium,Old,0.0,1266.304,14532.0,2566.0,1266.304,14532.0,2566.0,14532,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹102800.0
+*   Rent paid less 10% of Basic Salary: ₹45200.0 - (10% of ₹221400.0) = ₹45200.0 - ₹22140.0 = ₹23060.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹221400.0 = ₹88560.0
+
+The least of these three amounts is ₹23060.0. Therefore, the HRA exemption is ₹23060.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30000.0
+    *   PPF: ₹97588.0
+    *   Total 80C: ₹30000.0 + ₹97588.0 = ₹127588.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, the 80C deduction is ₹127588.0
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹20000.0
+    *   Medical Insurance (Parents): ₹30000.0
+    *   Total 80D: ₹20000.0 + ₹30000.0 = ₹50000.0
+    *   Maximum deduction for medical insurance for self is ₹25000 (assuming not senior citizen).
+    *   Maximum deduction for medical insurance for parents is ₹25000 (assuming not senior citizen).
+    *   Therefore, the 80D deduction is ₹25000 + ₹25000 = ₹50000.0
+
+*   Total Deductions (Chapter VI-A): ₹127588.0 + ₹50000.0 = ₹177588.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   HRA Exemption: ₹23060.0
+*   Income after HRA Exemption: ₹500000.0 - ₹23060.0 = ₹476940.0
+*   Total Deductions (Chapter VI-A): ₹177588.0
+*   Taxable Income = ₹476940.0 - ₹177588.0 = ₹299352.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹299352.0 - ₹250000.0) = 5% of ₹49352.0 = ₹2467.6
+
+**6. Add Cess:**
+
+*   Tax Amount: ₹2467.6
+*   Health and Education Cess @ 4%: 4% of ₹2467.6 = ₹98.70
+
+**7. Total Tax Liability:**
+
+*   Tax: ₹2467.6
+*   Cess: ₹98.70
+*   Total Tax Liability: ₹2467.6 + ₹98.70 = ₹2566.3
+
+Rounding off to the nearest rupee, the total tax liability is ₹2566.
+
+FINAL TAX: 2566"
+TAX-E14EF8DF,Simple,Old,7800.0,7800.0,14560.0,9506.0,0.0,6760.0,1706.0,14560,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000
+*   Other Income: ₹5000
+*   Gross Total Income = ₹500000 + ₹5000 = ₹505000
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   HRA Received: ₹96900
+*   40% of Basic Salary (since not living in a metro): 40% of ₹209000 = ₹83600
+*   Actual Rent Paid - 10% of Basic Salary: ₹0 - (10% of ₹209000) = -₹20900. Since rent paid is zero, this results in a negative value, so we consider it as ₹0.
+
+Therefore, HRA Exemption = ₹83600
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹30000 (Maximum limit is ₹150000, so the entire amount is deductible)
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹25000 (deductible up to ₹25000)
+    *   Medical (Parents): ₹0
+
+Total 80D deduction = ₹25000
+
+Total Deductions under Chapter VI-A = ₹30000 + ₹25000 = ₹55000
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹505000
+*   Less: HRA Exemption: ₹83600
+*   Less: Deductions under Chapter VI-A: ₹55000
+*   Taxable Income = ₹505000 - ₹83600 - ₹55000 = ₹366400
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50000 = ₹2500
+*   ₹3,00,001 to ₹3,66,400: 10% of (₹366400 - ₹300000) = 10% of ₹66400 = ₹6640
+
+Total Income Tax = ₹2500 + ₹6640 = ₹9140
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹9140 = ₹365.6. Rounding off to ₹366.
+
+Total Tax Liability = ₹9140 + ₹366 = ₹9506
+
+FINAL TAX: 9506"
+TAX-892B65BA,Medium,Old,6228.144,7268.144,13576.0,3859.0,1040.0,7347.856,2369.1440000000002,13576,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹540000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹540000.0 + ₹0.0 = ₹540000.0
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, we need to calculate the HRA exemption. The least of the following will be exempt:
+
+*   HRA Received: ₹104100.0
+*   40% of Basic Salary (since not living in a metro): 0.40 * ₹226400.0 = ₹90560.0
+*   Actual Rent Paid - 10% of Basic Salary: Since rent paid is ₹0, this will be ₹0 - (0.10 * ₹226400.0) = -₹22640.0.  Since this is negative, it is considered ₹0 for exemption purposes.
+
+Therefore, the HRA exemption is the least of the above, which is ₹90560.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹32400.0
+    *   LIC: ₹42828.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹32400.0 + ₹42828.0 + ₹0.0 + ₹0.0 = ₹75228.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, 80C deduction = ₹75228.0
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹15000.0
+    *   Medical Insurance (Parents): ₹30000.0
+    *   Total 80D: ₹15000.0 + ₹30000.0 = ₹45000.0
+    *   Maximum deduction allowed for self is ₹25000.
+    *   Maximum deduction allowed for parents is ₹25000, assuming parents are below 60 years of age. If parents are senior citizens, maximum deduction allowed is ₹50000.
+    *   Therefore, 80D deduction = ₹25000 + ₹30000 = ₹55000.0 (Assuming parents are senior citizens)
+    *   Therefore, 80D deduction = ₹25000 + ₹25000 = ₹50000.0 (Assuming parents are below 60 years of age)
+
+    *   Total Deductions = ₹75228.0 + ₹50000.0 = ₹125228.0 (Assuming parents are below 60 years of age)
+    *   Total Deductions = ₹75228.0 + ₹55000.0 = ₹130228.0 (Assuming parents are senior citizens)
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - HRA Exemption - Total Deductions
+*   Taxable Income = ₹540000.0 - ₹90560.0 - ₹125228.0 = ₹324212.0 (Assuming parents are below 60 years of age)
+*   Taxable Income = ₹540000.0 - ₹90560.0 - ₹130228.0 = ₹319212.0 (Assuming parents are senior citizens)
+
+**5. Apply Tax Slabs (Old Regime):**
+
+*Tax Slabs for FY 2024-25 (Old Regime):*
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5%
+
+*Case 1: Assuming parents are below 60 years of age*
+*   Taxable Income: ₹324212.0
+*   Tax = 5% of (₹324212.0 - ₹250000.0) = 0.05 * ₹74212.0 = ₹3710.6
+
+*Case 2: Assuming parents are senior citizens*
+*   Taxable Income: ₹319212.0
+*   Tax = 5% of (₹319212.0 - ₹250000.0) = 0.05 * ₹69212.0 = ₹3460.6
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Tax
+
+*Case 1: Assuming parents are below 60 years of age*
+*   Cess = 4% of ₹3710.6 = 0.04 * ₹3710.6 = ₹148.424
+*   Total Tax = ₹3710.6 + ₹148.424 = ₹3859.024
+
+*Case 2: Assuming parents are senior citizens*
+*   Cess = 4% of ₹3460.6 = 0.04 * ₹3460.6 = ₹138.424
+*   Total Tax = ₹3460.6 + ₹138.424 = ₹3599.024
+
+Rounding off to the nearest rupee:
+
+*Case 1: Assuming parents are below 60 years of age*
+FINAL TAX: ₹3859
+
+*Case 2: Assuming parents are senior citizens*
+FINAL TAX: ₹3599"
+TAX-7BAA16E5,Medium,Old,40900.704000000005,42980.704000000005,28770.0,51301.0,2080.0,12130.704000000005,10400.295999999995,28770,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹995000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹995000.0 + ₹0.0 = ₹995000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹218300.0
+*   Rent paid less 10% of Basic Salary: ₹200200.0 - (10% of ₹451900.0) = ₹200200.0 - ₹45190.0 = ₹155010.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹451900.0 = ₹225950.0
+
+The least of these three amounts is ₹155010.0.
+
+Therefore, HRA Exemption = ₹155010.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   80C (PF + ELSS): ₹59700.0 + ₹61152.0 = ₹120852.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, 80C deduction = ₹120852.0
+*   80D (Medical Insurance):
+    *   Self: ₹15000.0
+    *   Parents: ₹20000.0
+    *   Total 80D: ₹15000.0 + ₹20000.0 = ₹35000.0
+
+Total Deductions under Chapter VI-A = ₹120852.0 + ₹35000.0 = ₹155852.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹995000.0
+*   HRA Exemption: ₹155010.0
+*   Deductions under Chapter VI-A: ₹155852.0
+*   Taxable Income = ₹995000.0 - ₹155010.0 - ₹155852.0 = ₹684138.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹684138.0: 20% of (₹684138.0 - ₹5,00,000) = 20% of ₹184138.0 = ₹36827.6
+
+Total Income Tax = ₹12,500 + ₹36827.6 = ₹49327.6
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 4% of ₹49327.6 = ₹1973.104
+
+Total Income Tax including Cess = ₹49327.6 + ₹1973.104 = ₹51300.704
+
+Rounding off to the nearest rupee: ₹51301
+
+FINAL TAX: ₹51301"
+TAX-C1909183,Medium,New,23192.0,23192.0,27760.0,28392.0,0.0,4568.0,5200.0,27760,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹723000.0 + ₹0.0 = ₹723000.0
+
+2.  **Exemptions (Not Applicable under New Regime):**
+
+    HRA exemption is not applicable under the New Regime.
+
+3.  **Deductions (Not Applicable under New Regime):**
+
+    Chapter VI-A deductions (like PF, LIC, Medical Insurance, etc.) are not applicable under the New Regime.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income
+
+    Taxable Income = ₹723000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹123,000 (₹723,000 - ₹6,00,000) = ₹12,300
+
+    Total Income Tax = ₹0 + ₹15,000 + ₹12,300 = ₹27,300
+
+6.  **Add Cess:**
+
+    Health and Education Cess @ 4% on Income Tax
+
+    Cess = 4% of ₹27,300 = ₹1,092
+
+    Total Tax Liability = ₹27,300 + ₹1,092 = ₹28,392
+
+FINAL TAX: ₹28,392"
+TAX-E251CD8C,Medium,Old,4347.72,4347.72,14356.0,11295.0,0.0,10008.279999999999,6947.28,14356,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹111000.0
+*   50% of Basic Salary (since living in a metro): 50% * ₹227100.0 = ₹113550.0
+*   Rent Paid less 10% of Basic Salary: ₹94100.0 - (10% * ₹227100.0) = ₹94100.0 - ₹22710.0 = ₹71390.0
+
+The least of these three amounts is ₹71390.0. Therefore, the HRA exemption is ₹71390.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹30000.0
+    *   PF: ₹30000.0
+    *   Total 80C: ₹30000.0
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹15000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹15000.0
+
+Total Deductions under Chapter VI-A: ₹30000.0 + ₹15000.0 = ₹45000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   Less: HRA Exemption: ₹71390.0
+*   Less: Deductions under Chapter VI-A: ₹45000.0
+*   Taxable Income = ₹500000.0 - ₹71390.0 - ₹45000.0 = ₹383610.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50,000 = ₹2500
+*   ₹3,00,001 to ₹3,83,610: 10% of (₹3,83,610 - ₹3,00,000) = 10% of ₹83610 = ₹8361
+
+Total Income Tax = ₹0 + ₹2500 + ₹8361 = ₹10861
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹10861 = ₹434.44 (Rounded to ₹434)
+
+Total Tax Liability = ₹10861 + ₹434 = ₹11295
+
+FINAL TAX: 11295"
+TAX-813F5560,Medium,Old,4254.588000000001,5294.588000000001,13572.0,11109.0,1040.0,9317.412,6854.411999999999,13572,"Okay, I will calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Calculate Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹97100.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹223900.0 = ₹111950.0
+*   Rent Paid - 10% of Basic Salary: ₹0.0 - (10% of ₹223900.0) = -₹22390.0. Since rent paid is zero, this results in a negative value, so the exemption is ₹0.
+
+Therefore, HRA Exemption = ₹0.0
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C (Maximum ₹150000):**
+    *   PF: ₹30000.0
+    *   LIC: ₹43181.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C = ₹30000.0 + ₹43181.0 + ₹0.0 + ₹0.0 = ₹73181.0
+
+    Since ₹73181.0 is less than ₹150000, the entire amount is allowed as a deduction.
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹25000.0 (Within the limit)
+    *   Medical (Parents): ₹20000.0 (Within the limit)
+    *   Total 80D = ₹25000.0 + ₹20000.0 = ₹45000.0
+
+*   **Total Deductions (Chapter VI-A):**
+    *   ₹73181.0 (80C) + ₹45000.0 (80D) = ₹118181.0
+
+**4. Determine Taxable Income:**
+
+*   Taxable Income = Gross Total Income - HRA Exemption - Total Deductions
+*   Taxable Income = ₹500000.0 - ₹0.0 - ₹118181.0 = ₹381819.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50,000 = ₹2500
+*   ₹3,00,001 to ₹3,81819: 10% of (₹381819 - ₹3,00,000) = 10% of ₹81819 = ₹8181.9
+
+*   Total Income Tax = ₹0 + ₹2500 + ₹8181.9 = ₹10681.9
+
+**6. Add Cess (4%):**
+
+*   Cess = 4% of ₹10681.9 = ₹427.276
+*   Rounding off, Cess = ₹427.28
+
+*   Total Tax Liability = ₹10681.9 + ₹427.28 = ₹11109.18
+
+Rounding off to the nearest rupee, the final tax liability is ₹11109.
+
+FINAL TAX: ₹11109"
+TAX-B7EBDAB6,Medium,Old,9057.724,11397.724,18530.0,12698.0,2340.0,9472.276,3640.276,18530,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹674000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹674000.0 + ₹0.0 = ₹674000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹129200.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹304000.0 = ₹152000.0
+*   Rent Paid less 10% of Basic Salary: ₹81800.0 - (10% of ₹304000.0) = ₹81800.0 - ₹30400.0 = ₹51400.0
+
+Therefore, HRA Exemption = ₹51400.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹40400.0
+    *   LIC: ₹38013.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹40400.0 + ₹38013.0 + ₹0.0 + ₹0.0 = ₹78413.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, 80C deduction = ₹78413.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹50000.0
+    *   Total 80D: ₹20000.0 + ₹50000.0 = ₹70000.0
+    *   Maximum deduction for self (if not senior citizen): ₹25000.0
+    *   Maximum deduction for parents (if not senior citizen): ₹25000.0
+    *   Therefore, 80D deduction = ₹25000.0 + ₹25000.0 = ₹50000.0
+
+*   Total Deductions (Chapter VI-A) = ₹78413.0 + ₹50000.0 = ₹128413.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹674000.0
+*   HRA Exemption: ₹51400.0
+*   Deductions (Chapter VI-A): ₹128413.0
+*   Taxable Income = ₹674000.0 - ₹51400.0 - ₹128413.0 = ₹494187.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹494187.0 - ₹2,50,000) = 5% of ₹244187.0 = ₹12209.35
+
+**6. Add Cess:**
+
+*   Income Tax: ₹12209.35
+*   Health and Education Cess @ 4%: 4% of ₹12209.35 = ₹488.37
+*   Total Tax Liability: ₹12209.35 + ₹488.37 = ₹12697.72
+
+Rounding off to the nearest rupee, the tax liability is ₹12698.
+
+FINAL TAX: ₹12698"
+TAX-2EC16E62,Medium,New,30680.0,30680.0,19410.0,35880.0,0.0,11270.0,5200.0,19410,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹795000.0 + ₹0.0 = ₹795000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. The standard deduction of ₹50,000 is also not available.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed under New Regime)
+
+    Since no deductions are applicable under the New Regime for this taxpayer's profile,
+
+    Taxable Income = ₹795000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹1,95,000 (₹7,95,000 - ₹6,00,000) = ₹19,500
+
+    Total Income Tax = ₹0 + ₹15,000 + ₹19,500 = ₹34,500
+
+6.  **Add Cess:**
+
+    Health and Education Cess = 4% of Income Tax
+
+    Cess = 4% of ₹34,500 = ₹1,380
+
+    Total Tax Liability = ₹34,500 + ₹1,380 = ₹35,880
+
+FINAL TAX: 35880.0"
+TAX-7035B1F3,Complex,Old,251125.68000000002,252685.68000000002,48730.0,266726.0,1560.0,202395.68000000002,15600.319999999978,48730,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1686000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1686000.0 + ₹0.0 = ₹1686000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following:
+
+*   Actual HRA Received: ₹351600.0
+*   50% of Basic Salary (since living in a metro city? No): 40% of Basic Salary = 0.4 * ₹829900.0 = ₹331960.0
+*   Rent Paid - 10% of Basic Salary: ₹109100.0 - (0.1 * ₹829900.0) = ₹109100.0 - ₹82990.0 = ₹26110.0
+
+Least of the above is ₹26110.0.
+
+Therefore, HRA Exemption = ₹26110.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹101200.0
+    *   ELSS: ₹48800.0
+    *   Total 80C: ₹101200.0 + ₹48800.0 = ₹150000.0 (Maximum limit is ₹150000.0)
+
+*   **Section 80D:**
+    *   Medical Insurance Premium (Self): ₹0.0
+    *   Medical Insurance Premium (Parents): ₹30000.0
+    *   Total 80D: ₹0.0 + ₹30000.0 = ₹30000.0 (Assuming parents are senior citizens and limit is ₹50000, otherwise ₹25000)
+
+Total Deductions (Chapter VI-A) = ₹150000.0 + ₹30000.0 = ₹180000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹1686000.0
+*   Less: HRA Exemption: ₹26110.0
+*   Less: Deductions (Chapter VI-A): ₹180000.0
+*   Taxable Income = ₹1686000.0 - ₹26110.0 - ₹180000.0 = ₹1479890.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 0.05 * ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 0.20 * ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹1479890.0 - ₹10,00,000) = 0.30 * ₹479890.0 = ₹143967.0
+
+Total Income Tax = ₹12,500 + ₹1,00,000 + ₹143967.0 = ₹256467.0
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 0.04 * ₹256467.0 = ₹10258.68
+
+Total Tax Liability = ₹256467.0 + ₹10258.68 = ₹266725.68
+
+Rounding off to the nearest rupee, the final tax liability is ₹266726.
+
+FINAL TAX: ₹266726"
+TAX-ACB2DC69,Simple,New,15028.0,15028.0,18530.0,19656.0,0.0,3502.0,4628.0,18530,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹634000.0
+    *   Other Income: ₹5000.0
+    *   Gross Total Income = ₹634000 + ₹5000 = ₹639000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are not allowed. The standard deduction of ₹50,000 is also not available.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹639000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹39,000 (₹639,000 - ₹600,000) = ₹3,900
+        *   Total Tax = ₹0 + ₹15,000 + ₹3,900 = ₹18,900
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess: 4% of Tax
+    *   Cess Amount = 4% of ₹18,900 = ₹756
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax = ₹18,900 + ₹756 = ₹19,656
+
+FINAL TAX: ₹19656"
+TAX-54C66BB0,Medium,Old,41606.24,43686.24,19736.0,52006.0,2080.0,21870.239999999998,10399.760000000002,19736,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹807000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹807000.0 + ₹0.0 = ₹807000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹184100.0
+*   Rent paid minus 10% of Basic Salary: ₹73200.0 - (10% of ₹371300.0) = ₹73200.0 - ₹37130.0 = ₹36070.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹371300.0 = ₹148520.0
+
+The least of these three amounts is ₹36070.0. Therefore, the HRA exemption is ₹36070.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF):** ₹48400.0
+    *   Maximum limit under Section 80C is ₹150000.
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹15000.0
+    *   Medical (Parents): ₹20000.0
+    *   Total 80D: ₹15000 + ₹20000 = ₹35000.0
+    *   Maximum limit for parents (if they are senior citizens) is ₹50000. If parents are not senior citizens, the limit is ₹25000. Assuming parents are not senior citizens, the deduction is restricted to ₹25000.
+    *   Total 80D deduction = ₹15000 + ₹20000 = ₹35000. Since parents are not senior citizens, the deduction is restricted to ₹15000 + ₹20000 = ₹35000.
+*   Total Deductions = ₹48400 + ₹35000 = ₹83400
+
+**4. Taxable Income:**
+
+*   Income after HRA Exemption: ₹807000.0 - ₹36070.0 = ₹770930.0
+*   Taxable Income = Income after HRA Exemption - Total Deductions
+*   Taxable Income = ₹770930.0 - ₹83400 = ₹687530.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹687530 - ₹5,00,000) = 20% of ₹187530 = ₹37506
+
+Total Income Tax = ₹12,500 + ₹37506 = ₹50006
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹50006 = ₹2000.24 (Rounded to ₹2000)
+
+Total Tax Liability = ₹50006 + ₹2000 = ₹52006
+
+FINAL TAX: ₹52006"
+TAX-9EABF0FB,Medium,Old,199704.96000000002,199704.96000000002,123760.0,215305.0,0.0,75944.96000000002,15600.039999999979,123760,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1552000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1552000.0 + ₹0.0 = ₹1552000.0
+
+**2. Calculate Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹324700.0
+*   Rent paid minus 10% of Basic Salary: ₹161300.0 - (10% of ₹743800.0) = ₹161300.0 - ₹74380.0 = ₹86920.0
+*   50% of Basic Salary (since living in a metro city): 50% of ₹743800.0 = ₹371900.0
+
+The least of these three amounts is ₹86920.0. Therefore, the HRA exemption is ₹86920.0.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹93100.0
+    *   LIC: ₹56900.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹93100.0 + ₹56900.0 + ₹0.0 + ₹0.0 = ₹150000.0
+    *   Maximum deduction allowed under Section 80C is ₹150000.0.
+
+*   **Section 80D:**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹0.0
+    *   Deduction allowed under Section 80D is ₹0.0.
+
+*   Total Deductions under Chapter VI-A = ₹150000.0 + ₹0.0 = ₹150000.0
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹1552000.0
+*   Less: HRA Exemption: ₹86920.0
+*   Less: Deductions under Chapter VI-A: ₹150000.0
+*   Taxable Income = ₹1552000.0 - ₹86920.0 - ₹150000.0 = ₹1315080.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹13,15,080.0 - ₹10,00,000) = 30% of ₹315080.0 = ₹94524.0
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹94524.0 = ₹207024.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹207024.0 = ₹8280.96
+
+*   Total Tax Liability = ₹207024.0 + ₹8280.96 = ₹215304.96
+
+Rounding off to the nearest rupee, the total tax liability is ₹215305.
+
+FINAL TAX: ₹215305"
+TAX-2E97C760,Medium,Old,37887.407999999996,37887.407999999996,27310.0,48287.0,0.0,10577.407999999996,10399.592000000004,27310,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹875000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹875000.0 + ₹0.0 = ₹875000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹187000.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹435000.0 = ₹217500.0
+*   Rent paid minus 10% of Basic Salary: ₹121900.0 - (10% of ₹435000.0) = ₹121900.0 - ₹43500.0 = ₹78400.0
+
+The least of these three amounts is ₹78400.0. Therefore, the HRA exemption is ₹78400.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹52500.0
+    *   PPF: ₹54449.0
+    *   Total 80C = ₹52500.0 + ₹54449.0 = ₹106949.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0. Therefore, the deduction is ₹106949.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D = ₹20000.0 + ₹0.0 = ₹20000.0
+
+Total Deductions (Chapter VI-A) = ₹106949.0 + ₹20000.0 = ₹126949.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹875000.0
+*   HRA Exemption: ₹78400.0
+*   Deductions (Chapter VI-A): ₹126949.0
+*   Taxable Income = ₹875000.0 - ₹78400.0 - ₹126949.0 = ₹669651.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹6,69,651: 20% of (₹6,69,651 - ₹5,00,000) = 20% of ₹169651 = ₹33930.2
+
+Total Income Tax = ₹0 + ₹12,500 + ₹33930.2 = ₹46430.2
+
+**6. Add Cess:**
+
+*   Cess is 4% of Income Tax: 4% of ₹46430.2 = ₹1857.208
+
+Total Tax Liability = ₹46430.2 + ₹1857.208 = ₹48287.408
+
+Rounding off to the nearest rupee, the tax liability is ₹48287.
+
+FINAL TAX: ₹48287"
+TAX-B2F77524,Medium,Old,431505.36,431505.36,187324.0,447105.0,0.0,244181.36,15599.640000000014,187324,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹2387000.0 + ₹0.0 = ₹2387000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹530200.0
+*   Rent paid less 10% of Basic Salary: ₹264600.0 - (10% of ₹1106300.0) = ₹264600.0 - ₹110630.0 = ₹153970.0
+*   50% of Basic Salary (since living in a metro city - No): Since the taxpayer does NOT live in a metro, it will be 40% of Basic Salary: 40% of ₹1106300.0 = ₹442520.0
+
+The least of these three amounts is ₹153970.0. Therefore, the HRA exemption is ₹153970.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹143200.0
+    *   ELSS: ₹6800.0
+    *   Total 80C = ₹143200.0 + ₹6800.0 = ₹150000.0 (Maximum limit is ₹150000.0)
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹25000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D = ₹25000.0 + ₹0.0 = ₹25000.0
+
+Total Deductions (Chapter VI-A) = ₹150000.0 + ₹25000.0 = ₹175000.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹2387000.0 - ₹153970.0 - ₹175000.0 = ₹2058030.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹2058030.0 - ₹10,00,000) = 30% of ₹1058030.0 = ₹317409.0
+
+Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹317409.0 = ₹429909.0
+
+**6. Add Cess:**
+
+Cess = 4% of Income Tax
+Cess = 4% of ₹429909.0 = ₹17196.36
+
+Total Tax Liability = Income Tax + Cess
+Total Tax Liability = ₹429909.0 + ₹17196.36 = ₹447105.36
+
+Rounding off to the nearest rupee, the total tax liability is ₹447105.
+
+FINAL TAX: 447105"
+TAX-04BB4338,Medium,Old,6361.68,6361.68,13572.0,8962.0,0.0,7210.32,2600.3199999999997,13572,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹514000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹514000.0 + ₹0.0 = ₹514000.0
+
+**2. Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   Actual HRA received: ₹108300.0
+*   40% of Basic Salary (since not living in Mumbai, Kolkata, Delhi, or Chennai): 40% of ₹220400.0 = ₹88160.0
+*   Rent Paid less 10% of Basic Salary: ₹82900.0 - (10% of ₹220400.0) = ₹82900.0 - ₹22040.0 = ₹60860.0
+
+Therefore, HRA Exemption = ₹60860.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹30800.0
+
+Total deductions under Section 80C: ₹30800.0.  The maximum deduction allowed under Section 80C is ₹150000.0.
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹514000.0
+*   Less: HRA Exemption: ₹60860.0
+*   Less: Deductions under Chapter VI-A (Section 80C): ₹30800.0
+*   Taxable Income = ₹514000.0 - ₹60860.0 - ₹30800.0 = ₹422340.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹422340.0 - ₹2,50,000) = 5% of ₹172340.0 = ₹8617.0
+
+Total Income Tax = ₹8617.0
+
+**6. Add Cess:**
+
+*   Cess is 4% of Income Tax: 4% of ₹8617.0 = ₹344.68 (Rounded to ₹345.0)
+
+Total Tax Liability = ₹8617.0 + ₹345.0 = ₹8962.0
+
+FINAL TAX: ₹8962.0"
+TAX-1AC22D27,Medium,Old,3179.2280000000005,5779.228000000001,18536.0,8958.0,2600.0000000000005,15356.771999999999,5778.771999999999,18536,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹50000.0
+*   Gross Total Income = ₹500000.0 + ₹50000.0 = ₹550000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹114400.0
+*   Rent Paid less 10% of Basic Salary: ₹86200.0 - (10% of ₹229600.0) = ₹86200.0 - ₹22960.0 = ₹63240.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹229600.0 = ₹114800.0
+
+The least of these three amounts is ₹63240.0. Therefore, the HRA exemption is ₹63240.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30000.0
+    *   PPF: ₹20621.0
+    *   Total 80C: ₹30000.0 + ₹20621.0 = ₹50621.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0.  Therefore, the deduction is ₹50621.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹25000.0
+    *   Medical (Parents): ₹50000.0
+    *   Total 80D: ₹25000.0 + ₹50000.0 = ₹75000.0
+    *   Maximum permissible deduction for self is ₹25000.0 (assuming not senior citizen).
+    *   Maximum permissible deduction for parents is ₹50000.0 (assuming parents are senior citizens).
+    *   Total 80D deduction = ₹25000.0 + ₹50000.0 = ₹75000.0
+
+*   Total Deductions (Chapter VI-A): ₹50621.0 + ₹75000.0 = ₹125621.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹550000.0
+*   HRA Exemption: ₹63240.0
+*   Deductions (Chapter VI-A): ₹125621.0
+*   Taxable Income = ₹550000.0 - ₹63240.0 - ₹125621.0 = ₹361139.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50,000 = ₹2500
+*   ₹3,00,001 to ₹3,61,139: 10% of (₹3,61,139 - ₹3,00,000) = 10% of ₹61139 = ₹6113.9
+
+Total Income Tax = ₹2500 + ₹6113.9 = ₹8613.9
+
+**6. Add Cess:**
+
+*   Cess is 4% of Income Tax: 4% of ₹8613.9 = ₹344.556
+
+Total Tax Liability = ₹8613.9 + ₹344.556 = ₹8958.456
+
+Rounding off to the nearest rupee, the total tax liability is ₹8958.
+
+FINAL TAX: 8958"
+TAX-7D0B7697,Medium,New,83616.0,83616.0,28530.0,91416.0,0.0,55086.0,7800.0,28530,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1. **Gross Total Income:**
+
+   Gross Total Income = Gross Salary + Other Income
+   Gross Total Income = ₹1186000.0 + ₹0.0 = ₹1186000.0
+
+2. **Exemptions:**
+
+   Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3. **Deductions (Chapter VI-A):**
+
+   Under the New Regime, most deductions under Chapter VI-A are not allowed. The only deduction allowed is for employer's contribution to NPS (not applicable here) and deduction under section 80CCD(2). Since the taxpayer profile does not include employer's contribution to NPS, no deductions are considered.
+
+4. **Taxable Income:**
+
+   Taxable Income = Gross Total Income - Deductions
+   Taxable Income = ₹1186000.0 - ₹0.0 = ₹1186000.0
+
+5. **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+   *   Up to ₹3,00,000: 0%
+   *   ₹3,00,001 - ₹6,00,000: 5%
+   *   ₹6,00,001 - ₹9,00,000: 10%
+   *   ₹9,00,001 - ₹12,00,000: 15%
+   *   ₹12,00,001 - ₹15,00,000: 20%
+   *   Above ₹15,00,000: 30%
+
+   Tax Calculation:
+
+   *   0% on first ₹3,00,000 = ₹0
+   *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+   *   10% on ₹3,00,000 (₹9,00,000 - ₹6,00,000) = ₹30,000
+   *   15% on ₹2,86,000 (₹11,86,000 - ₹9,00,000) = ₹42,900
+
+   Total Tax = ₹0 + ₹15,000 + ₹30,000 + ₹42,900 = ₹87,900
+
+6. **Add Cess:**
+
+   Cess is 4% on the income tax amount.
+   Cess = 4% of ₹87,900 = ₹3,516
+
+   Total Tax Liability = ₹87,900 + ₹3,516 = ₹91,416
+
+FINAL TAX: ₹91,416"
+TAX-E56BBACD,Simple,New,20176.0,20176.0,18432.0,25376.0,0.0,1744.0,5200.0,18432,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Salary + Other Income = ₹644000 + ₹50000 = ₹694000
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, deductions under Chapter VI-A (like PF, LIC, PPF, ELSS, Medical Insurance) are generally not allowed, except for deduction u/s 80CCD(2).
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income = ₹694000
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹94,000 (₹694,000 - ₹6,00,000) = ₹9,400
+
+    Total Tax = ₹0 + ₹15,000 + ₹9,400 = ₹24,400
+
+6.  **Add Health and Education Cess:**
+
+    Cess is 4% of the income tax.
+
+    Cess = 4% of ₹24,400 = ₹976
+
+    Total Tax Liability = ₹24,400 + ₹976 = ₹25,376
+
+FINAL TAX: ₹25,376"
+TAX-1A7BB1EA,Medium,New,30992.0,30992.0,28610.0,33592.0,0.0,2382.0,2600.0,28610,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹798000.0 + ₹0.0 = ₹798000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed, except for employer's contribution to NPS (not applicable here). However, deduction u/s 80CCD(2) is not applicable in this case. Also, deduction u/s 80CCH is applicable for Agniveers.
+
+    However, a deduction for medical insurance premium u/s 80D is available under the new regime.
+
+    Medical (Self): ₹25000.0
+
+    Therefore, Total Deduction = ₹25000.0
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Taxable Income = ₹798000.0 - ₹25000.0 = ₹773000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+    *   10% on ₹173,000 (₹773,000 - ₹6,00,000) = ₹17,300
+
+    Total Income Tax = ₹0 + ₹15,000 + ₹17,300 = ₹32,300
+
+6.  **Add Cess:**
+
+    Cess is added at 4% on the income tax amount.
+
+    Cess = 4% of ₹32,300 = ₹1292
+
+    Total Tax Liability = ₹32,300 + ₹1292 = ₹33,592
+
+FINAL TAX: ₹33,592"
+TAX-B1A2D7EB,Medium,New,7800.0,7800.0,13526.0,10400.0,0.0,5726.0,2600.0,13526,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. The standard deduction of ₹50,000 is also not allowed.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed under New Regime)
+
+    Under the New Regime, only employer's contribution to NPS (Section 80CCD(2)) and deduction for employer's contribution to PF/Superannuation fund exceeding ₹7.5 lakh (Section 17) are allowed. Since there is no information about these, we will assume these are zero.
+
+    Taxable Income = ₹500000.0 - ₹0.0 = ₹500000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   0% on first ₹3,00,000 = ₹0
+    *   5% on ₹2,00,000 (₹5,00,000 - ₹3,00,000) = ₹10,000
+
+    Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+6.  **Add Cess:**
+
+    Health and Education Cess = 4% of Tax
+
+    Cess = 4% of ₹10,000 = ₹400
+
+    Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: 10400.0"
+TAX-AA8D7DC7,Medium,New,34528.0,34528.0,19531.0,39730.0,0.0,14997.0,5202.0,19531,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹807000.0
+*   Other Income: ₹25000.0
+*   Gross Total Income = ₹807000.0 + ₹25000.0 = ₹832000.0
+
+**2. Calculate Exemptions (like HRA) if Old Regime:**
+
+*   Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+**3. Calculate Deductions (Chapter VI-A) if Old Regime:**
+
+*   Since we are calculating under the New Regime, Chapter VI-A deductions are not applicable (except for deduction u/s 80CCD(2)).
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹832000.0
+*   Standard Deduction: ₹0 (Not available under New Regime)
+*   Taxable Income = ₹832000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+*   Up to ₹3,00,000: 0%
+*   ₹3,00,001 - ₹6,00,000: 5%
+*   ₹6,00,001 - ₹9,00,000: 10%
+*   ₹9,00,001 - ₹12,00,000: 15%
+*   ₹12,00,001 - ₹15,00,000: 20%
+*   Above ₹15,00,000: 30%
+
+Calculation:
+
+*   Tax on first ₹3,00,000: ₹0
+*   Tax on ₹3,00,001 to ₹6,00,000 (₹3,00,000): ₹3,00,000 * 5% = ₹15,000
+*   Tax on ₹6,00,001 to ₹8,32,000 (₹2,32,000): ₹2,32,000 * 10% = ₹23,200
+*   Total Tax = ₹0 + ₹15,000 + ₹23,200 = ₹38,200
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Tax
+*   Cess Amount: 4% of ₹38,200 = ₹1528
+*   Total Tax Liability = ₹38,200 + ₹1528 = ₹39,728
+
+**Rounding off to nearest rupee:** ₹39,730
+
+FINAL TAX: ₹39,730"
+TAX-9FFF850C,Medium,Old,0.0,820.768,16530.0,2121.0,820.768,16530.0,2121.0,16530,"Okay, let's break down the income tax calculation for the taxpayer under the Old Regime for FY 2024-25.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹113400.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹248100.0 = ₹124050.0
+*   Rent Paid less 10% of Basic Salary: ₹59000.0 - (10% of ₹248100.0) = ₹59000.0 - ₹24810.0 = ₹34190.0
+
+Therefore, HRA Exemption = ₹34190.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30000.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹95026.0
+    *   Total 80C Deduction: ₹30000.0 + ₹0.0 + ₹0.0 + ₹95026.0 = ₹125026.0
+    *   Maximum 80C Deduction allowed: ₹150000.0
+    *   Therefore, 80C Deduction = ₹125026.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹50000.0
+    *   Since parents are assumed to be senior citizens (no age mentioned), maximum deduction allowed is ₹50000.
+    *   Total 80D Deduction: ₹0.0 + ₹50000.0 = ₹50000.0
+
+*   Total Deductions (Chapter VI-A): ₹125026.0 + ₹50000.0 = ₹175026.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   HRA Exemption: ₹34190.0
+*   Deductions (Chapter VI-A): ₹175026.0
+*   Taxable Income = ₹500000.0 - ₹34190.0 - ₹175026.0 = ₹290784.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹290784.0 - ₹2,50,000) = 5% of ₹40784.0 = ₹2039.2
+
+**6. Add Cess:**
+
+*   Tax: ₹2039.2
+*   Health and Education Cess @ 4%: 4% of ₹2039.2 = ₹81.57
+
+*   Total Tax Liability: ₹2039.2 + ₹81.57 = ₹2120.77
+
+Rounding off to the nearest rupee, the tax liability is ₹2121.
+
+FINAL TAX: 2121"
+TAX-0F1687DB,Simple,Old,88296.0,88296.0,27310.0,98696.0,0.0,60986.0,10400.0,27310,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1062000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1062000.0 + ₹0.0 = ₹1062000.0
+
+**2. Calculate Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   HRA Received: ₹176400.0
+*   40% of Basic Salary (since not living in a metro): 40% of ₹432000.0 = ₹172800.0
+*   Actual Rent Paid Less 10% of Basic Salary: ₹0.0 - (10% of ₹432000.0) = -₹43200.0 (Since rent paid is zero, this results in a negative value, so it's effectively ₹0.0)
+
+Therefore, the HRA exemption is the least of the above, which is ₹0.0.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹63700.0
+    *   PPF: ₹86300.0
+    *   LIC: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹63700.0 + ₹86300.0 + ₹0.0 + ₹0.0 = ₹150000.0
+    *   Maximum permissible deduction under Section 80C is ₹150000.0.  So, the deduction is ₹150000.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹0.0 + ₹0.0 = ₹0.0
+
+*   **Total Deductions (Chapter VI-A):** ₹150000.0 + ₹0.0 = ₹150000.0
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹1062000.0
+*   HRA Exemption: ₹0.0
+*   Deductions (Chapter VI-A): ₹150000.0
+*   Taxable Income = ₹1062000.0 - ₹0.0 - ₹150000.0 = ₹912000.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹912000.0 - ₹5,00,000) = 20% of ₹412000.0 = ₹82400
+*   Above ₹10,00,000: Not applicable in this case.
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹82400 = ₹94900
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹94900 = ₹3796
+
+*   Total Tax Liability = ₹94900 + ₹3796 = ₹98696
+
+FINAL TAX: ₹98696"
+TAX-FF6D5732,Medium,New,7800.0,7800.0,12500.0,10400.0,0.0,4700.0,2600.0,12500,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+**1. Determine Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Calculate Exemptions (HRA):**
+
+*   Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   Under the New Regime, most deductions under Chapter VI-A are **not allowed**. The standard deduction of ₹50,000 is also not allowed. The only deduction allowed is for employer contribution to NPS under section 80CCD(2). Since there is no employer contribution to NPS mentioned in the taxpayer profile, no deductions are considered.
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   Deductions: ₹0.0
+*   Taxable Income = ₹500000.0 - ₹0.0 = ₹500000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+*   Up to ₹3,00,000: 0%
+*   ₹3,00,001 - ₹6,00,000: 5%
+
+Tax Calculation:
+
+*   Tax on first ₹3,00,000: ₹0
+*   Tax on remaining ₹2,00,000 (₹5,00,000 - ₹3,00,000): ₹2,00,000 * 5% = ₹10,000
+*   Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Tax
+*   Cess Amount: 4% of ₹10,000 = ₹400
+*   Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: 10400.0"
+TAX-A44B7ACB,Medium,Old,9351.368,9351.368,18532.0,11951.0,0.0,9180.632,2599.6319999999996,18532,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹531000.0
+*   Other Income: ₹50000.0
+*   Gross Total Income = ₹531000 + ₹50000 = ₹581000
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹103800
+*   50% of Basic Salary (if living in Metro) or 40% of Basic Salary (if living in non-Metro): Since the taxpayer is not living in a metro, 40% of Basic Salary = 0.40 * ₹240300 = ₹96120
+*   Actual Rent Paid Less 10% of Basic Salary: ₹56400 - (0.10 * ₹240300) = ₹56400 - ₹24030 = ₹32370
+
+Therefore, HRA Exemption = ₹32370
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹31900
+    *   PPF: ₹16896
+    *   LIC: ₹0
+    *   ELSS: ₹0
+    *   Total 80C Deduction = ₹31900 + ₹16896 = ₹48796
+    *   Maximum permissible deduction under Section 80C is ₹150000. Therefore, the deduction is ₹48796.
+
+*   **Section 80D:**
+    *   Medical Insurance Premium (Self): ₹20000
+    *   Medical Insurance Premium (Parents): ₹0
+    *   Total 80D Deduction = ₹20000
+    *   Maximum permissible deduction under Section 80D for self is ₹25000 (if age is less than 60). Since the medical expense is ₹20000, the deduction is ₹20000.
+
+*   Total Deductions (Chapter VI-A) = ₹48796 + ₹20000 = ₹68796
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹581000
+*   Less: HRA Exemption: ₹32370
+*   Less: Deductions (Chapter VI-A): ₹68796
+*   Taxable Income = ₹581000 - ₹32370 - ₹68796 = ₹479834
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹479834 - ₹250000) = 0.05 * ₹229834 = ₹11491.7
+
+**6. Add Cess:**
+
+*   Income Tax: ₹11491.7
+*   Health and Education Cess @ 4%: 0.04 * ₹11491.7 = ₹459.67
+
+*   Total Tax Liability = ₹11491.7 + ₹459.67 = ₹11951.37
+
+Rounding off to the nearest rupee, the tax liability is ₹11951.
+
+FINAL TAX: ₹11951"
+TAX-FC962CE8,Medium,Old,53944.592000000004,62264.592000000004,28436.0,64345.0,8320.0,25508.592000000004,10400.407999999996,28436,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹905000.0
+*   Other Income: ₹5000.0
+*   Gross Total Income = ₹905000 + ₹5000 = ₹910000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹192100.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹390300 = ₹195150.0
+*   Rent Paid less 10% of Basic Salary: ₹79200 - (10% of ₹390300) = ₹79200 - ₹39030 = ₹40170.0
+
+The least of these three amounts is ₹40170.0. Therefore, the HRA exemption is ₹40170.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹54300.0
+    *   PPF: ₹3681.0
+    *   LIC: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹54300 + ₹3681 + ₹0 + ₹0 = ₹57981.0
+    *   Maximum 80C deduction allowed is ₹150000. Therefore, the deduction is ₹57981.0
+
+*   **Section 80D:**
+    *   Medical (Self): ₹15000.0
+    *   Medical (Parents): ₹50000.0
+    *   Total 80D: ₹15000 + ₹50000 = ₹65000.0
+    *   For self, the maximum deduction is ₹25000. For parents (assuming they are senior citizens), the maximum deduction is ₹50000.
+    *   Total 80D deduction = ₹15000 + ₹50000 = ₹65000.0
+
+*   Total Deductions (Chapter VI-A): ₹57981 + ₹65000 = ₹122981.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹910000.0
+*   HRA Exemption: ₹40170.0
+*   Chapter VI-A Deductions: ₹122981.0
+*   Taxable Income = ₹910000 - ₹40170 - ₹122981 = ₹746849.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹7,46,849: 20% of (₹7,46,849 - ₹5,00,000) = 20% of ₹2,46,849 = ₹49369.8
+
+*   Total Income Tax = ₹12,500 + ₹49369.8 = ₹61869.8
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹61869.8 = ₹2474.792
+
+*   Total Tax Liability = ₹61869.8 + ₹2474.792 = ₹64344.592
+
+Rounding off to the nearest rupee, the total tax liability is ₹64345.
+
+FINAL TAX: 64345"
+TAX-5E683639,Medium,Old,6479.72,6479.72,13526.0,9080.0,0.0,7046.28,2600.2799999999997,13526,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹83600.0
+*   Rent paid less 10% of Basic Salary: ₹46000.0 - (10% of ₹206100.0) = ₹46000.0 - ₹20610.0 = ₹25390.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹206100.0 = ₹82440.0
+
+The least of these three amounts is ₹25390.0. Therefore, the HRA exemption is ₹25390.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (Maximum ₹150000):**
+    *   PF: ₹30000.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹30000.0 + ₹0.0 + ₹0.0 + ₹0.0 = ₹30000.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹20000.0 + ₹0.0 = ₹20000.0
+
+Total Deductions = ₹30000.0 + ₹20000.0 = ₹50000.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹500000.0
+*   HRA Exemption: ₹25390.0
+*   Deductions under Chapter VI-A: ₹50000.0
+*   Taxable Income = ₹500000.0 - ₹25390.0 - ₹50000.0 = ₹424610.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹424610.0 - ₹2,50,000) = 5% of ₹174610.0 = ₹8730.5
+
+Total Income Tax = ₹8730.5
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of ₹8730.5 = ₹349.22
+
+Total Tax Liability = ₹8730.5 + ₹349.22 = ₹9079.72
+
+Rounding off to the nearest rupee, the tax liability is ₹9080.
+
+FINAL TAX: ₹9080"
+TAX-7066F619,Simple,Old,301080.0,301080.0,231314.0,316680.0,0.0,69766.0,15600.0,231314,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1805000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1805000.0 + ₹0.0 = ₹1805000.0
+
+**2. Calculate Exemptions (HRA):**
+
+Since the taxpayer is under the Old Regime, HRA exemption can be claimed. The least of the following will be exempt:
+
+*   Actual HRA received: ₹366200.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹878200.0 = ₹439100.0
+*   Rent Paid - 10% of Basic Salary: ₹0.0 - (10% of ₹878200.0) = -₹87820.0 (Since rent paid is zero, this results in a negative value, so it's effectively ₹0.0)
+
+Therefore, the HRA exemption is the least of the above, which is ₹0.0.
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹108300.0
+    *   PPF: ₹20850.0
+    *   ELSS: ₹20850.0
+    *   Total 80C: ₹108300.0 + ₹20850.0 + ₹20850.0 = ₹150000.0 (Maximum limit under Section 80C is ₹150000)
+
+*   **Section 80D:**
+    *   Medical Insurance (Self): ₹15000.0
+    *   Medical Insurance (Parents): ₹0.0
+    *   Total 80D: ₹15000.0 + ₹0.0 = ₹15000.0
+
+*   **Total Deductions (Chapter VI-A):** ₹150000.0 + ₹15000.0 = ₹165000.0
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹1805000.0
+*   HRA Exemption: ₹0.0
+*   Deductions (Chapter VI-A): ₹165000.0
+*   Taxable Income = ₹1805000.0 - ₹0.0 - ₹165000.0 = ₹1640000.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹16,40,000 - ₹10,00,000) = 30% of ₹6,40,000 = ₹1,92,000
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹1,92,000 = ₹3,04,500
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of ₹3,04,500 = ₹12,180
+
+*   Total Tax Liability = ₹3,04,500 + ₹12,180 = ₹3,16,680
+
+FINAL TAX: 316680.0"
+TAX-DBC580A3,Simple,New,26104.0,26104.0,18720.0,31304.0,0.0,7384.0,5200.0,18720,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹751000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹751000.0 + ₹0.0 = ₹751000.0
+
+2.  **Exemptions (Not Applicable for New Regime):**
+
+    *   HRA exemption is not applicable under the New Regime.
+
+3.  **Deductions (Not Applicable for New Regime):**
+
+    *   Chapter VI-A deductions (like PF, LIC, Medical Insurance, etc.) are not applicable under the New Regime.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹751000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹1,51,000 (₹7,51,000 - ₹6,00,000) = ₹15,100
+        *   Total Tax = ₹0 + ₹15,000 + ₹15,100 = ₹30,100
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess @ 4% on Income Tax
+    *   Cess = 4% of ₹30,100 = ₹1204
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax = ₹30,100 + ₹1204 = ₹31,304
+
+FINAL TAX: ₹31,304"
+TAX-9910B2F3,Medium,Old,5111.34,5111.34,14531.0,23045.0,0.0,9419.66,17933.66,14531,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   a) Actual HRA received: ₹106800.0
+*   b) 50% of Basic Salary (since living in a metro city is No): 50% of ₹247600.0 = ₹123800.0
+*   c) Rent paid minus 10% of Basic Salary: ₹25900.0 - (10% of ₹247600.0) = ₹25900.0 - ₹24760.0 = ₹1140.0
+
+The least of these three amounts is ₹1140.0.
+
+*   HRA Exemption = ₹1140.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹30000.0
+    *   PPF: ₹50565.0
+    *   Total 80C: ₹30000.0 + ₹50565.0 = ₹80565.0
+    *   Maximum 80C deduction allowed: ₹150000.0
+    *   Therefore, 80C deduction = ₹80565.0
+
+*   **Section 80D:**
+    *   Medical Insurance Premium (Self): ₹0.0
+    *   Medical Insurance Premium (Parents): ₹20000.0
+    *   Total 80D: ₹0.0 + ₹20000.0 = ₹20000.0
+
+*   Total Deductions (Chapter VI-A) = ₹80565.0 + ₹20000.0 = ₹100565.0
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - HRA Exemption - Total Deductions
+*   Taxable Income = ₹500000.0 - ₹1140.0 - ₹100565.0 = ₹398295.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹3,00,000: 5% of (₹3,00,000 - ₹2,50,000) = 5% of ₹50,000 = ₹2500
+*   ₹3,00,001 to ₹5,00,000: 20% of (₹398295.0 - ₹3,00,000) = 20% of ₹98295.0 = ₹19659.0
+
+*   Total Income Tax = ₹0 + ₹2500 + ₹19659.0 = ₹22159.0
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax
+*   Cess = 4% of ₹22159.0 = ₹886.36
+
+*   Total Tax Liability = Income Tax + Cess
+*   Total Tax Liability = ₹22159.0 + ₹886.36 = ₹23045.36
+
+Rounding off to the nearest rupee, the total tax liability is ₹23045.
+
+FINAL TAX: 23045"
+TAX-0B4757D8,Medium,Old,56137.12,56137.12,44360.0,66537.0,0.0,11777.120000000003,10399.879999999997,44360,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1074000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1074000.0 + ₹0.0 = ₹1074000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹205500.0
+*   Rent paid less 10% of Basic Salary: ₹192700.0 - (10% of ₹460900.0) = ₹192700.0 - ₹46090.0 = ₹146610.0
+*   50% of Basic Salary (since living in a metro city): 50% of ₹460900.0 = ₹230450.0
+
+The least of these three amounts is ₹146610.0. Therefore, the HRA exemption is ₹146610.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   PF: ₹64400.0
+*   LIC: ₹0.0
+*   PPF: ₹0.0
+*   ELSS: ₹85600.0
+*   Medical (Self): ₹20000.0
+*   Medical (Parents): ₹0.0
+
+Total 80C Deductions: ₹64400.0 + ₹0.0 + ₹0.0 + ₹85600.0 = ₹150000.0 (Maximum limit under Section 80C is ₹150000)
+
+Total 80D Deductions: ₹20000.0 + ₹0.0 = ₹20000.0
+
+Total Chapter VI-A Deductions = ₹150000.0 + ₹20000.0 = ₹170000.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹1074000.0 - ₹146610.0 - ₹170000.0 = ₹757390.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹7,50,000: 20% of (₹7,50,000 - ₹5,00,000) = 20% of ₹2,50,000 = ₹50,000
+*   ₹7,50,001 to ₹10,00,000: 20% of (₹757390.0 - ₹750000) = 20% of ₹7390 = ₹1478
+
+Total Income Tax = ₹0 + ₹12,500 + ₹50,000 + ₹1478 = ₹63978
+
+**6. Add Cess:**
+
+Health and Education Cess: 4% of ₹63978 = ₹2559.12
+
+Total Tax Liability = ₹63978 + ₹2559.12 = ₹66537.12
+
+Rounding off to the nearest rupee, the total tax liability is ₹66537.
+
+FINAL TAX: ₹66537"
+TAX-E10B63C5,Medium,New,7800.0,7800.0,13526.0,10400.0,0.0,5726.0,2600.0,13526,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, following the specified steps.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions (HRA):**
+
+    Since we are calculating under the New Regime, HRA exemption is **not applicable**.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are **not allowed**. The standard deduction of ₹50,000 is also not allowed.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed under the chosen regime)
+
+    Under the New Regime, only deduction for employer contribution to NPS under section 80CCD(2) is allowed. Since there is no information about employer contribution to NPS, we will assume it to be zero.
+
+    Taxable Income = ₹500000.0 - ₹0.0 = ₹500000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   Up to ₹3,00,000: ₹0
+    *   ₹3,00,001 to ₹5,00,000: (₹5,00,000 - ₹3,00,000) * 5% = ₹2,00,000 * 0.05 = ₹10,000
+
+    Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+6.  **Add Cess:**
+
+    Health and Education Cess is levied at 4% on the income tax amount.
+
+    Cess = 4% of ₹10,000 = ₹400
+
+    Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: ₹10400"
+TAX-C2B75B45,Medium,New,34424.0,34424.0,63210.0,39624.0,0.0,28786.0,5200.0,63210,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+1.  **Gross Total Income:**
+
+    *   Gross Salary: ₹831000.0
+    *   Other Income: ₹0.0
+    *   Gross Total Income = ₹831000.0 + ₹0.0 = ₹831000.0
+
+2.  **Exemptions:**
+
+    *   Under the New Regime, HRA exemption is **not** allowed.
+
+3.  **Deductions (Chapter VI-A):**
+
+    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The standard deduction of ₹50,000 is also not allowed.
+
+4.  **Taxable Income:**
+
+    *   Taxable Income = Gross Total Income = ₹831000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    *   Tax Calculation:
+        *   0% on first ₹3,00,000 = ₹0
+        *   5% on ₹3,00,000 (₹6,00,000 - ₹3,00,000) = ₹15,000
+        *   10% on ₹231,000 (₹831,000 - ₹6,00,000) = ₹23,100
+        *   Total Tax = ₹0 + ₹15,000 + ₹23,100 = ₹38,100
+
+6.  **Add Cess:**
+
+    *   Health and Education Cess @ 4% on Tax
+    *   Cess = 4% of ₹38,100 = ₹1524
+
+7.  **Total Tax Liability:**
+
+    *   Total Tax = ₹38,100 + ₹1524 = ₹39,624
+
+FINAL TAX: ₹39,624"
+TAX-C4242421,Medium,Old,34432.528,34432.528,28840.0,44833.0,0.0,5592.527999999998,10400.472000000002,28840,"Okay, I will calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+Gross Total Income = Gross Salary + Other Income
+Gross Total Income = ₹929000.0 + ₹0.0 = ₹929000.0
+
+**2. Calculate Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹176600.0
+*   Rent paid less 10% of Basic Salary: ₹147500.0 - (10% of ₹391300.0) = ₹147500.0 - ₹39130.0 = ₹108370.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹391300.0 = ₹195650.0
+
+The least of these three amounts is ₹108370.0. Therefore, the HRA exemption is ₹108370.0
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹55700.0
+    *   LIC: ₹91889.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹55700.0 + ₹91889.0 + ₹0.0 + ₹0.0 = ₹147589.0
+    *   Maximum 80C deduction allowed is ₹150000.0. Therefore, the deduction is ₹147589.0
+
+*   **Section 80D:**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹20000.0 + ₹0.0 = ₹20000.0
+
+Total Deductions (Chapter VI-A) = ₹147589.0 + ₹20000.0 = ₹167589.0
+
+**4. Determine Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹929000.0 - ₹108370.0 - ₹167589.0 = ₹653041.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹6,53,041: 20% of (₹6,53,041 - ₹5,00,000) = 20% of ₹153041 = ₹30608.2
+
+Total Income Tax = ₹12,500 + ₹30608.2 = ₹43108.2
+
+**6. Add Cess:**
+
+Cess is 4% of Income Tax.
+Cess = 4% of ₹43108.2 = ₹1724.328
+
+Total Tax Liability = Income Tax + Cess
+Total Tax Liability = ₹43108.2 + ₹1724.328 = ₹44832.528
+
+Rounding off to the nearest rupee, the total tax liability is ₹44833.
+
+FINAL TAX: ₹44833"
+TAX-27DAA97B,Medium,Old,2226.9,2226.9,13536.0,4827.0,0.0,11309.1,2600.1,13536,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹500000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹83800.0
+*   Rent paid less 10% of Basic Salary: ₹96400.0 - (10% of ₹208200.0) = ₹96400.0 - ₹20820.0 = ₹75580.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹208200.0 = ₹104100.0
+
+The least of these three amounts is ₹75580.0. Therefore, the HRA exemption is ₹75580.0.
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (Maximum Limit: ₹150000):**
+    *   PF: ₹30000.0
+    *   ELSS: ₹31595.0
+    *   Total 80C: ₹30000.0 + ₹31595.0 = ₹61595.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹20000.0 + ₹0.0 = ₹20000.0
+
+Total Deductions = ₹61595.0 + ₹20000.0 = ₹81595.0
+
+**4. Taxable Income:**
+
+Taxable Income = Gross Total Income - Exemptions - Deductions
+Taxable Income = ₹500000.0 - ₹75580.0 - ₹81595.0 = ₹342825.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹250000: Nil
+*   ₹250001 to ₹300000: 5% of (₹300000 - ₹250000) = 5% of ₹50000 = ₹2500
+*   ₹300001 to ₹342825: 5% of (₹342825 - ₹300000) = 5% of ₹42825 = ₹2141.25
+
+Total Income Tax = ₹0 + ₹2500 + ₹2141.25 = ₹4641.25
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Income Tax = 4% of ₹4641.25 = ₹185.65
+
+Total Tax Liability = ₹4641.25 + ₹185.65 = ₹4826.90
+
+Rounded off to nearest rupee: ₹4827
+
+FINAL TAX: ₹4827"
+TAX-E3E39846,Medium,New,8216.0,8216.0,13572.0,0.0,0.0,5356.0,8216.0,13572,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹508000.0 + ₹0.0 = ₹508000.0
+
+2.  **Exemptions:**
+
+    Under the New Regime, HRA exemption is not available.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. However, deduction for employer's contribution to NPS (Section 80CCD(2)) is allowed. Since there is no employer contribution to NPS mentioned, we will not consider any deductions under Chapter VI-A.  Also, deduction under 80CCD(1B) for NPS is not allowed under New Regime.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions
+
+    Since no deductions are applicable under the New Regime (except employer NPS contribution, which is not present here),
+
+    Taxable Income = ₹508000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   Up to ₹3,00,000: ₹0
+    *   ₹3,00,001 - ₹508000: (₹508000 - ₹300000) * 5% = ₹208000 * 0.05 = ₹10400
+
+    Total Tax = ₹0 + ₹10400 = ₹10400
+
+    Rebate u/s 87A:
+
+    Since the taxable income is less than ₹7,00,000, the taxpayer is eligible for a rebate under section 87A. The maximum rebate amount is ₹25,000.
+
+    Therefore, the tax liability after rebate is ₹10400 - ₹10400 = ₹0
+
+6.  **Add Cess:**
+
+    Health and Education Cess is applicable at 4% on the tax amount.
+
+    Cess = 4% of ₹0 = ₹0
+
+    Total Tax Liability = ₹0 + ₹0 = ₹0
+
+FINAL TAX: ₹0"
+TAX-230D1917,Medium,Old,121505.28,121505.28,38536.0,137417.0,0.0,82969.28,15911.720000000001,38536,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹1239000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹1239000.0 + ₹0.0 = ₹1239000.0
+
+**2. Calculate Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA Received: ₹260400.0
+*   Rent Paid less 10% of Basic Salary: ₹65600.0 - (10% of ₹610400.0) = ₹65600.0 - ₹61040.0 = ₹4560.0
+*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city). Since the taxpayer is *not* living in a metro city, we use 40%: 40% of ₹610400.0 = ₹244160.0
+
+The least of these three amounts is ₹4560.0. Therefore, the HRA exemption is ₹4560.0
+
+**3. Calculate Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹74300.0
+    *   PPF: ₹37850.0
+    *   ELSS: ₹37850.0
+    *   Total 80C: ₹74300.0 + ₹37850.0 + ₹37850.0 = ₹149000.0
+
+    The maximum deduction allowed under Section 80C is ₹150000.0. Therefore, the deduction is ₹149000.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹20000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹20000.0 + ₹0.0 = ₹20000.0
+
+    The maximum deduction allowed under Section 80D for self is ₹25000.0. Since the taxpayer is claiming ₹20000.0, the deduction is ₹20000.0
+
+*   Total Deductions (Chapter VI-A): ₹149000.0 + ₹20000.0 = ₹169000.0
+
+**4. Determine Taxable Income:**
+
+*   Gross Total Income: ₹1239000.0
+*   HRA Exemption: ₹4560.0
+*   Deductions (Chapter VI-A): ₹169000.0
+*   Taxable Income = ₹1239000.0 - ₹4560.0 - ₹169000.0 = ₹1065440.0
+
+**5. Apply Tax Slabs (FY 2024-25, Old Regime):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12,500
+*   ₹5,00,001 to ₹10,00,000: 20% of (₹10,00,000 - ₹5,00,000) = 20% of ₹5,00,000 = ₹1,00,000
+*   Above ₹10,00,000: 30% of (₹1065440.0 - ₹10,00,000) = 30% of ₹65440.0 = ₹19632.0
+
+*   Total Income Tax = ₹0 + ₹12,500 + ₹1,00,000 + ₹19632.0 = ₹132132.0
+
+**6. Add Cess:**
+
+*   Cess is 4% of Income Tax: 4% of ₹132132.0 = ₹5285.28
+
+*   Total Tax Liability = ₹132132.0 + ₹5285.28 = ₹137417.28
+
+Rounding off to the nearest rupee, the final tax liability is ₹137417.
+
+FINAL TAX: 137417"
+TAX-0CAFF906,Medium,Old,7937.8,9237.800000000001,18536.0,10538.0,1300.000000000001,10598.2,2600.2,18536,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹512000.0
+*   Other Income: ₹50000.0
+*   Gross Total Income = ₹512000.0 + ₹50000.0 = ₹562000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹103300.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹216500.0 = ₹108250.0
+*   Rent Paid less 10% of Basic Salary: ₹50300.0 - (10% of ₹216500.0) = ₹50300.0 - ₹21650.0 = ₹28650.0
+
+Therefore, HRA Exemption = ₹28650.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (PF, LIC, PPF, ELSS):**
+    *   PF: ₹30700.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹30700.0
+    *   Maximum 80C deduction is ₹150000.0.  Therefore, the deduction is ₹30700.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹0.0
+    *   Medical (Parents): ₹50000.0
+    *   Since we don't have the age of the parents, we will assume they are senior citizens. The maximum deduction allowed for medical insurance premium for senior citizen parents is ₹50000.0.
+    *   Total 80D: ₹50000.0
+
+*   Total Deductions (Chapter VI-A) = ₹30700.0 + ₹50000.0 = ₹80700.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹562000.0
+*   HRA Exemption: ₹28650.0
+*   Deductions (Chapter VI-A): ₹80700.0
+*   Taxable Income = ₹562000.0 - ₹28650.0 - ₹80700.0 = ₹452650.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹452650.0 - ₹250000.0) = 5% of ₹202650.0 = ₹10132.5
+
+**6. Add Cess:**
+
+*   Income Tax: ₹10132.5
+*   Health and Education Cess @ 4%: 4% of ₹10132.5 = ₹405.3
+
+*   Total Tax Liability = ₹10132.5 + ₹405.3 = ₹10537.8
+
+Rounding off to the nearest rupee, the tax liability is ₹10538.
+
+FINAL TAX: 10538"
+TAX-145067AF,Simple,New,7800.0,7800.0,13520.0,10400.0,0.0,5720.0,2600.0,13520,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.
+
+1.  **Gross Total Income:**
+
+    Gross Total Income = Gross Salary + Other Income
+
+    Gross Total Income = ₹500000.0 + ₹0.0 = ₹500000.0
+
+2.  **Exemptions:**
+
+    Since we are calculating under the New Regime, HRA exemption is not applicable.
+
+3.  **Deductions (Chapter VI-A):**
+
+    Under the New Regime, most deductions under Chapter VI-A are not allowed. Therefore, deductions like PF, LIC, PPF, ELSS, Medical Insurance are not considered.
+
+4.  **Taxable Income:**
+
+    Taxable Income = Gross Total Income - Deductions (if any allowed under the regime)
+
+    Since no deductions are allowed under the new regime,
+
+    Taxable Income = ₹500000.0
+
+5.  **Apply Tax Slabs (New Regime for FY 2024-25):**
+
+    *   Up to ₹3,00,000: 0%
+    *   ₹3,00,001 - ₹6,00,000: 5%
+    *   ₹6,00,001 - ₹9,00,000: 10%
+    *   ₹9,00,001 - ₹12,00,000: 15%
+    *   ₹12,00,001 - ₹15,00,000: 20%
+    *   Above ₹15,00,000: 30%
+
+    Tax Calculation:
+
+    *   Up to ₹3,00,000: 0% of ₹3,00,000 = ₹0
+    *   ₹3,00,001 - ₹5,00,000: 5% of ₹2,00,000 = ₹10,000
+
+    Total Tax = ₹0 + ₹10,000 = ₹10,000
+
+6.  **Add Cess:**
+
+    Health and Education Cess is levied at 4% on the income tax amount.
+
+    Cess = 4% of ₹10,000 = ₹400
+
+    Total Tax Liability = ₹10,000 + ₹400 = ₹10,400
+
+FINAL TAX: ₹10400"
+TAX-95DC5824,Medium,Old,12914.2,16816.8,19736.0,23057.0,3902.5999999999985,6821.799999999999,10142.8,19736,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹672000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹672000.0 + ₹0.0 = ₹672000.0
+
+**2. Exemptions (HRA):**
+
+HRA Exemption is the least of the following:
+
+*   Actual HRA Received: ₹126500.0
+*   50% of Basic Salary (since living in a metro): 50% of ₹272500.0 = ₹136250.0
+*   Rent Paid less 10% of Basic Salary: ₹65600.0 - (10% of ₹272500.0) = ₹65600.0 - ₹27250.0 = ₹38350.0
+
+Therefore, HRA Exemption = ₹38350.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C (Maximum Limit: ₹150000.0):**
+    *   PF: ₹40300.0
+    *   LIC: ₹0.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹40300.0 + ₹0.0 + ₹0.0 + ₹0.0 = ₹40300.0
+
+*   **Section 80D (Medical Insurance):**
+    *   Medical (Self): ₹15000.0
+    *   Medical (Parents): ₹30000.0
+    *   Total 80D: ₹15000.0 + ₹30000.0 = ₹45000.0
+
+Total Deductions (Chapter VI-A) = ₹40300.0 + ₹45000.0 = ₹85300.0
+
+**4. Taxable Income:**
+
+*   Gross Total Income: ₹672000.0
+*   HRA Exemption: ₹38350.0
+*   Deductions (Chapter VI-A): ₹85300.0
+*   Taxable Income = ₹672000.0 - ₹38350.0 - ₹85300.0 = ₹548350.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹5,00,000 - ₹2,50,000) = 5% of ₹2,50,000 = ₹12500.0
+*   ₹5,00,001 to ₹5,48,350: 20% of (₹5,48,350 - ₹5,00,000) = 20% of ₹48350.0 = ₹9670.0
+
+Total Income Tax = ₹0.0 + ₹12500.0 + ₹9670.0 = ₹22170.0
+
+**6. Add Cess:**
+
+*   Cess @ 4% on Income Tax: 4% of ₹22170.0 = ₹886.8
+
+Total Tax Liability = ₹22170.0 + ₹886.8 = ₹23056.8
+
+Rounding off to the nearest rupee, the final tax liability is ₹23057.
+
+FINAL TAX: ₹23057"
+TAX-4D81D696,Medium,New,18200.0,18200.0,19240.0,23400.0,0.0,1040.0,5200.0,19240,"Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹650000.0
+*   Other Income: ₹25000.0
+*   Gross Total Income = ₹650000.0 + ₹25000.0 = ₹675000.0
+
+**2. Exemptions (HRA):**
+
+*   Under the New Regime, HRA exemption is **not** allowed.
+
+**3. Deductions (Chapter VI-A):**
+
+*   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The only deduction allowed is for employer's contribution to NPS (not applicable here). Therefore, no deductions are considered.
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Deductions
+*   Taxable Income = ₹675000.0 - ₹0.0 = ₹675000.0
+
+**5. Apply Tax Slabs (New Regime for FY 2024-25):**
+
+| Income Range      | Tax Rate |
+| ----------------- | -------- |
+| Up to ₹3,00,000   | 0%       |
+| ₹3,00,001 - ₹6,00,000 | 5%       |
+| ₹6,00,001 - ₹9,00,000 | 10%      |
+| ₹9,00,001 - ₹12,00,000| 15%      |
+| ₹12,00,001 - ₹15,00,000| 20%      |
+| Above ₹15,00,000  | 30%      |
+
+*   Tax Calculation:
+    *   Up to ₹3,00,000: 0% = ₹0
+    *   ₹3,00,001 to ₹6,00,000: 5% of (₹6,00,000 - ₹3,00,000) = 5% of ₹3,00,000 = ₹15,000
+    *   ₹6,00,001 to ₹6,75,000: 10% of (₹6,75,000 - ₹6,00,000) = 10% of ₹75,000 = ₹7,500
+    *   Total Tax = ₹0 + ₹15,000 + ₹7,500 = ₹22,500
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of Tax
+*   Cess = 4% of ₹22,500 = ₹900
+
+**Total Tax Liability:**
+
+*   Total Tax = Tax + Cess
+*   Total Tax = ₹22,500 + ₹900 = ₹23,400
+
+FINAL TAX: ₹23400"

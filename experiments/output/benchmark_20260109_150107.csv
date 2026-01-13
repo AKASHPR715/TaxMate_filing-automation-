@@ -1,0 +1,2 @@
+profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
+TAX-CA2E358A,Medium,New,7800.0,7800.0,-1.0,-1.0,0.0,7801.0,7801.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries

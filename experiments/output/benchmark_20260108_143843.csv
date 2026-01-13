@@ -1,0 +1,74 @@
+profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
+TAX-6BDC7817,Simple,New,38480.0,38480.0,-1.0,-1.0,0.0,38481.0,38481.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-75F4BEEC,Medium,New,22464.0,22464.0,-1.0,-1.0,0.0,22465.0,22465.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-F81E5F77,Medium,Old,95694.56,95694.56,46560.0,-1.0,0.0,49134.56,95695.56,46560,ERROR: API Failed after all retries
+TAX-5A53C0F7,Medium,New,102960.0,102960.0,-1.0,-1.0,0.0,102961.0,102961.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-C96DF8F6,Medium,Old,6696.248000000001,6696.248000000001,-1.0,9296.0,0.0,6697.248000000001,2599.7519999999986,ERROR: API Failed after all retries,"Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, following the steps outlined.
+
+**1. Gross Total Income:**
+
+*   Gross Salary: ₹659000.0
+*   Other Income: ₹0.0
+*   Gross Total Income = ₹659000.0 + ₹0.0 = ₹659000.0
+
+**2. Exemptions (HRA):**
+
+To calculate the HRA exemption, we need to determine the least of the following three amounts:
+
+*   Actual HRA received: ₹142400.0
+*   40% of Basic Salary (since living in a non-metro city) / 50% of Basic Salary (since living in a metro city): ₹291300.0 * 50% = ₹145650.0
+*   Actual Rent Paid less 10% of Basic Salary: ₹109600.0 - (10% of ₹291300.0) = ₹109600.0 - ₹29130.0 = ₹80470.0
+
+The least of these three amounts is ₹80470.0. Therefore, the HRA exemption is ₹80470.0
+
+**3. Deductions (Chapter VI-A):**
+
+*   **Section 80C:**
+    *   PF: ₹39500.0
+    *   LIC: ₹95256.0
+    *   PPF: ₹0.0
+    *   ELSS: ₹0.0
+    *   Total 80C: ₹39500.0 + ₹95256.0 + ₹0.0 + ₹0.0 = ₹134756.0
+    *   Maximum 80C deduction allowed is ₹150000.0.  Therefore, the 80C deduction is ₹134756.0
+
+*   **Section 80D:**
+    *   Medical (Self): ₹15000.0
+    *   Medical (Parents): ₹0.0
+    *   Total 80D: ₹15000.0 + ₹0.0 = ₹15000.0
+
+Total Deductions (Chapter VI-A) = ₹134756.0 + ₹15000.0 = ₹149756.0
+
+**4. Taxable Income:**
+
+*   Taxable Income = Gross Total Income - Exemptions - Deductions
+*   Taxable Income = ₹659000.0 - ₹80470.0 - ₹149756.0 = ₹428774.0
+
+**5. Apply Tax Slabs (Old Regime for FY 2024-25):**
+
+*   Up to ₹2,50,000: Nil
+*   ₹2,50,001 to ₹5,00,000: 5% of (₹428774.0 - ₹250000.0) = 5% of ₹178774.0 = ₹8938.7
+
+**6. Add Cess:**
+
+*   Health and Education Cess: 4% of ₹8938.7 = ₹357.55
+
+*   Total Tax Liability: ₹8938.7 + ₹357.55 = ₹9296.25
+
+Rounding off to the nearest rupee, the total tax liability is ₹9296.
+
+FINAL TAX: ₹9296"
+TAX-D32833B2,Medium,Old,7359.664000000001,8919.664,18536.0,-1.0,1560.0,11176.336,7360.664000000001,18536,ERROR: API Failed after all retries
+TAX-4BE5B807,Medium,Old,7838.3240000000005,8098.3240000000005,-1.0,-1.0,260.0,7839.3240000000005,7839.3240000000005,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-F5CAAF6C,Medium,New,39416.0,39416.0,-1.0,-1.0,0.0,39417.0,39417.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-F94214AD,Medium,New,7800.0,7800.0,-1.0,-1.0,0.0,7801.0,7801.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-EDC6E0C3,Medium,New,7800.0,7800.0,-1.0,-1.0,0.0,7801.0,7801.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-6CB4B0F2,Medium,New,47424.0,47424.0,-1.0,-1.0,0.0,47425.0,47425.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-0737AF76,Medium,Old,7229.352000000001,7229.352000000001,-1.0,-1.0,0.0,7230.352000000001,7230.352000000001,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-46496930,Medium,Old,304187.52,304187.52,-1.0,-1.0,0.0,304188.52,304188.52,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-D34658F3,Simple,New,7800.0,7800.0,-1.0,-1.0,0.0,7801.0,7801.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-D08266F3,Medium,New,13728.0,13728.0,-1.0,-1.0,0.0,13729.0,13729.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-4D8B599C,Medium,Old,57574.4,63814.4,-1.0,-1.0,6240.0,57575.4,57575.4,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-A0F62B1A,Medium,New,7800.0,7800.0,-1.0,-1.0,0.0,7801.0,7801.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-40BE7B28,Medium,New,7800.0,7800.0,-1.0,-1.0,0.0,7801.0,7801.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-F97C0846,Simple,Old,195000.0,195000.0,-1.0,-1.0,0.0,195001.0,195001.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-DF91E749,Medium,New,12012.0,12012.0,-1.0,-1.0,0.0,12013.0,12013.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
