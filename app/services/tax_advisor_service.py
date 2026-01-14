@@ -138,13 +138,17 @@ agent = None
 agent_executor = None
 
 if llm:
-    agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
+    # Add stop token to prevent infinite generation after Final Answer
+    llm_with_stop = llm.bind(stop=["\nObservation:"]) 
+    
+    agent = create_react_agent(llm=llm_with_stop, tools=tools, prompt=prompt)
     agent_executor = AgentExecutor(
         agent=agent, 
         tools=tools, 
         verbose=True, 
         handle_parsing_errors=True,
-        max_iterations=20
+        max_iterations=10, # Reduce iterations to fail faster if looping
+        early_stopping_method="force"
     )
 
 # ============================================================

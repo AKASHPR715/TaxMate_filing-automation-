@@ -114,28 +114,19 @@ export default function Dashboard() {
     setIsAnalyzing(true);
     setShowReviewModal(false);
     try {
-      // Parse the edited JSON
-      let payload;
-      try {
-        payload = JSON.parse(editedDataJson);
-      } catch (jsonErr) {
-        alert("Invalid JSON! Please fix errors before submitting.");
-        setIsAnalyzing(false);
-        setShowReviewModal(true);
-        return;
-      }
+      // Note: The new /api/analyze endpoint fetches fresh data from DB using the orchestrator.
+      // Current frontend edits are for client-side review only until persistence is updated.
 
-      const res = await fetch('http://localhost:8000/api/details/calculate', {
-        method: 'POST',
-        headers: getApiHeaders('application/json'),
-        body: JSON.stringify(payload)
+      const res = await fetch('http://localhost:8000/api/analyze', {
+        method: 'GET',
+        headers: getApiHeaders()
       });
 
-      if (!res.ok) throw new Error('Calculation failed');
+      if (!res.ok) throw new Error('Analysis failed');
       const data = await res.json();
       setAnalysis(data);
     } catch (e) {
-      console.error("Calculation error:", e);
+      console.error("Analysis error:", e);
     } finally {
       setIsAnalyzing(false);
     }

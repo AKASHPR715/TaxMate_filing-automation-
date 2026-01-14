@@ -15,6 +15,10 @@ from app.services.orchestrator_service import (
     compare_tax_regimes
 )
 from app.api.auth_routes import get_current_user
+from app.db.models import User, ITR
+from app.services import details_service
+from pydantic import BaseModel
+from typing import Optional
 
 router = APIRouter(tags=["orchestrator"])
 
@@ -135,3 +139,92 @@ async def analyze_taxes(current_user: dict = Depends(get_current_user)):
     except Exception as e:
         print(f"Analysis error: {e}")
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+
+# Request Models
+class DocumentUpdate(BaseModel):
+    doc_id: str
+    updates: Dict[str, Any]
+
+class ReviewAndCalculateRequest(BaseModel):
+    updates: Optional[List[DocumentUpdate]] = None
+    force_restart: bool = False
+
+@router.post("/api/orchestrator/review_and_calculate")
+async def review_and_calculate(
+    payload: ReviewAndCalculateRequest,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Trigger the Archerstrator Agent after review.
+    - Validates user role (Boss/Agent).
+    - Updates provided document fields.
+    - Runs the orchestrator.
+    """
+    try:
+        from app.db.connection import get_sync_db
+        db = get_sync_db()
+        
+        user_id = str(current_user["_id"])
+        
+        # 1. Validate Role
+        user = db.users.find_one({"_id": ObjectId(user_id)})
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+            
+        is_boss = user.get("role") == "boss"
+        is_agent = user.get("role") == "agent" or "Archerstrator" in user.get("username", "")
+        
+        if not (is_boss or is_agent):
+            # Fallback for dev/admin
+            if user.get("username") == "admin":
+                 pass
+            else:
+                 raise HTTPException(
+                    status_code=403, 
+                    detail="Unauthorized: Only Boss or Archerstrator Agent can trigger this workflow."
+                )
+
+        # 2. Check State (Optional, but requested)
+        # We check ITR status if it exists
+        itr = db.itr_filings.find_one({"user_id": ObjectId(user_id)}, sort=[("created_at", -1)])
+        if itr:
+            status = itr.get("status", "DRAFT")
+            # We allow REVIEW or DRAFT (since DRAFT is the initial state)
+            if status not in ["REVIEW", "DRAFT"]:
+                 # If it's FINAL or FILED, maybe we shouldn't allow updates
+                 if status in ["FINAL", "FILED"]:
+                      raise HTTPException(status_code=400, detail=f"Cannot update record in {status} state.")
+
+        # 3. Apply Updates
+        if payload.updates:
+            for update_item in payload.updates:
+                details_service.update_document(
+                    user_id=user_id,
+                    doc_id=update_item.doc_id,
+                    updates=update_item.updates
+                )
+
+        # 4. Trigger Archerstrator Agent
+        loop = asyncio.get_event_loop()
+        prompt = "Review complete. Calculate taxes and generate forms."
+        
+        final_state = await loop.run_in_executor(
+            None, 
+            run_orchestrator, 
+            prompt,
+            user_id
+        )
+        
+        return serialize_data({
+            "status": "success",
+            "message": "Review processed and Archerstrator Agent triggered.",
+            "orchestrator_result": final_state
+        })
+
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+

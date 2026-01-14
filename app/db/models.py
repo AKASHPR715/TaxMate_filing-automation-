@@ -60,7 +60,9 @@ class User(MongoBaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+    role: str = "user"  # user, boss, agent
 
 
 class TokenBlacklist(MongoBaseModel):
@@ -481,7 +483,7 @@ class ComputedData(BaseModel):
 class ITR(MongoBaseModel):
     user_id: PyObjectId
     assessment_year: str = "2024-25"
-    status: str = "DRAFT" # DRAFT, FINAL, FILED
+    status: str = "DRAFT" # DRAFT, REVIEW, FINAL, FILED
     form_type: str = "ITR-1" # ITR-1 or ITR-2
     
     # Links to source documents
