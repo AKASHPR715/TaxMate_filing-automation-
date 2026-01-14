@@ -63,41 +63,47 @@ class HybridQdrantRetriever(BaseRetriever):
                 FieldCondition(key="applicable_to", match=MatchAny(any=[self.user_type, "all"]))
             )
 
-        res = self.client.query_points(
-            collection_name=COLLECTION_NAME,
-            prefetch=[
-                models.Prefetch(query=dense, using="dense", limit=self.top_k * 2),
-                models.Prefetch(query=sparse, using="sparse", limit=self.top_k * 2),
-            ],
-            # query={"fusion": {"rrf": {}}},
-            
-            query=models.FusionQuery(fusion=models.Fusion.RRF),
-            query_filter=Filter(must=must),
-            limit=self.top_k,
-            with_payload=True,
-        )
+        try:
+            res = self.client.query_points(
+                collection_name=COLLECTION_NAME,
+                prefetch=[
+                    models.Prefetch(query=dense, using="dense", limit=self.top_k * 2),
+                    models.Prefetch(query=sparse, using="sparse", limit=self.top_k * 2),
+                ],
+                # query={"fusion": {"rrf": {}}},
+                
+                query=models.FusionQuery(fusion=models.Fusion.RRF),
+                query_filter=Filter(must=must),
+                limit=self.top_k,
+                with_payload=True,
+            )
 
-        docs = []
-        for hit in res.points:
-            p = hit.payload
-            parts = [f"Section {p.get('section_id', 'N/A')}: {p.get('title', 'N/A')}"]
-            if p.get("max_limit_inr"):
-                parts.append(f"Max Limit: ₹{p['max_limit_inr']:,}")
-            if p.get("conditions"):
-                parts.append("\nConditions:")
-                for c in p["conditions"]:
-                    parts.append(f"  • {c}")
-            if p.get("mutual_exclusions"):
-                parts.append(f"Cannot be claimed with: {', '.join(p['mutual_exclusions'])}")
-            if p.get("co_claimable_with"):
-                parts.append(f"Can be claimed with: {', '.join(p['co_claimable_with'])}")
-            if p.get("full_text"):
-                txt = p["full_text"]
-                if len(txt) > 2000:
-                    txt = txt[:2000] + " ...[truncated]"
-                parts.append(f"\nLegal Text:\n{txt}")
-            docs.append(Document(page_content="\n".join(parts), metadata=p))
-        return docs
+            docs = []
+            for hit in res.points:
+                p = hit.payload
+                parts = [f"Section {p.get('section_id', 'N/A')}: {p.get('title', 'N/A')}"]
+                if p.get("max_limit_inr"):
+                    parts.append(f"Max Limit: ₹{p['max_limit_inr']:,}")
+                if p.get("conditions"):
+                    parts.append("\nConditions:")
+                    for c in p["conditions"]:
+                        parts.append(f"  • {c}")
+                if p.get("mutual_exclusions"):
+                    parts.append(f"Cannot be claimed with: {', '.join(p['mutual_exclusions'])}")
+                if p.get("co_claimable_with"):
+                    parts.append(f"Can be claimed with: {', '.join(p['co_claimable_with'])}")
+                if p.get("full_text"):
+                    txt = p["full_text"]
+                    if len(txt) > 2000:
+                        txt = txt[:2000] + " ...[truncated]"
+                    parts.append(f"\nLegal Text:\n{txt}")
+                docs.append(Document(page_content="\n".join(parts), metadata=p))
+            return docs
+            
+        except Exception as e:
+            # Fallback if collection doesn't exist or DB is down
+            print(f"Vector DB Retrieval Warning: {e}")
+            return [Document(page_content=f"Note: Local tax law database (Section 80C, etc.) is currently unavailable. Error: {str(e)[:50]}...", metadata={"source": "system"})]
 
 # ---- instantiate ----
 qdrant_client = QdrantClient(path=PERSIST_DIR)

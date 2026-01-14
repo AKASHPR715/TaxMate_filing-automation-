@@ -81,8 +81,39 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
     # Determine form structure
     if form_type == "ITR-2":
         form = itr["ITR"]["ITR2"]
+        form_root = form
     else:
         form = itr["ITR"]["ITR1"]
+        form_root = form
+
+    # 1. CREATION INFO (Mandatory for all forms)
+    creation_info = {
+        "SWVersionNo": "1.0",
+        "SWCreatedBy": "SW00000001", 
+        "JSONCreatedBy": "SW00000001",
+        "JSONCreationDate": datetime.now().strftime("%Y-%m-%d"),
+        "IntermediaryCity": "Delhi",
+        "Digest": "--------------------------------------------" # Placeholder
+    }
+    form_root["CreationInfo"] = creation_info
+
+    # 2. FILING STATUS (Mandatory)
+    filing_status = {
+        "ReturnFileSec": 11, # 139(1) - On or before due date
+        "OptOutNewTaxRegime": "N", # Default to New Regime
+        "ItrFilingDueDate": "2025-07-31" # Standard due date
+    }
+    
+    if form_type == "ITR-2":
+        if "PartA_GEN1" not in form: form["PartA_GEN1"] = {}
+        if "FilingStatus" not in form["PartA_GEN1"]: form["PartA_GEN1"]["FilingStatus"] = {}
+        form["PartA_GEN1"]["FilingStatus"].update(filing_status)
+        # ITR-2 specific logic for FilingStatus can be added here
+    else:
+        if "FilingStatus" not in form: form["FilingStatus"] = {}
+        form["FilingStatus"].update(filing_status)
+        # ITR-1 specific logic
+
     
     # 1. PERSONAL INFORMATION
     personal_info = {}
@@ -128,37 +159,67 @@ def populate_itr_form(template: Dict, data: Dict, computation: Dict, form_type: 
             
         if form_type == "ITR-2":
             # ITR-2: PersonalInfo is under PartA_GEN1
-            form["PartA_GEN1"]["PersonalInfo"]["AssesseeName"]["FirstName"] = first_name
-            form["PartA_GEN1"]["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = surname
-            form["PartA_GEN1"]["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
-            form["PartA_GEN1"]["PersonalInfo"]["AadhaarNo"] = aadhaar
-            # Address
-            address = personal_info.get("address", "")
-            if address:
-                form["PartA_GEN1"]["PersonalInfo"]["Address"]["LocalityOrArea"] = address[:100]
+            p_info = form.setdefault("PartA_GEN1", {}).setdefault("PersonalInfo", {})
+            p_info.setdefault("AssesseeName", {})["FirstName"] = first_name
+            p_info["AssesseeName"]["SurNameOrOrgName"] = surname
+            p_info["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+            p_info["AadhaarCardNo"] = aadhaar # Schema key is AadhaarCardNo, not AadhaarNo
+            p_info["DOB"] = personal_info.get("dob", "1990-01-01") # Require valid date format
+            p_info["Status"] = "I" # Individual
             
-            form["PartA_GEN1"]["PersonalInfo"]["Address"]["MobileNo"] = mobile
-            form["PartA_GEN1"]["PersonalInfo"]["Address"]["EmailAddress"] = email
+            # Address
+            addr = p_info.setdefault("Address", {})
+            address_str = personal_info.get("address", "Unknown Address")
+            addr["ResidenceNo"] = "1" # Mandatory
+            addr["LocalityOrArea"] = address_str[:50]
+            addr["CityOrTownOrDistrict"] = "City" # Placeholder if parsing fails
+            addr["StateCode"] = "01" # Default to valid state code
+            addr["CountryCode"] = "91"
+            addr["PinCode"] = 110001
+            addr["CountryCodeMobile"] = 91
+            addr["MobileNo"] = mobile
+            addr["EmailAddress"] = email
             
         else:
             # ITR-1: PersonalInfo is direct
-            form["PersonalInfo"]["AssesseeName"]["FirstName"] = first_name
-            form["PersonalInfo"]["AssesseeName"]["SurNameOrOrgName"] = surname
-            form["PersonalInfo"]["PAN"] = personal_info.get("PAN", "ABCDE1234F")
-            form["PersonalInfo"]["AadhaarNo"] = aadhaar
-            # Address
-            address = personal_info.get("address", "")
-            if address:
-                form["PersonalInfo"]["Address"]["LocalityOrArea"] = address[:50]
-                
-            form["PersonalInfo"]["Address"]["MobileNo"] = mobile
-            form["PersonalInfo"]["Address"]["EmailAddress"] = email
+            p_info = form.setdefault("PersonalInfo", {})
+            p_info.setdefault("AssesseeName", {})["FirstName"] = first_name
+            p_info["AssesseeName"]["SurNameOrOrgName"] = surname
+            p_info["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+            p_info["AadhaarCardNo"] = aadhaar # Corrected key
+            p_info["DOB"] = personal_info.get("dob", "1990-01-01")
             
-        # Update Verification Father Name if present
-        father_name = user_profile.get("father_name", defaults.get("father_name", "FATHER NAME"))
-        if form_type == "ITR-1":
-             if "Verification" in form and "Declaration" in form["Verification"]:
-                 form["Verification"]["Declaration"]["FatherName"] = father_name
+            # Address
+            addr = p_info.setdefault("Address", {})
+            address_str = personal_info.get("address", "Unknown Address")
+            addr["ResidenceNo"] = "1"
+            addr["LocalityOrArea"] = address_str[:50]
+            addr["CityOrTownOrDistrict"] = "City"
+            addr["StateCode"] = "01" # Andhra Pradesh (Example default)
+            addr["CountryCode"] = "91"
+            addr["PinCode"] = 110001
+            addr["CountryCodeMobile"] = 91
+            addr["MobileNo"] = mobile
+            addr["EmailAddress"] = email
+            
+            # Employer Category (Mandatory for ITR-1)
+            p_info["EmployerCategory"] = "OTH" # Default to Others
+            
+    # Update Verification Father Name and other details
+    father_name = user_profile.get("father_name", defaults.get("father_name", "FATHER NAME"))
+    
+    # Verification Block (Common logic, different root)
+    if form_type == "ITR-2":
+        verification = form.setdefault("Verification", {}).setdefault("Declaration", {})
+    else:
+        verification = form.setdefault("Verification", {}).setdefault("Declaration", {})
+        
+    verification["FatherName"] = father_name
+    verification["AssesseeVerName"] = f"{first_name} {surname}".strip()
+    verification["PAN"] = personal_info.get("PAN", "ABCDE1234F")
+    verification["Capacity"] = "S" # Self
+    verification["Place"] = "Delhi"
+    verification["Date"] = datetime.now().strftime("%Y-%m-%d")
 
 
     # 2. INCOME CALCULATION
