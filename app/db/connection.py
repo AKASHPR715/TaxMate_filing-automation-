@@ -8,7 +8,8 @@ load_dotenv()
 
 # Default to local mongo if not set
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-DB_NAME = os.getenv("DB_NAME", "taxmate_db")
+# Force correct DB name as .env has incorrect value 'taxmate'
+DB_NAME = "taxmate_db" # os.getenv("DB_NAME", "taxmate_db")
 
 logger = logging.getLogger("Database")
 

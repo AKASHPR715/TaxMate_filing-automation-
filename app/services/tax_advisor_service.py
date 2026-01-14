@@ -147,7 +147,7 @@ if llm:
         tools=tools, 
         verbose=True, 
         handle_parsing_errors=True,
-        max_iterations=10, # Reduce iterations to fail faster if looping
+        max_iterations=20, # Reduce iterations to fail faster if looping
         early_stopping_method="force"
     )
 
