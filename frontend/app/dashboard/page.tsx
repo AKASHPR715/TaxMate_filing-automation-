@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getUserId, getApiHeaders } from '@/lib/user';
+import { getUserId, getApiHeaders, isAuthenticated, logout } from '@/lib/user';
+import { AuthModal } from '@/components/auth-modal';
 import {
   Dialog,
   DialogContent,
@@ -58,6 +59,32 @@ export default function Dashboard() {
 
   // Step 3: View Filing Data
   const [showFilingViewer, setShowFilingViewer] = useState(false);
+
+  // Authentication State
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsUserLoggedIn(isAuthenticated());
+  }, []);
+
+  const requireAuth = () => {
+    if (!isAuthenticated()) {
+      setIsAuthModalOpen(true);
+      return false;
+    }
+    return true;
+  };
+
+  const handleAuthSuccess = () => {
+    setIsUserLoggedIn(true);
+    // Optionally trigger a refresh or just close modal
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsUserLoggedIn(false);
+  };
 
   // Step 1: Extract Data and Open Review Modal
   const startAnalysisFlow = async () => {
@@ -219,6 +246,12 @@ export default function Dashboard() {
   };
 
   const handleChatFileScan = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!requireAuth()) {
+      // Clear file input so they can try again after login
+      e.target.value = '';
+      return;
+    }
+
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -242,11 +275,9 @@ export default function Dashboard() {
     try {
       setMessages(prev => [...prev, { type: 'status', content: `Uploading and analyzing ${file.name}...`, sender: 'bot' }]);
 
-      const res = await fetch('http://localhost:8000/api/upload', {
+      const res = await fetch(`http://localhost:8000/api/upload/${docType}`, {
         method: 'POST',
-        headers: {
-          'X-User-Id': getUserId(),
-        },
+        headers: getApiHeaders(),
         body: formData
       });
 
@@ -321,6 +352,11 @@ export default function Dashboard() {
   ) => {
     const files = event.target.files;
     if (files && files.length > 0) {
+      if (!requireAuth()) {
+        // Clear file input
+        event.target.value = '';
+        return;
+      }
       await uploadFile(files[0], setState, docType);
     }
   };
@@ -335,6 +371,7 @@ export default function Dashboard() {
     setIsDragging(false);
     const files = event.dataTransfer.files;
     if (files && files.length > 0) {
+      if (!requireAuth()) return;
       await uploadFile(files[0], setState, docType);
     }
   };
@@ -371,17 +408,19 @@ export default function Dashboard() {
         });
       }, 500);
 
-      const response = await fetch('http://localhost:8000/api/upload', {
+      const response = await fetch(`http://localhost:8000/api/upload/${docType}`, {
         method: 'POST',
-        headers: {
-          'X-User-Id': getUserId(),
-        },
+        headers: getApiHeaders(),
         body: formData,
       });
 
       clearInterval(interval);
 
       if (!response.ok) {
+        if (response.status === 401) {
+          setIsAuthModalOpen(true);
+          throw new Error('Please login to continue');
+        }
         const errorData = await response.json();
         throw new Error(errorData.detail || 'Upload failed');
       }
@@ -508,12 +547,30 @@ export default function Dashboard() {
 
   return (
     <div className="pt-16 bg-gray-50 min-h-screen">
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={handleAuthSuccess}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Tax Filing Dashboard</h1>
-          <p className="text-lg text-gray-600">
-            Upload your documents and let our AI handle the rest
-          </p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Tax Filing Dashboard</h1>
+            <p className="text-lg text-gray-600">
+              Upload your documents and let our AI handle the rest
+            </p>
+          </div>
+          <div>
+            {!isUserLoggedIn ? (
+              <Button onClick={() => setIsAuthModalOpen(true)} className="bg-blue-900 hover:bg-blue-800">
+                Login / Sign Up
+              </Button>
+            ) : (
+              <Button variant="outline" onClick={handleLogout} className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700">
+                Logout
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
