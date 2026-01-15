@@ -1,0 +1,222 @@
+================================================================================
+TAX COMPUTATION BENCHMARK - 20260114_171331
+Model: gemini-2.0-flash-exp
+Total Profiles: 5
+Dry Run: False
+================================================================================
+
+
+================================================================================
+PROFILE 1/5: TAX-CC403AC6
+================================================================================
+Complexity: Medium
+Target Regime: New
+Age: 40
+Gross Salary: ₹1,509,000.00
+Basic Salary: ₹715,200.00
+HRA Received: ₹286,300.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹90,500.00
+    - ELSS: ₹59,500.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹204,000.00 (Metro: False)
+
+GROUND TRUTH: ₹131,872.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹131,872.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹-1.00
+   Error: ₹131,873.00 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹-1.00
+   Error: ₹131,873.00 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+
+================================================================================
+PROFILE 2/5: TAX-174248AE
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 28
+Gross Salary: ₹559,000.00
+Basic Salary: ₹273,500.00
+HRA Received: ₹133,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹33,500.00
+    - PF: ₹33,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹15,000.00
+    - Self/Family: ₹15,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹52,100.00 (Metro: False)
+
+GROUND TRUTH: ₹9,659.00
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹9,659.00
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹-1.00
+   Error: ₹9,660.00 (100.01%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹-1.00
+   Error: ₹9,660.00 (100.01%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+
+================================================================================
+PROFILE 3/5: TAX-87B806DA
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 31
+Gross Salary: ₹778,000.00
+Basic Salary: ₹354,700.00
+HRA Received: ₹159,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹46,700.00
+    - PF: ₹46,700.00
+    - ELSS: ₹0.00
+    - LIC: ₹0.00
+    - PPF: ₹0.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹55,000.00 (Metro: False)
+
+GROUND TRUTH: ₹46,648.16
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹46,648.16
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹-1.00
+   Error: ₹46,649.16 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹-1.00
+   Error: ₹46,649.16 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+
+================================================================================
+PROFILE 4/5: TAX-11AB4E86
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 44
+Gross Salary: ₹1,941,000.00
+Basic Salary: ₹962,200.00
+HRA Received: ₹414,100.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹150,000.00
+    - PF: ₹116,500.00
+    - ELSS: ₹0.00
+    - LIC: ₹33,500.00
+    - PPF: ₹0.00
+  Total 80D: ₹20,000.00
+    - Self/Family: ₹20,000.00
+    - Parents: ₹0.00
+  Rent Paid: ₹223,600.00 (Metro: False)
+
+GROUND TRUTH: ₹302,209.44
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹302,209.44
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹-1.00
+   Error: ₹302,210.44 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹-1.00
+   Error: ₹302,210.44 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+
+================================================================================
+PROFILE 5/5: TAX-EFF56189
+================================================================================
+Complexity: Medium
+Target Regime: Old
+Age: 46
+Gross Salary: ₹939,000.00
+Basic Salary: ₹403,300.00
+HRA Received: ₹175,900.00
+Other Income: ₹0.00
+
+Deductions:
+  Total 80C: ₹115,772.00
+    - PF: ₹56,300.00
+    - ELSS: ₹29,736.00
+    - LIC: ₹0.00
+    - PPF: ₹29,736.00
+  Total 80D: ₹0.00
+    - Self/Family: ₹0.00
+    - Parents: ₹0.00
+  Rent Paid: ₹88,100.00 (Metro: False)
+
+GROUND TRUTH: ₹59,895.26
+
+--------------------------------------------------------------------------------
+MODEL PREDICTIONS:
+--------------------------------------------------------------------------------
+
+1. NEURO-SYMBOLIC (TaxOrchestrator):
+   Prediction: ₹59,895.26
+   Error: ₹0.00 (0.00%)
+
+2. ZERO-SHOT LLM:
+   Prediction: ₹-1.00
+   Error: ₹59,896.26 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+
+3. CHAIN-OF-THOUGHT LLM:
+   Prediction: ₹-1.00
+   Error: ₹59,896.26 (100.00%)
+   Raw Output (first 200 chars): ERROR: API Failed after all retries...
+

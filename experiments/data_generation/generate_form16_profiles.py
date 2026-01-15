@@ -63,6 +63,19 @@ def convert_to_form16_format(profile) -> dict:
                 "salary_from_other_employers": 0.0  # Assuming single employer
             },
             
+            # 1a. Salary Breakdown (for HRA calculation)
+            "salary_breakdown": {
+                "basic_salary": profile.income.basic_salary,
+                "hra": profile.income.hra_received,
+                "special_allowance": profile.income.special_allowance
+            },
+            
+            # 1b. Rent Details (for HRA calculation)
+            "rent_details": {
+                "annual_rent_paid": profile.deductions.rent_paid_annual,
+                "is_metro_city": profile.deductions.is_metro_city
+            },
+            
             # 2. Section 10 Exemptions
             "exemptions_u_s_10": {
                 "house_rent_allowance": hra_exempt,

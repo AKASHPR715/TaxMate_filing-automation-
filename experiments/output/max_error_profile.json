@@ -1,0 +1,45 @@
+[
+  {
+    "profile_id": "TAX-1FF1F579",
+    "timestamp": "2026-01-14T17:33:15.277385",
+    "input_profile": {
+      "profile_id": "TAX-1FF1F579",
+      "age": 30,
+      "complexity_category": "Complex",
+      "target_regime": "Old",
+      "ground_truth_tax": 346426.08,
+      "gross_salary": 2055000.0,
+      "basic_salary": 995400.0,
+      "hra_received": 401400.0,
+      "other_income": 50000.0,
+      "pf_contribution": 123300.0,
+      "elss": 0.0,
+      "lic_premium": 26700.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 194200.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 362026.08,
+        "error": 15600.0,
+        "error_percentage": 4.503125168867193,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 311783.472,
+        "error": 34642.60800000001,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 329104.776,
+        "error": 17321.304000000004,
+        "status": "dry_run_mock"
+      }
+    }
+  }
+]

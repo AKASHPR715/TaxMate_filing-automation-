@@ -1,0 +1,6 @@
+profile_id,complexity,regime,ground_truth,neuro_sym_tax,zero_shot_tax,cot_tax,neuro_error,zs_error,cot_error,zs_raw,cot_raw
+TAX-CC403AC6,Medium,New,131872.0,131872.0,-1.0,-1.0,0.0,131873.0,131873.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-174248AE,Medium,Old,9659.0,9659.0,-1.0,-1.0,0.0,9660.0,9660.0,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-87B806DA,Medium,Old,46648.16,46648.16,-1.0,-1.0,0.0,46649.16,46649.16,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-11AB4E86,Medium,Old,302209.44,302209.44,-1.0,-1.0,0.0,302210.44,302210.44,ERROR: API Failed after all retries,ERROR: API Failed after all retries
+TAX-EFF56189,Medium,Old,59895.26400000001,59895.26400000001,-1.0,-1.0,0.0,59896.26400000001,59896.26400000001,ERROR: API Failed after all retries,ERROR: API Failed after all retries

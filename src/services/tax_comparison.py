@@ -99,6 +99,45 @@ def apply_cess(base_tax: float) -> float:
     """Apply 4% Health and Education Cess"""
     return base_tax * 1.04
 
+def calculate_hra_exemption(hra_received: float, basic_salary: float, 
+                            rent_paid_annual: float, is_metro_city: bool) -> float:
+    """
+    Calculate HRA exemption as per Section 10(13A) of Income Tax Act.
+    
+    HRA Exemption is the MINIMUM of:
+    1. Actual HRA received
+    2. 50% of basic salary (metro) or 40% of basic salary (non-metro)
+    3. Rent paid minus 10% of basic salary
+    
+    Args:
+        hra_received: Annual HRA component received
+        basic_salary: Annual basic salary
+        rent_paid_annual: Annual rent paid
+        is_metro_city: True if living in metro city (Mumbai, Delhi, Chennai, Kolkata)
+        
+    Returns:
+        Exempted amount under Section 10(13A)
+    """
+    # If no HRA or no rent paid, no exemption
+    if hra_received == 0 or rent_paid_annual == 0 or basic_salary == 0:
+        return 0.0
+    
+    # Option 1: Actual HRA received
+    actual_hra = hra_received
+    
+    # Option 2: 50% of basic (metro) or 40% of basic (non-metro)
+    percentage = 0.50 if is_metro_city else 0.40
+    percent_of_basic = basic_salary * percentage
+    
+    # Option 3: Rent paid minus 10% of basic salary
+    ten_percent_basic = basic_salary * 0.10
+    rent_minus_ten_percent = max(0.0, rent_paid_annual - ten_percent_basic)
+    
+    # HRA exemption is the MINIMUM of the three
+    exemption = min(actual_hra, percent_of_basic, rent_minus_ten_percent)
+    
+    return exemption
+
 # Explanation functions remain unchanged (they show base tax breakdown)
 def explain_old_regime_tax(income: float) -> list:
     """Generates a breakdown of the old regime tax calculation."""
@@ -388,9 +427,41 @@ def compare_tax_regimes(extracted_data: dict = None, include_any_other_deduction
                     gross_salary = total_sal + other_emp_sal
                     comparison_logger.info(f"Gross Salary: ₹{total_sal:,.2f} + ₹{other_emp_sal:,.2f} = ₹{gross_salary:,.2f}")
                 
+                # Extract salary breakdown (for HRA calculation)
+                salary_breakdown = form_data.get("salary_breakdown", {})
+                basic_salary = 0.0
+                hra_received = 0.0
+                if isinstance(salary_breakdown, dict):
+                    basic_salary = salary_breakdown.get("basic_salary", 0) or 0
+                    hra_received = salary_breakdown.get("hra", 0) or 0
+                else:
+                    # Fallback: estimate basic as 40% of gross if not provided
+                    basic_salary = gross_salary * 0.40
+                
+                # Extract rent details (for HRA calculation)
+                rent_details = form_data.get("rent_details", {})
+                rent_paid_annual = 0.0
+                is_metro_city = False
+                if isinstance(rent_details, dict):
+                    rent_paid_annual = rent_details.get("annual_rent_paid", 0) or 0
+                    is_metro_city = rent_details.get("is_metro_city", False)
+                
                 exemptions_us10 = form_data.get("exemptions_u_s_10", {})
                 if isinstance(exemptions_us10, dict):
-                    exemptions_10["hra"] = exemptions_us10.get("house_rent_allowance", 0) or 0
+                    # Calculate HRA exemption using formula instead of trusting Form 16
+                    if hra_received > 0 or (exemptions_us10.get("house_rent_allowance", 0) or 0) > 0:
+                        # Use hra_received from salary_breakdown, or fall back to Form 16 value
+                        if hra_received == 0:
+                            hra_received = exemptions_us10.get("house_rent_allowance", 0) or 0
+                        
+                        # Calculate HRA exemption using Section 10(13A) formula
+                        exemptions_10["hra"] = calculate_hra_exemption(
+                            hra_received=hra_received,
+                            basic_salary=basic_salary,
+                            rent_paid_annual=rent_paid_annual,
+                            is_metro_city=is_metro_city
+                        )
+                        comparison_logger.info(f"HRA Calculation: Received=₹{hra_received:,.2f}, Basic=₹{basic_salary:,.2f}, Rent=₹{rent_paid_annual:,.2f}, Metro={is_metro_city} → Exemption=₹{exemptions_10['hra']:,.2f}")
                     exemptions_10["lta"] = exemptions_us10.get("leave_travel_concession", 0) or 0
                     exemptions_10["gratuity"] = exemptions_us10.get("gratuity", 0) or 0
                     exemptions_10["leave_encashment"] = exemptions_us10.get("leave_encashment", 0) or 0

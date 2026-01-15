@@ -1,0 +1,2582 @@
+[
+  {
+    "profile_id": "TAX-3285F1D6",
+    "timestamp": "2026-01-14T17:33:12.429577",
+    "input_profile": {
+      "profile_id": "TAX-3285F1D6",
+      "age": 47,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 7020.0,
+      "gross_salary": 500000.0,
+      "basic_salary": 209100.0,
+      "hra_received": 92200.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 30000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 7540.0,
+        "error": 520.0,
+        "error_percentage": 7.4074074074074066,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 6318.0,
+        "error": 702.0,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 6669.0,
+        "error": 351.0,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-8D824A0C",
+    "timestamp": "2026-01-14T17:33:12.706638",
+    "input_profile": {
+      "profile_id": "TAX-8D824A0C",
+      "age": 52,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 10909.236000000003,
+      "gross_salary": 775000.0,
+      "basic_salary": 381200.0,
+      "hra_received": 172300.0,
+      "other_income": 10000.0,
+      "pf_contribution": 46500.0,
+      "elss": 95027.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 141527.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 96800.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 15036.944000000001,
+        "error": 4127.707999999999,
+        "error_percentage": 37.83682010362593,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 9818.312400000003,
+        "error": 1090.9236,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 10363.774200000002,
+        "error": 545.461800000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-A489365C",
+    "timestamp": "2026-01-14T17:33:12.733617",
+    "input_profile": {
+      "profile_id": "TAX-A489365C",
+      "age": 55,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 47676.92800000001,
+      "gross_salary": 981000.0,
+      "basic_salary": 435200.0,
+      "hra_received": 174800.0,
+      "other_income": 0.0,
+      "pf_contribution": 58900.0,
+      "elss": 42152.0,
+      "lic_premium": 0.0,
+      "ppf": 42152.0,
+      "total_80c": 143204.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 114600.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 52876.92800000001,
+        "error": 5200.0,
+        "error_percentage": 10.90674298478291,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 42909.23520000001,
+        "error": 4767.692799999997,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 45293.081600000005,
+        "error": 2383.846400000002,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-E97787AD",
+    "timestamp": "2026-01-14T17:33:12.749069",
+    "input_profile": {
+      "profile_id": "TAX-E97787AD",
+      "age": 51,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 45341.50400000001,
+      "gross_salary": 778000.0,
+      "basic_salary": 351800.0,
+      "hra_received": 147200.0,
+      "other_income": 50000.0,
+      "pf_contribution": 46700.0,
+      "elss": 0.0,
+      "lic_premium": 30812.0,
+      "ppf": 0.0,
+      "total_80c": 77512.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 45000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 49501.504,
+        "error": 4159.999999999993,
+        "error_percentage": 9.174816962401582,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 40807.35360000001,
+        "error": 4534.150399999999,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 43074.42880000001,
+        "error": 2267.0751999999993,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-A13D6FB2",
+    "timestamp": "2026-01-14T17:33:12.761668",
+    "input_profile": {
+      "profile_id": "TAX-A13D6FB2",
+      "age": 51,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 28271.36,
+      "gross_salary": 735000.0,
+      "basic_salary": 365200.0,
+      "hra_received": 177400.0,
+      "other_income": 0.0,
+      "pf_contribution": 44100.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 44100.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 40000.0,
+      "rent_paid_annual": 64000.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 31391.36,
+        "error": 3120.0,
+        "error_percentage": 11.03590347263096,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 25444.224000000002,
+        "error": 2827.1359999999986,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 26857.791999999998,
+        "error": 1413.568000000003,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-5B80ABE9",
+    "timestamp": "2026-01-14T17:33:12.939017",
+    "input_profile": {
+      "profile_id": "TAX-5B80ABE9",
+      "age": 42,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 5484.4400000000005,
+      "gross_salary": 500000.0,
+      "basic_salary": 242700.0,
+      "hra_received": 103900.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 30000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 53800.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 6004.4400000000005,
+        "error": 520.0,
+        "error_percentage": 9.48136910969944,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 4935.996000000001,
+        "error": 548.4439999999995,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 5210.218,
+        "error": 274.22200000000066,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-62A3E5EF",
+    "timestamp": "2026-01-14T17:33:12.950300",
+    "input_profile": {
+      "profile_id": "TAX-62A3E5EF",
+      "age": 58,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 215.54000000000002,
+      "gross_salary": 504000.0,
+      "basic_salary": 219800.0,
+      "hra_received": 88900.0,
+      "other_income": 0.0,
+      "pf_contribution": 30200.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 90435.0,
+      "total_80c": 120635.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 70000.0,
+      "rent_paid_annual": 31200.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 2555.54,
+        "error": 2340.0,
+        "error_percentage": 1085.645355850422,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 193.98600000000002,
+        "error": 21.554000000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 204.763,
+        "error": 10.777000000000015,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-8A7EEFBD",
+    "timestamp": "2026-01-14T17:33:12.957688",
+    "input_profile": {
+      "profile_id": "TAX-8A7EEFBD",
+      "age": 26,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 24828.96,
+      "gross_salary": 782000.0,
+      "basic_salary": 353500.0,
+      "hra_received": 161400.0,
+      "other_income": 0.0,
+      "pf_contribution": 46900.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 58880.0,
+      "total_80c": 105780.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 40000.0,
+      "rent_paid_annual": 64700.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 27948.960000000003,
+        "error": 3120.0000000000036,
+        "error_percentage": 12.56597134958534,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 22346.064,
+        "error": 2482.8960000000006,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 23587.512,
+        "error": 1241.4480000000003,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-F9FD123B",
+    "timestamp": "2026-01-14T17:33:13.062838",
+    "input_profile": {
+      "profile_id": "TAX-F9FD123B",
+      "age": 29,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 3042.1040000000003,
+      "gross_salary": 500000.0,
+      "basic_salary": 209800.0,
+      "hra_received": 85500.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 19478.0,
+      "total_80c": 49478.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 65000.0,
+      "rent_paid_annual": 48000.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 5122.104,
+        "error": 2080.0,
+        "error_percentage": 68.37373081262179,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 2737.8936000000003,
+        "error": 304.21039999999994,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 2889.9988000000003,
+        "error": 152.10519999999997,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-95F8E433",
+    "timestamp": "2026-01-14T17:33:13.098873",
+    "input_profile": {
+      "profile_id": "TAX-95F8E433",
+      "age": 43,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 83561.92,
+      "gross_salary": 1080000.0,
+      "basic_salary": 445400.0,
+      "hra_received": 185100.0,
+      "other_income": 10000.0,
+      "pf_contribution": 64800.0,
+      "elss": 85200.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 30000.0,
+      "rent_paid_annual": 65300.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 84601.92,
+        "error": 1040.0,
+        "error_percentage": 1.244586050679544,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 75205.728,
+        "error": 8356.191999999995,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 79383.824,
+        "error": 4178.096000000005,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-053512A7",
+    "timestamp": "2026-01-14T17:33:13.191658",
+    "input_profile": {
+      "profile_id": "TAX-053512A7",
+      "age": 52,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 4734.08,
+      "gross_salary": 500000.0,
+      "basic_salary": 215400.0,
+      "hra_received": 107300.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 30000.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 50500.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 6034.08,
+        "error": 1300.0,
+        "error_percentage": 27.460456942003514,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 4260.6720000000005,
+        "error": 473.40799999999945,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 4497.375999999999,
+        "error": 236.70400000000063,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-E77D0B1D",
+    "timestamp": "2026-01-14T17:33:13.252002",
+    "input_profile": {
+      "profile_id": "TAX-E77D0B1D",
+      "age": 37,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 3556.1240000000007,
+      "gross_salary": 500000.0,
+      "basic_salary": 229400.0,
+      "hra_received": 110100.0,
+      "other_income": 10000.0,
+      "pf_contribution": 30000.0,
+      "elss": 61613.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 91613.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 4856.124000000001,
+        "error": 1300.0,
+        "error_percentage": 36.55665550470118,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 3200.5116000000007,
+        "error": 355.6124,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 3378.3178000000007,
+        "error": 177.8062,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-002A1999",
+    "timestamp": "2026-01-14T17:33:13.260174",
+    "input_profile": {
+      "profile_id": "TAX-002A1999",
+      "age": 26,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 3230.2400000000002,
+      "gross_salary": 500000.0,
+      "basic_salary": 247900.0,
+      "hra_received": 114400.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 35170.0,
+      "total_80c": 65170.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 62500.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 3750.2400000000002,
+        "error": 520.0,
+        "error_percentage": 16.097875080489374,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 2907.2160000000003,
+        "error": 323.0239999999999,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 3068.728,
+        "error": 161.51200000000017,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-9D4BDC73",
+    "timestamp": "2026-01-14T17:33:13.313970",
+    "input_profile": {
+      "profile_id": "TAX-9D4BDC73",
+      "age": 57,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 0.0,
+      "gross_salary": 564000.0,
+      "basic_salary": 252700.0,
+      "hra_received": 122200.0,
+      "other_income": 0.0,
+      "pf_contribution": 33800.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 91247.0,
+      "total_80c": 125047.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 119400.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 1030.796,
+        "error": 1030.796,
+        "error_percentage": 103079.6,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 0.0,
+        "error": 0.0,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 0.0,
+        "error": 0.0,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-248E5034",
+    "timestamp": "2026-01-14T17:33:13.322359",
+    "input_profile": {
+      "profile_id": "TAX-248E5034",
+      "age": 47,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 67194.40000000001,
+      "gross_salary": 1150000.0,
+      "basic_salary": 554500.0,
+      "hra_received": 276800.0,
+      "other_income": 0.0,
+      "pf_contribution": 69000.0,
+      "elss": 0.0,
+      "lic_premium": 81000.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 65000.0,
+      "rent_paid_annual": 179900.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 75514.40000000001,
+        "error": 8320.0,
+        "error_percentage": 12.381984212970126,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 60474.96000000001,
+        "error": 6719.440000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 63834.68000000001,
+        "error": 3359.720000000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-02A28E6C",
+    "timestamp": "2026-01-14T17:33:13.330435",
+    "input_profile": {
+      "profile_id": "TAX-02A28E6C",
+      "age": 52,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 68808.48,
+      "gross_salary": 1071000.0,
+      "basic_salary": 486100.0,
+      "hra_received": 222900.0,
+      "other_income": 5000.0,
+      "pf_contribution": 64300.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 85700.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 106300.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 74008.48,
+        "error": 5200.0,
+        "error_percentage": 7.557208065052448,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 61927.632,
+        "error": 6880.847999999998,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 65368.05599999999,
+        "error": 3440.4240000000063,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-F178F114",
+    "timestamp": "2026-01-14T17:33:13.527396",
+    "input_profile": {
+      "profile_id": "TAX-F178F114",
+      "age": 55,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 1159.652,
+      "gross_salary": 500000.0,
+      "basic_salary": 205000.0,
+      "hra_received": 99300.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 20899.5,
+      "lic_premium": 0.0,
+      "ppf": 20899.5,
+      "total_80c": 71799.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 65000.0,
+      "rent_paid_annual": 61400.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 3239.6520000000005,
+        "error": 2080.0000000000005,
+        "error_percentage": 179.36415407380838,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 1043.6868000000002,
+        "error": 115.96519999999987,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 1101.6694,
+        "error": 57.98260000000005,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-23CE43D9",
+    "timestamp": "2026-01-14T17:33:13.537450",
+    "input_profile": {
+      "profile_id": "TAX-23CE43D9",
+      "age": 31,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 122700.24,
+      "gross_salary": 1300000.0,
+      "basic_salary": 542700.0,
+      "hra_received": 238600.0,
+      "other_income": 0.0,
+      "pf_contribution": 78000.0,
+      "elss": 36000.0,
+      "lic_premium": 0.0,
+      "ppf": 36000.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 86000.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 130500.24,
+        "error": 7800.0,
+        "error_percentage": 6.3569557810155874,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 110430.216,
+        "error": 12270.024000000005,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 116565.228,
+        "error": 6135.012000000002,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-2B99F870",
+    "timestamp": "2026-01-14T17:33:13.582412",
+    "input_profile": {
+      "profile_id": "TAX-2B99F870",
+      "age": 45,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 80826.72,
+      "gross_salary": 1230000.0,
+      "basic_salary": 571900.0,
+      "hra_received": 232600.0,
+      "other_income": 5000.0,
+      "pf_contribution": 73800.0,
+      "elss": 0.0,
+      "lic_premium": 76200.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 216100.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 86026.72,
+        "error": 5200.0,
+        "error_percentage": 6.433516045189017,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 72744.04800000001,
+        "error": 8082.671999999991,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 76785.38399999999,
+        "error": 4041.3360000000102,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-1FD6E26D",
+    "timestamp": "2026-01-14T17:33:13.622653",
+    "input_profile": {
+      "profile_id": "TAX-1FD6E26D",
+      "age": 54,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 10249.096000000001,
+      "gross_salary": 721000.0,
+      "basic_salary": 350500.0,
+      "hra_received": 143000.0,
+      "other_income": 0.0,
+      "pf_contribution": 43300.0,
+      "elss": 26926.0,
+      "lic_premium": 0.0,
+      "ppf": 26926.0,
+      "total_80c": 97152.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 45000.0,
+      "rent_paid_annual": 116800.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 11289.096000000001,
+        "error": 1040.0,
+        "error_percentage": 10.147236400166413,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 9224.186400000002,
+        "error": 1024.909599999999,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 9736.6412,
+        "error": 512.4548000000013,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-0B2ECE53",
+    "timestamp": "2026-01-14T17:33:13.674856",
+    "input_profile": {
+      "profile_id": "TAX-0B2ECE53",
+      "age": 51,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 52538.72,
+      "gross_salary": 858000.0,
+      "basic_salary": 398900.0,
+      "hra_received": 192100.0,
+      "other_income": 0.0,
+      "pf_contribution": 51500.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 51500.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 56300.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 57738.72,
+        "error": 5200.0,
+        "error_percentage": 9.897462290668672,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 47284.848000000005,
+        "error": 5253.871999999996,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 49911.784,
+        "error": 2626.9360000000015,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-72732C78",
+    "timestamp": "2026-01-14T17:33:13.848512",
+    "input_profile": {
+      "profile_id": "TAX-72732C78",
+      "age": 58,
+      "complexity_category": "Complex",
+      "target_regime": "Old",
+      "ground_truth_tax": 417019.2,
+      "gross_salary": 2673000.0,
+      "basic_salary": 1237000.0,
+      "hra_received": 540100.0,
+      "other_income": 0.0,
+      "pf_contribution": 160400.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 160400.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 600100.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 420139.2,
+        "error": 3120.0,
+        "error_percentage": 0.7481669908723626,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 375317.28,
+        "error": 41701.919999999984,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 396168.24,
+        "error": 20850.96000000002,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-52526BB6",
+    "timestamp": "2026-01-14T17:33:13.862206",
+    "input_profile": {
+      "profile_id": "TAX-52526BB6",
+      "age": 59,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 0.0,
+      "gross_salary": 500000.0,
+      "basic_salary": 215800.0,
+      "hra_received": 106700.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 72131.0,
+      "ppf": 0.0,
+      "total_80c": 102131.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 85600.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 460.1480000000001,
+        "error": 460.1480000000001,
+        "error_percentage": 46014.80000000001,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 0.0,
+        "error": 0.0,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 0.0,
+        "error": 0.0,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-15840063",
+    "timestamp": "2026-01-14T17:33:13.870736",
+    "input_profile": {
+      "profile_id": "TAX-15840063",
+      "age": 53,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 110747.52,
+      "gross_salary": 1244000.0,
+      "basic_salary": 544200.0,
+      "hra_received": 271600.0,
+      "other_income": 0.0,
+      "pf_contribution": 74600.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 73080.0,
+      "total_80c": 147680.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 80800.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 115947.52,
+        "error": 5200.0,
+        "error_percentage": 4.695364735932687,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 99672.76800000001,
+        "error": 11074.751999999993,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 105210.144,
+        "error": 5537.376000000004,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-34E02B38",
+    "timestamp": "2026-01-14T17:33:13.899238",
+    "input_profile": {
+      "profile_id": "TAX-34E02B38",
+      "age": 24,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 14332.24,
+      "gross_salary": 843000.0,
+      "basic_salary": 373100.0,
+      "hra_received": 184500.0,
+      "other_income": 0.0,
+      "pf_contribution": 50600.0,
+      "elss": 0.0,
+      "lic_premium": 55305.0,
+      "ppf": 0.0,
+      "total_80c": 105905.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 143000.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 24732.24,
+        "error": 10400.000000000002,
+        "error_percentage": 72.563674624483,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 12899.016,
+        "error": 1433.2240000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 13615.627999999999,
+        "error": 716.612000000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-F4A225EC",
+    "timestamp": "2026-01-14T17:33:14.099911",
+    "input_profile": {
+      "profile_id": "TAX-F4A225EC",
+      "age": 51,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 10257.52,
+      "gross_salary": 704000.0,
+      "basic_salary": 339600.0,
+      "hra_received": 161300.0,
+      "other_income": 0.0,
+      "pf_contribution": 42200.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 42200.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 55000.0,
+      "rent_paid_annual": 143500.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 11817.52,
+        "error": 1560.0,
+        "error_percentage": 15.208354456047854,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 9231.768,
+        "error": 1025.7520000000004,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 9744.644,
+        "error": 512.8760000000002,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-4E17DEE4",
+    "timestamp": "2026-01-14T17:33:14.233095",
+    "input_profile": {
+      "profile_id": "TAX-4E17DEE4",
+      "age": 51,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 2165.644,
+      "gross_salary": 500000.0,
+      "basic_salary": 240300.0,
+      "hra_received": 110500.0,
+      "other_income": 50000.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 111183.0,
+      "ppf": 0.0,
+      "total_80c": 141183.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 45000.0,
+      "rent_paid_annual": 46200.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 3205.6440000000007,
+        "error": 1040.000000000001,
+        "error_percentage": 48.022666698681824,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 1949.0795999999998,
+        "error": 216.56439999999998,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 2057.3617999999997,
+        "error": 108.2822000000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-6D3CD30F",
+    "timestamp": "2026-01-14T17:33:14.274045",
+    "input_profile": {
+      "profile_id": "TAX-6D3CD30F",
+      "age": 34,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 6300.320000000001,
+      "gross_salary": 534000.0,
+      "basic_salary": 228600.0,
+      "hra_received": 109500.0,
+      "other_income": 10000.0,
+      "pf_contribution": 32000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 32000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 78700.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 6820.320000000001,
+        "error": 520.0,
+        "error_percentage": 8.253549026081213,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 5670.2880000000005,
+        "error": 630.0320000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 5985.304,
+        "error": 315.01600000000053,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-240BA9A3",
+    "timestamp": "2026-01-14T17:33:14.329686",
+    "input_profile": {
+      "profile_id": "TAX-240BA9A3",
+      "age": 36,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 2854.28,
+      "gross_salary": 500000.0,
+      "basic_salary": 245900.0,
+      "hra_received": 106800.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 30000.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 64700.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 5454.28,
+        "error": 2599.9999999999995,
+        "error_percentage": 91.0912734560029,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 2568.8520000000003,
+        "error": 285.4279999999999,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 2711.5660000000003,
+        "error": 142.71399999999994,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-A1487595",
+    "timestamp": "2026-01-14T17:33:14.371559",
+    "input_profile": {
+      "profile_id": "TAX-A1487595",
+      "age": 29,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 851.2920000000001,
+      "gross_salary": 500000.0,
+      "basic_salary": 226000.0,
+      "hra_received": 109900.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 113629.0,
+      "ppf": 0.0,
+      "total_80c": 143629.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 40000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 1631.2920000000001,
+        "error": 780.0,
+        "error_percentage": 91.62543522081728,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 766.1628000000002,
+        "error": 85.12919999999997,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 808.7274000000001,
+        "error": 42.56460000000004,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-F3707A5C",
+    "timestamp": "2026-01-14T17:33:14.388901",
+    "input_profile": {
+      "profile_id": "TAX-F3707A5C",
+      "age": 45,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 15489.344000000001,
+      "gross_salary": 755000.0,
+      "basic_salary": 317300.0,
+      "hra_received": 150300.0,
+      "other_income": 0.0,
+      "pf_contribution": 45300.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 60562.0,
+      "total_80c": 105862.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 68900.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 20689.344,
+        "error": 5200.0,
+        "error_percentage": 33.571466938819356,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 13940.4096,
+        "error": 1548.9344,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 14714.8768,
+        "error": 774.467200000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-DB1C50A9",
+    "timestamp": "2026-01-14T17:33:14.437791",
+    "input_profile": {
+      "profile_id": "TAX-DB1C50A9",
+      "age": 22,
+      "complexity_category": "Complex",
+      "target_regime": "Old",
+      "ground_truth_tax": 214013.28,
+      "gross_salary": 1702000.0,
+      "basic_salary": 777400.0,
+      "hra_received": 361700.0,
+      "other_income": 10000.0,
+      "pf_contribution": 102100.0,
+      "elss": 47900.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 40000.0,
+      "rent_paid_annual": 238800.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 218693.28,
+        "error": 4680.0,
+        "error_percentage": 2.1867801848558184,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 192611.952,
+        "error": 21401.32800000001,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 203312.61599999998,
+        "error": 10700.664000000019,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-1B54D7D3",
+    "timestamp": "2026-01-14T17:33:14.448470",
+    "input_profile": {
+      "profile_id": "TAX-1B54D7D3",
+      "age": 37,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 862680.0,
+      "gross_salary": 3635000.0,
+      "basic_salary": 1470300.0,
+      "hra_received": 608900.0,
+      "other_income": 5000.0,
+      "pf_contribution": 218100.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 218100.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 870480.0,
+        "error": 7800.0,
+        "error_percentage": 0.9041591320072333,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 776412.0,
+        "error": 86268.0,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 819546.0,
+        "error": 43134.0,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-5DF2697A",
+    "timestamp": "2026-01-14T17:33:14.500682",
+    "input_profile": {
+      "profile_id": "TAX-5DF2697A",
+      "age": 53,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 93839.2,
+      "gross_salary": 1315000.0,
+      "basic_salary": 600500.0,
+      "hra_received": 242800.0,
+      "other_income": 0.0,
+      "pf_contribution": 78900.0,
+      "elss": 0.0,
+      "lic_premium": 71100.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 211400.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 104239.2,
+        "error": 10400.0,
+        "error_percentage": 11.082788429568879,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 84455.28,
+        "error": 9383.919999999998,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 89147.23999999999,
+        "error": 4691.960000000006,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-9504237F",
+    "timestamp": "2026-01-14T17:33:14.536977",
+    "input_profile": {
+      "profile_id": "TAX-9504237F",
+      "age": 40,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 104201.76000000001,
+      "gross_salary": 1200000.0,
+      "basic_salary": 557700.0,
+      "hra_received": 231000.0,
+      "other_income": 0.0,
+      "pf_contribution": 72000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 72000.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 145300.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 109401.76000000001,
+        "error": 5200.0,
+        "error_percentage": 4.990318781563766,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 93781.58400000002,
+        "error": 10420.175999999992,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 98991.672,
+        "error": 5210.088000000003,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-6771E111",
+    "timestamp": "2026-01-14T17:33:14.594135",
+    "input_profile": {
+      "profile_id": "TAX-6771E111",
+      "age": 22,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 298958.4,
+      "gross_salary": 1780000.0,
+      "basic_salary": 847100.0,
+      "hra_received": 416300.0,
+      "other_income": 0.0,
+      "pf_contribution": 106800.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 106800.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 40000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 303638.4,
+        "error": 4680.0,
+        "error_percentage": 1.5654351909830932,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 269062.56000000006,
+        "error": 29895.839999999967,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 284010.48,
+        "error": 14947.920000000042,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-73318EEB",
+    "timestamp": "2026-01-14T17:33:14.609979",
+    "input_profile": {
+      "profile_id": "TAX-73318EEB",
+      "age": 54,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 1823.2240000000002,
+      "gross_salary": 500000.0,
+      "basic_salary": 230600.0,
+      "hra_received": 107800.0,
+      "other_income": 50000.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 114938.0,
+      "ppf": 0.0,
+      "total_80c": 144938.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 70000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 4163.224,
+        "error": 2340.0,
+        "error_percentage": 128.34407620786035,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 1640.9016000000001,
+        "error": 182.32240000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 1732.0628000000002,
+        "error": 91.16120000000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-CD4F5F25",
+    "timestamp": "2026-01-14T17:33:14.615307",
+    "input_profile": {
+      "profile_id": "TAX-CD4F5F25",
+      "age": 36,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 216744.84,
+      "gross_salary": 1581000.0,
+      "basic_salary": 783600.0,
+      "hra_received": 322900.0,
+      "other_income": 0.0,
+      "pf_contribution": 94900.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 51405.0,
+      "total_80c": 146305.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 65000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 229224.84,
+        "error": 12480.0,
+        "error_percentage": 5.75792254154701,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 195070.356,
+        "error": 21674.483999999997,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 205907.598,
+        "error": 10837.241999999998,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-EB5988B7",
+    "timestamp": "2026-01-14T17:33:14.650228",
+    "input_profile": {
+      "profile_id": "TAX-EB5988B7",
+      "age": 50,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 11649.04,
+      "gross_salary": 690000.0,
+      "basic_salary": 308200.0,
+      "hra_received": 148800.0,
+      "other_income": 0.0,
+      "pf_contribution": 41400.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 41400.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 80400.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 17996.16,
+        "error": 6347.119999999999,
+        "error_percentage": 54.48620658869743,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 10484.136,
+        "error": 1164.9040000000005,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 11066.588,
+        "error": 582.4520000000011,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-B4D5167B",
+    "timestamp": "2026-01-14T17:33:14.667951",
+    "input_profile": {
+      "profile_id": "TAX-B4D5167B",
+      "age": 36,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 79976.0,
+      "gross_salary": 1057000.0,
+      "basic_salary": 473900.0,
+      "hra_received": 218400.0,
+      "other_income": 0.0,
+      "pf_contribution": 63400.0,
+      "elss": 43300.0,
+      "lic_premium": 0.0,
+      "ppf": 43300.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 82056.0,
+        "error": 2080.0,
+        "error_percentage": 2.600780234070221,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 71978.40000000001,
+        "error": 7997.599999999991,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 75977.2,
+        "error": 3998.800000000003,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-919C3178",
+    "timestamp": "2026-01-14T17:33:14.781874",
+    "input_profile": {
+      "profile_id": "TAX-919C3178",
+      "age": 42,
+      "complexity_category": "Complex",
+      "target_regime": "Old",
+      "ground_truth_tax": 129582.96,
+      "gross_salary": 1503000.0,
+      "basic_salary": 643300.0,
+      "hra_received": 258800.0,
+      "other_income": 0.0,
+      "pf_contribution": 90200.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 59800.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 65000.0,
+      "rent_paid_annual": 262000.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 142062.96,
+        "error": 12479.999999999985,
+        "error_percentage": 9.630895914092397,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 116624.664,
+        "error": 12958.296000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 123103.812,
+        "error": 6479.148000000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-A6FB86D5",
+    "timestamp": "2026-01-14T17:33:14.797440",
+    "input_profile": {
+      "profile_id": "TAX-A6FB86D5",
+      "age": 58,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 8836.204000000002,
+      "gross_salary": 630000.0,
+      "basic_salary": 288500.0,
+      "hra_received": 143800.0,
+      "other_income": 0.0,
+      "pf_contribution": 37800.0,
+      "elss": 0.0,
+      "lic_premium": 72273.0,
+      "ppf": 0.0,
+      "total_80c": 110073.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 10136.204000000002,
+        "error": 1300.0,
+        "error_percentage": 14.712199944682125,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 7952.583600000002,
+        "error": 883.6203999999998,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 8394.393800000002,
+        "error": 441.8101999999999,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-216BC6D6",
+    "timestamp": "2026-01-14T17:33:14.843417",
+    "input_profile": {
+      "profile_id": "TAX-216BC6D6",
+      "age": 27,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 7067.06,
+      "gross_salary": 658000.0,
+      "basic_salary": 295900.0,
+      "hra_received": 134100.0,
+      "other_income": 10000.0,
+      "pf_contribution": 39500.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 70385.0,
+      "total_80c": 109885.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 101800.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 8367.06,
+        "error": 1299.999999999999,
+        "error_percentage": 18.395202531179855,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 6360.354,
+        "error": 706.7060000000001,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 6713.707,
+        "error": 353.35300000000007,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-5B770BC3",
+    "timestamp": "2026-01-14T17:33:14.878044",
+    "input_profile": {
+      "profile_id": "TAX-5B770BC3",
+      "age": 50,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 37377.6,
+      "gross_salary": 787000.0,
+      "basic_salary": 362000.0,
+      "hra_received": 176500.0,
+      "other_income": 25000.0,
+      "pf_contribution": 47200.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 47200.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 55000.0,
+      "rent_paid_annual": 78800.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 43617.6,
+        "error": 6240.0,
+        "error_percentage": 16.69449081803005,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 33639.84,
+        "error": 3737.760000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 35508.719999999994,
+        "error": 1868.8800000000047,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-CDCAA689",
+    "timestamp": "2026-01-14T17:33:14.882647",
+    "input_profile": {
+      "profile_id": "TAX-CDCAA689",
+      "age": 24,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 472.10800000000006,
+      "gross_salary": 500000.0,
+      "basic_salary": 200900.0,
+      "hra_received": 98300.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 86211.0,
+      "total_80c": 116211.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 44800.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 1772.1080000000002,
+        "error": 1300.0,
+        "error_percentage": 275.36072254653595,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 424.89720000000005,
+        "error": 47.210800000000006,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 448.50260000000003,
+        "error": 23.60540000000003,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-7718C0F3",
+    "timestamp": "2026-01-14T17:33:14.906551",
+    "input_profile": {
+      "profile_id": "TAX-7718C0F3",
+      "age": 43,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 79532.12800000001,
+      "gross_salary": 990000.0,
+      "basic_salary": 414000.0,
+      "hra_received": 166800.0,
+      "other_income": 5000.0,
+      "pf_contribution": 59400.0,
+      "elss": 5367.0,
+      "lic_premium": 0.0,
+      "ppf": 5367.0,
+      "total_80c": 70134.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 55000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 85772.128,
+        "error": 6239.999999999985,
+        "error_percentage": 7.845885878974576,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 71578.91520000002,
+        "error": 7953.212799999994,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 75555.52160000001,
+        "error": 3976.606400000004,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-8AB4A231",
+    "timestamp": "2026-01-14T17:33:14.971821",
+    "input_profile": {
+      "profile_id": "TAX-8AB4A231",
+      "age": 30,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 62515.64800000001,
+      "gross_salary": 893000.0,
+      "basic_salary": 386400.0,
+      "hra_received": 158200.0,
+      "other_income": 0.0,
+      "pf_contribution": 53600.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 1344.0,
+      "total_80c": 54944.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 67715.648,
+        "error": 5199.999999999993,
+        "error_percentage": 8.317917459641452,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 56264.08320000001,
+        "error": 6251.5648,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 59389.865600000005,
+        "error": 3125.7824000000037,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-322D3DE8",
+    "timestamp": "2026-01-14T17:33:14.991862",
+    "input_profile": {
+      "profile_id": "TAX-322D3DE8",
+      "age": 26,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 54100.8,
+      "gross_salary": 854000.0,
+      "basic_salary": 396000.0,
+      "hra_received": 195300.0,
+      "other_income": 0.0,
+      "pf_contribution": 51200.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 51200.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 35000.0,
+      "rent_paid_annual": 59800.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 56180.8,
+        "error": 2080.0,
+        "error_percentage": 3.8446751249519413,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 48690.72,
+        "error": 5410.080000000002,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 51395.76,
+        "error": 2705.040000000001,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-26B0A261",
+    "timestamp": "2026-01-14T17:33:15.103132",
+    "input_profile": {
+      "profile_id": "TAX-26B0A261",
+      "age": 39,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 38437.36,
+      "gross_salary": 869000.0,
+      "basic_salary": 392100.0,
+      "hra_received": 170300.0,
+      "other_income": 0.0,
+      "pf_contribution": 52100.0,
+      "elss": 53515.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 105615.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 65000.0,
+      "rent_paid_annual": 65300.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 46757.36,
+        "error": 8320.0,
+        "error_percentage": 21.645607294569658,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 34593.624,
+        "error": 3843.735999999997,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 36515.492,
+        "error": 1921.8680000000022,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-3D8A4CC3",
+    "timestamp": "2026-01-14T17:33:15.152134",
+    "input_profile": {
+      "profile_id": "TAX-3D8A4CC3",
+      "age": 53,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 7391.748000000001,
+      "gross_salary": 590000.0,
+      "basic_salary": 279800.0,
+      "hra_received": 126500.0,
+      "other_income": 0.0,
+      "pf_contribution": 35400.0,
+      "elss": 0.0,
+      "lic_premium": 19931.0,
+      "ppf": 0.0,
+      "total_80c": 55331.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 70500.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 8691.748000000001,
+        "error": 1300.0,
+        "error_percentage": 17.58717964952268,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 6652.573200000002,
+        "error": 739.1747999999998,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 7022.160600000001,
+        "error": 369.58740000000034,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-599E5E79",
+    "timestamp": "2026-01-14T17:33:15.225470",
+    "input_profile": {
+      "profile_id": "TAX-599E5E79",
+      "age": 28,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 127579.92,
+      "gross_salary": 1327000.0,
+      "basic_salary": 548100.0,
+      "hra_received": 265000.0,
+      "other_income": 5000.0,
+      "pf_contribution": 79600.0,
+      "elss": 70400.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 45000.0,
+      "rent_paid_annual": 107900.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 133819.92,
+        "error": 6240.000000000015,
+        "error_percentage": 4.891051820694052,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 114821.928,
+        "error": 12757.991999999998,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 121200.924,
+        "error": 6378.995999999999,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-DC2492EB",
+    "timestamp": "2026-01-14T17:33:15.236020",
+    "input_profile": {
+      "profile_id": "TAX-DC2492EB",
+      "age": 23,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 1733.5760000000002,
+      "gross_salary": 500000.0,
+      "basic_salary": 218500.0,
+      "hra_received": 102400.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 39112.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 69112.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 30000.0,
+      "rent_paid_annual": 89400.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 1993.5760000000002,
+        "error": 260.0,
+        "error_percentage": 14.997900293958843,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 1560.2184000000002,
+        "error": 173.35760000000005,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 1646.8972,
+        "error": 86.67880000000014,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-34F817CB",
+    "timestamp": "2026-01-14T17:33:15.259056",
+    "input_profile": {
+      "profile_id": "TAX-34F817CB",
+      "age": 52,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 6566.04,
+      "gross_salary": 522000.0,
+      "basic_salary": 254700.0,
+      "hra_received": 119000.0,
+      "other_income": 0.0,
+      "pf_contribution": 31300.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 31300.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 55000.0,
+      "rent_paid_annual": 34900.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 8126.04,
+        "error": 1560.0,
+        "error_percentage": 23.758612497030175,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 5909.436,
+        "error": 656.6040000000003,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 6237.737999999999,
+        "error": 328.3020000000006,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-378E2823",
+    "timestamp": "2026-01-14T17:33:15.272403",
+    "input_profile": {
+      "profile_id": "TAX-378E2823",
+      "age": 37,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 4094.1680000000006,
+      "gross_salary": 500000.0,
+      "basic_salary": 209000.0,
+      "hra_received": 91400.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 4166.0,
+      "ppf": 0.0,
+      "total_80c": 34166.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 30000.0,
+      "rent_paid_annual": 78000.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 4354.168,
+        "error": 259.9999999999991,
+        "error_percentage": 6.3504966088347885,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 3684.7512000000006,
+        "error": 409.41679999999997,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 3889.4596000000006,
+        "error": 204.70839999999998,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-1FF1F579",
+    "timestamp": "2026-01-14T17:33:15.277385",
+    "input_profile": {
+      "profile_id": "TAX-1FF1F579",
+      "age": 30,
+      "complexity_category": "Complex",
+      "target_regime": "Old",
+      "ground_truth_tax": 346426.08,
+      "gross_salary": 2055000.0,
+      "basic_salary": 995400.0,
+      "hra_received": 401400.0,
+      "other_income": 50000.0,
+      "pf_contribution": 123300.0,
+      "elss": 0.0,
+      "lic_premium": 26700.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 194200.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 362026.08,
+        "error": 15600.0,
+        "error_percentage": 4.503125168867193,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 311783.472,
+        "error": 34642.60800000001,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 329104.776,
+        "error": 17321.304000000004,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-5FFB87C2",
+    "timestamp": "2026-01-14T17:33:15.287971",
+    "input_profile": {
+      "profile_id": "TAX-5FFB87C2",
+      "age": 42,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 128662.56,
+      "gross_salary": 1370000.0,
+      "basic_salary": 562800.0,
+      "hra_received": 263100.0,
+      "other_income": 0.0,
+      "pf_contribution": 82200.0,
+      "elss": 0.0,
+      "lic_premium": 67800.0,
+      "ppf": 0.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 45000.0,
+      "rent_paid_annual": 143900.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 134902.56,
+        "error": 6240.0,
+        "error_percentage": 4.849895727241864,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 115796.304,
+        "error": 12866.255999999994,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 122229.43199999999,
+        "error": 6433.1280000000115,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-EC92285E",
+    "timestamp": "2026-01-14T17:33:15.297511",
+    "input_profile": {
+      "profile_id": "TAX-EC92285E",
+      "age": 49,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 42592.576,
+      "gross_salary": 798000.0,
+      "basic_salary": 362100.0,
+      "hra_received": 179000.0,
+      "other_income": 50000.0,
+      "pf_contribution": 47900.0,
+      "elss": 6869.0,
+      "lic_premium": 0.0,
+      "ppf": 6869.0,
+      "total_80c": 61638.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 30000.0,
+      "total_80d": 55000.0,
+      "rent_paid_annual": 75300.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 48832.576,
+        "error": 6240.0,
+        "error_percentage": 14.650440489910729,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 38333.318400000004,
+        "error": 4259.257599999997,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 40462.9472,
+        "error": 2129.6287999999986,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-1F8918D0",
+    "timestamp": "2026-01-14T17:33:15.312353",
+    "input_profile": {
+      "profile_id": "TAX-1F8918D0",
+      "age": 52,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 3157.9080000000004,
+      "gross_salary": 500000.0,
+      "basic_salary": 221500.0,
+      "hra_received": 92700.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 20260.5,
+      "lic_premium": 0.0,
+      "ppf": 20260.5,
+      "total_80c": 70521.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 45000.0,
+      "rent_paid_annual": 45900.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 4197.908,
+        "error": 1040.0,
+        "error_percentage": 32.93319501391427,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 2842.1172000000006,
+        "error": 315.79079999999976,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 3000.0126,
+        "error": 157.89540000000034,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-8A7FA345",
+    "timestamp": "2026-01-14T17:33:15.336692",
+    "input_profile": {
+      "profile_id": "TAX-8A7FA345",
+      "age": 36,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 5051.072,
+      "gross_salary": 505000.0,
+      "basic_salary": 233400.0,
+      "hra_received": 109000.0,
+      "other_income": 0.0,
+      "pf_contribution": 30300.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 1604.0,
+      "total_80c": 31904.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 49300.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 6351.072,
+        "error": 1300.0,
+        "error_percentage": 25.73711085488387,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 4545.964800000001,
+        "error": 505.10719999999947,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 4798.5184,
+        "error": 252.5536000000002,
+        "status": "dry_run_mock"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-F5B4FED2",
+    "timestamp": "2026-01-14T17:33:15.343876",
+    "input_profile": {
+      "profile_id": "TAX-F5B4FED2",
+      "age": 23,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 5255.64,
+      "gross_salary": 500000.0,
+      "basic_salary": 222700.0,
+      "hra_received": 105500.0,
+      "other_income": 50000.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 30000.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 75000.0,
+      "rent_paid_annual": 66200.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 7855.64,
+        "error": 2600.0,
+        "error_percentage": 49.47066389630949,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 4730.076,
+        "error": 525.5640000000003,
+        "status": "dry_run_mock"
+      },
+      "chain_of_thought": {
+        "prediction": 4992.858,
+        "error": 262.78200000000015,
+        "status": "dry_run_mock"
+      }
+    }
+  }
+]

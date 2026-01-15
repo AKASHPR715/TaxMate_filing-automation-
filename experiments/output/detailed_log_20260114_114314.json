@@ -1,0 +1,492 @@
+[
+  {
+    "profile_id": "TAX-D963341E",
+    "timestamp": "2026-01-14T11:43:15.024506",
+    "input_profile": {
+      "profile_id": "TAX-D963341E",
+      "age": 25,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 15649.088000000002,
+      "gross_salary": 720000.0,
+      "basic_salary": 291400.0,
+      "hra_received": 136300.0,
+      "other_income": 0.0,
+      "pf_contribution": 43200.0,
+      "elss": 68304.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 111504.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 0.0,
+      "total_80d": 25000.0,
+      "rent_paid_annual": 49900.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 15649.088000000002,
+        "error": 0.0,
+        "error_percentage": 0.0,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 19736.0,
+        "error": 4086.9119999999984,
+        "error_percentage": 26.115975576340283,
+        "raw_output": "19736",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9720000.0\n    Basic Salary: \u20b9291400.0\n    HRA Received: \u20b9136300.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b949900.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b943200.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b968304.0\n    - Medical (Self): \u20b925000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": 26049.0,
+        "error": 10399.911999999998,
+        "error_percentage": 66.4569845859388,
+        "raw_output": "Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.\n\n**1. Gross Total Income:**\n\n*   Gross Salary: \u20b9720000.0\n*   Other Income: \u20b90.0\n*   Gross Total Income = \u20b9720000.0 + \u20b90.0 = \u20b9720000.0\n\n**2. Exemptions (HRA):**\n\nTo calculate the HRA exemption, we need to determine the least of the following:\n\n*   Actual HRA received: \u20b9136300.0\n*   50% of Basic Salary (if living in a metro city) or 40% of Basic Salary (if living in a non-metro city): Since the taxpayer is *not* living in a metro city, it's 40% of Basic Salary. 40% of \u20b9291400.0 = \u20b9116560.0\n*   Actual Rent Paid less 10% of Basic Salary: \u20b949900.0 - (10% of \u20b9291400.0) = \u20b949900.0 - \u20b929140.0 = \u20b920760.0\n\nThe least of these three amounts is \u20b920760.0. Therefore, the HRA exemption is \u20b920760.0\n\n**3. Deductions (Chapter VI-A):**\n\n*   **Section 80C:**\n    *   PF: \u20b943200.0\n    *   ELSS: \u20b968304.0\n    *   Total 80C = \u20b943200.0 + \u20b968304.0 = \u20b9111504.0\n    *   Maximum deduction allowed under Section 80C is \u20b9150000.0.  Therefore, the deduction is \u20b9111504.0\n\n*   **Section 80D (Medical Insurance):**\n    *   Medical (Self): \u20b925000.0\n    *   Medical (Parents): \u20b90.0\n    *   Total 80D = \u20b925000.0 + \u20b90.0 = \u20b925000.0\n\nTotal Deductions (Chapter VI-A) = \u20b9111504.0 + \u20b925000.0 = \u20b9136504.0\n\n**4. Taxable Income:**\n\n*   Gross Total Income: \u20b9720000.0\n*   HRA Exemption: \u20b920760.0\n*   Deductions (Chapter VI-A): \u20b9136504.0\n*   Taxable Income = \u20b9720000.0 - \u20b920760.0 - \u20b9136504.0 = \u20b9562736.0\n\n**5. Apply Tax Slabs (Old Regime for FY 2024-25):**\n\n*   Up to \u20b92,50,000: Nil\n*   \u20b92,50,001 to \u20b95,00,000: 5% of (\u20b95,00,000 - \u20b92,50,000) = 5% of \u20b92,50,000 = \u20b912,500\n*   \u20b95,00,001 to \u20b9562736.0: 20% of (\u20b9562736.0 - \u20b95,00,000) = 20% of \u20b962736.0 = \u20b912547.2\n\nTotal Income Tax = \u20b90 + \u20b912,500 + \u20b912547.2 = \u20b925047.2\n\n**6. Add Cess:**\n\n*   Cess is 4% of Income Tax.\n*   Cess = 4% of \u20b925047.2 = \u20b91001.888, rounded to \u20b91002.0\n\nTotal Tax Liability = \u20b925047.2 + \u20b91002.0 = \u20b926049.2\n\nRounded off to nearest rupee: \u20b926049\n\nFINAL TAX: 26049",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9720000.0\n    Basic Salary: \u20b9291400.0\n    HRA Received: \u20b9136300.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b949900.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b943200.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b968304.0\n    - Medical (Self): \u20b925000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-C78BEF18",
+    "timestamp": "2026-01-14T11:43:22.156393",
+    "input_profile": {
+      "profile_id": "TAX-C78BEF18",
+      "age": 26,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 1460550.0,
+      "gross_salary": 5528000.0,
+      "basic_salary": 2304500.0,
+      "hra_received": 1116200.0,
+      "other_income": 0.0,
+      "pf_contribution": 331700.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 331700.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 0.0,
+      "total_80d": 15000.0,
+      "rent_paid_annual": 237200.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 1460550.0,
+        "error": 0.0,
+        "error_percentage": 0.0,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 298375.0,
+        "error": 1162175.0,
+        "error_percentage": 79.57105200095855,
+        "raw_output": "298375",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b95528000.0\n    Basic Salary: \u20b92304500.0\n    HRA Received: \u20b91116200.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9237200.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b9331700.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b915000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": 1476150.0,
+        "error": 15600.0,
+        "error_percentage": 1.0680907877169559,
+        "raw_output": "Okay, let's calculate the income tax liability for the taxpayer under the Old Regime for FY 2024-25, step by step.\n\n**1. Gross Total Income:**\n\n*   Gross Salary: \u20b95528000.0\n*   Other Income: \u20b90.0\n*   Gross Total Income = \u20b95528000.0 + \u20b90.0 = \u20b95528000.0\n\n**2. Exemptions (HRA):**\n\nTo calculate the HRA exemption, we need to determine the least of the following three amounts:\n\n*   Actual HRA received: \u20b91116200.0\n*   Rent paid minus 10% of Basic Salary: \u20b9237200.0 - (10% of \u20b92304500.0) = \u20b9237200.0 - \u20b9230450.0 = \u20b96750.0\n*   50% of Basic Salary (since living in a metro city? No): 40% of Basic Salary = 40% of \u20b92304500.0 = \u20b9921800.0\n\nThe least of these three amounts is \u20b96750.0.\n\n*   HRA Exemption = \u20b96750.0\n\n**3. Deductions (Chapter VI-A):**\n\n*   PF: \u20b9331700.0\n*   LIC: \u20b90.0\n*   PPF: \u20b90.0\n*   ELSS: \u20b90.0\n*   Medical (Self): \u20b915000.0\n*   Medical (Parents): \u20b90.0\n\nTotal 80C Deduction = \u20b9331700.0\nTotal 80D Deduction = \u20b915000.0\n\nTotal Chapter VI-A Deductions:\n80C Limit is \u20b9150000.0\n80D Limit is \u20b925000.0\n\nSo, 80C deduction is \u20b9150000.0\nAnd 80D deduction is \u20b915000.0\n\nTotal Deductions = \u20b9150000.0 + \u20b915000.0 = \u20b9165000.0\n\n**4. Taxable Income:**\n\n*   Gross Total Income: \u20b95528000.0\n*   HRA Exemption: \u20b96750.0\n*   Chapter VI-A Deductions: \u20b9165000.0\n*   Taxable Income = \u20b95528000.0 - \u20b96750.0 - \u20b9165000.0 = \u20b95356250.0\n\n**5. Apply Tax Slabs (Old Regime for FY 2024-25):**\n\n*   Up to \u20b92,50,000: Nil\n*   \u20b92,50,001 to \u20b95,00,000: 5% of (\u20b95,00,000 - \u20b92,50,000) = 5% of \u20b92,50,000 = \u20b912,500\n*   \u20b95,00,001 to \u20b910,00,000: 20% of (\u20b910,00,000 - \u20b95,00,000) = 20% of \u20b95,00,000 = \u20b91,00,000\n*   Above \u20b910,00,000: 30% of (\u20b95356250.0 - \u20b910,00,000) = 30% of \u20b94356250.0 = \u20b91306875.0\n\nTotal Income Tax = \u20b90 + \u20b912,500 + \u20b91,00,000 + \u20b91306875.0 = \u20b91419375.0\n\n**6. Add Cess:**\n\n*   Cess = 4% of Income Tax = 4% of \u20b91419375.0 = \u20b956775.0\n\nTotal Tax Liability = \u20b91419375.0 + \u20b956775.0 = \u20b91476150.0\n\nFINAL TAX: 1476150.0",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b95528000.0\n    Basic Salary: \u20b92304500.0\n    HRA Received: \u20b91116200.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9237200.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b9331700.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b915000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-889D67FA",
+    "timestamp": "2026-01-14T11:43:29.889296",
+    "input_profile": {
+      "profile_id": "TAX-889D67FA",
+      "age": 48,
+      "complexity_category": "Medium",
+      "target_regime": "New",
+      "ground_truth_tax": 145184.0,
+      "gross_salary": 1498000.0,
+      "basic_salary": 723400.0,
+      "hra_received": 297400.0,
+      "other_income": 0.0,
+      "pf_contribution": 89900.0,
+      "elss": 30050.0,
+      "lic_premium": 0.0,
+      "ppf": 30050.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 70000.0,
+      "rent_paid_annual": 266700.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 129584.0,
+        "error": 15600.0,
+        "error_percentage": 10.744985673352435,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 100360.0,
+        "error": 44824.0,
+        "error_percentage": 30.873925501432666,
+        "raw_output": "100360",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b91498000.0\n    Basic Salary: \u20b9723400.0\n    HRA Received: \u20b9297400.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9266700.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b989900.0\n    - LIC: \u20b90.0\n    - PPF: \u20b930050.0\n    - ELSS: \u20b930050.0\n    - Medical (Self): \u20b920000.0\n    - Medical (Parents): \u20b950000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": 156000.0,
+        "error": 10816.0,
+        "error_percentage": 7.4498567335243555,
+        "raw_output": "Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.\n\n1.  **Gross Total Income:**\n\n    *   Gross Salary: \u20b91498000.0\n    *   Other Income: \u20b90.0\n    *   Gross Total Income = \u20b91498000.0 + \u20b90.0 = \u20b91498000.0\n\n2.  **Exemptions (HRA):**\n\n    *   Under the New Regime, HRA exemption is **not** allowed.\n\n3.  **Deductions (Chapter VI-A):**\n\n    *   Under the New Regime, most deductions under Chapter VI-A are **not** allowed. The standard deduction of \u20b950,000 is also not allowed.\n\n4.  **Taxable Income:**\n\n    *   Taxable Income = Gross Total Income = \u20b91498000.0\n\n5.  **Apply Tax Slabs (New Regime for FY 2024-25):**\n\n    *   Up to \u20b93,00,000: 0%\n    *   \u20b93,00,001 - \u20b96,00,000: 5%\n    *   \u20b96,00,001 - \u20b99,00,000: 10%\n    *   \u20b99,00,001 - \u20b912,00,000: 15%\n    *   \u20b912,00,001 - \u20b915,00,000: 20%\n    *   Above \u20b915,00,000: 30%\n\n    *   Tax Calculation:\n        *   0% on first \u20b93,00,000 = \u20b90\n        *   5% on \u20b93,00,000 (\u20b96,00,000 - \u20b93,00,000) = \u20b915,000\n        *   10% on \u20b93,00,000 (\u20b99,00,000 - \u20b96,00,000) = \u20b930,000\n        *   15% on \u20b93,00,000 (\u20b912,00,000 - \u20b99,00,000) = \u20b945,000\n        *   20% on \u20b93,00,000 (\u20b915,00,000 - \u20b912,00,000) = \u20b960,000\n        *   30% on \u20b9(1498000 - 1500000) = 30% on -\u20b92000 = \u20b90 (Since income is less than 15,00,000, no tax on this slab)\n\n    *   Total Tax = \u20b90 + \u20b915,000 + \u20b930,000 + \u20b945,000 + \u20b960,000 = \u20b9150000\n\n6.  **Add Cess:**\n\n    *   Health and Education Cess: 4% of Tax\n    *   Cess = 4% of \u20b9150000 = \u20b96000\n\n7.  **Total Tax Liability:**\n\n    *   Total Tax = \u20b9150000 + \u20b96000 = \u20b9156000\n\nFINAL TAX: \u20b9156000",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b91498000.0\n    Basic Salary: \u20b9723400.0\n    HRA Received: \u20b9297400.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9266700.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b989900.0\n    - LIC: \u20b90.0\n    - PPF: \u20b930050.0\n    - ELSS: \u20b930050.0\n    - Medical (Self): \u20b920000.0\n    - Medical (Parents): \u20b950000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-A194524E",
+    "timestamp": "2026-01-14T11:43:36.421046",
+    "input_profile": {
+      "profile_id": "TAX-A194524E",
+      "age": 49,
+      "complexity_category": "Medium",
+      "target_regime": "New",
+      "ground_truth_tax": 74568.0,
+      "gross_salary": 1118000.0,
+      "basic_salary": 533900.0,
+      "hra_received": 228900.0,
+      "other_income": 10000.0,
+      "pf_contribution": 67100.0,
+      "elss": 41450.0,
+      "lic_premium": 0.0,
+      "ppf": 41450.0,
+      "total_80c": 150000.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 40000.0,
+      "rent_paid_annual": 117400.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 60268.0,
+        "error": 14300.0,
+        "error_percentage": 19.17712691771269,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 100360.0,
+        "error": 25792.0,
+        "error_percentage": 34.58856345885635,
+        "raw_output": "100360",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b91118000.0\n    Basic Salary: \u20b9533900.0\n    HRA Received: \u20b9228900.0\n    Other Income: \u20b910000.0\n    \n    Rent Paid: \u20b9117400.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b967100.0\n    - LIC: \u20b90.0\n    - PPF: \u20b941450.0\n    - ELSS: \u20b941450.0\n    - Medical (Self): \u20b920000.0\n    - Medical (Parents): \u20b920000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": 82368.0,
+        "error": 7800.0,
+        "error_percentage": 10.460251046025103,
+        "raw_output": "Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.\n\n**1. Gross Total Income:**\n\n*   Gross Salary: \u20b91118000.0\n*   Other Income: \u20b910000.0\n*   Gross Total Income = \u20b91118000.0 + \u20b910000.0 = \u20b91128000.0\n\n**2. Exemptions (Not Applicable under New Regime):**\n\n*   HRA exemption is not available under the New Regime.\n\n**3. Deductions (Not Applicable under New Regime):**\n\n*   Chapter VI-A deductions (like 80C, 80D, etc.) are generally not available under the New Regime, with a few exceptions not applicable in this case.\n\n**4. Taxable Income:**\n\n*   Taxable Income = Gross Total Income = \u20b91128000.0\n\n**5. Apply Tax Slabs (New Regime for FY 2024-25):**\n\n*   Up to \u20b93,00,000: 0%\n*   \u20b93,00,001 - \u20b96,00,000: 5%\n*   \u20b96,00,001 - \u20b99,00,000: 10%\n*   \u20b99,00,001 - \u20b912,00,000: 15%\n*   \u20b912,00,001 - \u20b915,00,000: 20%\n*   Above \u20b915,00,000: 30%\n\nTax Calculation:\n\n*   0% on first \u20b93,00,000 = \u20b90\n*   5% on next \u20b93,00,000 (\u20b96,00,000 - \u20b93,00,000) = \u20b915,000\n*   10% on next \u20b93,00,000 (\u20b99,00,000 - \u20b96,00,000) = \u20b930,000\n*   15% on next \u20b92,28,000 (\u20b911,28,000 - \u20b99,00,000) = \u20b934,200\n\nTotal Tax = \u20b90 + \u20b915,000 + \u20b930,000 + \u20b934,200 = \u20b979,200\n\n**6. Add Cess:**\n\n*   Health and Education Cess @ 4% on Tax = 4% of \u20b979,200 = \u20b93,168\n\nTotal Tax Liability = \u20b979,200 + \u20b93,168 = \u20b982,368\n\nFINAL TAX: 82368",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b91118000.0\n    Basic Salary: \u20b9533900.0\n    HRA Received: \u20b9228900.0\n    Other Income: \u20b910000.0\n    \n    Rent Paid: \u20b9117400.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b967100.0\n    - LIC: \u20b90.0\n    - PPF: \u20b941450.0\n    - ELSS: \u20b941450.0\n    - Medical (Self): \u20b920000.0\n    - Medical (Parents): \u20b920000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-BF4ECBE4",
+    "timestamp": "2026-01-14T11:43:42.262458",
+    "input_profile": {
+      "profile_id": "TAX-BF4ECBE4",
+      "age": 22,
+      "complexity_category": "Medium",
+      "target_regime": "New",
+      "ground_truth_tax": 7800.0,
+      "gross_salary": 500000.0,
+      "basic_salary": 236600.0,
+      "hra_received": 114700.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 39058.0,
+      "total_80c": 69058.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 20000.0,
+      "total_80d": 20000.0,
+      "rent_paid_annual": 112700.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 6500.0,
+        "error": 1300.0,
+        "error_percentage": 16.666666666666664,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 13526.0,
+        "error": 5726.0,
+        "error_percentage": 73.41025641025641,
+        "raw_output": "13526",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9500000.0\n    Basic Salary: \u20b9236600.0\n    HRA Received: \u20b9114700.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9112700.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b930000.0\n    - LIC: \u20b90.0\n    - PPF: \u20b939058.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b90.0\n    - Medical (Parents): \u20b920000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": 10400.0,
+        "error": 2600.0,
+        "error_percentage": 33.33333333333333,
+        "raw_output": "Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25.\n\n1.  **Gross Total Income:**\n\n    Gross Total Income = Gross Salary + Other Income\n\n    Gross Total Income = \u20b9500000.0 + \u20b90.0 = \u20b9500000.0\n\n2.  **Exemptions:**\n\n    Since we are calculating under the New Regime, HRA exemption is not applicable.\n\n3.  **Deductions (Chapter VI-A):**\n\n    Under the New Regime, most deductions under Chapter VI-A are not allowed. The only deduction available is under Section 80CCD(2) for employer's contribution to NPS. Since there is no employer contribution mentioned in the taxpayer profile, no deductions are considered.\n\n4.  **Taxable Income:**\n\n    Taxable Income = Gross Total Income - Deductions\n\n    Taxable Income = \u20b9500000.0 - \u20b90.0 = \u20b9500000.0\n\n5.  **Apply Tax Slabs (New Regime for FY 2024-25):**\n\n    *   Up to \u20b93,00,000: 0%\n    *   \u20b93,00,001 - \u20b96,00,000: 5%\n\n    Tax Calculation:\n\n    *   Tax on first \u20b93,00,000: \u20b90\n    *   Tax on remaining \u20b92,00,000 (\u20b95,00,000 - \u20b93,00,000): 5% of \u20b92,00,000 = \u20b910,000\n\n    Total Tax = \u20b90 + \u20b910,000 = \u20b910,000\n\n6.  **Add Cess:**\n\n    Cess is applicable at 4% on the income tax amount.\n\n    Cess = 4% of \u20b910,000 = \u20b9400\n\n    Total Tax Liability = \u20b910,000 + \u20b9400 = \u20b910,400\n\nFINAL TAX: \u20b910400",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9500000.0\n    Basic Salary: \u20b9236600.0\n    HRA Received: \u20b9114700.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9112700.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b930000.0\n    - LIC: \u20b90.0\n    - PPF: \u20b939058.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b90.0\n    - Medical (Parents): \u20b920000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-C60A2613",
+    "timestamp": "2026-01-14T11:43:46.457569",
+    "input_profile": {
+      "profile_id": "TAX-C60A2613",
+      "age": 23,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 1084.8760000000002,
+      "gross_salary": 500000.0,
+      "basic_salary": 205000.0,
+      "hra_received": 96900.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 106237.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 136237.0,
+      "medical_insurance_self": 25000.0,
+      "medical_insurance_parents": 0.0,
+      "total_80d": 25000.0,
+      "rent_paid_annual": 38400.0,
+      "is_metro_city": false
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 1084.8760000000002,
+        "error": 0.0,
+        "error_percentage": 0.0,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": 14356.0,
+        "error": 13271.124,
+        "error_percentage": 1223.2848731099218,
+        "raw_output": "14356",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9500000.0\n    Basic Salary: \u20b9205000.0\n    HRA Received: \u20b996900.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b938400.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b930000.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b9106237.0\n    - Medical (Self): \u20b925000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": -1.0,
+        "error": 1085.8760000000002,
+        "error_percentage": 100.09217643306701,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9500000.0\n    Basic Salary: \u20b9205000.0\n    HRA Received: \u20b996900.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b938400.0\n    Living in Metro: No\n    \n    Deductions:\n    - PF: \u20b930000.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b9106237.0\n    - Medical (Self): \u20b925000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-102C318B",
+    "timestamp": "2026-01-14T11:43:50.666854",
+    "input_profile": {
+      "profile_id": "TAX-102C318B",
+      "age": 40,
+      "complexity_category": "Medium",
+      "target_regime": "New",
+      "ground_truth_tax": 44096.0,
+      "gross_salary": 924000.0,
+      "basic_salary": 441900.0,
+      "hra_received": 177200.0,
+      "other_income": 0.0,
+      "pf_contribution": 55400.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 55400.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 0.0,
+      "total_80d": 0.0,
+      "rent_paid_annual": 158400.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 36296.0,
+        "error": 7800.0,
+        "error_percentage": 17.68867924528302,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": -1.0,
+        "error": 44097.0,
+        "error_percentage": 100.00226777939044,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9924000.0\n    Basic Salary: \u20b9441900.0\n    HRA Received: \u20b9177200.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9158400.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b955400.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b90.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": -1.0,
+        "error": 44097.0,
+        "error_percentage": 100.00226777939044,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9924000.0\n    Basic Salary: \u20b9441900.0\n    HRA Received: \u20b9177200.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9158400.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b955400.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b90.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-E0DB02D8",
+    "timestamp": "2026-01-14T11:43:57.523209",
+    "input_profile": {
+      "profile_id": "TAX-E0DB02D8",
+      "age": 32,
+      "complexity_category": "Medium",
+      "target_regime": "Old",
+      "ground_truth_tax": 6508.788000000001,
+      "gross_salary": 629000.0,
+      "basic_salary": 282200.0,
+      "hra_received": 114500.0,
+      "other_income": 0.0,
+      "pf_contribution": 37700.0,
+      "elss": 0.0,
+      "lic_premium": 56151.0,
+      "ppf": 0.0,
+      "total_80c": 93851.0,
+      "medical_insurance_self": 20000.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 70000.0,
+      "rent_paid_annual": 68200.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 8848.788,
+        "error": 2339.999999999999,
+        "error_percentage": 35.951393715696355,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": -1.0,
+        "error": 6509.788000000001,
+        "error_percentage": 100.01536384346825,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9629000.0\n    Basic Salary: \u20b9282200.0\n    HRA Received: \u20b9114500.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b968200.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b937700.0\n    - LIC: \u20b956151.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b920000.0\n    - Medical (Parents): \u20b950000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": -1.0,
+        "error": 6509.788000000001,
+        "error_percentage": 100.01536384346825,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9629000.0\n    Basic Salary: \u20b9282200.0\n    HRA Received: \u20b9114500.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b968200.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b937700.0\n    - LIC: \u20b956151.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b920000.0\n    - Medical (Parents): \u20b950000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-555BF599",
+    "timestamp": "2026-01-14T11:44:04.287835",
+    "input_profile": {
+      "profile_id": "TAX-555BF599",
+      "age": 50,
+      "complexity_category": "Complex",
+      "target_regime": "Old",
+      "ground_truth_tax": 255998.496,
+      "gross_salary": 1995000.0,
+      "basic_salary": 828600.0,
+      "hra_received": 391000.0,
+      "other_income": 0.0,
+      "pf_contribution": 119700.0,
+      "elss": 7376.0,
+      "lic_premium": 0.0,
+      "ppf": 7376.0,
+      "total_80c": 134452.0,
+      "medical_insurance_self": 0.0,
+      "medical_insurance_parents": 50000.0,
+      "total_80d": 50000.0,
+      "rent_paid_annual": 397900.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 263798.496,
+        "error": 7799.999999999971,
+        "error_percentage": 3.046892900495779,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": -1.0,
+        "error": 255999.496,
+        "error_percentage": 100.00039062729493,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b91995000.0\n    Basic Salary: \u20b9828600.0\n    HRA Received: \u20b9391000.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9397900.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b9119700.0\n    - LIC: \u20b90.0\n    - PPF: \u20b97376.0\n    - ELSS: \u20b97376.0\n    - Medical (Self): \u20b90.0\n    - Medical (Parents): \u20b950000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": -1.0,
+        "error": 255999.496,
+        "error_percentage": 100.00039062729493,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b91995000.0\n    Basic Salary: \u20b9828600.0\n    HRA Received: \u20b9391000.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b9397900.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b9119700.0\n    - LIC: \u20b90.0\n    - PPF: \u20b97376.0\n    - ELSS: \u20b97376.0\n    - Medical (Self): \u20b90.0\n    - Medical (Parents): \u20b950000.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **Old Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  },
+  {
+    "profile_id": "TAX-05B3123E",
+    "timestamp": "2026-01-14T11:44:11.147990",
+    "input_profile": {
+      "profile_id": "TAX-05B3123E",
+      "age": 38,
+      "complexity_category": "Simple",
+      "target_regime": "New",
+      "ground_truth_tax": 7800.0,
+      "gross_salary": 500000.0,
+      "basic_salary": 232200.0,
+      "hra_received": 109500.0,
+      "other_income": 0.0,
+      "pf_contribution": 30000.0,
+      "elss": 0.0,
+      "lic_premium": 0.0,
+      "ppf": 0.0,
+      "total_80c": 30000.0,
+      "medical_insurance_self": 15000.0,
+      "medical_insurance_parents": 0.0,
+      "total_80d": 15000.0,
+      "rent_paid_annual": 0.0,
+      "is_metro_city": true
+    },
+    "models": {
+      "neuro_symbolic": {
+        "prediction": 6500.0,
+        "error": 1300.0,
+        "error_percentage": 16.666666666666664,
+        "status": "success"
+      },
+      "zero_shot": {
+        "prediction": -1.0,
+        "error": 7801.0,
+        "error_percentage": 100.01282051282053,
+        "raw_output": "ERROR: API Failed after all retries",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9500000.0\n    Basic Salary: \u20b9232200.0\n    HRA Received: \u20b9109500.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b90.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b930000.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b915000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Rules:\n    1. Use the official tax slabs for FY 2024-25.\n    2. Consider Standard Deduction.\n    3. Consider Surcharge and Cess (4%).\n    4. For Old Regime, calculate HRA exemption if applicable.\n    \n    Return ONLY the final tax amount as a number (e.g., 12500). Do not output any text.\n    ",
+        "status": "success"
+      },
+      "chain_of_thought": {
+        "prediction": 10400.0,
+        "error": 2600.0,
+        "error_percentage": 33.33333333333333,
+        "raw_output": "Okay, let's calculate the income tax liability for the taxpayer under the New Regime for FY 2024-25, step by step.\n\n1.  **Gross Total Income:**\n\n    *   Gross Salary: \u20b9500000.0\n    *   Other Income: \u20b90.0\n    *   Gross Total Income = \u20b9500000.0 + \u20b90.0 = \u20b9500000.0\n\n2.  **Exemptions (Not Applicable in New Regime):**\n\n    *   HRA exemption is not applicable under the New Regime.\n\n3.  **Deductions (Not Applicable in New Regime):**\n\n    *   Chapter VI-A deductions (like PF, LIC, PPF, ELSS, Medical Insurance) are not applicable under the New Regime.\n\n4.  **Taxable Income:**\n\n    *   Taxable Income = Gross Total Income = \u20b9500000.0\n\n5.  **Apply Tax Slabs (New Regime for FY 2024-25):**\n\n    *   Up to \u20b93,00,000: 0%\n    *   \u20b93,00,001 - \u20b96,00,000: 5%\n    *   \u20b96,00,001 - \u20b99,00,000: 10%\n    *   \u20b99,00,001 - \u20b912,00,000: 15%\n    *   \u20b912,00,001 - \u20b915,00,000: 20%\n    *   Above \u20b915,00,000: 30%\n\n    Calculation:\n\n    *   Tax on first \u20b93,00,000: 0\n    *   Tax on \u20b92,00,000 (\u20b93,00,001 to \u20b95,00,000): 5% of \u20b92,00,000 = \u20b910,000\n    *   Total Tax = \u20b90 + \u20b910,000 = \u20b910,000\n\n6.  **Add Cess:**\n\n    *   Health and Education Cess: 4% of Tax\n    *   Cess = 4% of \u20b910,000 = \u20b9400\n\n7.  **Total Tax Liability:**\n\n    *   Total Tax = \u20b910,000 + \u20b9400 = \u20b910,400\n\nFINAL TAX: 10400.0",
+        "prompt": "\n    --- TAXPAYER PROFILE (FY 2024-25) ---\n    Gross Salary: \u20b9500000.0\n    Basic Salary: \u20b9232200.0\n    HRA Received: \u20b9109500.0\n    Other Income: \u20b90.0\n    \n    Rent Paid: \u20b90.0\n    Living in Metro: Yes\n    \n    Deductions:\n    - PF: \u20b930000.0\n    - LIC: \u20b90.0\n    - PPF: \u20b90.0\n    - ELSS: \u20b90.0\n    - Medical (Self): \u20b915000.0\n    - Medical (Parents): \u20b90.0\n    -------------------------------------\n    \n    \n    Calculate the exact income tax liability for this taxpayer under the **New Regime** for FY 2024-25.\n    \n    Please think step by step:\n    1. Determine Gross Total Income.\n    2. Calculate Exemptions (like HRA) if Old Regime.\n    3. Calculate Deductions (Chapter VI-A) if Old Regime.\n    4. Determine Taxable Income.\n    5. Apply Tax Slabs.\n    6. Add Cess.\n    \n    Finally, state the exact tax liability.\n    Ended your response with: \"FINAL TAX: <amount>\"\n    ",
+        "status": "success"
+      }
+    }
+  }
+]

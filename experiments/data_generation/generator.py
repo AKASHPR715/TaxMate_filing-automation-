@@ -22,7 +22,7 @@ from experiments.data_generation.constants import (
 
 # Import tax logic from src (reusing slab logic)
 try:
-    from src.services.tax_comparison import old_regime_tax, new_regime_tax_23_24 as new_regime_tax, apply_cess
+    from src.services.tax_comparison import old_regime_tax, new_regime_tax_24_25 as new_regime_tax, apply_cess
 except ImportError:
     # Fallback if src import fails (e.g. during standalone testing without proper path)
     # Define simple lambdas or fail hard. Fail hard is better for ensuring consistency.
@@ -114,10 +114,9 @@ class TaxProfileGenerator:
             ground_truth = apply_cess(old_regime_tax(taxable_income))
         else:
             # New Regime: Only standard deduction, no exemptions/deductions
-            # FY 2023-24 (AY 2024-25): ₹50,000 standard deduction
-            # NOTE: Don't use STANDARD_DEDUCTION constant (that's ₹75K for FY 24-25)
-            STD_DED_NEW_23_24 = 50000
-            taxable_income = max(0, gross_total_income - STD_DED_NEW_23_24)
+            # FY 2024-25 (AY 2025-26): ₹75,000 standard deduction
+            # Using STANDARD_DEDUCTION constant for FY 24-25
+            taxable_income = max(0, gross_total_income - STANDARD_DEDUCTION)
             ground_truth = apply_cess(new_regime_tax(taxable_income))
         
         profile = TaxProfile(
