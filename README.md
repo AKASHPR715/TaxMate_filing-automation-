@@ -54,6 +54,14 @@ Detailed documentation for the project is available in the `docs/` directory:
 
     # Install dependencies
     pip install -r requirements.txt
+
+    # 🗄️ Database Setup (MongoDB)
+    # Run MongoDB using Docker
+    docker run -d -p 27017:27017 mongo
+
+    # Initialize Database (Create Collections/Indexes)
+    # Ensure you are in the root directory
+    python3 app/db/init_db.py
     
     # Run server
     ./server.sh
