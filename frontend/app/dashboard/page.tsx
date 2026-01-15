@@ -659,15 +659,7 @@ export default function Dashboard() {
             </p>
           </div>
           <div>
-            {!isUserLoggedIn ? (
-              <Button onClick={() => setIsAuthModalOpen(true)} className="bg-blue-900 hover:bg-blue-800">
-                Login / Sign Up
-              </Button>
-            ) : (
-              <Button variant="outline" onClick={handleLogout} className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700">
-                Logout
-              </Button>
-            )}
+            {/* Login/Logout buttons removed - now in Navbar */}
           </div>
         </div>
 
