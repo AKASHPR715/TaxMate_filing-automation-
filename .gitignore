@@ -69,4 +69,6 @@ frontend/.next/
 out/
 build/
 .vercel/
+cache/
+
 
