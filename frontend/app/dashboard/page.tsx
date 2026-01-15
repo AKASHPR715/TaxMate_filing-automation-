@@ -28,8 +28,10 @@ import {
   X,
   Bot,
   Edit,
-  Paperclip
+  Paperclip,
+  Database
 } from 'lucide-react';
+
 import { useEffect, useRef } from 'react';
 import { ReviewDataForm } from '@/components/review-data-form';
 import { FilingViewer } from '@/components/filing-viewer';
@@ -87,23 +89,42 @@ export default function Dashboard() {
   };
 
   // Step 1: Extract Data and Open Review Modal
-  const startAnalysisFlow = async () => {
+  // Step 1: Extract Data and Open Review Modal (Now unified with View Saved Data)
+  const fetchSavedData = async () => {
+    if (!requireAuth()) return;
     setIsExtracting(true);
     try {
-      const res = await fetch('http://localhost:8000/api/details/extract', {
-        method: 'POST',
+      const res = await fetch('http://localhost:8000/api/details/all', {
         headers: getApiHeaders()
       });
-      if (!res.ok) throw new Error('Extraction failed');
-      const data = await res.json();
+      if (!res.ok) throw new Error("Failed to fetch saved data");
+      const allDocs = await res.json();
 
-      setExtractedData(data);
-      // Pretty print for editing
-      setEditedDataJson(JSON.stringify(data, null, 2));
+      const newExtractedData: Record<string, any> = {};
+
+      if (allDocs.form16a && allDocs.form16a.length > 0) {
+        const latest = allDocs.form16a[allDocs.form16a.length - 1];
+        const id = latest.id || latest._id || 'saved';
+        newExtractedData[`form16a_${id}`] = latest;
+      }
+
+      if (allDocs.form16b && allDocs.form16b.length > 0) {
+        const latest = allDocs.form16b[allDocs.form16b.length - 1];
+        const id = latest.id || latest._id || 'saved';
+        newExtractedData[`form16b_${id}`] = latest;
+      }
+
+      if (allDocs.ais && allDocs.ais.length > 0) {
+        const latest = allDocs.ais[allDocs.ais.length - 1];
+        const id = latest.id || latest._id || 'saved';
+        newExtractedData[`ais_${id}`] = latest;
+      }
+
+      setExtractedData(newExtractedData);
+      setEditedDataJson(JSON.stringify(newExtractedData, null, 2));
       setShowReviewModal(true);
     } catch (e) {
-      console.error("Extraction error:", e);
-      // Fallback or error toast here
+      console.error("Error fetching/reviewing data", e);
     } finally {
       setIsExtracting(false);
     }
@@ -132,7 +153,93 @@ export default function Dashboard() {
     }
   };
 
+  // Step 2b: Update DB and Calculate
+  // Step 2b: Update DB and Calculate
+  const handleUpdateAndCalculate = async () => {
+    // 1. Prepare updates for the orchestrator
+    const updatesList = Object.values(extractedData)
+      .filter((doc: any) => doc && (doc._id || doc.id))
+      .map((doc: any) => ({
+        doc_id: doc.id || doc._id,
+        updates: doc
+      }));
+
+    setIsAnalyzing(true);
+    try {
+      if (updatesList.length > 0) {
+        // Call the review_and_calculate endpoint which handles updates + orchestration
+        const res = await fetch('http://localhost:8000/api/orchestrator/review_and_calculate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getApiHeaders()
+          },
+          body: JSON.stringify({
+            updates: updatesList,
+            force_restart: false
+          })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || "Review and calculate failed");
+        }
+
+        const data = await res.json();
+        if (data.orchestrator_result) {
+          setAnalysis(data.orchestrator_result);
+        }
+
+      } else {
+        // No updates? just calculate
+        await runCalculation();
+      }
+
+      setShowReviewModal(false);
+
+    } catch (e) {
+      console.error("Failed to update and calculate", e);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  // Step 2c: Update DB Only
+  const handleUpdateOnly = async () => {
+    setIsAnalyzing(true); // Reuse analyzing state for loading generic
+    try {
+      const updatesPromises = Object.values(extractedData).map(async (doc: any) => {
+        const id = doc?.id || doc?._id;
+        if (id) {
+          try {
+            await fetch(`http://localhost:8000/api/details/${id}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                ...getApiHeaders()
+              },
+              body: JSON.stringify(doc)
+            });
+          } catch (e) {
+            console.error(`Failed to update doc ${doc._id}`, e);
+          }
+        }
+      });
+      await Promise.all(updatesPromises);
+      // Optional: Show a success toast or message?
+    } catch (e) {
+      console.error("Failed to save updates", e);
+    } finally {
+      setIsAnalyzing(false);
+      setShowReviewModal(false);
+    }
+  };
+
+
+
+
   const [form16PartA, setForm16PartA] = useState<DocumentUpload>({
+
     fileName: null,
     status: 'empty',
     progress: 0,
@@ -654,11 +761,24 @@ export default function Dashboard() {
           <div className="lg:col-span-2 space-y-6">
             <Card className="border-2">
               <CardHeader>
-                <CardTitle className="text-2xl">Upload Tax Documents</CardTitle>
+                <CardTitle className="text-2xl flex justify-between items-center">
+                  Upload Tax Documents
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-900 border border-blue-200 hover:bg-blue-50"
+                    onClick={fetchSavedData}
+                    disabled={isExtracting}
+                  >
+                    <Database className="w-4 h-4 mr-2" />
+                    View Saved Data
+                  </Button>
+                </CardTitle>
                 <CardDescription>
                   Upload all three required documents to proceed. Each document is processed independently.
                 </CardDescription>
               </CardHeader>
+
               <CardContent className="space-y-6">
                 <UploadZone
                   title="Form 16 - Part A"
@@ -794,7 +914,7 @@ export default function Dashboard() {
                   </Button>
                   <Button
                     disabled={!allFilesUploaded || isExtracting || isAnalyzing}
-                    onClick={startAnalysisFlow}
+                    onClick={fetchSavedData}
                     className={`flex-1 ${allFilesUploaded
                       ? 'bg-green-600 hover:bg-green-700'
                       : 'bg-gray-300 cursor-not-allowed'
@@ -972,9 +1092,14 @@ export default function Dashboard() {
 
             <DialogFooter className="mt-4">
               <Button variant="outline" onClick={() => setShowReviewModal(false)}>Cancel</Button>
-              <Button onClick={runCalculation} className="bg-green-600 hover:bg-green-700">
+              <Button variant="outline" onClick={handleUpdateOnly} className="border-blue-200 text-blue-900 hover:bg-blue-50">
+                Update Data
+              </Button>
+              <Button onClick={handleUpdateAndCalculate} className="bg-green-600 hover:bg-green-700">
+
                 Confirm & Calculate
               </Button>
+
             </DialogFooter>
           </DialogContent>
         </Dialog>

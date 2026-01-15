@@ -15,6 +15,10 @@ except ImportError:
     pass
 
 from app.api.auth_routes import get_current_user
+from app.db.connection import get_sync_db
+from bson import ObjectId
+from datetime import datetime
+
 
 router = APIRouter(prefix="/api/filing", tags=["filing"])
 
@@ -193,3 +197,104 @@ async def update_filing_profile(request: UpdateProfileRequest, background_tasks:
             # Non-critical, since profile is saved for next generation
 
     return {"status": "success", "message": "Profile updated", "profile": current_profile}
+
+# ---------------------------------------------------------------------------- #
+#                                 DB BASED ITR ENDPOINTS                       #
+# ---------------------------------------------------------------------------- #
+
+@router.get("/itr/db/{itr_id}")
+async def get_itr_from_db(itr_id: str, current_user: dict = Depends(get_current_user)):
+    """
+    Fetch a specific ITR document from MongoDB by ID.
+    Human-in-the-Loop: Agent fetches this to review before filing.
+    """
+    user_id = str(current_user["_id"])
+    try:
+        db = get_sync_db()
+        if not ObjectId.is_valid(itr_id):
+             raise HTTPException(status_code=400, detail="Invalid ITR ID format")
+             
+        itr = db.itrs.find_one({"_id": ObjectId(itr_id), "user_id": ObjectId(user_id)})
+        
+        if not itr:
+            raise HTTPException(status_code=404, detail="ITR document not found")
+            
+        # Convert ObjectId to str for JSON response
+        itr["_id"] = str(itr["_id"])
+        itr["user_id"] = str(itr["user_id"])
+        if "form16_part_a_ids" in itr:
+            itr["form16_part_a_ids"] = [str(i) for i in itr["form16_part_a_ids"]]
+        if "form16_part_b_ids" in itr:
+            itr["form16_part_b_ids"] = [str(i) for i in itr["form16_part_b_ids"]]
+        if "ais_ids" in itr:
+            itr["ais_ids"] = [str(i) for i in itr["ais_ids"]]
+            
+        return itr
+        
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        logger.error(f"Error fetching ITR from DB: {e}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+class UpdateITRRequest(BaseModel):
+    updates: Dict[str, Any]
+    status: Optional[str] = None # e.g. "REVIEWED", "APPROVED"
+
+@router.put("/itr/db/{itr_id}")
+async def update_itr_in_db(
+    itr_id: str, 
+    request: UpdateITRRequest, 
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Update ITR data in MongoDB.
+    Human-in-the-Loop pattern: User submits corrections via UI, which calls this endpoint.
+    """
+    user_id = str(current_user["_id"])
+    try:
+        db = get_sync_db()
+        if not ObjectId.is_valid(itr_id):
+             raise HTTPException(status_code=400, detail="Invalid ITR ID format")
+        
+        # Verify ownership
+        itr = db.itrs.find_one({"_id": ObjectId(itr_id), "user_id": ObjectId(user_id)})
+        if not itr:
+            raise HTTPException(status_code=404, detail="ITR document not found")
+
+        update_fields = {}
+        
+        # 1. Update structure (Manual recursive update or full replace?)
+        # For now, we assume 'updates' contains partial paths or full replacement of sections.
+        # But commonly, the UI sends the modified 'itr_submission'.
+        
+        if "itr_submission" in request.updates:
+            update_fields["itr_submission"] = request.updates["itr_submission"]
+        else:
+            # Flatten/Merge updates logic if needed, or just allow updating specific keys
+            # For simplicity in this iteration: expect full or partial dicts under specific keys
+            for key, value in request.updates.items():
+                # Prevent updating restricted fields
+                if key not in ["_id", "user_id", "created_at"]:
+                    update_fields[key] = value
+
+        if request.status:
+            update_fields["status"] = request.status
+            
+        update_fields["updated_at"] = datetime.utcnow()
+        
+        result = db.itrs.update_one(
+            {"_id": ObjectId(itr_id)},
+            {"$set": update_fields}
+        )
+        
+        if result.modified_count == 0:
+             logger.info(f"ITR {itr_id} update request received but no changes detected.")
+
+        return {"status": "success", "message": "ITR updated successfully"}
+        
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        logger.error(f"Error updating ITR in DB: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to update ITR: {str(e)}")

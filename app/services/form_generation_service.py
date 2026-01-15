@@ -16,6 +16,9 @@ try:
 except ImportError:
     from itr_schemas_service import ITR1_TEMPLATE, ITR2_TEMPLATE
 
+from app.db.models import ITR, ComputedData
+
+
 # Setup logger
 logger = logging.getLogger("FormGeneration")
 if not logger.handlers:
@@ -518,6 +521,60 @@ from bson import ObjectId
 
 # ... (existing code)
 
+def save_itr_to_db(user_id: str, form_type: str, itr_data: Dict, computation_result: Dict = None):
+    """Persists the generated ITR to the database."""
+    if not user_id:
+        logger.warning("Skipping DB persistence: No user_id provided")
+        return
+
+    try:
+        db = get_sync_db()
+        
+        # Prepare computed data
+        comp_data = ComputedData()
+        if computation_result:
+             regime = computation_result.get("regime_selected", "OLD").upper()
+             is_new = regime == "NEW"
+             
+             if is_new:
+                 comp_data.total_income = float(computation_result.get("new_taxable", 0.0))
+                 comp_data.total_tax_payable = float(computation_result.get("new_tax", 0.0))
+                 comp_data.total_deductions = 0.0
+             else:
+                 comp_data.total_income = float(computation_result.get("old_taxable", 0.0))
+                 comp_data.total_tax_payable = float(computation_result.get("old_tax", 0.0))
+                 comp_data.total_deductions = float(computation_result.get("ch_via_validated", 0.0))
+                 
+             comp_data.regime = regime
+
+        # Convert user_id to ObjectId if needed
+        try:
+            if isinstance(user_id, str):
+                user_oid = ObjectId(user_id)
+            else:
+                user_oid = user_id
+        except Exception:
+            logger.error(f"Invalid user_id format: {user_id}")
+            return
+
+        itr_doc = ITR(
+            user_id=user_oid,
+            form_type=form_type,
+            status="DRAFT",
+            computed_data=comp_data,
+            itr_submission=itr_data
+        )
+        
+        # Insert
+        itr_dict = itr_doc.model_dump(by_alias=True, exclude={"id"})
+        result = db.itrs.insert_one(itr_dict)
+        logger.info(f"Saved ITR to DB with ID: {result.inserted_id}")
+        return result.inserted_id
+        
+    except Exception as e:
+        logger.error(f"Failed to save ITR to DB: {e}")
+        return None
+
 def generate_filing_forms(extracted_data: Dict[str, Any] = None, computation_result: Dict[str, Any] = None, user_id: str = None) -> Dict[str, str]:
     """
     Main entry point to generate the ITR JSON.
@@ -583,6 +640,11 @@ def generate_filing_forms(extracted_data: Dict[str, Any] = None, computation_res
         json.dump(final_json, f, indent=4)
         
     logger.info(f"Generated {form_type} at {file_path}")
+    
+    # 4. Save to DB
+    if user_id:
+        save_itr_to_db(user_id, form_type, final_json, computation_result)
+    
     
     return {
         "form_type": form_type,

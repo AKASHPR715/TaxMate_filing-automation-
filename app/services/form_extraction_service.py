@@ -217,10 +217,13 @@ def process_uploaded_file(file_path: str, doc_type: str, user_id=None):
             json.dump(result_data, f, indent=4, ensure_ascii=False)
             
         # Save to DB
-        save_extraction_to_db(result_data, schema, user_id, file_path)
+        db_id = save_extraction_to_db(result_data, schema, user_id, file_path)
+        if db_id:
+             result_data["_id"] = str(db_id)
 
         extraction_logger.info(f"✅ Complete → {output_path}")
         return result_data
+
 
     except Exception as e:
         extraction_logger.error(f"❌ Extraction failed: {e}")

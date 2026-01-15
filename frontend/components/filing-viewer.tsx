@@ -14,6 +14,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlertCircle, CheckCircle, Save, FileText, Loader2 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
+import { getApiHeaders } from '@/lib/user';
+
 
 interface FilingViewerProps {
     open: boolean;
@@ -52,9 +54,13 @@ export function FilingViewer({ open, onOpenChange, itrType = "ITR1" }: FilingVie
         setLoading(true);
         try {
             // Clean ITR type if needed
+            // Clean ITR type if needed
             const type = itrType.replace("-", "");
-            const res = await fetch(`http://localhost:8000/api/filing/latest/${type}`);
+            const res = await fetch(`http://localhost:8000/api/filing/latest/${type}`, {
+                headers: getApiHeaders()
+            });
             if (!res.ok) throw new Error("Failed to fetch filing data");
+
 
             const result = await res.json();
             setData(result.data);
@@ -100,9 +106,13 @@ export function FilingViewer({ open, onOpenChange, itrType = "ITR1" }: FilingVie
 
             const res = await fetch("http://localhost:8000/api/filing/update", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...getApiHeaders()
+                },
                 body: JSON.stringify({ updates })
             });
+
 
             if (!res.ok) throw new Error("Update failed");
 

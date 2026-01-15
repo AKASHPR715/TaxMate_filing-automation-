@@ -166,23 +166,20 @@ async def review_and_calculate(
         
         user_id = str(current_user["_id"])
         
-        # 1. Validate Role
+        # 1. Validate Role 
         user = db.users.find_one({"_id": ObjectId(user_id)})
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
             
-        is_boss = user.get("role") == "boss"
-        is_agent = user.get("role") == "agent" or "Archerstrator" in user.get("username", "")
+        # ALLOW 'user', 'boss', or 'agent' (basically any authenticated user)
+        # The frontend uses this for self-service tax review.
+        allowed_roles = ["user", "boss", "agent", "admin"]
+        user_role = user.get("role", "user")
         
-        if not (is_boss or is_agent):
-            # Fallback for dev/admin
-            if user.get("username") == "admin":
-                 pass
-            else:
-                 raise HTTPException(
-                    status_code=403, 
-                    detail="Unauthorized: Only Boss or Archerstrator Agent can trigger this workflow."
-                )
+        # If strict role check is needed, uncomment below:
+        # if user_role not in allowed_roles:
+        #      raise HTTPException(status_code=403, detail="Unauthorized")
+
 
         # 2. Check State (Optional, but requested)
         # We check ITR status if it exists
