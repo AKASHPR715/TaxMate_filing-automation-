@@ -195,12 +195,12 @@ export default function Dashboard() {
         await runCalculation();
       }
 
-      setShowReviewModal(false);
-
     } catch (e) {
       console.error("Failed to update and calculate", e);
+      alert("An error occurred during calculation. Please try again.");
     } finally {
       setIsAnalyzing(false);
+      setShowReviewModal(false); // Always close modal, even if there's an error
     }
   };
 
@@ -1087,9 +1087,12 @@ export default function Dashboard() {
               <Button variant="outline" onClick={handleUpdateOnly} className="border-blue-200 text-blue-900 hover:bg-blue-50">
                 Update Data
               </Button>
-              <Button onClick={handleUpdateAndCalculate} className="bg-green-600 hover:bg-green-700">
-
-                Confirm & Calculate
+              <Button
+                onClick={handleUpdateAndCalculate}
+                className="bg-green-600 hover:bg-green-700"
+                disabled={isAnalyzing}
+              >
+                {isAnalyzing ? 'Processing...' : 'Confirm & Calculate'}
               </Button>
 
             </DialogFooter>

@@ -183,7 +183,7 @@ async def review_and_calculate(
 
         # 2. Check State (Optional, but requested)
         # We check ITR status if it exists
-        itr = db.itr_filings.find_one({"user_id": ObjectId(user_id)}, sort=[("created_at", -1)])
+        itr = db.filings.find_one({"user_id": ObjectId(user_id)}, sort=[("created_at", -1)])
         if itr:
             status = itr.get("status", "DRAFT")
             # We allow REVIEW or DRAFT (since DRAFT is the initial state)

@@ -241,7 +241,7 @@ def form_generation_node(state: AgentState) -> AgentState:
                 )
                 
                 # Check for existing draft/review ITR
-                existing_itr = db.itr_filings.find_one(
+                existing_itr = db.filings.find_one(
                     {"user_id": ObjectId(user_id), "status": {"$in": ["DRAFT", "REVIEW"]}}
                 )
                 
@@ -256,16 +256,16 @@ def form_generation_node(state: AgentState) -> AgentState:
                 }
                 
                 if existing_itr:
-                    db.itr_filings.update_one(
+                    db.filings.update_one(
                         {"_id": existing_itr["_id"]},
                         {"$set": update_data}
                     )
-                    logger.info(f"Updated existing ITR record {existing_itr['_id']}")
+                    logger.info(f"Updated existing filing record in filings collection: {existing_itr['_id']}")
                 else:
                     update_data["created_at"] = datetime.utcnow()
                     # Link source docs if available in extracted_data (logic omitted for brevity, can populate if IDs known)
-                    res = db.itr_filings.insert_one(update_data)
-                    logger.info(f"Created new ITR record {res.inserted_id}")
+                    res = db.filings.insert_one(update_data)
+                    logger.info(f"Created new filing record in filings collection: {res.inserted_id}")
                     
             except Exception as db_err:
                 logger.error(f"Failed to persist ITR to DB: {db_err}")

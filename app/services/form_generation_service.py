@@ -567,8 +567,8 @@ def save_itr_to_db(user_id: str, form_type: str, itr_data: Dict, computation_res
         
         # Insert
         itr_dict = itr_doc.model_dump(by_alias=True, exclude={"id"})
-        result = db.itrs.insert_one(itr_dict)
-        logger.info(f"Saved ITR to DB with ID: {result.inserted_id}")
+        result = db.filings.insert_one(itr_dict)
+        logger.info(f"Saved filing to DB (filings collection) with ID: {result.inserted_id}")
         return result.inserted_id
         
     except Exception as e:

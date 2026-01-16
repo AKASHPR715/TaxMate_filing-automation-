@@ -138,8 +138,9 @@ agent = None
 agent_executor = None
 
 if llm:
-    # Add stop token to prevent infinite generation after Final Answer
-    llm_with_stop = llm.bind(stop=["\nObservation:"]) 
+    # Add stop tokens to prevent infinite generation after Final Answer
+    # The agent outputs "Final Answer:" so we need to stop after that
+    llm_with_stop = llm.bind(stop=["\nObservation:", "Observation:", "\n\nQuestion:", "Question:"])
     
     agent = create_react_agent(llm=llm_with_stop, tools=tools, prompt=prompt)
     agent_executor = AgentExecutor(
@@ -147,8 +148,9 @@ if llm:
         tools=tools, 
         verbose=True, 
         handle_parsing_errors=True,
-        max_iterations=20, # Reduce iterations to fail faster if looping
-        early_stopping_method="force"
+        max_iterations=15, # Reduced from 20 to fail faster
+        early_stopping_method="force",
+        return_intermediate_steps=False  # Don't return intermediate steps to reduce output
     )
 
 # ============================================================
@@ -213,7 +215,19 @@ def get_tax_advice(question: str, deductions: List[str] = None, income_details: 
         # Check for iteration limit message ("Agent stopped...") or if output suggests failure
         if "Agent stopped" in output and "iteration limit" in output:
              raise Exception("Agent stopped due to iteration limit")
-             
+        
+        # Clean up the output to extract only the Final Answer content
+        # The ReAct agent outputs in format: "Thought: ... Action: ... Observation: ... Final Answer: <answer>"
+        # We want to extract only the content after "Final Answer:"
+        if "Final Answer:" in output:
+            # Extract everything after "Final Answer:" and clean it up
+            final_answer = output.split("Final Answer:")[-1].strip()
+            # Remove any remaining agent artifacts like "Thought:", "Action:", etc.
+            for artifact in ["Thought:", "Action:", "Observation:", "Action Input:"]:
+                if artifact in final_answer:
+                    final_answer = final_answer.split(artifact)[0].strip()
+            output = final_answer
+        
         return output
 
     except Exception as e:

@@ -214,7 +214,7 @@ async def get_itr_from_db(itr_id: str, current_user: dict = Depends(get_current_
         if not ObjectId.is_valid(itr_id):
              raise HTTPException(status_code=400, detail="Invalid ITR ID format")
              
-        itr = db.itrs.find_one({"_id": ObjectId(itr_id), "user_id": ObjectId(user_id)})
+        itr = db.filings.find_one({"_id": ObjectId(itr_id), "user_id": ObjectId(user_id)})
         
         if not itr:
             raise HTTPException(status_code=404, detail="ITR document not found")
@@ -258,7 +258,7 @@ async def update_itr_in_db(
              raise HTTPException(status_code=400, detail="Invalid ITR ID format")
         
         # Verify ownership
-        itr = db.itrs.find_one({"_id": ObjectId(itr_id), "user_id": ObjectId(user_id)})
+        itr = db.filings.find_one({"_id": ObjectId(itr_id), "user_id": ObjectId(user_id)})
         if not itr:
             raise HTTPException(status_code=404, detail="ITR document not found")
 
@@ -283,7 +283,7 @@ async def update_itr_in_db(
             
         update_fields["updated_at"] = datetime.utcnow()
         
-        result = db.itrs.update_one(
+        result = db.filings.update_one(
             {"_id": ObjectId(itr_id)},
             {"$set": update_fields}
         )
