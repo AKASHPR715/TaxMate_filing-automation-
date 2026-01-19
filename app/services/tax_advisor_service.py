@@ -167,6 +167,29 @@ from bson import ObjectId
 # Main Tool Function
 # ============================================================
 
+def strip_markdown(text: str) -> str:
+    """Remove markdown formatting for plain text display."""
+    import re
+    
+    # Remove bold markdown first (**text**)
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+    
+    # Remove italic markdown (*text* but not list bullets)
+    # Only match if not at start of line (to preserve * bullet points)
+    text = re.sub(r'(?<!\n)\*(.+?)\*', r'\1', text)
+    
+    # Remove headers (## Header)
+    text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
+    
+    # Remove inline code (`code`)
+    text = re.sub(r'`([^`]+)`', r'\1', text)
+    
+    # Remove emphasis with underscores (__text__ or _text_)
+    text = re.sub(r'__(.+?)__', r'\1', text)
+    text = re.sub(r'_(.+?)_', r'\1', text)
+    
+    return text
+
 def get_tax_advice(question: str, deductions: List[str] = None, income_details: Dict[str, Any] = None, user_id: str = None) -> str:
     """Gets AI tax advice."""
     advisor_logger.info(f"Generating advice for: {question}")
@@ -218,15 +241,26 @@ def get_tax_advice(question: str, deductions: List[str] = None, income_details: 
         
         # Clean up the output to extract only the Final Answer content
         # The ReAct agent outputs in format: "Thought: ... Action: ... Observation: ... Final Answer: <answer>"
-        # We want to extract only the content after "Final Answer:"
+        # Sometimes it duplicates "Final Answer:" so we need to handle that
         if "Final Answer:" in output:
-            # Extract everything after "Final Answer:" and clean it up
-            final_answer = output.split("Final Answer:")[-1].strip()
-            # Remove any remaining agent artifacts like "Thought:", "Action:", etc.
-            for artifact in ["Thought:", "Action:", "Observation:", "Action Input:"]:
+            # Split on "Final Answer:" and take the last occurrence (in case of duplicates)
+            parts = output.split("Final Answer:")
+            # Take the last non-empty part
+            final_answer = parts[-1].strip() if parts else output
+            
+            # Remove any remaining agent artifacts
+            for artifact in ["Thought:", "Action:", "Observation:", "Action Input:", "Final Answer:"]:
                 if artifact in final_answer:
                     final_answer = final_answer.split(artifact)[0].strip()
+            
             output = final_answer
+        
+        # Strip markdown formatting for clean display (remove **bold**, *italic*, etc.)
+        output = strip_markdown(output)
+        
+        # Remove any remaining "Final Answer:" prefix if it somehow remained
+        if output.startswith("Final Answer:"):
+            output = output.replace("Final Answer:", "", 1).strip()
         
         return output
 
@@ -235,7 +269,8 @@ def get_tax_advice(question: str, deductions: List[str] = None, income_details: 
         
         # Fallback to pure web search
         fallback_res = web_search.invoke(question)
-        return f"**Note: The complex reasoning agent hit a limit, so here is a direct web search result:**\n\n{fallback_res}"
+        fallback_res = strip_markdown(fallback_res)  # Also strip markdown from fallback
+        return f"Note: The complex reasoning agent hit a limit, so here is a direct web search result:\n\n{fallback_res}"
 
 if __name__ == "__main__":
     print(get_tax_advice("How can I save tax?"))
