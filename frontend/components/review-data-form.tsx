@@ -14,6 +14,68 @@ interface ReviewDataFormProps {
     onUpdate: (newData: any) => void;
 }
 
+// Field component for consistent styling
+const Field = ({
+    label,
+    value,
+    onChange,
+    type = "text",
+    description
+}: {
+    label: string;
+    value: any;
+    onChange: (val: string) => void;
+    type?: string;
+    description?: string;
+}) => (
+    <div className="space-y-1.5">
+        <Label className="text-sm font-medium">{label}</Label>
+        <Input
+            type={type}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="h-9"
+        />
+        {description && <p className="text-xs text-muted-foreground">{description}</p>}
+    </div>
+);
+
+// Currency field for displaying INR values
+const CurrencyField = ({
+    label,
+    value,
+    onChange,
+    description
+}: {
+    label: string;
+    value: number;
+    onChange: (val: string) => void;
+    description?: string;
+}) => (
+    <div className="space-y-1.5">
+        <Label className="text-sm font-medium flex items-center gap-1">
+            <IndianRupee className="h-3 w-3" />
+            {label}
+        </Label>
+        <Input
+            type="number"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="h-9"
+        />
+        {description && <p className="text-xs text-muted-foreground">{description}</p>}
+    </div>
+);
+
+// Empty state component
+const EmptyState = ({ message }: { message: string }) => (
+    <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground">
+        <AlertCircle className="h-10 w-10 mb-3 opacity-50" />
+        <p className="font-medium">{message}</p>
+        <p className="text-sm mt-1">Please ensure the document was uploaded correctly.</p>
+    </div>
+);
+
 export function ReviewDataForm({ data, onUpdate }: ReviewDataFormProps) {
     const [localData, setLocalData] = useState(data);
 
@@ -84,67 +146,7 @@ export function ReviewDataForm({ data, onUpdate }: ReviewDataFormProps) {
         }
     };
 
-    // Field component for consistent styling
-    const Field = ({
-        label,
-        value,
-        onChange,
-        type = "text",
-        description
-    }: {
-        label: string;
-        value: any;
-        onChange: (val: string) => void;
-        type?: string;
-        description?: string;
-    }) => (
-        <div className="space-y-1.5">
-            <Label className="text-sm font-medium">{label}</Label>
-            <Input
-                type={type}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="h-9"
-            />
-            {description && <p className="text-xs text-muted-foreground">{description}</p>}
-        </div>
-    );
 
-    // Currency field for displaying INR values
-    const CurrencyField = ({
-        label,
-        value,
-        onChange,
-        description
-    }: {
-        label: string;
-        value: number;
-        onChange: (val: string) => void;
-        description?: string;
-    }) => (
-        <div className="space-y-1.5">
-            <Label className="text-sm font-medium flex items-center gap-1">
-                <IndianRupee className="h-3 w-3" />
-                {label}
-            </Label>
-            <Input
-                type="number"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="h-9"
-            />
-            {description && <p className="text-xs text-muted-foreground">{description}</p>}
-        </div>
-    );
-
-    // Empty state component
-    const EmptyState = ({ message }: { message: string }) => (
-        <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground">
-            <AlertCircle className="h-10 w-10 mb-3 opacity-50" />
-            <p className="font-medium">{message}</p>
-            <p className="text-sm mt-1">Please ensure the document was uploaded correctly.</p>
-        </div>
-    );
 
     return (
         <div className="h-full flex flex-col">
