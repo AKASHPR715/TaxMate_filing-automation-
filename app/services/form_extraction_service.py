@@ -23,6 +23,10 @@ from app.db.models import (
 )
 from app.db.connection import get_sync_db
 
+# 🛠️ PATCH: Fix LlamaCloud API/Model Discrepancies
+from app.utils.llama_patch import apply_llama_cloud_patch
+apply_llama_cloud_patch()
+
 # ============================================================
 # Logging Configuration for form_extraction.py
 # ============================================================

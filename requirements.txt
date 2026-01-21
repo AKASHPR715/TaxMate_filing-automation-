@@ -27,6 +27,8 @@ openai
 langchain
 langchain-openai
 llama-index
+llama-cloud
+llama-parse
 google-generativeai
 
 # HTTP & Async

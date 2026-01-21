@@ -7,6 +7,10 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# 🛠️ PATCH: Fix LlamaCloud API/Model Discrepancies (MUST RUN EARLY)
+from app.utils.llama_patch import apply_llama_cloud_patch
+apply_llama_cloud_patch()
+
 # Add app to path so we can import modules
 current_dir = Path(__file__).resolve().parent
 if str(current_dir.parent) not in sys.path:

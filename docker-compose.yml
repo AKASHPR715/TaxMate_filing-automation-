@@ -1,0 +1,65 @@
+
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taxmate-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tax_filing
+      - ALLOWED_ORIGINS=http://localhost:3000
+      - OLLAMA_BASE_URL=http://ollama:11434
+    depends_on:
+      - mongo
+    networks:
+      - taxmate-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: taxmate-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    networks:
+      - taxmate-network
+
+  mongo:
+    image: mongo:latest
+    container_name: taxmate-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - taxmate-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: taxmate-ollama
+    ports:
+      - "11435:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
+    entrypoint: /bin/sh
+    command: -c "/bin/ollama serve & sleep 5 && ollama pull nomic-embed-text && wait"
+    networks:
+      - taxmate-network
+
+networks:
+  taxmate-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+  ollama-data:

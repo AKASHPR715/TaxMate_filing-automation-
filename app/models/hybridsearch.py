@@ -105,9 +105,11 @@ class HybridQdrantRetriever(BaseRetriever):
             print(f"Vector DB Retrieval Warning: {e}")
             return [Document(page_content=f"Note: Local tax law database (Section 80C, etc.) is currently unavailable. Error: {str(e)[:50]}...", metadata={"source": "system"})]
 
+import os
 # ---- instantiate ----
 qdrant_client = QdrantClient(path=PERSIST_DIR)
-embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url="http://localhost:11434")
+ollama_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url=ollama_url)
 retriever = HybridQdrantRetriever(
     client=qdrant_client,
     embeddings=embeddings,
