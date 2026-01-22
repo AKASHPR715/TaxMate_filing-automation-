@@ -11,6 +11,10 @@ from langchain_classic.agents import AgentExecutor, create_react_agent  # Note: 
 from langchain_classic import hub 
 from langchain_openai import ChatOpenAI
 from langchain.tools import tool
+from langchain_core.agents import AgentAction, AgentFinish
+from langchain_core.output_parsers import BaseOutputParser
+import re
+from typing import Union
 # Load env
 load_dotenv()
 
@@ -116,6 +120,51 @@ def web_search(query: str) -> str:
     except Exception as e:
         return f"Web search failed: {str(e)}"
 
+# ============================================================
+# Output Parser
+# ============================================================
+class RobustReActOutputParser(BaseOutputParser):
+    """
+    Parses ReAct-style LLM calls.
+    Robustly handles 'Final Answer:' detection even with extra noise.
+    """
+    
+    def parse(self, text: str) -> Union[AgentAction, AgentFinish]:
+        # 1. Check for Final Answer
+        if "Final Answer:" in text:
+            # Check if "Final Answer:" appears multiple times, take the last one or split logic
+            # Just take everything after the last "Final Answer:"
+            output = text.split("Final Answer:")[-1].strip()
+            return AgentFinish(
+                return_values={"output": output},
+                log=text,
+            )
+            
+        # 2. Check for Action using strict Regex
+        # Standard ReAct: 
+        # Action: tool_name
+        # Action Input: input_str
+        
+        regex = r"Action: (.*?)\nAction Input: (.*)"
+        match = re.search(regex, text, re.DOTALL)
+        
+        if match:
+            action = match.group(1).strip()
+            action_input = match.group(2)
+            return AgentAction(tool=action, tool_input=action_input.strip(" ").strip('"'), log=text)
+            
+        # 3. Fallback: If we can't find Action/Final Answer, we assume it's unfinished thought or loop.
+        # But if the Agent output "Agent stopped..." or something similar, handle it.
+        
+        # If no valid action parsed, return as Final Answer to prevent infinite loop.
+        # This is a robust fallback for "I don't know what to do" thoughts.
+        return AgentFinish(
+             return_values={"output": text},
+             log=text
+        )
+
+
+
 # Setup Agent
 tools = [retrieve_context, web_search, query_tax_graph]
 
@@ -142,7 +191,7 @@ if llm:
     # The agent outputs "Final Answer:" so we need to stop after that
     llm_with_stop = llm.bind(stop=["\nObservation:", "Observation:", "\n\nQuestion:", "Question:"])
     
-    agent = create_react_agent(llm=llm_with_stop, tools=tools, prompt=prompt)
+    agent = create_react_agent(llm=llm_with_stop, tools=tools, prompt=prompt, output_parser=RobustReActOutputParser())
     agent_executor = AgentExecutor(
         agent=agent, 
         tools=tools, 

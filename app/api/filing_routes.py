@@ -187,6 +187,10 @@ async def update_filing_profile(request: UpdateProfileRequest, background_tasks:
             if "father_name" in request.updates:
                  if "Verification" in itr1 and "Declaration" in itr1["Verification"]:
                      itr1["Verification"]["Declaration"]["FatherName"] = request.updates["father_name"]
+
+            if "dob" in request.updates:
+                 if "PersonalInfo" in itr1:
+                     itr1["PersonalInfo"]["DOB"] = request.updates["dob"]
             
             # Save back
             with open(latest_file, "w") as f:
