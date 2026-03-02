@@ -1,14 +1,15 @@
 """
 Tax-tool module – exposes @tool retrieve_context
 Uses persistent Qdrant + nomic-embed-text via langchain-ollama
+Supports Qdrant Cloud (production) or local path (development)
 """
+import os
 import pickle
 from typing import Any, List
 from qdrant_client import models 
-from langchain_ollama import OllamaEmbeddings  
 from qdrant_client.http.models import FusionQuery, Fusion
 import numpy as np
-from pydantic import ConfigDict        # <= new import
+from pydantic import ConfigDict
 from langchain_core.tools import tool
 from langchain_core.retrievers import BaseRetriever
 from langchain_core.documents import Document
@@ -18,18 +19,15 @@ from qdrant_client.http.models import (
     SparseVector, Filter, FieldCondition, MatchValue, MatchAny
 )
 from pydantic import Field
-
 from pathlib import Path
 
 # ---------- config ----------
 COLLECTION_NAME = "chapter_vi_a_langchain"
 TOP_K = 6
-# Dynamic path resolution:
-# Start from this file (__file__), go up to app, then to data/extracted
 APP_ROOT = Path(__file__).resolve().parent.parent
 VECTORIZER_PKL = APP_ROOT / "data" / "extracted" / "vi_a_vectorizer.pkl"
 PERSIST_DIR = str(APP_ROOT / "qdrant_storage")
-EMBEDDING_MODEL = "nomic-embed-text"   # << nomic via Ollama
+EMBEDDING_MODEL = "nomic-embed-text"
 # ----------------------------
 
 # ---- load once ----
@@ -105,17 +103,47 @@ class HybridQdrantRetriever(BaseRetriever):
             print(f"Vector DB Retrieval Warning: {e}")
             return [Document(page_content=f"Note: Local tax law database (Section 80C, etc.) is currently unavailable. Error: {str(e)[:50]}...", metadata={"source": "system"})]
 
-import os
-# ---- instantiate ----
-qdrant_client = QdrantClient(path=PERSIST_DIR)
-ollama_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url=ollama_url)
+import logging
+_hs_logger = logging.getLogger("hybridsearch")
+
+# ---- instantiate Qdrant client ----
+# Qdrant Cloud (production): set QDRANT_URL + QDRANT_API_KEY in env
+# Local (development): falls back to local path storage
+QDRANT_URL = os.getenv("QDRANT_URL")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
+
+if QDRANT_URL and QDRANT_API_KEY:
+    _hs_logger.info(f"Connecting to Qdrant Cloud: {QDRANT_URL}")
+    qdrant_client = QdrantClient(
+        url=QDRANT_URL,
+        api_key=QDRANT_API_KEY,
+    )
+else:
+    _hs_logger.info(f"Using local Qdrant storage: {PERSIST_DIR}")
+    qdrant_client = QdrantClient(path=PERSIST_DIR)
+
+# ---- instantiate embeddings ----
+# Use Ollama if running locally, otherwise use FastEmbed (no server needed)
+ollama_url = os.getenv("OLLAMA_BASE_URL")
+if ollama_url:
+    _hs_logger.info(f"Using Ollama embeddings at {ollama_url}")
+    from langchain_ollama import OllamaEmbeddings
+    embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url=ollama_url)
+else:
+    _hs_logger.info("OLLAMA_BASE_URL not set — using FastEmbed (nomic-embed-text)")
+    try:
+        from langchain_community.embeddings import FastEmbedEmbeddings
+        embeddings = FastEmbedEmbeddings(model_name="nomic-ai/nomic-embed-text-v1.5-Q")
+    except Exception as e:
+        _hs_logger.warning(f"FastEmbed not available: {e}. Retriever will degrade gracefully.")
+        embeddings = None
+
 retriever = HybridQdrantRetriever(
     client=qdrant_client,
     embeddings=embeddings,
     vectorizer=vectorizer,
     top_k=TOP_K
-)
+) if embeddings else None
 
 # ---- tool ----
 @tool

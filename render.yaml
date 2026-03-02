@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: taxmate-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: MONGO_URI
+        sync: false   # Set this manually in Render dashboard
+      - key: DB_NAME
+        value: taxmate_db
+      - key: QDRANT_URL
+        sync: false   # Set this manually in Render dashboard
+      - key: QDRANT_API_KEY
+        sync: false   # Set this manually in Render dashboard
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: LLAMA_CLOUD_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true   # Auto-generate a secure JWT secret
+      - key: ALLOWED_ORIGINS
+        sync: false   # Add your Vercel URL here after frontend deploy

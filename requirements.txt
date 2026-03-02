@@ -1,6 +1,7 @@
 # Core Framework & API
 fastapi
-uvicorn
+uvicorn[standard]
+gunicorn
 pydantic
 pydantic-settings
 email-validator
@@ -17,19 +18,21 @@ pandas
 numpy
 openpyxl
 
-# Database & ORM
-sqlalchemy
-alembic
-psycopg2-binary
-
 # AI/ML & LLM Integration
 openai
 langchain
+langchain-core
+langchain-community
 langchain-openai
+langchain-chroma
+langchain-ollama
 llama-index
 llama-cloud
 llama-parse
 google-generativeai
+
+# Embeddings (serverless — no Ollama needed in production)
+fastembed
 
 # HTTP & Async
 httpx
@@ -37,8 +40,8 @@ aiofiles
 requests
 
 # Authentication & Security
-python-jose
-passlib
+python-jose[cryptography]
+passlib[bcrypt]
 argon2-cffi
 cryptography
 python-dotenv
@@ -54,38 +57,18 @@ pytest-cov
 pytest-mock
 faker
 
-# Code Quality
-black
-flake8
-pylint
-isort
-mypy
-
-# Development Tools
-ipython
-jupyter
-notebook
-
 # Utilities
 python-dateutil
 pytz
 click
 tqdm
 
-tavily
-langchain 
-langchain-core
-langchain-community 
-langchain-chroma
-langchain-ollama 
-langchain-openai
+# Vector & Graph Databases
 chromadb
-openai
-tavily-python
+qdrant-client
 neo4j
 scikit-learn
-qdrant_client
-
+tavily-python
 
 # Database - NoSQL
 pymongo

@@ -2,6 +2,7 @@
 TaxMate Backend Application
 FastAPI application with organized API routers for tax filing automation.
 """
+import os
 import sys
 from pathlib import Path
 from fastapi import FastAPI
@@ -26,13 +27,18 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS - Allow all origins in development
+# Configure CORS — read origins from env for production safety
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:5173,http://localhost:5174"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins in development
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "Accept"],
 )
 
 # Include routers

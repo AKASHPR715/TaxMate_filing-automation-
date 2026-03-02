@@ -8,8 +8,7 @@ load_dotenv()
 
 # Default to local mongo if not set
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-# Force correct DB name as .env has incorrect value 'taxmate'
-DB_NAME = "taxmate_db" # os.getenv("DB_NAME", "taxmate_db")
+DB_NAME = os.getenv("DB_NAME", "taxmate_db")
 
 logger = logging.getLogger("Database")
 
@@ -36,13 +35,18 @@ class Database:
             self.client.close()
             logger.info("MongoDB connection closed.")
 
-# Sync Connection for Scripts
+# Sync Connection — singleton client for connection pooling
+_sync_client: MongoClient = None
+
 def get_sync_db():
+    global _sync_client
     try:
-        client = MongoClient(MONGO_URI)
-        return client[DB_NAME]
+        if _sync_client is None:
+            _sync_client = MongoClient(MONGO_URI, maxPoolSize=50, serverSelectionTimeoutMS=5000)
+            logger.info(f"MongoDB sync client initialized (pool: 50)")
+        return _sync_client[DB_NAME]
     except Exception as e:
-        print(f"Error connecting to DB: {e}")
+        logger.error(f"Error connecting to DB: {e}")
         raise e
 
 db = Database()
