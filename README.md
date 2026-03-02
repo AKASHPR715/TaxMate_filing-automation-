@@ -78,6 +78,74 @@ Detailed documentation for the project is available in the `docs/` directory:
     *   Frontend: `http://localhost:3000`
     *   Backend API Docs: `http://localhost:8000/docs`
 
+## 🐳 Deploy with Docker
+You can run the entire application using Docker without installing dependencies locally.
+
+1.  **Pull the images**:
+    ```bash
+    docker pull akashpr715/taxmate:backend
+    docker pull akashpr715/taxmate:frontend
+    ```
+
+2.  **Run with Docker Compose**:
+    Create a `docker-compose.yml` file:
+
+    ```yaml
+    version: '3.8'
+
+    services:
+      backend:
+        image: akashpr715/taxmate:backend
+        container_name: taxmate-backend
+        ports:
+          - "8000:8000"
+        volumes:
+          - ./.env:/app/.env
+        env_file:
+          - .env
+        environment:
+          - MONGO_URI=mongodb://mongo:27017/tax_filing
+          - OLLAMA_BASE_URL=http://ollama:11434
+        depends_on:
+          - mongo
+          - ollama
+
+      frontend:
+        image: akashpr715/taxmate:frontend
+        container_name: taxmate-frontend
+        ports:
+          - "3000:3000"
+        environment:
+          - NEXT_PUBLIC_API_URL=http://localhost:8000
+
+      mongo:
+        image: mongo:latest
+        container_name: taxmate-mongo
+        ports:
+          - "27017:27017"
+        volumes:
+          - mongo-data:/data/db
+
+      ollama:
+        image: ollama/ollama:latest
+        container_name: taxmate-ollama
+        ports:
+          - "11434:11434"
+        volumes:
+          - ollama-data:/root/.ollama
+        entrypoint: /bin/sh
+        command: -c "/bin/ollama serve & sleep 5 && ollama pull nomic-embed-text && wait"
+
+    volumes:
+      mongo-data:
+      ollama-data:
+    ```
+
+3.  **Start the services**:
+    ```bash
+    docker compose up -d
+    ```
+
 ## 🤝 Contribution
 
 Contributions are welcome! Please check the issues tab for open tasks.
