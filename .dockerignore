@@ -13,3 +13,13 @@ frontend/
 node_modules/
 logs/
 .DS_Store
+.env
+.env.*
+data/input_docs/
+data/filing/
+data/extracted/
+qdrant_storage/
+.gemini/
+.agent/
+.agents/
+brain/

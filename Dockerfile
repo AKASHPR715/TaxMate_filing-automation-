@@ -35,5 +35,6 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Command to run the application
 # Gunicorn manages worker processes; each worker runs uvicorn (ASGI)
-# 2 workers is safe for Render free tier (512MB RAM)
-CMD ["gunicorn", "app.main:app", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--timeout", "120"]
+# 1 worker is recommended for serverless free tier to avoid OOM
+# GCP Cloud Run provides the PORT environment variable
+CMD ["sh", "-c", "gunicorn app.main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:${PORT:-8000} --timeout 120"]

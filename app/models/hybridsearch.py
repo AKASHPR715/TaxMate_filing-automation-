@@ -106,44 +106,61 @@ class HybridQdrantRetriever(BaseRetriever):
 import logging
 _hs_logger = logging.getLogger("hybridsearch")
 
-# ---- instantiate Qdrant client ----
-# Qdrant Cloud (production): set QDRANT_URL + QDRANT_API_KEY in env
-# Local (development): falls back to local path storage
-QDRANT_URL = os.getenv("QDRANT_URL")
-QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
+# ---- Lazy Loading Singleton ----
+_retriever = None
 
-if QDRANT_URL and QDRANT_API_KEY:
-    _hs_logger.info(f"Connecting to Qdrant Cloud: {QDRANT_URL}")
-    qdrant_client = QdrantClient(
-        url=QDRANT_URL,
-        api_key=QDRANT_API_KEY,
+def get_retriever():
+    global _retriever
+    if _retriever is not None:
+        return _retriever
+
+    _hs_logger.info("Initializing Hybrid Search Retriever (lazy load)...")
+    
+    # 1. Load Vectorizer
+    if not VECTORIZER_PKL.exists():
+         _hs_logger.error(f"Vectorizer file not found at {VECTORIZER_PKL}")
+         return None
+         
+    with open(VECTORIZER_PKL, "rb") as f:
+        vectorizer = pickle.load(f)
+
+    # 2. Instantiate Qdrant client
+    QDRANT_URL = os.getenv("QDRANT_URL")
+    QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
+
+    if QDRANT_URL and QDRANT_API_KEY:
+        _hs_logger.info(f"Connecting to Qdrant Cloud: {QDRANT_URL}")
+        qdrant_client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
+    else:
+        _hs_logger.info(f"Using local Qdrant storage: {PERSIST_DIR}")
+        qdrant_client = QdrantClient(path=PERSIST_DIR)
+
+    # 3. Instantiate embeddings
+    ollama_url = os.getenv("OLLAMA_BASE_URL")
+    if ollama_url:
+        _hs_logger.info(f"Using Ollama embeddings at {ollama_url}")
+        from langchain_ollama import OllamaEmbeddings
+        embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url=ollama_url)
+    else:
+        _hs_logger.info("OLLAMA_BASE_URL not set — using FastEmbed (nomic-embed-text)")
+        try:
+            from langchain_community.embeddings import FastEmbedEmbeddings
+            # Load the smallest possible model to save RAM
+            embeddings = FastEmbedEmbeddings(model_name="nomic-ai/nomic-embed-text-v1.5-Q")
+        except Exception as e:
+            _hs_logger.warning(f"FastEmbed initialization failed: {e}")
+            embeddings = None
+
+    if not embeddings:
+        return None
+
+    _retriever = HybridQdrantRetriever(
+        client=qdrant_client,
+        embeddings=embeddings,
+        vectorizer=vectorizer,
+        top_k=TOP_K
     )
-else:
-    _hs_logger.info(f"Using local Qdrant storage: {PERSIST_DIR}")
-    qdrant_client = QdrantClient(path=PERSIST_DIR)
-
-# ---- instantiate embeddings ----
-# Use Ollama if running locally, otherwise use FastEmbed (no server needed)
-ollama_url = os.getenv("OLLAMA_BASE_URL")
-if ollama_url:
-    _hs_logger.info(f"Using Ollama embeddings at {ollama_url}")
-    from langchain_ollama import OllamaEmbeddings
-    embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url=ollama_url)
-else:
-    _hs_logger.info("OLLAMA_BASE_URL not set — using FastEmbed (nomic-embed-text)")
-    try:
-        from langchain_community.embeddings import FastEmbedEmbeddings
-        embeddings = FastEmbedEmbeddings(model_name="nomic-ai/nomic-embed-text-v1.5-Q")
-    except Exception as e:
-        _hs_logger.warning(f"FastEmbed not available: {e}. Retriever will degrade gracefully.")
-        embeddings = None
-
-retriever = HybridQdrantRetriever(
-    client=qdrant_client,
-    embeddings=embeddings,
-    vectorizer=vectorizer,
-    top_k=TOP_K
-) if embeddings else None
+    return _retriever
 
 # ---- tool ----
 @tool
@@ -152,7 +169,11 @@ def retrieve_context(query: str) -> str:
     Look up the Indian Income Tax Act (Chapter VI-A).
     Input: a specific question about sections like 80C, 80CCD(1B), deduction limits, or eligibility.
     """
-    docs = retriever.invoke(query)
+    ret = get_retriever()
+    if not ret:
+        return "Note: Tax law database is currently unavailable due to initialization error."
+        
+    docs = ret.invoke(query)
     return "\n\n".join(doc.page_content for doc in docs)
 
 tools = [retrieve_context]

@@ -25,7 +25,7 @@ if str(src_dir) not in sys.path:
     sys.path.append(str(src_dir))
 
 # Ensure these imports exist in your project structure
-from app.models.hybridsearch import retriever
+from app.models.hybridsearch import get_retriever
 try:
     from app.models.graphdb import query_tax_graph
 except ImportError:
@@ -89,7 +89,11 @@ def retrieve_context(query: str) -> str:
     """
     advisor_logger.info(f"Retrieving context for: {query}")
     try:
-        docs = retriever.invoke(query)
+        ret = get_retriever()
+        if not ret:
+            return "Context retrieval failed: Retriever not initialized."
+            
+        docs = ret.invoke(query)
         if hasattr(docs, 'page_content'):
              return docs.page_content
         if isinstance(docs, list):

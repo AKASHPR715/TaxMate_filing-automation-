@@ -17,5 +17,7 @@ ENV NODE_ENV production
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Next.js standalone mode respects the PORT environment variable by default
+# We expose it here for clarity and documentation
 EXPOSE 3000
 CMD ["node", "server.js"]

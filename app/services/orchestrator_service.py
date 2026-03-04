@@ -17,24 +17,12 @@ from langgraph.graph import StateGraph, END
 from langchain_core.messages import BaseMessage
 
 # Import Services
-current_dir = Path(__file__).resolve().parent
-src_dir = current_dir.parent.parent
-if str(src_dir) not in sys.path:
-    sys.path.append(str(src_dir))
-
-try:
-    from app.services.form_extraction_service import extract_all_forms, get_or_create_default_user
-    from app.services.tax_comparison_service import compare_tax_regimes
-    from app.services.tax_advisor_service import get_tax_advice
-    from app.services.form_generation_service import generate_filing_forms
-    from app.db.connection import get_sync_db
-except ImportError:
-    # Fallback for direct execution
-    from form_extraction_service import extract_all_forms, get_or_create_default_user
-    from tax_comparison_service import compare_tax_regimes
-    from tax_advisor_service import get_tax_advice
-    from form_generation_service import generate_filing_forms
-    from app.db.connection import get_sync_db
+# Standard namespaced imports (requires project root in sys.path)
+from app.services.form_extraction_service import extract_all_forms, get_or_create_default_user
+from app.services.tax_comparison_service import compare_tax_regimes
+from app.services.tax_advisor_service import get_tax_advice
+from app.services.form_generation_service import generate_filing_forms
+from app.db.connection import get_sync_db
 
 # ============================================================
 # 1. Logging Configuration
