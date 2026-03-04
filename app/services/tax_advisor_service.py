@@ -68,12 +68,11 @@ advisor_logger = setup_advisor_logger()
 
 # ============================================================
 # Configuration & Tools
-# ============================================================
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
-if not OPENROUTER_API_KEY:
-    advisor_logger.warning("OPENROUTER_API_KEY not found in environment variables.")
+if not NVIDIA_API_KEY:
+    advisor_logger.warning("NVIDIA_API_KEY not found in environment variables.")
 
 if not TAVILY_API_KEY:
     advisor_logger.warning("TAVILY_API_KEY not found in environment variables.")
@@ -174,13 +173,13 @@ tools = [retrieve_context, web_search, query_tax_graph]
 
 # Only initialize LLM if key is present to avoid crash on import
 llm = None
-if OPENROUTER_API_KEY:
+if NVIDIA_API_KEY:
     llm = ChatOpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        model="tngtech/deepseek-r1t-chimera:free",
-        api_key=OPENROUTER_API_KEY.strip(),
-        temperature=0,
-        max_tokens=4096,  # Increased from 1024 to prevent truncation
+        base_url="https://integrate.api.nvidia.com/v1",
+        model="mistralai/devstral-2-123b-instruct-2512",
+        api_key=NVIDIA_API_KEY.strip(),
+        temperature=0.15,
+        max_tokens=4096,
     )
 
 # Pull Prompt
