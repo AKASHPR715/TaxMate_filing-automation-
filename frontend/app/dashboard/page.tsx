@@ -816,9 +816,8 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="income">
-                  <TabsList className="grid w-full grid-cols-3">
+                  <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="income">Income</TabsTrigger>
-                    <TabsTrigger value="deductions">Deductions</TabsTrigger>
                     <TabsTrigger value="summary">Summary</TabsTrigger>
                   </TabsList>
 
@@ -843,17 +842,6 @@ export default function Dashboard() {
                     </div>
                   </TabsContent>
 
-                  <TabsContent value="deductions" className="space-y-4 mt-4">
-                    <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="font-medium text-gray-900">Chapter VI-A</span>
-                        <span className="text-lg font-bold text-green-600">
-                          ₹{analysis?.computation_result?.ch_via ? analysis.computation_result.ch_via.toLocaleString() : '0'}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600">Total Deductions under Old Regime</p>
-                    </div>
-                  </TabsContent>
 
                   <TabsContent value="summary" className="mt-4">
                     <div className="space-y-3">
@@ -863,14 +851,6 @@ export default function Dashboard() {
                           ₹{analysis?.computation_result ? (analysis.computation_result.gross_salary + analysis.computation_result.other_income).toLocaleString() : '0'}
                         </span>
                       </div>
-                      {analysis?.computation_result?.optimal_regime === 'OLD' && (
-                        <div className="flex justify-between items-center py-3 border-b">
-                          <span className="text-gray-700">Total Deductions</span>
-                          <span className="font-semibold text-green-600">
-                            -₹{analysis?.computation_result?.ch_via ? analysis.computation_result.ch_via.toLocaleString() : '0'}
-                          </span>
-                        </div>
-                      )}
                       <div className="flex justify-between items-center py-3 border-b">
                         <span className="text-gray-700">Taxable Income</span>
                         <span className="font-semibold text-gray-900">

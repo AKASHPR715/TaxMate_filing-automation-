@@ -453,7 +453,7 @@ export function ReviewDataForm({ data, onUpdate }: ReviewDataFormProps) {
                     {/* ========== FORM 16 PART B TAB ========== */}
                     <TabsContent value="part-b" className="mt-0">
                         {partBKey && localData[partBKey] ? (
-                            <Accordion type="multiple" defaultValue={["salary", "exemptions", "deductions16", "chapterVIA", "tax"]} className="space-y-3">
+                            <Accordion type="multiple" defaultValue={["salary", "exemptions", "deductions16", "tax"]} className="space-y-3">
 
                                 {/* Salary Details */}
                                 <AccordionItem value="salary" className="border rounded-lg bg-white">
@@ -645,88 +645,6 @@ export function ReviewDataForm({ data, onUpdate }: ReviewDataFormProps) {
                                     </AccordionContent>
                                 </AccordionItem>
 
-                                {/* Chapter VI-A Deductions */}
-                                <AccordionItem value="chapterVIA" className="border rounded-lg bg-white">
-                                    <AccordionTrigger className="px-4 hover:no-underline">
-                                        <div className="flex items-center gap-2">
-                                            <TrendingDown className="h-4 w-4 text-green-600" />
-                                            <span className="font-semibold">Chapter VI-A Deductions</span>
-                                            <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800">
-                                                ₹{getValue(localData[partBKey], ['deductions_chapter_VIA', 'total_deductions'], 0).toLocaleString()}
-                                            </Badge>
-                                        </div>
-                                    </AccordionTrigger>
-                                    <AccordionContent className="px-4 pb-4">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <CurrencyField
-                                                label="Section 80C"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80C'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80C'], v)}
-                                                description="Life Insurance, PPF, ELSS (Max ₹1,50,000)"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80CCC"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80CCC'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80CCC'], v)}
-                                                description="Pension Funds"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80CCD(1)"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80CCD_1'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80CCD_1'], v)}
-                                                description="Employee NPS Contribution"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80CCD(1B)"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80CCD_1B'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80CCD_1B'], v)}
-                                                description="Additional NPS (Max ₹50,000)"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80CCD(2)"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80CCD_2'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80CCD_2'], v)}
-                                                description="Employer NPS Contribution"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80D"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80D'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80D'], v)}
-                                                description="Health Insurance Premium"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80E"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80E'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80E'], v)}
-                                                description="Education Loan Interest"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80G"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80G'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80G'], v)}
-                                                description="Donations"
-                                            />
-                                            <CurrencyField
-                                                label="Section 80TTA"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'section_80TTA'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'section_80TTA'], v)}
-                                                description="Savings Account Interest (Max ₹10,000)"
-                                            />
-                                            <CurrencyField
-                                                label="Other Deductions"
-                                                value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'any_other_deductions'], 0)}
-                                                onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'any_other_deductions'], v)}
-                                            />
-                                            <div className="md:col-span-2 p-3 bg-green-50 rounded-lg">
-                                                <CurrencyField
-                                                    label="Total Chapter VI-A Deductions"
-                                                    value={getValue(localData[partBKey], ['deductions_chapter_VIA', 'total_deductions'], 0)}
-                                                    onChange={(v) => handleChange(partBKey, ['deductions_chapter_VIA', 'total_deductions'], v)}
-                                                />
-                                            </div>
-                                        </div>
-                                    </AccordionContent>
-                                </AccordionItem>
 
                                 {/* Tax Computation */}
                                 <AccordionItem value="tax" className="border rounded-lg bg-white">
