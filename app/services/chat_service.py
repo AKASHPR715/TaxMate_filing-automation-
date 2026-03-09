@@ -1,6 +1,5 @@
 """
-TaxMate Chat Service
-A generalized chat service for tax advisory using OpenRouter.
+A generalized chat service for tax advisory using NVIDIA NIM.
 """
 
 import os
@@ -48,11 +47,11 @@ chat_logger = setup_chat_logger()
 # ============================================================
 # Configuration
 # ============================================================
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
+NVIDIA_API_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
-# Model selection - using a capable free model
-DEFAULT_MODEL = "allenai/molmo-2-8b:free"
+# Model selection - using a capable NVIDIA model
+DEFAULT_MODEL = "meta/llama-3.1-70b-instruct"
 
 # ============================================================
 # System Prompt
@@ -118,7 +117,7 @@ TAXMATE_SYSTEM_PROMPT = """You are **TaxMate**, an expert AI tax advisor special
 - Complex situations (NRI status, business income, crypto) may need CA consultation
 - Always consider both regimes before recommending one
 - Due date for FY 2024-25 filing: July 31, 2025 (for non-audit cases)
-
+give results that are not too short not too long.
 Remember: You're a helpful, knowledgeable, and friendly tax advisor. Make tax filing less stressful for users! 🇮🇳"""
 
 # ============================================================
@@ -184,7 +183,7 @@ class ChatSession:
         return "\n".join([p for p in summary_parts if p])
     
     def to_api_messages(self) -> List[Dict[str, str]]:
-        """Convert session to OpenRouter API format."""
+        """Convert session to API format."""
         api_messages = [{"role": "system", "content": TAXMATE_SYSTEM_PROMPT}]
         
         # Add context to the first user message if available
@@ -209,8 +208,8 @@ class ChatService:
         self.model = model
         self.session = ChatSession()
         
-        if not OPENROUTER_API_KEY:
-            chat_logger.warning("OPENROUTER_API_KEY not found!")
+        if not NVIDIA_API_KEY:
+            chat_logger.warning("NVIDIA_API_KEY not found!")
     
     def set_context(self, context: Dict[str, Any]) -> str:
         """Set document context for personalized responses."""
@@ -257,8 +256,8 @@ class ChatService:
         Returns:
             AI assistant's response text
         """
-        if not OPENROUTER_API_KEY:
-            return "Error: OpenRouter API key not configured. Please set OPENROUTER_API_KEY in .env file."
+        if not NVIDIA_API_KEY:
+            return "Error: NVIDIA API key not configured. Please set NVIDIA_API_KEY in .env file."
         
         try:
             # Add user message to session
@@ -269,7 +268,7 @@ class ChatService:
             
             # Prepare API request
             headers = {
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "Authorization": f"Bearer {NVIDIA_API_KEY}",
                 "Content-Type": "application/json",
             }
             
@@ -278,11 +277,11 @@ class ChatService:
                 "messages": api_messages,
             }
             
-            chat_logger.info(f"Sending request to OpenRouter (model: {self.model})")
+            chat_logger.info(f"Sending request to NVIDIA NIM (model: {self.model})")
             
             # Make API call with timeout
             response = requests.post(
-                OPENROUTER_API_URL,
+                NVIDIA_API_URL,
                 headers=headers,
                 json=payload,
                 timeout=30  # 30 second timeout
@@ -301,10 +300,10 @@ class ChatService:
                 # Add to session history
                 self.session.add_assistant_message(assistant_message)
                 
-                chat_logger.info("Successfully received response from OpenRouter")
+                chat_logger.info("Successfully received response from NVIDIA NIM")
                 return assistant_message
             else:
-                error_msg = "Unexpected response format from OpenRouter API"
+                error_msg = "Unexpected response format from NVIDIA NIM API"
                 chat_logger.error(f"{error_msg}: {response_data}")
                 return f"Error: {error_msg}"
                 
