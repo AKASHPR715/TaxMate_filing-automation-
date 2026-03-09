@@ -1,11 +1,13 @@
-
+version: '3.8'
 
 services:
   backend:
+    image: akashpr715/taxmate-backend:latest
     build:
       context: .
       dockerfile: Dockerfile
     container_name: taxmate-backend
+    restart: always
     ports:
       - "8000:8000"
     volumes:
@@ -15,42 +17,53 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo:27017/tax_filing
       - ALLOWED_ORIGINS=http://localhost:3000
-      - OLLAMA_BASE_URL=http://ollama:11434
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     networks:
       - taxmate-network
 
   frontend:
+    image: akashpr715/taxmate-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: taxmate-frontend
+    restart: always
     ports:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
     networks:
       - taxmate-network
 
   mongo:
-    image: mongo:latest
+    image: mongo:6.0
     container_name: taxmate-mongo
+    restart: always
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - taxmate-network
 
   ollama:
     image: ollama/ollama:latest
     container_name: taxmate-ollama
+    restart: always
     ports:
       - "11435:11434"
     volumes:
       - ollama-data:/root/.ollama
-      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
     entrypoint: /bin/sh
     command: -c "/bin/ollama serve & sleep 5 && ollama pull nomic-embed-text && wait"
     networks:
