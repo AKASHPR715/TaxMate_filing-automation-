@@ -108,7 +108,8 @@ def convert_to_form16_format(profile) -> dict:
                 "section_80CCD_1": 0.0,  # Moved to 80C above
                 "section_80CCD_1B": 0.0,  # Additional NPS
                 "section_80CCD_2": 0.0,   # Employer NPS (not a deduction!)
-                "section_80D": profile.deductions.medical_insurance_self + profile.deductions.medical_insurance_parents,
+                "section_80D_self":    profile.deductions.medical_insurance_self,
+                "section_80D_parents": profile.deductions.medical_insurance_parents,
                 "section_80E": 0.0,       # Education loan
                 "section_80G": 0.0,       # Donations
                 "section_80TTA": min(profile.income.other_sources_income, 10000.0) if profile.income.other_sources_income > 0 else 0.0,

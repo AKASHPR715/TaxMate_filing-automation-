@@ -1,0 +1,58 @@
+{
+  "total_profiles": 500,
+  "exact_match_accuracy": {
+    "neuro_symbolic": 0.876,
+    "zero_shot": 0.016,
+    "chain_of_thought": 0.018
+  },
+  "neuro_symbolic_error_stats": {
+    "mae": 381.12952800000005,
+    "median": 0.0,
+    "std_dev": 1552.5352380041313,
+    "min": 0.0,
+    "max": 15600.0
+  },
+  "relative_error": {
+    "mean": 7.557795748992943,
+    "median": 0.0,
+    "std_dev": 69.09952720378355
+  },
+  "slab_hallucination": {
+    "count": 13,
+    "rate": 0.026
+  },
+  "error_distribution": {
+    "perfect_lt10": 438,
+    "small_10_100": 0,
+    "medium_100_1k": 8,
+    "large_1k_10k": 51,
+    "very_large_gt10k": 3
+  },
+  "by_regime": {
+    "old": {
+      "count": 245,
+      "accuracy": 0.746938775510204
+    },
+    "new": {
+      "count": 255,
+      "accuracy": 1.0
+    }
+  },
+  "by_complexity": {
+    "Simple": {
+      "count": 68,
+      "acc": 1.0,
+      "mae": 0.0
+    },
+    "Medium": {
+      "count": 416,
+      "acc": 0.8677884615384616,
+      "mae": 341.838375
+    },
+    "Complex": {
+      "count": 16,
+      "acc": 0.5625,
+      "mae": 3022.5
+    }
+  }
+}

@@ -4,6 +4,7 @@ import csv
 import json
 import logging
 import argparse
+import numpy as np
 from datetime import datetime
 from tqdm import tqdm
 from dotenv import load_dotenv
@@ -53,7 +54,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - RUNNER - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("experiments/execution_runner.log"),
+        logging.FileHandler("experiments/execution_runner.log", encoding="utf-8"),
         logging.StreamHandler()
     ]
 )
@@ -275,7 +276,7 @@ def run_benchmark(count: int = 10, dry_run: bool = False, model: str = None):
     
     # 3c. Human-Readable Text Log
     text_log_filename = f"{output_dir}/readable_log_{timestamp}.txt"
-    with open(text_log_filename, "w") as f:
+    with open(text_log_filename, "w", encoding="utf-8") as f:
         f.write("=" * 80 + "\n")
         f.write(f"TAX COMPUTATION BENCHMARK - {timestamp}\n")
         f.write(f"Model: {model or 'gpt-4o-mini'}\n")
@@ -344,32 +345,127 @@ def run_benchmark(count: int = 10, dry_run: bool = False, model: str = None):
     logger.info(f"Human-readable log saved to {text_log_filename}")
         
     # 4. Calculate and Display Statistics
-    ns_acc = sum(1 for r in results if r["neuro_error"] <= 10) / len(results)
-    zs_acc = sum(1 for r in results if r["zs_error"] <= 10) / len(results)
-    cot_acc = sum(1 for r in results if r["cot_error"] <= 10) / len(results)
-    
-    avg_neuro_error = sum(r["neuro_error"] for r in results) / len(results)
-    avg_zs_error = sum(r["zs_error"] for r in results) / len(results)
-    avg_cot_error = sum(r["cot_error"] for r in results) / len(results)
-    
+    neuro_errors = np.array([r["neuro_error"] for r in results])
+    zs_errors    = np.array([r["zs_error"]    for r in results])
+    cot_errors   = np.array([r["cot_error"]   for r in results])
+    ground_truths = np.array([r["ground_truth"] for r in results])
+
+    # Exact Match Accuracy (EMA): within Rs 10
+    ns_acc  = np.mean(neuro_errors <= 10)
+    zs_acc  = np.mean(zs_errors    <= 10)
+    cot_acc = np.mean(cot_errors   <= 10)
+
+    # MAE, Median, Std Dev
+    ns_mae    = np.mean(neuro_errors)
+    ns_median = np.median(neuro_errors)
+    ns_std    = np.std(neuro_errors)
+    ns_min    = np.min(neuro_errors)
+    ns_max    = np.max(neuro_errors)
+
+    # Mean Relative Error
+    relative_errors = np.where(ground_truths > 0, (neuro_errors / ground_truths) * 100, 0.0)
+    ns_mean_rel_err   = np.mean(relative_errors)
+    ns_median_rel_err = np.median(relative_errors)
+    ns_std_rel_err    = np.std(relative_errors)
+
+    # Slab Hallucination Rate: profiles with >50% relative error
+    slab_hallucinations = int(np.sum(relative_errors > 50))
+    slab_hallucination_rate = slab_hallucinations / len(results)
+
+    # Error Magnitude Distribution
+    dist_perfect = int(np.sum(neuro_errors < 10))
+    dist_small   = int(np.sum((neuro_errors >= 10)  & (neuro_errors < 100)))
+    dist_medium  = int(np.sum((neuro_errors >= 100) & (neuro_errors < 1000)))
+    dist_large   = int(np.sum((neuro_errors >= 1000) & (neuro_errors < 10000)))
+    dist_xlarge  = int(np.sum(neuro_errors >= 10000))
+
+    # Per-regime breakdown
+    old_errors = np.array([r["neuro_error"] for r in results if r["regime"] == "Old"])
+    new_errors = np.array([r["neuro_error"] for r in results if r["regime"] == "New"])
+    old_acc    = float(np.mean(old_errors <= 10)) if len(old_errors) > 0 else 0.0
+    new_acc    = float(np.mean(new_errors <= 10)) if len(new_errors) > 0 else 0.0
+
+    # Per-complexity breakdown
+    for_complexity = {}
+    for cx in ["Simple", "Medium", "Complex"]:
+        cx_errors = np.array([r["neuro_error"] for r in results if r["complexity"] == cx])
+        if len(cx_errors) > 0:
+            for_complexity[cx] = {
+                "count": len(cx_errors),
+                "acc": float(np.mean(cx_errors <= 10)),
+                "mae": float(np.mean(cx_errors)),
+            }
+
+    # Print full report
     print(f"\n{'=' * 80}")
     print(f"BENCHMARK RESULTS SUMMARY ({len(results)} samples)")
     print(f"{'=' * 80}")
-    print(f"\nExact Match Accuracy (within ₹10):")
+
+    print(f"\n--- Exact Match Accuracy (within Rs 10) ---")
     print(f"  Neuro-Symbolic:    {ns_acc:>6.1%}")
     print(f"  Zero-Shot LLM:     {zs_acc:>6.1%}")
     print(f"  Chain-of-Thought:  {cot_acc:>6.1%}")
-    print(f"\nAverage Error:")
-    print(f"  Neuro-Symbolic:    ₹{avg_neuro_error:>10,.2f}")
-    print(f"  Zero-Shot LLM:     ₹{avg_zs_error:>10,.2f}")
-    print(f"  Chain-of-Thought:  ₹{avg_cot_error:>10,.2f}")
+
+    print(f"\n--- Neuro-Symbolic Error Statistics ---")
+    print(f"  Mean Absolute Error (MAE):  Rs {ns_mae:>10,.2f}")
+    print(f"  Median Error:               Rs {ns_median:>10,.2f}")
+    print(f"  Std Deviation:              Rs {ns_std:>10,.2f}")
+    print(f"  Min Error:                  Rs {ns_min:>10,.2f}")
+    print(f"  Max Error:                  Rs {ns_max:>10,.2f}")
+
+    print(f"\n--- Relative Error ---")
+    print(f"  Mean Relative Error:    {ns_mean_rel_err:>6.2f}%")
+    print(f"  Median Relative Error:  {ns_median_rel_err:>6.2f}%")
+    print(f"  Std Dev Relative Error: {ns_std_rel_err:>6.2f}%")
+
+    print(f"\n--- Slab Hallucination Rate (>50% error) ---")
+    print(f"  Count:  {slab_hallucinations} profiles")
+    print(f"  Rate:   {slab_hallucination_rate:.1%}")
+
+    print(f"\n--- Error Magnitude Distribution ---")
+    print(f"  Perfect   (<Rs 10):          {dist_perfect:>4} profiles  ({dist_perfect/len(results):.1%})")
+    print(f"  Small     (Rs 10-100):       {dist_small:>4} profiles  ({dist_small/len(results):.1%})")
+    print(f"  Medium    (Rs 100-1K):       {dist_medium:>4} profiles  ({dist_medium/len(results):.1%})")
+    print(f"  Large     (Rs 1K-10K):       {dist_large:>4} profiles  ({dist_large/len(results):.1%})")
+    print(f"  Very Large(>Rs 10K):         {dist_xlarge:>4} profiles  ({dist_xlarge/len(results):.1%})")
+
+    print(f"\n--- Accuracy by Regime ---")
+    print(f"  Old Regime ({len(old_errors)} profiles): {old_acc:.1%}")
+    print(f"  New Regime ({len(new_errors)} profiles): {new_acc:.1%}")
+
+    print(f"\n--- Accuracy by Complexity ---")
+    for cx, cx_stats in for_complexity.items():
+        print(f"  {cx:<8} ({cx_stats['count']:>3} profiles): Acc={cx_stats['acc']:.1%}  MAE=Rs {cx_stats['mae']:,.2f}")
+
     print(f"\n{'=' * 80}")
     print(f"\nOutput Files:")
-    print(f"  • Synthetic Profiles:  {profiles_json_file}")
-    print(f"  • CSV Summary:         {csv_filename}")
-    print(f"  • Detailed JSON Log:   {json_filename}")
-    print(f"  • Readable Text Log:   {text_log_filename}")
+    print(f"  Synthetic Profiles:  {profiles_json_file}")
+    print(f"  CSV Summary:         {csv_filename}")
+    print(f"  Detailed JSON Log:   {json_filename}")
+    print(f"  Readable Text Log:   {text_log_filename}")
     print(f"{'=' * 80}\n")
+
+    # Save metrics to JSON
+    metrics_file = f"{output_dir}/final_metrics_{count}profiles_{timestamp}.json"
+    metrics = {
+        "total_profiles": len(results),
+        "exact_match_accuracy": {"neuro_symbolic": float(ns_acc), "zero_shot": float(zs_acc), "chain_of_thought": float(cot_acc)},
+        "neuro_symbolic_error_stats": {
+            "mae": float(ns_mae), "median": float(ns_median),
+            "std_dev": float(ns_std), "min": float(ns_min), "max": float(ns_max)
+        },
+        "relative_error": {"mean": float(ns_mean_rel_err), "median": float(ns_median_rel_err), "std_dev": float(ns_std_rel_err)},
+        "slab_hallucination": {"count": slab_hallucinations, "rate": float(slab_hallucination_rate)},
+        "error_distribution": {
+            "perfect_lt10": dist_perfect, "small_10_100": dist_small,
+            "medium_100_1k": dist_medium, "large_1k_10k": dist_large, "very_large_gt10k": dist_xlarge
+        },
+        "by_regime": {"old": {"count": len(old_errors), "accuracy": old_acc}, "new": {"count": len(new_errors), "accuracy": new_acc}},
+        "by_complexity": for_complexity
+    }
+    with open(metrics_file, "w") as f:
+        json.dump(metrics, f, indent=2)
+    logger.info(f"Metrics JSON saved to {metrics_file}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

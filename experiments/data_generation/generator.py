@@ -98,25 +98,32 @@ class TaxProfileGenerator:
         # This uses the SAME logic as tax_comparison.py (the symbolic solver)
         gross_total_income = gross + other_income
         
+        # Professional Tax: ₹2500 if gross > 3L
+        prof_tax = 2500.0 if gross > 300000 else 0.0
+        
+        # Section 80TTA: cap at 10,000 for savings interest
+        sec_80tta = min(other_income, 10000.0)
+        
         if target_regime == "Old":
             # Old Regime: Apply exemptions and deductions
             hra_exemption = self._calculate_hra_exemption(basic, hra, rent_paid, is_metro)
             
-            # Chapter VI-A deductions (80C + 80D)
+            # Chapter VI-A deductions (80C + 80D + 80TTA)
+            # 80D: Rs 25K cap for self/family + Rs 25K cap for parents (IT Act rule)
             total_80c = min(
                 ded_raw["pf"] + ded_raw["elss"] + ded_raw["lic"] + ded_raw["ppf"],
                 SECTION_80C_LIMIT
             )
-            total_80d = ded_raw["medical_self"] + ded_raw["medical_parents"]
+            total_80d = min(ded_raw["medical_self"], 25_000) + min(ded_raw["medical_parents"], 25_000)
             
             # Taxable Income for Old Regime
-            taxable_income = max(0, gross_total_income - OLD_REGIME_STANDARD_DEDUCTION - hra_exemption - total_80c - total_80d)
+            taxable_income = max(0, gross_total_income - OLD_REGIME_STANDARD_DEDUCTION - prof_tax - hra_exemption - total_80c - total_80d - sec_80tta)
             ground_truth = apply_cess(old_regime_tax(taxable_income))
         else:
-            # New Regime: Only standard deduction, no exemptions/deductions
+            # New Regime: Only standard deduction, prof tax, no other exemptions/deductions
             # FY 2024-25 (AY 2025-26): ₹75,000 standard deduction
             # Using STANDARD_DEDUCTION constant for FY 24-25
-            taxable_income = max(0, gross_total_income - STANDARD_DEDUCTION)
+            taxable_income = max(0, gross_total_income - STANDARD_DEDUCTION - prof_tax)
             ground_truth = apply_cess(new_regime_tax(taxable_income))
         
         profile = TaxProfile(

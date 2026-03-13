@@ -45,13 +45,28 @@ def adapt_profile_to_orchestrator(profile: TaxProfile) -> Dict[str, Any]:
             "total_salary": inc.gross_salary,
             "salary_from_other_employers": 0.0,
         },
+        "salary_breakdown": {
+            "basic_salary": inc.basic_salary,
+            "hra": inc.hra_received,
+            "special_allowance": inc.special_allowance
+        },
+        "rent_details": {
+            "annual_rent_paid": ded.rent_paid_annual,
+            "is_metro_city": ded.is_metro_city
+        },
         "exemptions_u_s_10": {
             "house_rent_allowance": hra_exemption,  # CALCULATED exemption, not raw HRA
             "total_exemptions": hra_exemption  # For now, only HRA
         },
+        "deductions_u_s_16": {
+            "standard_deduction": 75000.0,
+            "professional_tax": 2500.0 if inc.gross_salary > 300000 else 0.0
+        },
         "deductions_chapter_VIA": {
             "section_80C": ded.pf_contribution + ded.elss + ded.lic_premium + ded.ppf,
-            "section_80D": ded.medical_insurance_self + ded.medical_insurance_parents,
+            "section_80D_self":    ded.medical_insurance_self,
+            "section_80D_parents": ded.medical_insurance_parents,
+            "section_80TTA": min(inc.other_sources_income, 10000.0) if inc.other_sources_income > 0 else 0.0
         },
         "other_income_reported": {
             "total_other_income": inc.other_sources_income

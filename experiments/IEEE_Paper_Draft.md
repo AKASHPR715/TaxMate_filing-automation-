@@ -14,17 +14,38 @@
 
 \title{Neuro-Symbolic Architectures for High-Stakes Regulatory Automation: Bridging Deterministic Tax Laws with Generative Advisory}
 
-\author{\IEEEauthorblockN{First Author}
-\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
-\textit{Affiliation}\\
-City, Country \\
-email@address.com}
-\and
-\IEEEauthorblockN{Second Author}
-\IEEEauthorblockA{\textit{Dept. of Finance/Technology} \\
-\textit{Affiliation}\\
-City, Country \\
-email@address.com}
+\author{
+    \IEEEauthorblockN{Akash A.}
+    \IEEEauthorblockA{
+        Student, Computer Science\\
+        Mar Baselios College of Engineering and Technology\\
+        Thiruvananthapuram, Kerala\\
+        akashanil456@gmail.com
+    }
+    \and
+    \IEEEauthorblockN{Akash P. R.}
+    \IEEEauthorblockA{
+        Student, Computer Science\\
+        Mar Baselios College of Engineering and Technology\\
+        Thiruvananthapuram, Kerala\\
+        akashpr715@gmail.com
+    }
+    \and
+    \IEEEauthorblockN{Jyothsna P. Nair}
+    \IEEEauthorblockA{
+        Student, Computer Science\\
+        Mar Baselios College of Engineering and Technology\\
+        Thiruvananthapuram, Kerala\\
+        jyothsnapnair2003@gmail.com
+    }
+    \and
+    \IEEEauthorblockN{Sruthin L. J.}
+    \IEEEauthorblockA{
+        Student, Computer Science\\
+        Mar Baselios College of Engineering and Technology\\
+        Thiruvananthapuram, Kerala\\
+        sruthinlj@gmail.com
+    }
 }
 
 \maketitle
@@ -148,7 +169,8 @@ The Orchestrator acts as a Finite State Machine (FSM). It parses user intent, tr
 Real tax data is privacy-sensitive and subject to strict confidentiality regulations. We developed a robust synthetic data generator that statistically mirrors the Indian taxpayer population using publicly available income distribution studies.
 
 \subsubsection{Income Distribution Modeling}
-We model gross salary using a Log-Normal distribution with parameters $\mu=13.5$ and $\sigma=0.6$, chosen to match the income distribution reported in India's Income Tax Returns for FY 2023-24. This configuration produces:
+Real tax data is privacy-sensitive and subject to strict confidentiality regulations. We developed a robust synthetic data generator that statistically mirrors the filing population of Indian salaried taxpayers, using publicly available aggregates from the Income Tax Department’s Annual Report (AY 2023–24) [18]. While India’s national income median is substantially lower, our focus is on individuals above the basic exemption threshold (\rupee3L under the new regime), who constitute the active taxpayer base.
+We model gross income using a log-normal distribution calibrated to reported filing patterns, yielding:
 \begin{itemize}
     \item \textbf{Median Income}: \rupee 7.3L (representative of salaried middle class)
     \item \textbf{90th Percentile}: \rupee 22L (upper-middle class)
@@ -252,7 +274,7 @@ Llama-3-70B & 38.2\% & 22.0\% & 3.1\% \\
 
 \textbf{Failure Analysis of Baselines:}
 \begin{itemize}
-    \item \textbf{Surcharge Blindness}: In Type C (HNI) cases, LLMs correctly calculated the base tax but frequently forgot the 10\% surcharge on tax > \rupee 50L.
+    \item \textbf{Surcharge Blindness}: In Type C (HNI) cases, LLMs correctly calculated the base tax but often missed adding the 10\% surcharge when tax exceeded \rupee50{,}00{,}000 .
     \item \textbf{Old vs New Confusion}: In 15\% of CoT cases, GPT-4 applied "Old Regime" deductions (like 80C) to the "New Regime" slab rates, creating a hybrid hallucination that exists in neither law.
     \item \textbf{Arithmetic Drift}: For long calculations (Type B), small errors in subtraction (e.g., $15,43,000 - 1,50,000$) propagated to the final tax, resulting in errors of magnitude \rupee 100-500.
 \end{itemize}

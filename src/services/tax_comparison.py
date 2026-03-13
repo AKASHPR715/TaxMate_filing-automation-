@@ -264,21 +264,44 @@ def validate_80ccd1b(amount: float) -> dict:
         "unused": unused
     }
 
-def validate_80d(amount: float, age_category: str = "below_60") -> dict:
-    cap = 25_000
-    if amount > 75_000:
-        cap = 75_000
-        comparison_logger.warning(f"80D amount ₹{amount:,.2f} exceeds typical limit. Capping at ₹75,000.")
-    
-    validated = min(amount, cap)
-    comparison_logger.info(f"80D - Claimed: ₹{amount:,.2f}, Cap: ₹{cap:,.2f}, Validated: ₹{validated:,.2f}")
-    
+def validate_80d(amount_self: float, amount_parents: float = 0.0,
+                 parents_senior: bool = False) -> dict:
+    """
+    Section 80D – Medical Insurance Premiums.
+
+    Caps (IT Act, FY 2024-25):
+      • Self / spouse / children : ₹25,000
+      • Parents (< 60 yrs)       : ₹25,000
+      • Parents (≥ 60 yrs)       : ₹50,000
+    Total maximum : ₹75,000 (₹25K self + ₹50K senior parents)
+
+    Backward-compatible: if called with a single positional arg (old callers),
+    treat it as `amount_self` with no parent portion.
+    """
+    cap_self    = 25_000
+    cap_parents = 50_000 if parents_senior else 25_000
+
+    validated_self    = min(amount_self,    cap_self)
+    validated_parents = min(amount_parents, cap_parents)
+    validated         = validated_self + validated_parents
+    claimed           = amount_self + amount_parents
+    cap_total         = cap_self + cap_parents
+
+    comparison_logger.info(
+        f"80D - Self: claimed=₹{amount_self:,.2f} cap=₹{cap_self:,.2f} validated=₹{validated_self:,.2f} | "
+        f"Parents({'Sr' if parents_senior else 'Jr'}): claimed=₹{amount_parents:,.2f} "
+        f"cap=₹{cap_parents:,.2f} validated=₹{validated_parents:,.2f} | Total=₹{validated:,.2f}"
+    )
+
     return {
-        "claimed": amount,
-        "validated": validated,
-        "cap": cap,
-        "cap_applied": amount > cap
+        "claimed":        claimed,
+        "validated":      validated,
+        "cap":            cap_total,
+        "cap_applied":    claimed > cap_total,
+        "self_validated": validated_self,
+        "parents_validated": validated_parents,
     }
+
 
 def validate_chapter_via_deductions(deductions_dict: dict, include_any_other: bool = False, assessee_age: str = "below_60") -> dict:
     comparison_logger.info("=" * 60)
@@ -291,14 +314,25 @@ def validate_chapter_via_deductions(deductions_dict: dict, include_any_other: bo
     sec_80ccd1 = deductions_dict.get("section_80CCD_1", 0) or 0
     sec_80ccd1b = deductions_dict.get("section_80CCD_1B", 0) or 0
     sec_80ccd2 = deductions_dict.get("section_80CCD_2", 0) or 0  # Employer NPS - NOT a deduction!
-    sec_80d = deductions_dict.get("section_80D", 0) or 0
+    # Section 80D: accept either separate fields or a combined field (backward compat)
+    sec_80d_self    = deductions_dict.get("section_80D_self", None)
+    sec_80d_parents = deductions_dict.get("section_80D_parents", None)
+    if sec_80d_self is None:
+        # Old callers pass a single 'section_80D' — split evenly as a fallback
+        sec_80d_combined = deductions_dict.get("section_80D", 0) or 0
+        sec_80d_self    = sec_80d_combined
+        sec_80d_parents = 0.0  # assume no parents portion if not broken out
+    else:
+        sec_80d_self    = sec_80d_self or 0
+        sec_80d_parents = sec_80d_parents or 0
+    parents_senior = deductions_dict.get("parents_senior_citizen", False)
     sec_80e = deductions_dict.get("section_80E", 0) or 0
     sec_80g = deductions_dict.get("section_80G", 0) or 0
     sec_80tta = deductions_dict.get("section_80TTA", 0) or 0
     any_other = deductions_dict.get("any_other_deductions", 0) or 0
     
     original_total = sum([sec_80c, sec_80ccc, sec_80ccd1, sec_80ccd1b, 
-                          sec_80d, sec_80e, sec_80g, sec_80tta, any_other])
+                          sec_80d_self, sec_80d_parents, sec_80e, sec_80g, sec_80tta, any_other])
     # Note: sec_80ccd2 excluded from total (not a deduction)
     
     warnings = []
@@ -313,8 +347,8 @@ def validate_chapter_via_deductions(deductions_dict: dict, include_any_other: bo
     if val_80ccd1b["cap_applied"]:
         warnings.append(f"80CCD(1B) capped from ₹{val_80ccd1b['claimed']:,.2f} to ₹{val_80ccd1b['validated']:,.2f}")
     
-    # Validate 80D
-    val_80d = validate_80d(sec_80d, assessee_age)
+    # Validate 80D (separate self + parents caps)
+    val_80d = validate_80d(sec_80d_self, sec_80d_parents, parents_senior=parents_senior)
     if val_80d["cap_applied"]:
         warnings.append(f"80D capped from ₹{val_80d['claimed']:,.2f} to ₹{val_80d['validated']:,.2f}")
     
@@ -379,7 +413,8 @@ def validate_chapter_via_deductions(deductions_dict: dict, include_any_other: bo
             "80ccd1": sec_80ccd1,
             "80ccd1b": sec_80ccd1b,
             "80ccd2": sec_80ccd2,
-            "80d": sec_80d,
+            "80d_self": sec_80d_self,
+            "80d_parents": sec_80d_parents,
             "80e": sec_80e,
             "80g": sec_80g,
             "80tta": sec_80tta,
