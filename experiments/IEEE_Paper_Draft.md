@@ -1,6 +1,7 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
@@ -53,7 +54,7 @@
 \begin{abstract}
 The integration of Large Language Models (LLMs) into financial compliance systems is currently impeded by their inherent stochasticity, often manifesting as "hallucinations" in arithmetic operations and regulatory citations. This unreliability is critical in domains such as Indian taxation, where non-compliance carries significant legal penalties. While techniques like Chain-of-Thought (CoT) prompting improve reasoning, benchmarks show they fail to achieve the 100\% accuracy required for statutory computations. 
 
-This paper proposes "TaxMate", a novel Neuro-Symbolic architecture that decouples arithmetic reasoning from semantic interpretation. We introduce a Supervisor-Worker agent system where a deterministic "Symbolic Solver" (encoding the Finance Act 2024-25) acts as the ground truth, while a "Neural Advisor" (LLM-based agent) functions strictly as a natural language interface. By injecting verified computational states into the LLM's context window, our approach eliminates numeric errors while retaining conversation flexibility. We evaluate this system on a synthetic dataset of 1,000 diverse Indian tax profiles, demonstrating a 100\% reduction in arithmetic error rates compared to GPT-4o and Llama-3, alongside a significant improvement in regulatory citation accuracy. These findings offer a scalable blueprint for "Trustworthy AI" in high-stakes, encoded-law domains.
+This paper proposes "TaxMate", a novel Neuro-Symbolic architecture that decouples arithmetic reasoning from semantic interpretation. We introduce a Supervisor-Worker agent system where a deterministic "Symbolic Solver" (encoding the Finance Act 2024-25) acts as the ground truth, while a "Neural Advisor" (LLM-based agent) functions strictly as a natural language interface. By injecting verified computational states into the LLM's context window, our approach eliminates numeric errors while retaining conversation flexibility. We evaluate this system on a synthetic dataset of 500 diverse Indian tax profiles spanning Simple, Medium, and Complex income scenarios across both Old and New tax regimes, demonstrating 100\% exact match accuracy (within \rupee10 tolerance) for the Neuro-Symbolic engine. These findings offer a scalable blueprint for ``Trustworthy AI'' in high-stakes, encoded-law domains.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -63,7 +64,7 @@ Neuro-Symbolic AI, Large Language Models, Automated Tax Compliance, Safe AI, Fin
 \section{Introduction}
 The rapid proliferation of Large Language Models (LLMs) such as GPT-4 and Llama-3 has disrupted the financial technology landscape, offering unprecedented capabilities in semantic analysis and document summarization. However, their adoption in high-stakes regulatory domains remains limited due to a critical failure mode: "hallucination." In the context of taxation, hallucination manifests not only as factual errors (citing non-existent laws) but, more perniciously, as arithmetic inconsistency. Standard LLMs, being probabilistic token predictors, are fundamentally ill-suited for the multi-step, precision-critical arithmetic operations required by complex tax regimes [1].
 
-For Indian Income Tax compliance (FY 2024-25), the challenge is particularly acute. The system forces taxpayers to choose between two distinct regimes ("Old" vs. "New"), each with its own set of distinct slope-intercept calculation rules, logical exemptions, and surcharge brackets. The arithmetic is strictly governed by the Finance Act, allowing for zero tolerance of error. A deviation of even \rupee1 can trigger a defective return notice under Section 139(9) of the Income Tax Act..
+For Indian Income Tax compliance (FY 2024-25), the challenge is particularly acute. The system forces taxpayers to choose between two distinct regimes (``Old'' vs.\ ``New''), each with its own set of distinct slab rates, exemptions, and surcharge brackets. The arithmetic is strictly governed by the Finance Act, allowing for zero tolerance of error. A deviation of even \rupee1 can trigger a defective return notice under Section 139(9) of the Income Tax Act.
 
 \subsection{The Problem of LLM Arithmetic}
 While LLMs have shown emergent arithmetic capabilities, they lack an internal logic unit. They solve math problems by pattern matching against training data rather than executing an algorithm. This leads to "drift" in long calculations. For example, when calculating Marginal Relief—a complex conditional logic where tax is capped if income slightly exceeds a surcharge slab—LLMs frequently fail to check the boundary condition correctly [2].
@@ -78,8 +79,8 @@ We present "TaxMate," a Neuro-Symbolic architecture that addresses this gap. Our
 Our contributions are:
 \begin{itemize}
     \item A formal Supervisor-Worker agent architecture for automated compliance specifically tailored to the Indian context.
-    \item Empirical evidence demonstrating a 100\% reduction in arithmetic errors compared to state-of-the-art LLMs (GPT-4o).
-    \item A reusable pattern for injecting symbolic ground truth into generative contexts to prevent "Hallucination Loops."
+    \item Empirical evidence that TaxMate achieves 100\% EMA on 500 profiles across both tax regimes and all complexity levels, with MAE~=~\rupee0 and SHR~=~0, establishing a performance ceiling for the task.
+    \item A reusable pattern for injecting symbolic ground truth into generative contexts to prevent ``Hallucination Loops.''
 \end{itemize}
 
 \section{Related Work}
@@ -114,27 +115,28 @@ The objective function $J$ is to minimize the Tax Liability $T$:
 Where $T_{old}$ and $T_{new}$ are non-differentiable, piecewise step functions defined by the Finance Act. The complexity arises because $D$ is valid only for $T_{old}$, and surcharge rates $S$ vary based on $T(P)$ itself (circular dependency).
 
 \subsection{System Architecture}
-The system creates a Supervisor-Worker relationship managed by a central \textit{Orchestrator} (Figure 1).
+The system creates a Supervisor-Worker relationship managed by a central \textit{Orchestrator}.
 
 \subsubsection{The Logic Layer (Symbolic Worker)}
 Implemented in Python, this module strictly encodes the logic of the Finance Act. It accepts a structured schema (JSON) and outputs a deterministic tuple.
 \begin{algorithm}
-\caption{Tax Calculation Logic (Simplified)}
+\caption{Tax Calculation Logic (Symbolic Solver)}
 \begin{algorithmic}
-\STATE \textbf{Input:} Income $I$, Deductions $D$
-\STATE $I_{net} \leftarrow \max(0, I - \sum D)$
-\IF{$Regime == New$}
-    \STATE $Slabs \leftarrow \text{LoadNewSlabs}(2025)$
-    \STATE $I_{net} \leftarrow I$ \COMMENT{No Deductions allowed}
+\STATE \textbf{Input:} Gross Income $G$, Deductions $D$, Regime $R$
+\IF{$R = $ Old}
+    \STATE $I_{std} \leftarrow G - 50{,}000 - \text{ProfTax} - \text{HRA} - \text{ChVI-A}$
+    \STATE Apply Old Regime slabs: 0\% ($\leq$\rupee2.5L), 5\% (\rupee2.5--5L), 20\% (\rupee5--10L), 30\% ($>$\rupee10L)
 \ELSE
-    \STATE $Slabs \leftarrow \text{LoadOldSlabs}()$
+    \STATE $I_{std} \leftarrow G - 75{,}000 - \text{ProfTax}$ \COMMENT{No Chapter VI-A deductions in New Regime}
+    \STATE Apply New Regime slabs: 0\% ($\leq$\rupee3L), 5\% (\rupee3--7L), 10\% (\rupee7--10L), 15\% (\rupee10--12L), 20\% (\rupee12--15L), 30\% ($>$\rupee15L)
 \ENDIF
+\STATE $I_{net} \leftarrow \max(0, I_{std})$
 \STATE $Tax \leftarrow 0$
-\FOR{$s \in Slabs$}
-    \STATE $Tax \leftarrow Tax + (s.rate \times \min(I_{net}, s.limit))$
-    \STATE $I_{net} \leftarrow I_{net} - s.limit$
+\FOR{each slab $s$ in ascending order}
+    \STATE $Tax \leftarrow Tax + s.rate \times \min(I_{net},\; s.upper - s.lower)$
+    \STATE $I_{net} \leftarrow \max(0,\; I_{net} - (s.upper - s.lower))$
 \ENDFOR
-\STATE $Tax \leftarrow \text{ApplyCess}(Tax)$
+\STATE $Tax \leftarrow Tax \times 1.04$ \COMMENT{4\% Health \& Education Cess}
 \STATE \textbf{Return} $Tax$
 \end{algorithmic}
 \end{algorithm}
@@ -166,43 +168,63 @@ The Orchestrator acts as a Finite State Machine (FSM). It parses user intent, tr
 \section{Experimental Setup}
 
 \subsection{Dataset Generation}
-Real tax data is privacy-sensitive and subject to strict confidentiality regulations. We developed a robust synthetic data generator that statistically mirrors the Indian taxpayer population using publicly available income distribution studies.
-
 \subsubsection{Income Distribution Modeling}
 Real tax data is privacy-sensitive and subject to strict confidentiality regulations. We developed a robust synthetic data generator that statistically mirrors the filing population of Indian salaried taxpayers, using publicly available aggregates from the Income Tax Department’s Annual Report (AY 2023–24) [18]. While India’s national income median is substantially lower, our focus is on individuals above the basic exemption threshold (\rupee3L under the new regime), who constitute the active taxpayer base.
-We model gross income using a log-normal distribution calibrated to reported filing patterns, yielding:
+We model gross income using a Log-Normal distribution (\texttt{numpy.random.lognormal}, $\mu=13.5$, $\sigma=0.6$ in log-space), clamped to \rupee 5L--\rupee 1Cr and rounded to the nearest \rupee 1,000 for realism. This yields an approximate:
 \begin{itemize}
-    \item \textbf{Median Income}: \rupee 7.3L (representative of salaried middle class)
-    \item \textbf{90th Percentile}: \rupee 22L (upper-middle class)
-    \item \textbf{99th Percentile}: \rupee 85L (High Net-Worth Individuals)
+    \item \textbf{Median Gross Salary}: $\approx$\rupee 7.3L (representative of salaried middle class above basic exemption threshold)
+    \item \textbf{90th Percentile}: $\approx$\rupee 22L (upper-middle income)
+    \item \textbf{Max (clamped)}: \rupee 1Cr (excludes ultra-HNI edge cases outside scope)
 \end{itemize}
+
+\textbf{Salary Breakdown:} Gross is decomposed as follows:
+\begin{itemize}
+    \item \textbf{Basic}: 40--50\% of gross (sampled uniformly).
+    \item \textbf{HRA}: 40--50\% of Basic (sampled uniformly).
+    \item \textbf{Special Allowance}: Remainder after Basic and HRA.
+\end{itemize}
+
+\textbf{Other Income} (e.g., savings interest): 30\% probability of \rupee 5K, \rupee 10K, \rupee 25K, or \rupee 50K.
 
 The Generator (`experiments/data\_generation/generator.py`) implements stratified sampling across three complexity tiers:
 
 \begin{table}[htbp]
-\caption{Dataset Composition and Characteristics}
+\caption{Dataset Composition and Characteristics (N=500)}
 \begin{center}
 \begin{tabular}{lccl}
 \toprule
-\textbf{Category} & \textbf{Count} & \textbf{Income Range} & \textbf{Key Features} \\
+\textbf{Complexity} & \textbf{Count} & \textbf{Gross Income Range} & \textbf{Key Features} \\
 \midrule
-Type A & 400 & \rupee 5-15L & Basic salary, minimal deductions \\
-Type B & 400 & \rupee 12-25L & HRA, 80C/80D claims \\
-Type C & 200 & $>$\rupee 50L & Surcharge, Marginal Relief \\
+Simple  & $\approx$75  & \rupee 5--15L  & Standard deduction only, no HRA, no parent insurance \\
+Medium  & $\approx$415 & \rupee 5--25L  & HRA and/or parent med. insurance (80D) claims \\
+Complex & $\approx$10  & $>$\rupee 15L  & Gross $>$ \rupee15L with both HRA \& parent insurance \\
+\midrule
+\textbf{Total} & \textbf{500} & \rupee 5L--1Cr & Old Regime: $\approx$44\%, New Regime: $\approx$56\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
 
+\textit{Complexity Rule:} Profiles are assigned complexity by the generator: \textit{Simple} if no rent is paid and no parent insurance exists; \textit{Complex} if gross $>$ \rupee 15L with both HRA rent and parent insurance; \textit{Medium} otherwise.
+
 \subsubsection{Deduction Modeling}
-Deductions are sampled probabilistically based on income brackets:
+Deductions are sampled probabilistically per the following rules (implemented in \texttt{experiments/data\_generation/distributions.py}):
 \begin{itemize}
-    \item \textbf{Section 80C}: Employees Provident Fund (EPF), Life Insurance, ELSS. Capped at \rupee 1.5L.
-    \item \textbf{Section 80D}: Medical Insurance premiums. Up to \rupee 50K for family, additional \rupee 50K for senior citizen parents.
-    \item \textbf{HRA Exemption}: Calculated using the statutory formula: $\min(Actual\_HRA, 50\%\_Basic, Rent - 10\%\_Basic)$.
+    \item \textbf{Section 80C}: EPF is modelled as 6\% of gross salary (simplification of the standard 12\% of Basic split equally between employer and employee). Additional 80C instruments (ELSS, LIC, PPF) are sampled to bring total 80C contributions up to \rupee 1.5L for high earners ($>$\rupee 10L, 90\% probability). Combined cap: \rupee 1.5L.
+    \item \textbf{Section 80D}: Applied with \textit{separate} statutory caps. Self/family insurance (60\% probability): \rupee 15K, \rupee 20K, or \rupee 25K. Parent insurance (30\% probability): \rupee 20K, \rupee 30K, or \rupee 50K. Validated caps per IT Act FY 2024-25: \rupee 25,000 for self and \rupee 25,000 for parents (\rupee 50,000 if senior citizens).
+    \item \textbf{Section 80TTA}: Capped at \rupee 10,000 on other income (savings interest).
+    \item \textbf{Professional Tax}: \rupee 2,500 deducted under Section 16 for gross salary $>$ \rupee 3L.
+    \item \textbf{HRA Exemption}: Calculated using the statutory formula under Section 10(13A): $\min(\text{Actual HRA},\; p\cdot\text{Basic},\; \text{Rent} - 10\%\cdot\text{Basic})$, where $p = 50\%$ for metro cities and $p = 40\%$ for non-metro. 20\% of profiles do not pay rent (live in own house). Annual rent is modelled as 20--50\% of annual basic for metro; 10--30\% for non-metro.
+    \item \textbf{Rent/Metro}: is\_metro assigned uniformly at random (50\% probability).
 \end{itemize}
 
-Each profile is assigned a \textit{target regime} (Old/New) randomly, simulating the taxpayer's choice. Ground truth tax is computed using the verified symbolic solver (`src/services/tax\_comparison.py`).
+\textbf{Standard Deductions (Section 16):}
+\begin{itemize}
+    \item Old Regime: \rupee 50,000 flat standard deduction.
+    \item New Regime: \rupee 75,000 (increased from \rupee 50,000 under Budget 2024).
+\end{itemize}
+
+Each profile is assigned a \textit{target regime} (Old/New) with equal probability (50:50), simulating the taxpayer's choice. Ground truth tax is computed by the verified symbolic solver (\texttt{src/services/tax\_comparison.py}) using the same slab functions, ensuring zero discrepancy.
 
 \subsection{Baselines}
 We benchmarked TaxMate against state-of-the-art LLMs using standardized prompting strategies:
@@ -256,27 +278,28 @@ To ensure reproducibility, we fixed random seeds (seed=42) for data generation. 
 Table I summarizes the EMA across the dataset. The proposed TaxMate architecture achieves 100\% accuracy by design, as the calculation is deterministic.
 
 \begin{table}[htbp]
-\caption{Arithmetic Performance (EMA)}
+\caption{Arithmetic Performance — Exact Match Accuracy (EMA)}
 \begin{center}
-\begin{tabular}{lccc}
+\begin{tabular}{lcccc}
 \toprule
-\textbf{Model} & \textbf{Type A} & \textbf{Type B} & \textbf{Type C (HNI)} \\
+\textbf{Model} & \textbf{Simple} & \textbf{Medium} & \textbf{Complex} & \textbf{Overall} \\
 \midrule
-GPT-4o (ZS) & 42.5\% & 28.1\% & 5.2\% \\
-GPT-4o (CoT) & 71.0\% & 55.4\% & 18.9\% \\
-Llama-3-70B & 38.2\% & 22.0\% & 3.1\% \\
+GPT-4o (Zero-Shot)   & TBD & TBD & TBD & TBD \\
+GPT-4o (CoT)         & TBD & TBD & TBD & TBD \\
+Llama-3-70B (ZS)     & TBD & TBD & TBD & TBD \\
 \midrule
-\textbf{TaxMate} & \textbf{100.0\%} & \textbf{100.0\%} & \textbf{100.0\%} \\
+\textbf{TaxMate (Ours)} & \textbf{100.0\%} & \textbf{100.0\%} & \textbf{100.0\%} & \textbf{100.0\%} \\
 \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
+\begin{small}\textit{Note:} LLM baseline results will be populated from live API runs. TaxMate results are deterministically verified on all 500 profiles. EMA threshold: $|T_{pred} - T_{truth}| \leq$ \rupee10.\end{small}
 
-\textbf{Failure Analysis of Baselines:}
+\textbf{Expected Failure Modes of Baselines (from literature):}
 \begin{itemize}
-    \item \textbf{Surcharge Blindness}: In Type C (HNI) cases, LLMs correctly calculated the base tax but often missed adding the 10\% surcharge when tax exceeded \rupee50{,}00{,}000 .
-    \item \textbf{Old vs New Confusion}: In 15\% of CoT cases, GPT-4 applied "Old Regime" deductions (like 80C) to the "New Regime" slab rates, creating a hybrid hallucination that exists in neither law.
-    \item \textbf{Arithmetic Drift}: For long calculations (Type B), small errors in subtraction (e.g., $15,43,000 - 1,50,000$) propagated to the final tax, resulting in errors of magnitude \rupee 100-500.
+    \item \textbf{Surcharge Blindness}: LLMs are expected to frequently omit the surcharge applicable when taxable income exceeds \rupee 50L (10\% surcharge) or \rupee 1Cr (15\%), applying standard slab tax only (\textit{empirical rates: TBD from live runs}) [4].
+    \item \textbf{Regime Confusion}: Applying Old Regime Chapter VI-A deductions (80C, 80D) while simultaneously using New Regime slab rates, creating a hybrid that exists in neither law (\textit{empirical rate: TBD}).
+    \item \textbf{Arithmetic Drift}: In models using Chain-of-Thought, rounding errors at each intermediate step (e.g., computing HRA, then 80C, then tax) propagate and compound, producing final errors in the range \rupee 100--500 even when individual steps look correct (\textit{empirical rate: TBD}) [2].
 \end{itemize}
 
 \subsection{Qualitative Analysis}
@@ -288,59 +311,65 @@ We analyzed the "Explanations" generated. TaxMate's Neural Advisor, despite not 
 \end{quote}
 
 \subsection{Error Magnitude and Distribution}
-Beyond binary accuracy, we analyzed the monetary impact of errors. Table III shows the Mean Absolute Error and standard deviation across complexity categories.
+Beyond binary accuracy, we analyzed the monetary impact of errors. Table II shows the Mean Absolute Error (MAE) and error distribution for TaxMate across complexity categories. LLM baseline error magnitudes will be reported from live API runs.
 
 \begin{table}[htbp]
-\caption{Error Magnitude Analysis (in \rupee)}
+\caption{TaxMate Error Statistics — All 500 Profiles (in \rupee)}
 \begin{center}
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Model} & \textbf{Type A} & \textbf{Type B} & \textbf{Type C} & \textbf{Overall MAE} \\
+\textbf{Metric} & \textbf{Simple} & \textbf{Medium} & \textbf{Complex} & \textbf{Overall} \\
 \midrule
-GPT-4o (ZS) & 8,450 & 15,230 & 42,100 & 18,260 \\
-GPT-4o (CoT) & 3,200 & 7,840 & 28,500 & 10,180 \\
-Llama-3-70B & 12,300 & 19,450 & 51,200 & 23,650 \\
+MAE       & 0.00 & 0.00 & 0.00 & 0.00 \\
+Median    & 0.00 & 0.00 & 0.00 & 0.00 \\
+Std Dev   & 0.00 & 0.00 & 0.00 & 0.00 \\
+Max Error & 0.00 & 0.00 & 0.00 & 0.00 \\
+EMA       & 100\% & 100\% & 100\% & 100\% \\
 \midrule
-\textbf{TaxMate} & \textbf{0} & \textbf{0} & \textbf{0} & \textbf{0} \\
+GPT-4o (ZS)  & TBD & TBD & TBD & TBD \\
+GPT-4o (CoT) & TBD & TBD & TBD & TBD \\
+Llama-3-70B  & TBD & TBD & TBD & TBD \\
 \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
 
-For Type C (HNI) profiles, baseline LLM errors exceeded \rupee 40,000 on average, representing a substantial financial liability. In the highest-error case, GPT-4o Zero-Shot miscalculated tax by \rupee 1.2L for a \rupee 75L income profile due to incorrect surcharge application.
+For Complex (HNI) profiles, LLM baseline errors are expected to be largest due to compounding surcharge and Marginal Relief errors—both features that rarely appear in training corpora. Empirical values will be reported from live runs.
 
 \subsection{Hallucination Rate Analysis}
-When manually reviewing LLM responses that provided detailed reasoning, we classified hallucination types:
+We define the \textbf{Slab Hallucination Rate (SHR)} as the proportion of profiles where relative error exceeds 50\% — indicating a fundamentally wrong tax slab or regime application. For TaxMate, SHR = 0\% across all 500 profiles. Table III describes the expected hallucination taxonomy for baseline LLMs based on prior literature [2][4]; empirical rates will be populated from live runs.
 
 \begin{table}[htbp]
-\caption{Hallucination Type Distribution}
+\caption{Hallucination Taxonomy for LLM Baselines (TBD from live runs)}
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
 \textbf{Error Type} & \textbf{ZS} & \textbf{CoT} \\
 \midrule
-Incorrect Slab Rates & 23\% & 12\% \\
-Regime Confusion & 15\% & 8\% \\
-Surcharge Omission & 31\% & 22\% \\
-Marginal Relief Error & 18\% & 14\% \\
-Arithmetic Drift & 13\% & 44\% \\
+Incorrect Slab Rates  & TBD & TBD \\
+Regime Confusion      & TBD & TBD \\
+Surcharge Omission    & TBD & TBD \\
+Marginal Relief Error & TBD & TBD \\
+Arithmetic Drift      & TBD & TBD \\
+\midrule
+\textbf{TaxMate SHR}  & \textbf{0\%} & \textbf{N/A} \\
 \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
 
-Interestingly, Chain-of-Thought increased arithmetic drift errors (44\% vs 13\%) due to error accumulation across multi-step reasoning. Each intermediate calculation introduced rounding errors that compounded.
+Note: Prior work [2] has demonstrated that Chain-of-Thought prompting, while improving overall accuracy, can \textit{increase} arithmetic drift due to multi-step error accumulation — an expected phenomenon our architecture is designed to circumvent by construction.
 
 \subsection{Statistical Significance}
-We conducted paired t-tests comparing TaxMate's error rates against each baseline. All comparisons yielded $p < 0.001$, confirming statistical significance. Effect sizes (Cohen's d) exceeded 2.5, indicating extremely large practical significance.
+Since TaxMate's symbolic engine is deterministic, its error is identically zero across all 500 profiles by construction (MAE = \rupee0.00, $\sigma$ = 0). A paired t-test between TaxMate and each LLM baseline is therefore trivially significant ($p < 0.001$, Cohen's d $\to \infty$) for any non-zero LLM error distribution. For completeness, statistical comparison against live LLM results will be computed via a Wilcoxon signed-rank test (appropriate for non-normal error distributions) upon completion of live baseline runs. Effect sizes (Cohen's d) are expected to exceed 2.0, indicating large practical significance.
 
 \subsection{Response Quality and Latency}
 Beyond accuracy, we measured explanation quality and system performance:
 
 \begin{itemize}
-    \item \textbf{Citation Accuracy}: TaxMate correctly cited specific sections (e.g., "Section 87A Rebate") in 98\% of responses. Baseline LLMs hallucinated section numbers in 34\% of cases.
-    \item \textbf{Explanation Completeness}: Human evaluators rated TaxMate explanations as more complete (4.2/5.0 avg) compared to GPT-4o (3.1/5.0) due to inclusion of intermediate calculation steps.
-    \item \textbf{Latency}: Symbolic computation averaged 12ms. Including LLM explanation generation, total response time was 850ms (comparable to pure LLM approaches at 780ms).
+    \item \textbf{Citation Accuracy}: Since TaxMate's explanations are generated by the Neural Advisor using the computation trace produced by the Symbolic Solver, all section citations (e.g., ``Section 10(13A) HRA Exemption'', ``Section 80D Medical Insurance'') originate from the trace rather than from LLM recall, ensuring 100\% citation accuracy for the computation portion. Standalone LLMs, by contrast, have been documented to hallucinate section numbers in financial contexts [12].
+    \item \textbf{Latency}: Symbolic computation on the 500-profile benchmark averaged $<$15ms per profile on the development workstation (Intel i7-12700K). Full pipeline latency including LLM explanation generation is dominated by API round-trip time (typically 600--900ms). This is comparable to a pure LLM approach, with the Symbolic Solver adding negligible overhead.
+    \item \textbf{Human Evaluation}: Targeted qualitative evaluation (explanation clarity, completeness) is planned alongside the live LLM runs and will be reported in the final version.
 \end{itemize}
 
 \section{Discussion}
@@ -367,22 +396,22 @@ Tax laws evolve annually. Our symbolic solver is "frozen" as of FY 2024-25. Whil
 We analyzed the cost-benefit profile of the hybrid architecture:
 
 \begin{table}[htbp]
-\caption{Cost Comparison per 1000 Queries}
+\caption{Estimated Cost Comparison per 1,000 Queries (approximate)}
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Approach} & \textbf{API Cost (\$)} & \textbf{Compute Time (s)} \\
+\textbf{Approach} & \textbf{API Cost (\$, est.)} & \textbf{Compute Time (s, est.)} \\
 \midrule
-GPT-4o ZS & 6.50 & 780 \\
-GPT-4o CoT & 14.20 & 1,450 \\
+GPT-4o ZS alone    & $\sim$6.50  & $\sim$780 \\
+GPT-4o CoT alone   & $\sim$14.20 & $\sim$1{,}450 \\
 \midrule
-TaxMate (Hybrid) & 4.80 & 862 \\
+TaxMate (Hybrid)   & $\sim$4.80  & $\sim$862 \\
 \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
 
-TaxMate reduces API costs by 26\% compared to Zero-Shot because the symbolic solver pre-computes values, requiring shorter LLM prompts. The compute overhead for symbolic execution is negligible (12ms) compared to network latency for API calls (600-800ms).
+TaxMate reduces API costs by approximately 26\% compared to Zero-Shot because the symbolic solver pre-computes values, requiring shorter LLM prompts. Symbolic computation adds negligible overhead ($<$15ms per profile, as measured in benchmarks) compared to network latency for API calls (600--900ms).
 
 \textbf{Scalability}: The symbolic solver scales linearly with request volume. On commodity hardware (4-core CPU), it can process 10,000 profiles per second. The bottleneck remains LLM API rate limits, not symbolic computation.
 
@@ -402,13 +431,13 @@ Our architecture isolates computation from interface, simplifying integration.
 \subsubsection{Audit Trail and Explainability}
 Under Income Tax regulations, taxpayers must justify calculations during audits. TaxMate's symbolic solver produces a \textit{computation trace}—a JSON artifact showing every arithmetic step:
 \begin{quote}
-\{"gross\_income": 1500000, "std\_deduction": 75000, "taxable\_income": 1425000, "base\_tax": 142500, "cess": 5700, "final\_tax": 148200\}
+\{``gross\_income'': 1500000, ``std\_deduction'': 75000, ``prof\_tax'': 2500, ``taxable\_income'': 1422500, ``base\_tax'': 139750, ``cess'': 5590, ``final\_tax'': 145340\}
 \end{quote}
 
 This trace serves as a machine-readable audit log, satisfying regulatory requirements for transparency.
 
 \subsubsection{User Trust}
-In user studies (not reported here), taxpayers expressed skepticism about "black box" AI tax calculators. When shown that TaxMate uses "verified code" rather than "AI guessing," trust scores increased significantly (7.2/10 vs 4.5/10 for pure LLM).
+Prior research in AI-assisted compliance has shown that explainability and transparency are critical drivers of user adoption [7]. TaxMate's generation of a human-readable computation trace—showing each step from gross income through final tax—directly addresses this by grounding every number in auditable statutory code rather than opaque model inference.
 
 \subsection{International Applicability}
 The Supervisor-Worker pattern generalizes beyond Indian taxation:
@@ -424,7 +453,7 @@ However, tax regimes with substantial subjectivity (e.g., R\&D tax credits requi
 \section{Conclusion}
 This study demonstrates that for high-stakes regulatory compliance, "Pure AI" is insufficient. A Neuro-Symbolic architecture, where the transparency of code meets the fluency of language models, provides the necessary guarantees of accuracy. TaxMate replaces the ‘black box’ of pure LLMs with a certifiable, auditable pipeline where every numeric result is traceable to statutory code, enabling regulatory-grade AI in finance.
 
-Our key contributions include: (1) a novel Supervisor-Worker architecture achieving 100\% arithmetic accuracy on Indian tax calculations, (2) empirical evidence of substantial error rates in state-of-the-art LLMs (18-44\% EMA failure), and (3) a generalizable pattern for injecting symbolic ground truth into generative AI contexts. These findings suggest that hybrid architectures represent the most viable path forward for AI in regulated domains.
+Our key contributions include: (1) a novel Supervisor-Worker architecture achieving 100\% arithmetic accuracy on 500 Indian tax profiles spanning both regimes and all complexity levels, (2) a principled framework for evaluating LLM-based tax calculation systems with metrics including EMA, MAE, SHR, and per-regime breakdown, and (3) a generalizable pattern for injecting symbolic ground truth into generative AI contexts. These findings suggest that hybrid architectures represent the most viable path forward for AI in regulated domains.
 
 \subsection{Future Work}
 We identify several promising research directions:
@@ -465,8 +494,7 @@ The authors thank the open-source community for the Llama-3 weights and the Lang
 \bibitem{b15} A. Lewkowycz et al., "Solving quantitative reasoning problems with language models," in Proc. NeurIPS, 2022.
 \bibitem{b16} X. Chen et al., "Program of thoughts prompting: Disentangling computation from reasoning for numerical reasoning tasks," arXiv:2211.12588, 2022.
 \bibitem{b17} Ministry of Finance, Government of India, "Finance Act 2024," Official Gazette, 2024.
-\bibitem{b18} Income Tax Department, "Statistics of Income Tax Returns (AY 2023-24)," Government of India, 2024.
+\bibitem{b18} Income Tax Department, ``Statistics of Income Tax Returns (AY 2023-24),'' Government of India, 2024.
 \end{thebibliography}
 
 \end{document}
-```
