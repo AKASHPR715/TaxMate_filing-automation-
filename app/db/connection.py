@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Default to local mongo if not set
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+# Support both MONGO_URI and MONGODB_URI (HF / Atlas standard)
+MONGO_URI = os.getenv("MONGODB_URI") or os.getenv("MONGO_URI", "mongodb://localhost:27017")
 # Force correct DB name as .env has incorrect value 'taxmate'
-DB_NAME = "taxmate_db" # os.getenv("DB_NAME", "taxmate_db")
+DB_NAME = os.getenv("DB_NAME", "taxmate_db")
 
 logger = logging.getLogger("Database")
 

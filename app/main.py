@@ -26,10 +26,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS - Allow all origins in development
+# Configure CORS - support configurable ALLOWED_ORIGINS (e.g. Vercel frontend)
+import os
+origins_str = os.getenv("ALLOWED_ORIGINS", "*")
+origins = [origin.strip() for origin in origins_str.split(",") if origin.strip()]
+if not origins:
+    origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins in development
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

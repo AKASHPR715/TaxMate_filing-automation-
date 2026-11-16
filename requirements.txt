@@ -1,92 +1,45 @@
-# Core Framework & API
 fastapi
 uvicorn
 pydantic
 pydantic-settings
 email-validator
-
-# PDF Processing & Document Extraction
+python-multipart
+python-dotenv
 pdfplumber
 PyPDF2
-python-multipart
 pdf2image
 Pillow
-
-# Data Processing
 pandas
 numpy
 openpyxl
-
-# Database & ORM
 sqlalchemy
-alembic
 psycopg2-binary
-
-# AI/ML & LLM Integration
 openai
 langchain
+langchain-core
+langchain-community
 langchain-openai
+langchain-chroma
+langchain-ollama
 llama-index
 llama-cloud
 llama-parse
 google-generativeai
-
-# HTTP & Async
+tavily-python
+chromadb
+qdrant_client
+scikit-learn
+neo4j
+pymongo
+motor
 httpx
 aiofiles
 requests
-
-# Authentication & Security
 python-jose
 passlib
 argon2-cffi
 cryptography
-python-dotenv
-
-# Logging & Monitoring
-python-json-logger
-structlog
-
-# Testing
-pytest
-pytest-asyncio
-pytest-cov
-pytest-mock
-faker
-
-# Code Quality
-black
-flake8
-pylint
-isort
-mypy
-
-# Development Tools
-ipython
-jupyter
-notebook
-
-# Utilities
 python-dateutil
 pytz
-click
-tqdm
-
-tavily
-langchain 
-langchain-core
-langchain-community 
-langchain-chroma
-langchain-ollama 
-langchain-openai
-chromadb
-openai
-tavily-python
-neo4j
-scikit-learn
-qdrant_client
-
-
-# Database - NoSQL
-pymongo
-motor
+structlog
+python-json-logger

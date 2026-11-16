@@ -1,0 +1,13 @@
+pytest
+pytest-asyncio
+pytest-cov
+pytest-mock
+faker
+black
+flake8
+pylint
+isort
+mypy
+ipython
+jupyter
+notebook
